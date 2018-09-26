@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--   Documentation for the Jupyter-Viz package    -->
+
+<!DOCTYPE Book SYSTEM "gapdoc.dtd">
+
+<Book Name="Jupyter-Viz Package Documentation">
+
+<TitlePage>
+  <Title>The <Package>Jupyter-Viz</Package> Package</Title>
+  <Version>Version 1.0.0</Version>
+  <Author>Nathan Caerter
+    <Email>ncarter@bentley.edu</Email>
+  </Author>
+
+  <Copyright>&copyright; 2018 Nathan Carter. <P/>
+    See GPL Licence in package README file.<P/>
+  </Copyright>
+</TitlePage>
+
+<TableOfContents/>
+
+<Body>
+  <Chapter>
+    <Heading>Chapter heading here</Heading>
+    <Section Label="sec:whatever-label">
+      <Heading>Section heading here</Heading>
+      You can say stuff, including math: <M>x^2-1=0</M>.
+      <P/>
+      That's a paragraph break.
+      <P/>
+      <Package>Jupyter-Viz</Package> is how you reference package names and
+      <Ref Func="StubForTesting"/> is how you reference functions.
+      You can also insert man page sections.
+      <ManSection>
+        <Func Name="StubForTesting" Arg="k"/>
+        <Description>
+          This  function adds 5 to its input.  That's all.
+<Example>
+gap> StubForTesting(100);
+105
+</Example>
+        </Description>
+      </ManSection>
+      See the docs for other XML tags you can use.
+    </Section>
+  </Chapter>
+</Body>
+
+<!-- a bibliography can go here if you cite things -->
+<TheIndex/>
+
+</Book>
