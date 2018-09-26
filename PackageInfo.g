@@ -146,8 +146,6 @@ AbstractHTML :=
    It adds visualization tools for use in such notebooks, such as \
    charts and graphs.",
 
-## I have yet to write documentation, so the following data is still all
-## lies.  When I add documentation, then this will actually be true.
 PackageDoc := rec(
   BookName  := "Jupyter-Viz",
   ArchiveURLSubset := [ "doc" ],
