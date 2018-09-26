@@ -1,0 +1,4 @@
+\contentsline {chapter}{\numberline {1}\leavevmode {\color {Chapter }Chapter heading here}}{4}{chapter.1}
+\contentsline {section}{\numberline {1.1}\leavevmode {\color {Chapter }Section heading here}}{4}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}\leavevmode {\color {Chapter }StubForTesting}}{4}{subsection.1.1.1}
+\contentsline {chapter}{Index}{5}{section*.3}

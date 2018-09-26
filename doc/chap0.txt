@@ -1,0 +1,33 @@
+  
+  
+                            [1XThe [5XJupyter-Viz[105X Package[101X
+  
+  
+                                 Version 1.0.0
+  
+  
+                                 Nathan Caerter
+  
+  
+  
+  Nathan Caerter
+      Email:    [7Xmailto:ncarter@bentley.edu[107X
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2018 Nathan Carter.[133X
+  
+  [33X[0;0YSee GPL Licence in package README file.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (Jupyter-Viz Package Documentation)[101X
+  
+  1 [33X[0;0YChapter heading here[133X
+    1.1 [33X[0;0YSection heading here[133X
+      1.1-1 StubForTesting
+  
+  
+  [32X

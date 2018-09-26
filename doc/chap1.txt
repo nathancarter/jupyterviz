@@ -1,0 +1,26 @@
+  
+  [1X1 [33X[0;0YChapter heading here[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YSection heading here[133X[101X
+  
+  [33X[0;0YYou can say stuff, including math: [22Xx^2-1=0[122X.[133X
+  
+  [33X[0;0YThat's a paragraph break.[133X
+  
+  [33X[0;0Y[5XJupyter-Viz[105X is how you reference package names and [2XStubForTesting[102X ([14X1.1-1[114X) is
+  how you reference functions. You can also insert man page sections.[133X
+  
+  [1X1.1-1 StubForTesting[101X
+  
+  [33X[1;0Y[29X[2XStubForTesting[102X( [3Xk[103X ) [32X function[133X
+  
+  [33X[0;0YThis function adds 5 to its input. That's all.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XStubForTesting(100);[127X[104X
+    [4X[28X105[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YSee the docs for other XML tags you can use.[133X
+  
