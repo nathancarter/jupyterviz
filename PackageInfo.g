@@ -1,12 +1,12 @@
 #############################################################################
-##  
+##
 ##  PackageInfo.g for the package `Jupyter-Viz'               Nathan Carter
 ##  (copied and edited from the Example package)
-##  
+##
 ##  This file contains meta-information on the package. It is used by
 ##  the package loading mechanism and the upgrade mechanism for the
 ##  redistribution of the package via the GAP website.
-##  
+##
 ##  For the LoadPackage mechanism in GAP >= 4.5 the minimal set of needed
 ##  entries is .PackageName, .Version, and .AvailabilityTest, and an error
 ##  will occur if any of them is missing. Other important entries are
@@ -14,7 +14,7 @@
 ##  package will be distributed for other GAP users, in particular if it
 ##  will be redistributed via the GAP Website.
 ##
-##  With a new release of the package at least the entries .Version, .Date 
+##  With a new release of the package at least the entries .Version, .Date
 ##  and .ArchiveURL must be updated.
 
 SetPackageInfo( rec(
@@ -31,7 +31,7 @@ Subtitle    := "Jupyter Notebook Visualization Tools",
 Version     := "1.0.0",
 Date        := "26/09/2018", # Release date of current version, dd/mm/yyyy
 
-##  Optional: if the package manual uses GAPDoc, you may duplicate the 
+##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
 ##  <#GAPDoc Label="PKGVERSIONDATA">
@@ -49,9 +49,9 @@ Date        := "26/09/2018", # Release date of current version, dd/mm/yyyy
 ##  Status information. Currently the following cases are recognized:
 ##    "accepted"      for successfully refereed packages
 ##    "submitted"     for packages submitted for the refereeing
-##    "deposited"     for packages for which the GAP developers agreed 
+##    "deposited"     for packages for which the GAP developers agreed
 ##                    to distribute them with the core GAP system
-##    "dev"           for development versions of packages 
+##    "dev"           for development versions of packages
 ##    "other"         for all other packages
 Status := "dev",
 ##  If this package is refereed and accepted, you must provide:
@@ -67,6 +67,7 @@ Dependencies := rec(
   NeededOtherPackages := [
     [ "JupyterKernel", "0.99999" ],
     [ "json",          "2.0.0"   ],
+    [ "GAPDoc",        "1.3"     ]
   ]
 ),
 
@@ -107,7 +108,7 @@ ArchiveFormats := ".tar.gz",
 #########
 
 Persons := [
-  rec( 
+  rec(
     FirstNames    := "Nathan",
     LastName      := "Carter",
     IsAuthor      := true,
@@ -134,27 +135,27 @@ Persons := [
 ##  the package content. This text will be displayed on the package overview
 ##  Web page. Please use '<span class="pkgname">GAP</span>' for GAP and
 ##  '<span class="pkgname">MyPKG</span>' for specifing package names.
-##  
+##
 # AbstractHTML := "This package provides  a collection of functions for \
 # computing the Smith normal form of integer matrices and some related \
 # utilities.",
-AbstractHTML := 
+AbstractHTML :=
   "The <span class=\"pkgname\">Jupyter-Viz</span> package \
    is intended for use in Jupyter Notebooks running \
    <span class=\"pkgname\">GAP</span> kernels.  \
    It adds visualization tools for use in such notebooks, such as \
    charts and graphs.",
 
-## This is NOT optional, but I have yet to write documentation,
-## so this section is temporarily commented out.
-# PackageDoc := rec(
-#   BookName  := "Jupyter-Viz",
-#   ArchiveURLSubset := ["doc"],
-#   HTMLStart := "doc/chap0.html",
-#   PDFFile   := "doc/manual.pdf",
-#   SixFile   := "doc/manual.six",
-#   LongTitle := "Jupyter Notebook Visualization tools for GAP",
-# ),
+## I have yet to write documentation, so the following data is still all
+## lies.  When I add documentation, then this will actually be true.
+PackageDoc := rec(
+  BookName  := "Jupyter-Viz",
+  ArchiveURLSubset := [ "doc" ],
+  HTMLStart := "doc/chap0.html",
+  PDFFile   := "doc/manual.pdf",
+  SixFile   := "doc/manual.six",
+  LongTitle := "Jupyter Notebook Visualization tools for GAP",
+),
 
 
 #########
@@ -166,11 +167,10 @@ AbstractHTML :=
 ##  Provide a test function for the availability of this package.
 ##  For packages containing nothing but GAP code, just say 'ReturnTrue' here.
 ##  With the package loading mechanism of GAP >=4.4, the availability
-##  tests of other packages, as given under .Dependencies above, will be 
+##  tests of other packages, as given under .Dependencies above, will be
 ##  done automatically and need not be included in this function.
 ##
 AvailabilityTest := ReturnTrue,
-TestFile := "tests/testall.g"
+TestFile := "tst/testall.g"
 
 ) );
-
