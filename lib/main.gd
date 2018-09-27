@@ -11,17 +11,19 @@
 
 #############################################################################
 ##
-#F  StubForTesting(<x>) . . . . . . . . just adds 5 to x
+#F  RunJavaScript(<script>)
 ##
-##  <#GAPDoc Label="StubForTesting">
+##  runs the given JavaScript code in the current Jupyter notebook
+##
+##  <#GAPDoc Label="RunJavaScript">
 ##  <ManSection>
-##  <Func Name="StubForTesting" Arg="x"/>
+##  <Func Name="RunJavaScript" Arg="script"/>
 ##
 ##  <Description>
-##  adds 5 to <A>x</A> because 5 is the best number
+##  runs the JavaScript code <A>script</A> in the current Jupyter notebook
 ##  </Description>
 ##  </ManSection>
 ##  <#/GAPDoc>
-DeclareGlobalFunction( "StubForTesting" );
+DeclareGlobalFunction( "RunJavaScript" );
 
 #E  main.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
