@@ -1,4 +1,4 @@
-#############################################################################
+############################################################################
 ##
 ##
 #W  main.gd              Jupyter-Viz Package                  Nathan Carter
@@ -28,10 +28,37 @@ DeclareGlobalFunction( "RunJavaScript" );
 
 ############################################################################
 ##
+#F  LoadJavaScriptFile(<filename>)
+##
+##  loads the given file from disk, within the package's lib/js directory
+##
+##  <#GAPDoc Label="LoadJavaScriptFile">
+##  <ManSection>
+##  <Func Name="LoadJavaScriptFile" Arg="filename"/>
+##
+##  <Description>
+##  loads and returns the string contents of <A>filename</A>, interpreted
+##  relative to the lib/js path in this package's directory, appending a
+##  .min.js or .js extension as needed
+##  </Description>
+##  </ManSection>
+##  <#/GAPDoc>
+DeclareGlobalFunction( "LoadJavaScriptFile" );
+
+############################################################################
+##
 #F  JUPVIZ_AbsoluteJavaScriptFilename(<filename>)
 ##
 ##  converts a JavaScript filename to an absolute path in the package dir
 ##
 DeclareGlobalFunction( "JUPVIZ_AbsoluteJavaScriptFilename" );
+
+############################################################################
+##
+#F  JUPVIZ_LoadedJavaScriptCache
+##
+##  global cache of JavaScript files loaded from this package's folder
+##
+DeclareGlobalVariable( "JUPVIZ_LoadedJavaScriptCache" );
 
 #E  main.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

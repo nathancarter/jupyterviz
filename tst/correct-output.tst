@@ -19,6 +19,24 @@ gap> tmp := RunJavaScript( "var x = 5;" );
 gap> JupyterRenderableData( tmp ).( "application/javascript" );
 "( function ( element ) { var x = 5; } )( element.get( 0 ) )"
 
+# JUPVIZ_LoadedJavaScriptCache (internal) is an empty record (at first)
+gap> JUPVIZ_LoadedJavaScriptCache;
+rec(  )
+
+# LoadJavaScriptFile function
+gap> LoadJavaScriptFile( "this does not exist" );
+fail
+gap> LoadJavaScriptFile( "for-testing" ); # gets minified version
+"function square(x){return x*x}"
+gap> LoadJavaScriptFile( "for-testing.js" ); # gets non-minified version
+"function square ( x ) {\n  return x * x;\n}\n"
+
+# JUPVIZ_LoadedJavaScriptCache (internal) is no longer empty
+gap> IsBound( JUPVIZ_LoadedJavaScriptCache.( "for-testing" ) );
+true
+gap> IsBound( JUPVIZ_LoadedJavaScriptCache.( "for-testing.js" ) );
+true
+
 # JUPVIZ_AbsoluteJavaScriptFilename function (internal)
 gap> EndsWith( JUPVIZ_AbsoluteJavaScriptFilename( "example" ), "/lib/js/example.js" );
 true

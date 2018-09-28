@@ -1,4 +1,4 @@
-#############################################################################
+############################################################################
 ##
 #W  main.gi              Jupyter-Viz Package                  Nathan Carter
 ##
@@ -8,7 +8,7 @@
 #Y                     St. Andrews, Fife KY16 9SS, Scotland
 ##
 
-#############################################################################
+############################################################################
 ##
 #F  RunJavaScript(<script>)
 ##
@@ -44,6 +44,47 @@ function ( relativeFilename )
     fi;
     return Filename( DirectoriesPackageLibrary(
         "jupyter-viz", "lib/js" )[1], relativeFilename );
+end );
+
+
+##  This variable is intentionally undocumented, because it is for internal
+##  use by this package.  It caches JavaScript files loaded from disk, so
+##  that we can go to the filesystem for them only once per GAP session.
+InstallValue( JUPVIZ_LoadedJavaScriptCache, rec( ) );
+
+
+############################################################################
+##
+#F  LoadJavaScriptFile(<filename>)
+##
+##  loads the given file from disk, within the package's lib/js directory
+##
+##  Returns the string contents of the file.  If the file has been loaded
+##  before in this GAP session, it will not be reloaded, but will be
+##  returned from a cache in memory, for efficiency.
+##
+##  A ".js" extension will be added to the filename iff needed.  A ".min.js"
+##  extension will be added iff such a file exists, to prioritize minified
+##  versions of files.
+##
+##  If no such file exists, returns fail and caches nothing.
+##
+InstallGlobalFunction( LoadJavaScriptFile, function ( filename )
+    local absolute, result;
+    if IsBound( JUPVIZ_LoadedJavaScriptCache.( filename ) ) then
+        return JUPVIZ_LoadedJavaScriptCache.( filename );
+    fi;
+    absolute := JUPVIZ_AbsoluteJavaScriptFilename(
+        Concatenation( filename, ".min" ) );
+    if not IsExistingFile( absolute ) then
+        absolute := JUPVIZ_AbsoluteJavaScriptFilename( filename );
+    fi;
+    if not IsExistingFile( absolute ) then
+        return fail;
+    fi;
+    result := ReadAll( InputTextFile( absolute ) );
+    JUPVIZ_LoadedJavaScriptCache.( filename ) := result;
+    return result;
 end );
 
 
