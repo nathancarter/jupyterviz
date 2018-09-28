@@ -68,4 +68,11 @@ DeclareGlobalVariable( "JUPVIZ_LoadedJavaScriptCache" );
 ##  loads a template file and fills it in using the given dictionary
 DeclareGlobalFunction( "JUPVIZ_FillInJavaScriptTemplate" );
 
+############################################################################
+##
+#F  JUPVIZ_RunJavaScriptFromTemplate(<filename>,<dictionary>)
+##
+##  fills in the template in the given file, then runs it
+DeclareGlobalFunction( "JUPVIZ_RunJavaScriptFromTemplate" );
+
 #E  main.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

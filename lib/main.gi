@@ -127,4 +127,14 @@ function ( filename, dictionary )
 end );
 
 
+##  This function is intentionally undocumented, because it is for internal
+##  use by this package.  It composes the fill-in-template function with the
+##  the RunJavaScript function, for convenience.
+InstallGlobalFunction( JUPVIZ_RunJavaScriptFromTemplate,
+function ( filename, dictionary )
+    return RunJavaScript(
+        JUPVIZ_FillInJavaScriptTemplate( filename, dictionary ) );
+end );
+
+
 #E  main.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

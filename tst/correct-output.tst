@@ -45,6 +45,12 @@ true
 gap> EndsWith( JUPVIZ_AbsoluteJavaScriptFilename( "example" ), "/lib/js/example.js" );
 true
 
+# JUPVIZ_RunJavaScriptFromTemplate function
+gap> tmp := JUPVIZ_RunJavaScriptFromTemplate( "testing-template", rec( debug := "A", param := "B" ) );
+<jupyter renderable>
+gap> JupyterRenderableData( tmp ).( "application/javascript" );
+"( function ( element ) { function f ( x ) {\n  console.log( A\n );\n  return B\n + x;\n}\n } )( element.get( 0 ) )"
+
 ## Each test file should finish with the call of STOP_TEST.
 ## The first argument of STOP_TEST should be the name of the test file.
 ## The second argument is redundant and is used for backwards compatibility.
