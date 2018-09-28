@@ -75,4 +75,11 @@ DeclareGlobalFunction( "JUPVIZ_FillInJavaScriptTemplate" );
 ##  fills in the template in the given file, then runs it
 DeclareGlobalFunction( "JUPVIZ_RunJavaScriptFromTemplate" );
 
+############################################################################
+##
+#F  JUPVIZ_RunJavaScriptUsingRunGAP(<jsCode>)
+##
+##  runs the given JavaScript code after ensuring that runGAP() is defined
+DeclareGlobalFunction( "JUPVIZ_RunJavaScriptUsingRunGAP" );
+
 #E  main.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

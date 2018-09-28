@@ -137,4 +137,13 @@ function ( filename, dictionary )
 end );
 
 
+##  This function is intentionally undocumented, because it is for internal
+##  use by this package.  It runs the given code, but after pasting it into
+##  a template that ensures that window.runGAP() is defined.
+InstallGlobalFunction( JUPVIZ_RunJavaScriptUsingRunGAP, function ( jsCode )
+    return JUPVIZ_RunJavaScriptFromTemplate( "using-runGAP",
+        rec( runThis := jsCode ) );
+end );
+
+
 #E  main.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
