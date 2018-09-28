@@ -32,7 +32,7 @@ gap> LoadJavaScriptFile( "for-testing.js" ); # gets non-minified version
 "function square ( x ) {\n  return x * x;\n}\n"
 
 # JUPVIZ_FillInJavaScriptTemplate function
-gap> JUPVIZ_FillInJavaScriptTemplate( "testing-template", rec( debug := "'example'", param := "5" ) );
+gap> JUPVIZ_FillInJavaScriptTemplate( "testing-template.js", rec( debug := "'example'", param := "5" ) );
 "function f ( x ) {\n  console.log( 'example'\n );\n  return 5\n + x;\n}\n"
 
 # JUPVIZ_LoadedJavaScriptCache (internal) is no longer empty
@@ -46,7 +46,7 @@ gap> EndsWith( JUPVIZ_AbsoluteJavaScriptFilename( "example" ), "/lib/js/example.
 true
 
 # JUPVIZ_RunJavaScriptFromTemplate function (internal)
-gap> tmp := JUPVIZ_RunJavaScriptFromTemplate( "testing-template", rec( debug := "A", param := "B" ) );
+gap> tmp := JUPVIZ_RunJavaScriptFromTemplate( "testing-template.js", rec( debug := "A", param := "B" ) );
 <jupyter renderable>
 gap> JupyterRenderableData( tmp ).( "application/javascript" );
 "( function ( element ) { function f ( x ) {\n  console.log( A\n );\n  return B\n + x;\n}\n } )( element.get( 0 ) )"
