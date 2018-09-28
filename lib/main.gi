@@ -88,4 +88,43 @@ InstallGlobalFunction( LoadJavaScriptFile, function ( filename )
 end );
 
 
+############################################################################
+##
+#F  JUPVIZ_FillInJavaScriptTemplate(<filename>,<dictionary>)
+##
+##  loads a template file and fills it in using the given dictionary
+##
+##  Loads the contents of the given file using the LoadJavaScriptFile
+##  function.  For every key of the given dictionary, prefix a dollar sign
+##  and replace all instance of that new key with the given value.  For
+##  instance, if the dictionary maps "foo" to "some text" then every
+##  occurrence of "$foo" in the file will be replaced by "some text" before
+##  being returned.  This treats the file as a template whose parameters are
+##  the $-prefixed keys in the given dictionary.  Returns the result as a
+##  string.
+##
+##  Each substitution is followed by a newline, so that if the substituted
+##  text contains a JavaScript one-line comment, it will not inadvertently
+##  comment out any subsequent code in the template.
+##
+##  If no such file exists, returns fail.
+##
+InstallGlobalFunction( JUPVIZ_FillInJavaScriptTemplate,
+function ( filename, dictionary )
+    local key, result;
+    result := LoadJavaScriptFile( filename );
+    if result = fail then
+        return fail;
+    fi;
+    for key in RecNames( dictionary ) do
+        result := ReplacedString( result,
+            Concatenation( "$", key ),
+            # to permit //-style comments, we must add \n:
+            Concatenation( dictionary.( key ), "\n" )
+        );
+    od;
+    return result;
+end );
+
+
 #E  main.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

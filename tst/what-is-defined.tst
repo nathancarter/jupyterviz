@@ -17,6 +17,8 @@ gap> IsBoundGlobal( "LoadJavaScriptFile" );
 true
 gap> IsBoundGlobal( "JUPVIZ_AbsoluteJavaScriptFilename" );
 true
+gap> IsBoundGlobal( "JUPVIZ_FillInJavaScriptTemplate" );
+true
 
 # Ensure that global variables are defined
 gap> IsBoundGlobal( "JUPVIZ_LoadedJavaScriptCache" );

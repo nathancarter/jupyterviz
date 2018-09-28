@@ -31,6 +31,10 @@ gap> LoadJavaScriptFile( "for-testing" ); # gets minified version
 gap> LoadJavaScriptFile( "for-testing.js" ); # gets non-minified version
 "function square ( x ) {\n  return x * x;\n}\n"
 
+# JUPVIZ_FillInJavaScriptTemplate function
+gap> JUPVIZ_FillInJavaScriptTemplate( "testing-template", rec( debug := "'example'", param := "5" ) );
+"function f ( x ) {\n  console.log( 'example'\n );\n  return 5\n + x;\n}\n"
+
 # JUPVIZ_LoadedJavaScriptCache (internal) is no longer empty
 gap> IsBound( JUPVIZ_LoadedJavaScriptCache.( "for-testing" ) );
 true
