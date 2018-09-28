@@ -97,13 +97,13 @@
 \markright{\scriptsize \mbox{}\hfill The \textsf{Jupyter-Viz} Package \hfill\mbox{}}
 {\Huge Version 1.0.0\mbox{}}\\[1cm]
 \mbox{}\\[2cm]
-{\Large \textbf{Nathan Caerter  \mbox{}}}\\
-\hypersetup{pdfauthor=Nathan Caerter  }
+{\Large \textbf{Nathan Carter  \mbox{}}}\\
+\hypersetup{pdfauthor=Nathan Carter  }
 \end{center}\vfill
 
 \mbox{}\\
 {\mbox{}\\
-\small \noindent \textbf{Nathan Caerter  }  Email: \href{mailto://ncarter@bentley.edu} {\texttt{ncarter@bentley.edu}}}\\
+\small \noindent \textbf{Nathan Carter  }  Email: \href{mailto://ncarter@bentley.edu} {\texttt{ncarter@bentley.edu}}}\\
 \end{titlepage}
 
 \newpage\setcounter{page}{2}
@@ -131,28 +131,45 @@
 \logpage{[ 1, 1, 0 ]}
 \hyperdef{L}{X863B25987EEF194D}{}
 {
-  You can say stuff, including math: $x^2-1=0$. 
+  This documentation is obviously not complete yet. I'm writing this just as a
+placeholder until I really document this package, later. Here's how to write
+math: $x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}$. 
 
- That's a paragraph break. 
+ Example new paragraph. 
 
- \textsf{Jupyter-Viz} is how you reference package names and \texttt{StubForTesting} (\ref{StubForTesting}) is how you reference functions. You can also insert man page sections. 
+ \textsf{Jupyter-Viz} is how you reference package names and \texttt{RunJavaScript} (\ref{RunJavaScript}) is how you reference functions.  See the docs for other XML tags you can use. }
 
-\subsection{\textcolor{Chapter }{StubForTesting}}
-\logpage{[ 1, 1, 1 ]}\nobreak
-\hyperdef{L}{X80D3745E78114237}{}
-{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{StubForTesting({\mdseries\slshape k})\index{StubForTesting@\texttt{StubForTesting}}
-\label{StubForTesting}
+ 
+\section{\textcolor{Chapter }{Function Reference}}\label{sec:function-reference}
+\logpage{[ 1, 2, 0 ]}
+\hyperdef{L}{X7ECCCA82839EA283}{}
+{
+  
+
+\subsection{\textcolor{Chapter }{RunJavaScript}}
+\logpage{[ 1, 2, 1 ]}\nobreak
+\hyperdef{L}{X78BDA43D7E633E33}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{RunJavaScript({\mdseries\slshape script})\index{RunJavaScript@\texttt{RunJavaScript}}
+\label{RunJavaScript}
 }\hfill{\scriptsize (function)}}\\
 
 
- This function adds 5 to its input. That's all. 
-\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
-  !gapprompt@gap>| !gapinput@StubForTesting(100);|
-  105
-\end{Verbatim}
- }
+ runs the JavaScript code \mbox{\texttt{\mdseries\slshape script}} in the current Jupyter notebook }
 
- See the docs for other XML tags you can use. }
+ 
+
+\subsection{\textcolor{Chapter }{LoadJavaScriptFile}}
+\logpage{[ 1, 2, 2 ]}\nobreak
+\hyperdef{L}{X81E2B3A07EA7A02B}{}
+{\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{LoadJavaScriptFile({\mdseries\slshape filename})\index{LoadJavaScriptFile@\texttt{LoadJavaScriptFile}}
+\label{LoadJavaScriptFile}
+}\hfill{\scriptsize (function)}}\\
+
+
+ loads and returns the string contents of \mbox{\texttt{\mdseries\slshape filename}}, interpreted relative to the lib/js path in this package's directory,
+appending a .min.js or .js extension as needed }
+
+ }
 
  }
 

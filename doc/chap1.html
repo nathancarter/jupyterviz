@@ -24,8 +24,12 @@
 <div class="ChapSects"><a href="chap1.html#X806A68248539B3F2">1 <span class="Heading">Chapter heading here</span></a>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X863B25987EEF194D">1.1 <span class="Heading">Section heading here</span></a>
 </span>
+</div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7ECCCA82839EA283">1.2 <span class="Heading">Function Reference</span></a>
+</span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X80D3745E78114237">1.1-1 StubForTesting</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X78BDA43D7E633E33">1.2-1 RunJavaScript</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X81E2B3A07EA7A02B">1.2-2 LoadJavaScriptFile</a></span>
 </div></div>
 </div>
 
@@ -35,26 +39,29 @@
 
 <h4>1.1 <span class="Heading">Section heading here</span></h4>
 
-<p>You can say stuff, including math: <span class="SimpleMath">x^2-1=0</span>.</p>
+<p>This documentation is obviously not complete yet. I'm writing this just as a placeholder until I really document this package, later. Here's how to write math: <span class="SimpleMath">x=frac-b±sqrtb^2-4ac}2a</span>.</p>
 
-<p>That's a paragraph break.</p>
+<p>Example new paragraph.</p>
 
-<p><strong class="pkg">Jupyter-Viz</strong> is how you reference package names and <code class="func">StubForTesting</code> (<a href="chap1.html#X80D3745E78114237"><span class="RefLink">1.1-1</span></a>) is how you reference functions. You can also insert man page sections.</p>
+<p><strong class="pkg">Jupyter-Viz</strong> is how you reference package names and <code class="func">RunJavaScript</code> (<a href="chap1.html#X78BDA43D7E633E33"><span class="RefLink">1.2-1</span></a>) is how you reference functions. See the docs for other XML tags you can use.</p>
 
-<p><a id="X80D3745E78114237" name="X80D3745E78114237"></a></p>
+<p><a id="X7ECCCA82839EA283" name="X7ECCCA82839EA283"></a></p>
 
-<h5>1.1-1 StubForTesting</h5>
+<h4>1.2 <span class="Heading">Function Reference</span></h4>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; StubForTesting</code>( <var class="Arg">k</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>This function adds 5 to its input. That's all.</p>
+<p><a id="X78BDA43D7E633E33" name="X78BDA43D7E633E33"></a></p>
 
+<h5>1.2-1 RunJavaScript</h5>
 
-<div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">StubForTesting(100);</span>
-105
-</pre></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RunJavaScript</code>( <var class="Arg">script</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>runs the JavaScript code <var class="Arg">script</var> in the current Jupyter notebook</p>
 
-<p>See the docs for other XML tags you can use.</p>
+<p><a id="X81E2B3A07EA7A02B" name="X81E2B3A07EA7A02B"></a></p>
+
+<h5>1.2-2 LoadJavaScriptFile</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoadJavaScriptFile</code>( <var class="Arg">filename</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>loads and returns the string contents of <var class="Arg">filename</var>, interpreted relative to the lib/js path in this package's directory, appending a .min.js or .js extension as needed</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0.html">[Top of Book]</a>&nbsp;  <a href="chap0.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap0.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapInd.html">[Next Chapter]</a>&nbsp;  </div>

@@ -3,11 +3,19 @@ HELPBOOKINFOSIXTMP := rec(
 encoding := "UTF-8",
 bookname := "Jupyter-Viz",
 entries :=
-[ [ "Title page", ".", [ 0, 0, 0 ], 1, 1, "title page", "X7D2C85EC87DD46E5" ], 
-  [ "Copyright", ".-1", [ 0, 0, 1 ], 17, 2, "copyright", "X81488B807F2A1CF1" ], 
-  [ "Table of Contents", ".-2", [ 0, 0, 2 ], 24, 3, "table of contents", "X8537FEB07AF2BEC8" ], 
-  [ "\033[1X\033[33X\033[0;-2YChapter heading here\033[133X\033[101X", "1", [ 1, 0, 0 ], 1, 4, "chapter heading here", "X806A68248539B3F2" 
-     ], [ "\033[1X\033[33X\033[0;-2YSection heading here\033[133X\033[101X", "1.1", [ 1, 1, 0 ], 4, 4, "section heading here", 
-      "X863B25987EEF194D" ], [ "Index", "ind", [ "Ind", 0, 0 ], 1, 5, "index", "X83A0356F839C696F" ], 
-  [ "\033[2XStubForTesting\033[102X", "1.1-1", [ 1, 1, 1 ], 14, 4, "stubfortesting", "X80D3745E78114237" ] ]
+[ [ "Title page", ".", [ 0, 0, 0 ], 1, 1, "title page", "X7D2C85EC87DD46E5" ],
+  [ "Copyright", ".-1", [ 0, 0, 1 ], 17, 2, "copyright", "X81488B807F2A1CF1" ]
+    , [ "Table of Contents", ".-2", [ 0, 0, 2 ], 24, 3, "table of contents", 
+      "X8537FEB07AF2BEC8" ], 
+  [ "\033[1X\033[33X\033[0;-2YChapter heading here\033[133X\033[101X", "1", 
+      [ 1, 0, 0 ], 1, 4, "chapter heading here", "X806A68248539B3F2" ], 
+  [ "\033[1X\033[33X\033[0;-2YSection heading here\033[133X\033[101X", "1.1", 
+      [ 1, 1, 0 ], 4, 4, "section heading here", "X863B25987EEF194D" ], 
+  [ "\033[1X\033[33X\033[0;-2YFunction Reference\033[133X\033[101X", "1.2", 
+      [ 1, 2, 0 ], 16, 4, "function reference", "X7ECCCA82839EA283" ], 
+  [ "Index", "ind", [ "Ind", 0, 0 ], 1, 5, "index", "X83A0356F839C696F" ], 
+  [ "\033[2XRunJavaScript\033[102X", "1.2-1", [ 1, 2, 1 ], 19, 4, 
+      "runjavascript", "X78BDA43D7E633E33" ], 
+  [ "\033[2XLoadJavaScriptFile\033[102X", "1.2-2", [ 1, 2, 2 ], 25, 4, 
+      "loadjavascriptfile", "X81E2B3A07EA7A02B" ] ]
 );

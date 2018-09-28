@@ -2,7 +2,8 @@
   
   [1XIndex[101X
   
-  [2XStubForTesting[102X 1.1-1 
+  [2XLoadJavaScriptFile[102X 1.2-2 
+  [2XRunJavaScript[102X 1.2-1 
   
   
   -------------------------------------------------------

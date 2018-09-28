@@ -1,5 +1,9 @@
 \begin{theindex}
 
-  \item \texttt  {StubForTesting}, \hyperpage{4}
+  \item \texttt  {LoadJavaScriptFile}, \hyperpage{4}
+
+  \indexspace
+
+  \item \texttt  {RunJavaScript}, \hyperpage{4}
 
 \end{theindex}

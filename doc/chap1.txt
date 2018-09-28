@@ -4,23 +4,29 @@
   
   [1X1.1 [33X[0;0YSection heading here[133X[101X
   
-  [33X[0;0YYou can say stuff, including math: [22Xx^2-1=0[122X.[133X
+  [33X[0;0YThis documentation is obviously not complete yet. I'm writing this just as a
+  placeholder until I really document this package, later. Here's how to write
+  math: [22Xx=frac-b±sqrtb^2-4ac}2a[122X.[133X
   
-  [33X[0;0YThat's a paragraph break.[133X
+  [33X[0;0YExample new paragraph.[133X
   
-  [33X[0;0Y[5XJupyter-Viz[105X is how you reference package names and [2XStubForTesting[102X ([14X1.1-1[114X) is
-  how you reference functions. You can also insert man page sections.[133X
+  [33X[0;0Y[5XJupyter-Viz[105X  is how you reference package names and [2XRunJavaScript[102X ([14X1.2-1[114X) is
+  how you reference functions. See the docs for other XML tags you can use.[133X
   
-  [1X1.1-1 StubForTesting[101X
   
-  [33X[1;0Y[29X[2XStubForTesting[102X( [3Xk[103X ) [32X function[133X
+  [1X1.2 [33X[0;0YFunction Reference[133X[101X
   
-  [33X[0;0YThis function adds 5 to its input. That's all.[133X
+  [1X1.2-1 RunJavaScript[101X
   
-  [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27XStubForTesting(100);[127X[104X
-    [4X[28X105[128X[104X
-  [4X[32X[104X
+  [33X[1;0Y[29X[2XRunJavaScript[102X( [3Xscript[103X ) [32X function[133X
   
-  [33X[0;0YSee the docs for other XML tags you can use.[133X
+  [33X[0;0Yruns the JavaScript code [3Xscript[103X in the current Jupyter notebook[133X
+  
+  [1X1.2-2 LoadJavaScriptFile[101X
+  
+  [33X[1;0Y[29X[2XLoadJavaScriptFile[102X( [3Xfilename[103X ) [32X function[133X
+  
+  [33X[0;0Yloads  and  returns the string contents of [3Xfilename[103X, interpreted relative to
+  the  lib/js  path  in  this  package's directory, appending a .min.js or .js
+  extension as needed[133X
   

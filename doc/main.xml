@@ -9,7 +9,7 @@
 <TitlePage>
   <Title>The <Package>Jupyter-Viz</Package> Package</Title>
   <Version>Version 1.0.0</Version>
-  <Author>Nathan Caerter
+  <Author>Nathan Carter
     <Email>ncarter@bentley.edu</Email>
   </Author>
 
@@ -25,15 +25,20 @@
     <Heading>Chapter heading here</Heading>
     <Section Label="sec:whatever-label">
       <Heading>Section heading here</Heading>
-      You can say stuff, including math: <M>x^2-1=0</M>.
+      This documentation is obviously not complete yet.
+      I'm writing this just as a placeholder until I really document this
+      package, later.  Here's how to write math:
+      <M>x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}</M>.
       <P/>
-      That's a paragraph break.
+      Example new paragraph.
       <P/>
       <Package>Jupyter-Viz</Package> is how you reference package names and
-      <Ref Func="StubForTesting"/> is how you reference functions.
+      <Ref Func="RunJavaScript"/> is how you reference functions.
+
+      <!--
       You can also insert man page sections.
       <ManSection>
-        <Func Name="StubForTesting" Arg="k"/>
+        <Func Name="StubForTesting" Arg="x"/>
         <Description>
           This  function adds 5 to its input.  That's all.
 <Example>
@@ -42,7 +47,16 @@ gap> StubForTesting(100);
 </Example>
         </Description>
       </ManSection>
+      -->
       See the docs for other XML tags you can use.
+    </Section>
+    <Section Label="sec:function-reference">
+      <Heading>Function Reference</Heading>
+
+      <#Include Label="RunJavaScript">
+
+      <#Include Label="LoadJavaScriptFile">
+
     </Section>
   </Chapter>
 </Body>

@@ -6,11 +6,11 @@
                                  Version 1.0.0
   
   
-                                 Nathan Caerter
+                                 Nathan Carter
   
   
   
-  Nathan Caerter
+  Nathan Carter
       Email:    [7Xmailto:ncarter@bentley.edu[107X
   
   -------------------------------------------------------
@@ -27,7 +27,9 @@
   
   1 [33X[0;0YChapter heading here[133X
     1.1 [33X[0;0YSection heading here[133X
-      1.1-1 StubForTesting
+    1.2 [33X[0;0YFunction Reference[133X
+      1.2-1 RunJavaScript
+      1.2-2 LoadJavaScriptFile
   
   
   [32X
