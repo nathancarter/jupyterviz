@@ -13,9 +13,8 @@ true
 # Ensure that the functions that are supposed to be exposed are exposed
 gap> IsBoundGlobal( "RunJavaScript" );
 true
-
-# Ensure that the functions that are not supposed to be exposed are not
-# exposed (no such tests yet, but they will go here)
+gap> IsBoundGlobal( "JUPVIZ_AbsoluteJavaScriptFilename" );
+true
 
 ## Each test file should finish with the call of STOP_TEST.
 ## The first argument of STOP_TEST should be the name of the test file.

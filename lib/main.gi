@@ -32,4 +32,19 @@ InstallGlobalFunction( RunJavaScript, function ( script )
     ), rec() );
 end );
 
+
+##  This function is intentionally undocumented, because it is for internal
+##  use by this package.  It converts a filename relative to the
+##  package/lib/js/ folder into an absolute filename, suffixing it with .js
+##  iff needed.
+InstallGlobalFunction( JUPVIZ_AbsoluteJavaScriptFilename,
+function ( relativeFilename )
+    if not EndsWith( relativeFilename, ".js" ) then
+        relativeFilename := Concatenation( relativeFilename, ".js" );
+    fi;
+    return Filename( DirectoriesPackageLibrary(
+        "jupyter-viz", "lib/js" )[1], relativeFilename );
+end );
+
+
 #E  main.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

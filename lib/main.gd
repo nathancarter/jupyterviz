@@ -9,7 +9,7 @@
 #Y                     St. Andrews, Fife KY16 9SS, Scotland
 ##
 
-#############################################################################
+############################################################################
 ##
 #F  RunJavaScript(<script>)
 ##
@@ -25,5 +25,13 @@
 ##  </ManSection>
 ##  <#/GAPDoc>
 DeclareGlobalFunction( "RunJavaScript" );
+
+############################################################################
+##
+#F  JUPVIZ_AbsoluteJavaScriptFilename(<filename>)
+##
+##  converts a JavaScript filename to an absolute path in the package dir
+##
+DeclareGlobalFunction( "JUPVIZ_AbsoluteJavaScriptFilename" );
 
 #E  main.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
