@@ -1,0 +1,757 @@
+{
+  "width": 600,
+  "height": 600,
+  "chart": {
+    "enabled": true,
+    "title": {
+      "enabled": true,
+      "text": "Coffee Flavour Wheel"
+    },
+    "credits": {
+      "enabled": false
+    },
+    "type": "sunburst",
+    "treeData": {
+      "rootMapping": {},
+      "children": [
+        {
+          "treeDataItemData": {
+            "name": "Aromas",
+            "id": "aromas",
+            "fill": "#cbbba0"
+          },
+          "children": [
+            {
+              "treeDataItemData": {
+                "name": "Enzymatic",
+                "id": "enzymatic",
+                "fill": "#f38967"
+              },
+              "children": [
+                {
+                  "treeDataItemData": {
+                    "name": "Flowery",
+                    "id": "flowery",
+                    "fill": "#edcf37"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Floral",
+                        "id": "floral"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Coffee Blossom",
+                            "id": "coffee-blossom"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Tea Rose",
+                            "id": "tea-rose"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Fragrant",
+                        "id": "fragrant"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Cardamon Caraway",
+                            "id": "cardamon-caraway"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Coriander Seeds",
+                            "id": "coriander-seeds"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Fruity",
+                    "id": "fruity",
+                    "fill": "#da943b"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Citrus",
+                        "id": "citrus"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Lemon",
+                            "id": "lemon"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Apple",
+                            "id": "apple"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Berry-like",
+                        "id": "berry-like"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Apricot",
+                            "id": "apricot"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Blackberry",
+                            "id": "blackberry"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Herby",
+                    "id": "herby",
+                    "fill": "#9ba776"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Alliaceous",
+                        "id": "alliaceous"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Onion",
+                            "id": "onion"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Garlic",
+                            "id": "garlic"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Leguminous",
+                        "id": "leguminous"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Cucumber",
+                            "id": "cucumber"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Garden Peas",
+                            "id": "garden-peas"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "treeDataItemData": {
+                "name": "Sugar Browning",
+                "id": "sugar-browning",
+                "fill": "#795841"
+              },
+              "children": [
+                {
+                  "treeDataItemData": {
+                    "name": "Nutty",
+                    "id": "nutty",
+                    "fill": "#8b5d2d"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Nut-like",
+                        "id": "nut-like"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Roasted Peanuts",
+                            "id": "roasted-peanuts"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Walnuts",
+                            "id": "walnuts"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Malt-like",
+                        "id": "malt-like"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Balsamic Rice",
+                            "id": "balsamic-rice"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Toast",
+                            "id": "toast"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Carmelly",
+                    "id": "carmelly",
+                    "fill": "#d08631"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Candy-like",
+                        "id": "candy-like"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Roasted Hazelnut",
+                            "id": "roasted-hazelnut"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Roasted Almond",
+                            "id": "roasted-almond"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Syrup-like",
+                        "id": "syrup-like"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Honey",
+                            "id": "honey"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Maple Syrup",
+                            "id": "maple-syrup"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Chocolatey",
+                    "id": "chocolatey",
+                    "fill": "#7f4636"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Chocolate-like",
+                        "id": "chocolate-like"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Bakers",
+                            "id": "bakers"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Dark Chocolate",
+                            "id": "dark-chocolate"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Vanilla-like",
+                        "id": "vanilla-like"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Swiss",
+                            "id": "swiss"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Butter",
+                            "id": "butter"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "treeDataItemData": {
+                "name": "Dry Distillation",
+                "id": "dry-distillation",
+                "fill": "#357ca5"
+              },
+              "children": [
+                {
+                  "treeDataItemData": {
+                    "name": "Resinous",
+                    "id": "resinous",
+                    "fill": "#5e4e7b"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Turpeny",
+                        "id": "turpeny"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Piney",
+                            "id": "piney"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Blackcurrant-like",
+                            "id": "blackcurrant-like"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Medicinal",
+                        "id": "medicinal"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Camphoric",
+                            "id": "camphoric"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Cineolic",
+                            "id": "cineolic"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Spicy",
+                    "id": "spicy",
+                    "fill": "#8d3974"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Warming",
+                        "id": "warming"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Cedar",
+                            "id": "cedar"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Pepper",
+                            "id": "pepper"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Pungent",
+                        "id": "aromas-pungent"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Clove",
+                            "id": "clove"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Thyme",
+                            "id": "thyme"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Carbony",
+                    "id": "carbony",
+                    "fill": "#602268"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Smokey",
+                        "id": "smokey"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Tarry",
+                            "id": "tarry"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Pipe Tobacco",
+                            "id": "pipe-tobacco"
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Ashy",
+                        "id": "ashy"
+                      },
+                      "children": [
+                        {
+                          "treeDataItemData": {
+                            "name": "Burnt",
+                            "id": "burnt"
+                          }
+                        },
+                        {
+                          "treeDataItemData": {
+                            "name": "Charred",
+                            "id": "charred"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "treeDataItemData": {
+            "name": "Tastes",
+            "id": "tastes",
+            "fill": "#634e42"
+          },
+          "children": [
+            {
+              "treeDataItemData": {
+                "name": "Bitter",
+                "id": "bitter",
+                "fill": "#575756"
+              },
+              "children": [
+                {
+                  "treeDataItemData": {
+                    "name": "Pungent",
+                    "id": "tastes-pungent",
+                    "fill": "#9c81a8"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Creosol",
+                        "id": "creosol"
+                      }
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Phenolic",
+                        "id": "phenolic"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Harsh",
+                    "id": "harsh",
+                    "fill": "#e85381"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Caustic",
+                        "id": "caustic"
+                      }
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Alkaline",
+                        "id": "alkaline"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "treeDataItemData": {
+                "name": "Salt",
+                "id": "salt",
+                "fill": "#a30d1c"
+              },
+              "children": [
+                {
+                  "treeDataItemData": {
+                    "name": "Sharp",
+                    "id": "sharp",
+                    "fill": "#db7773"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Astringent",
+                        "id": "astringent"
+                      }
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Rough",
+                        "id": "rough"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Bland",
+                    "id": "bland",
+                    "fill": "#f2a569"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Neutral",
+                        "id": "neutral"
+                      }
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Soft",
+                        "id": "soft"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "treeDataItemData": {
+                "name": "Sweet",
+                "id": "sweet",
+                "fill": "#6f1547"
+              },
+              "children": [
+                {
+                  "treeDataItemData": {
+                    "name": "Mellow",
+                    "id": "mellow",
+                    "fill": "#f1bf71"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Delicate",
+                        "id": "delicate"
+                      }
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Mild",
+                        "id": "mild"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Acidy",
+                    "id": "acidy",
+                    "fill": "#edd529"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Nippy",
+                        "id": "nippy"
+                      }
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Piquant",
+                        "id": "piquant"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "treeDataItemData": {
+                "name": "Sour",
+                "id": "sour",
+                "fill": "#00814e"
+              },
+              "children": [
+                {
+                  "treeDataItemData": {
+                    "name": "Winey",
+                    "id": "winey",
+                    "fill": "#c8cd80"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Tangy",
+                        "id": "tangy"
+                      }
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Tart",
+                        "id": "tart"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "treeDataItemData": {
+                    "name": "Soury",
+                    "id": "soury",
+                    "fill": "#e5dc65"
+                  },
+                  "children": [
+                    {
+                      "treeDataItemData": {
+                        "name": "Hard",
+                        "id": "hard"
+                      }
+                    },
+                    {
+                      "treeDataItemData": {
+                        "name": "Acrid",
+                        "id": "acrid"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "index": [
+        "id"
+      ]
+    },
+    "normal": {
+      "labels": {
+        "zIndex": 32,
+        "enabled": true,
+        "adjustFontSize": {
+          "width": true,
+          "height": true
+        }
+      }
+    },
+    "levels": [
+      {
+        "index": -2,
+        "level": {
+          "normal": {
+            "labels": {
+              "position": "radial"
+            }
+          },
+          "hovered": {
+            "labels": {}
+          },
+          "selected": {
+            "labels": {}
+          }
+        }
+      }
+    ],
+    "leaves": {
+      "normal": {
+        "labels": {
+          "enabled": true,
+          "minFontSize": 8,
+          "textOverflow": "..."
+        }
+      },
+      "hovered": {
+        "labels": {}
+      },
+      "selected": {
+        "labels": {}
+      }
+    }
+  }
+}
+
