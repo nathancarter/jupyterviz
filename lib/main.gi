@@ -47,6 +47,29 @@ function ( relativeFilename )
 end );
 
 
+##  The following new types and operations are for internal use only, and
+##  are thus undocumented externally.  They are a workaround for the fact
+##  that ViewString (used internally by the JupyterKernel's default
+##  implementation for JupyterRender) does not properly escape quotes and
+##  other characters, making it a terrible way to transmit the contents of a
+##  text file from the GAP server to the JavaScript notebook client.
+##  We thus create this wrapper for text file contents instead.
+BindGlobal( "JUPVIZ_FileContentsType",
+    NewType( NewFamily( "JUPVIZ_FileContentsFamily" ),
+             JUPVIZ_IsFileContentsRep ) );
+InstallMethod( JUPVIZ_FileContents, "for a string", [ IsString ],
+function( content )
+    return Objectify( JUPVIZ_FileContentsType,
+                      rec( content := content ) );
+end );
+InstallMethod( JupyterRender, [ JUPVIZ_IsFileContents ],
+function ( fileContents )
+    return Objectify( JupyterRenderableType,
+        rec( data := rec( text\/plain := fileContents!.content ),
+             metadata := rec( text\/plain := "" ) ) );
+end );
+
+
 ##  This variable is intentionally undocumented, because it is for internal
 ##  use by this package.  It caches JavaScript files loaded from disk, so
 ##  that we can go to the filesystem for them only once per GAP session.

@@ -26,6 +26,18 @@
 ##  <#/GAPDoc>
 DeclareGlobalFunction( "RunJavaScript" );
 
+##  The following new types and operations are for internal use only, and
+##  are thus undocumented externally.  They are a workaround for the fact
+##  that ViewString (used internally by the JupyterKernel's default
+##  implementation for JupyterRender) does not properly escape quotes and
+##  other characters, making it a terrible way to transmit the contents of a
+##  text file from the GAP server to the JavaScript notebook client.
+##  We thus create this wrapper for text file contents instead.
+DeclareCategory( "JUPVIZ_IsFileContents", IsObject );
+DeclareRepresentation( "JUPVIZ_IsFileContentsRep",
+    IsComponentObjectRep and JUPVIZ_IsFileContents, [ "content" ] );
+DeclareOperation( "JUPVIZ_FileContents", [ IsString ] );
+
 ############################################################################
 ##
 #F  LoadJavaScriptFile(<filename>)
