@@ -13,15 +13,15 @@ integrated into GAP or its build system.
 
 ## Purpose
 
-This package adds visualization tools to GAP for use in Jupyter
-notebooks.  These include standard line and bar graphs, pie
-charts, scatter plots, and graphs in the vertices-and-edges sense.
+This package adds visualization tools to GAP for use in Jupyter notebooks.
+These include standard line and bar graphs, pie charts, scatter plots, and
+graphs in the vertices-and-edges sense.
 
 ## Implementation
 
-These are implemented by importing existing JavaScript
-visualization libraries into the notebook as needed, based on the
-kind of visualization requested by the GAP code.
+These are implemented by importing existing JavaScript visualization
+libraries into the notebook as needed, based on the kind of visualization
+requested by the GAP code.
 
 The architecture of the package is such that additional JavaScript
 visualization libraries can be added easily.
@@ -30,16 +30,22 @@ visualization libraries can be added easily.
 
 The package does not need to be compiled.
 
-To use the package, start a Jupyter Notebook session with a GAP
-kernel and run a cell containing
+To use the package, start a Jupyter Notebook session with a GAP kernel and
+run a cell containing
 
 	LoadPackage("jupyter-viz");
 
 to load the package.
 
-For details on how to use the package see its documentation in
-the `doc` subdirectory (view its HTML version or `manual.pdf` via
-a PDF viewer).
+You can check out [an example notebook](tst/in-notebook-test.ipynb) that
+creates several visualizations, but you won't be able to see them on GitHub
+because they require running scripts in the notebook.  Download it and try
+it for yourself instead.  (Some of them load `.json` files, which are in the
+same folder in this repository.)
+
+More details on how to use the package will appear in its documentation in
+the `doc` subdirectory (view its HTML version or `manual.pdf` via a PDF
+viewer).  That documentation has not yet been written, however.
 
 ## Maintainer
 
