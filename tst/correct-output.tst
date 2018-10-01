@@ -54,7 +54,20 @@ gap> JupyterRenderableData( tmp ).( "application/javascript" );
 # JUPVIZ_RunJavaScriptUsingRunGAP function (internal)
 gap> tmp := JUPVIZ_RunJavaScriptUsingRunGAP( "2+2" );
 <jupyter renderable>
-gap> Length( JupyterRenderableData( tmp ).( "application/javascript" ) ) > 100; # big template
+gap> tmp := JupyterRenderableData( tmp ).( "application/javascript" );;
+gap> Length( tmp ) > 100; # big template
+true
+
+# JUPVIZ_RunJavaScriptUsingLibraries function (internal)
+gap> tmp1 := JUPVIZ_RunJavaScriptUsingLibraries( [ "for-testing" ], "2+2" );
+<jupyter renderable>
+gap> tmp1 := JupyterRenderableData( tmp1 ).( "application/javascript" );;
+gap> Length( tmp1 ) > 100; # big template
+true
+gap> tmp2 := JUPVIZ_RunJavaScriptUsingLibraries( "for-testing", "2+2" );
+<jupyter renderable>
+gap> tmp2 := JupyterRenderableData( tmp2 ).( "application/javascript" );;
+gap> tmp1 = tmp2; # string is treated as length-1 list of strings?
 true
 
 ## Each test file should finish with the call of STOP_TEST.

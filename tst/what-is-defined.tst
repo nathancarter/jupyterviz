@@ -23,6 +23,8 @@ gap> IsBoundGlobal( "JUPVIZ_RunJavaScriptFromTemplate" );
 true
 gap> IsBoundGlobal( "JUPVIZ_RunJavaScriptUsingRunGAP" );
 true
+gap> IsBoundGlobal( "JUPVIZ_RunJavaScriptUsingLibraries" );
+true
 
 # Ensure that global variables are defined
 gap> IsBoundGlobal( "JUPVIZ_LoadedJavaScriptCache" );

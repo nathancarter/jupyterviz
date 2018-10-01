@@ -94,4 +94,11 @@ DeclareGlobalFunction( "JUPVIZ_RunJavaScriptFromTemplate" );
 ##  runs the given JavaScript code after ensuring that runGAP() is defined
 DeclareGlobalFunction( "JUPVIZ_RunJavaScriptUsingRunGAP" );
 
+############################################################################
+##
+#F  JUPVIZ_RunJavaScriptUsingLibaries(<libraries>,<jsCode>)
+##
+##  runs the given JavaScript code after installing the libraries iff needed
+DeclareGlobalFunction( "JUPVIZ_RunJavaScriptUsingLibraries" );
+
 #E  main.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

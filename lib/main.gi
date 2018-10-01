@@ -8,6 +8,7 @@
 #Y                     St. Andrews, Fife KY16 9SS, Scotland
 ##
 
+
 ############################################################################
 ##
 #F  RunJavaScript(<script>)
@@ -26,10 +27,12 @@
 ##
 InstallGlobalFunction( RunJavaScript, function ( script )
     return JupyterRenderable( rec(
-        ( "application/javascript" ) := Concatenation(
+        application\/javascript := Concatenation(
             "( function ( element ) { ", script, " } )( element.get( 0 ) )"
         )
-    ), rec() );
+    ), rec(
+        application\/javascript := ""
+    ) );
 end );
 
 
@@ -143,7 +146,7 @@ function ( filename, dictionary )
         result := ReplacedString( result,
             Concatenation( "$", key ),
             # to permit //-style comments, we must add \n:
-            Concatenation( dictionary.( key ), "\n" )
+            Concatenation( String( dictionary.( key ) ), "\n" )
         );
     od;
     return result;
@@ -166,6 +169,27 @@ end );
 InstallGlobalFunction( JUPVIZ_RunJavaScriptUsingRunGAP, function ( jsCode )
     return JUPVIZ_RunJavaScriptFromTemplate( "using-runGAP",
         rec( runThis := jsCode ) );
+end );
+
+
+##  This function is intentionally undocumented, because it is for internal
+##  use by this package.  It runs the given code, but only after loading all
+##  the libraries listed in the list given as first parameter.  (A string is
+##  treated as a list of one string.)
+InstallGlobalFunction( JUPVIZ_RunJavaScriptUsingLibraries,
+function ( libraries, jsCode )
+    local result, library;
+    result := jsCode;
+    if IsString( libraries ) then
+        libraries := [ libraries ];
+    fi;
+    for library in Reversed( libraries ) do
+        result := JUPVIZ_FillInJavaScriptTemplate( "using-library",
+            rec( library := GapToJsonString( library ),
+                 runThis := result ) );
+    od;
+    return JUPVIZ_RunJavaScriptFromTemplate( "using-runGAP",
+        rec( runThis := result ) );
 end );
 
 
