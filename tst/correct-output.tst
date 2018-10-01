@@ -70,6 +70,22 @@ gap> tmp2 := JupyterRenderableData( tmp2 ).( "application/javascript" );;
 gap> tmp1 = tmp2; # string is treated as length-1 list of strings?
 true
 
+# CreateVisualization function
+gap> tmp := CreateVisualization( rec( tool := "html", data := rec( html := "test" ) ), "console.log( 'done' );" );
+<jupyter renderable>
+gap> tmp2 := JupyterRenderableData( tmp ).application\/javascript;;
+gap> Length( tmp2 ) > 100; # lots of code
+true
+gap> ContainsString := function ( haystack, needle ) return Length( ReplacedString( haystack, needle, "" ) ) < Length( haystack ); end;;
+gap> ContainsString( tmp2, "runGAP" ); # runGAP is called
+true
+gap> ContainsString( tmp2, "createVisualization" ); # this is called, too
+true
+gap> ContainsString( tmp2, "\"main\"" ); # this library is also loaded
+true
+gap> ContainsString( tmp2, "John Lennon" ); # sanity check
+false
+
 ## Each test file should finish with the call of STOP_TEST.
 ## The first argument of STOP_TEST should be the name of the test file.
 ## The second argument is redundant and is used for backwards compatibility.

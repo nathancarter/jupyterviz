@@ -193,4 +193,52 @@ function ( libraries, jsCode )
 end );
 
 
+############################################################################
+##
+#F  CreateVisualization(<json>,<code>)
+##
+##  creates a visualization and then runs code on it
+##
+##  This function returns a runnable JavaScript object, as from
+##  RunJavaScript, that will be executed if it is the result of a cell in
+##  the Jupyter notebook.  It will create a visualization from the data in
+##  the first parameter, then run the JavaScript code stored in the second
+##  parameter (as a string) in a context where "element" and
+##  "visualization" are defined.  The former is the element in which the
+##  visualization was placed and the latter is the visualization element
+##  itself, as created by whatever visualization tool was used.
+##
+##  The first parameter must be a record amenable to GapToJsonString.  It
+##  should have the following fields.
+##    "tool" (required) - the name of the visualization tool being called
+##      (e.g., plotly, canvasjs, etc., any of several JavaScript
+##      visualization libraries installed by this package or by the user)
+##    "data" (required) - subobject containing all options specific to the
+##      content of the visualization, often passed intact to the external
+##      JavaScript visualization library, and thus prepared in the format
+##      required by that library (e.g., may be the JSON format required by
+##      Plotly.js to make a chart)
+##    "width" (optional) - width to set on the output element being created
+##    "height" (optional) - similar, but height
+##
+##  Example use:
+##  CreateVisualization( rec(
+##    tool := "html",
+##    data := rec( html := "I am <i>SO</i> excited about this." )
+##  ), "console.log( 'Visualization created.' );" );
+##
+InstallGlobalFunction( CreateVisualization, function ( json, code )
+    local libraries, toolFile;
+    libraries := [ "main" ];
+    toolFile := Concatenation( "viz-tool-", json.tool );
+    if IsExistingFile( JUPVIZ_AbsoluteJavaScriptFilename( toolFile ) ) then
+        Add( libraries, toolFile );
+    fi;
+    return JUPVIZ_RunJavaScriptUsingLibraries( libraries,
+        JUPVIZ_FillInJavaScriptTemplate(
+            "create-visualization",
+            rec( data := GapToJsonString( json ), after := code ) ) );
+end );
+
+
 #E  main.gi  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here

@@ -101,4 +101,11 @@ DeclareGlobalFunction( "JUPVIZ_RunJavaScriptUsingRunGAP" );
 ##  runs the given JavaScript code after installing the libraries iff needed
 DeclareGlobalFunction( "JUPVIZ_RunJavaScriptUsingLibraries" );
 
+############################################################################
+##
+#F  CreateVisualization(<json>,<code>)
+##
+##  creates a visualization and then runs code on it
+DeclareGlobalFunction( "CreateVisualization" );
+
 #E  main.gd  . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
