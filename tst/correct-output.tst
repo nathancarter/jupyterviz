@@ -85,6 +85,10 @@ gap> ContainsString( tmp2, "\"main\"" ); # this library is also loaded
 true
 gap> ContainsString( tmp2, "John Lennon" ); # sanity check
 false
+gap> tmp := CreateVisualization( rec( tool := "html", data := rec( html := "example" ) ), "" );;
+gap> tmp2 := CreateVisualization( rec( tool := "html", data := rec( html := "example" ) ) );;
+gap> JupyterRenderableData( tmp ) = JupyterRenderableData( tmp2 ); # second argument defaults to empty string
+true
 
 ## Each test file should finish with the call of STOP_TEST.
 ## The first argument of STOP_TEST should be the name of the test file.

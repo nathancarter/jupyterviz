@@ -195,7 +195,7 @@ end );
 
 ############################################################################
 ##
-#F  CreateVisualization(<json>,<code>)
+#F  CreateVisualization(<json>,[code])
 ##
 ##  creates a visualization and then runs code on it
 ##
@@ -227,12 +227,17 @@ end );
 ##    data := rec( html := "I am <i>SO</i> excited about this." )
 ##  ), "console.log( 'Visualization created.' );" );
 ##
-InstallGlobalFunction( CreateVisualization, function ( json, code )
+InstallGlobalFunction( CreateVisualization, function ( json, code... )
     local libraries, toolFile;
     libraries := [ "main" ];
     toolFile := Concatenation( "viz-tool-", json.tool );
     if IsExistingFile( JUPVIZ_AbsoluteJavaScriptFilename( toolFile ) ) then
         Add( libraries, toolFile );
+    fi;
+    if Length( code ) = 0 then
+        code := "";
+    else
+        code := code[1];
     fi;
     return JUPVIZ_RunJavaScriptUsingLibraries( libraries,
         JUPVIZ_FillInJavaScriptTemplate(
