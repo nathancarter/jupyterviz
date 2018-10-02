@@ -30,22 +30,12 @@ visualization libraries can be added easily.
 
 The package does not need to be compiled.
 
-To use the package, start a Jupyter Notebook session with a GAP kernel and
-run a cell containing
+See [the manual as a PDF here](doc/manual.pdf).
 
-	LoadPackage("jupyter-viz");
-
-to load the package.
-
-You can check out [an example notebook](tst/in-notebook-test.ipynb) that
-creates several visualizations, but you won't be able to see them on GitHub
-because they require running scripts in the notebook.  Download it and try
-it for yourself instead.  (Some of them load `.json` files, which are in the
-same folder in this repository.)
-
-More details on how to use the package will appear in its documentation in
-the `doc` subdirectory (view its HTML version or `manual.pdf` via a PDF
-viewer).  That documentation has not yet been written, however.
+See [an example notebook here](tst/in-notebook-test.ipynb), but GitHub does
+not render its visualizations because they are JavaScript-based.  Download
+it and try it for yourself instead.  (Some cells use external `.json`
+files, which are also in the `tst/` folder.)
 
 ## Maintainer
 
