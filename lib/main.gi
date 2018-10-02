@@ -34,13 +34,6 @@ function ( relativeFilename )
 end );
 
 
-##  The following new types and operations are for internal use only, and
-##  are thus undocumented externally.  They are a workaround for the fact
-##  that ViewString (used internally by the JupyterKernel's default
-##  implementation for JupyterRender) does not properly escape quotes and
-##  other characters, making it a terrible way to transmit the contents of a
-##  text file from the GAP server to the JavaScript notebook client.
-##  We thus create this wrapper for text file contents instead.
 BindGlobal( "JUPVIZFileContentsType",
     NewType( NewFamily( "JUPVIZFileContentsFamily" ),
              JUPVIZIsFileContentsRep ) );

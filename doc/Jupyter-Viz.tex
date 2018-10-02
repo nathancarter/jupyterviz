@@ -129,19 +129,359 @@
 \newpage
 
      
-\chapter{\textcolor{Chapter }{Function reference}}\label{Chapter_Function_reference}
+\chapter{\textcolor{Chapter }{How to use this package}}\label{Chapter_How_to_use_this_package}
 \logpage{[ 1, 0, 0 ]}
+\hyperdef{L}{X805201F27AA23554}{}
+{
+  
+
+ 
+\section{\textcolor{Chapter }{Purpose}}\label{Chapter_How_to_use_this_package_Section_Purpose}
+\logpage{[ 1, 1, 0 ]}
+\hyperdef{L}{X78E0A9867DABCE86}{}
+{
+  
+
+ Since 2017, it has been possible to use \textsf{GAP} in \href{http://jupyter.org/} {Jupyter} through the \textsf{JupyterKernel} package. Output was limited to the ordinary text output \textsf{GAP} produces; charts and graphs were not possible. 
+
+ In 2018, Martins and Pfeiffer released \textsf{francy} (\href{https://github.com/mcmartins/francy} {repository}, \href{https://arxiv.org/abs/1806.08648} {article}), which lets users create graphs of a few types (vertices and edges, line
+chart, bar chart, scatter chart). It also allows the user to attach actions to
+the elements of these charts, which result in callbacks to \textsf{GAP} that can update the visualization. 
+
+ This package aims to make a wider variety of visualizations accessible to \textsf{GAP} users, but does not provide tools for conveniently making such visualizations
+interactive. Where the \textsf{francy} package excels at interactive visualizations, this package instead gives a
+broader scope of visualization tools. 
+
+ This is achieved by importing several existing JavaScript visualization
+toolkits and exposing them to \textsf{GAP} code, as described later in this manual. 
+
+ The toolkits currently exposed by this package are listed here. 
+
+ 
+\begin{itemize}
+\item  \href{https://www.anychart.com/} {AnyChart} 
+\item  \href{https://canvasjs.com/} {CanvasJS} 
+\item  \href{https://www.chartjs.org/} {ChartJS} 
+\item  \href{http://www.cytoscape.org/} {Cytoscape} 
+\item  \href{https://d3js.org/} {D3} 
+\item  \href{https://plot.ly/} {Plotly} 
+\item  Native HTML \texttt{canvas} element 
+\item  Plain HTML 
+\end{itemize}
+ 
+
+ }
+
+ 
+\section{\textcolor{Chapter }{Loading the package into a Jupyter notebook}}\label{Chapter_How_to_use_this_package_Section_Loading_the_package_into_a_Jupyter_notebook}
+\logpage{[ 1, 2, 0 ]}
+\hyperdef{L}{X80DC99A778923B3D}{}
+{
+  
+
+ To import the package into a Jupyter notebook, do so just as with any other \textsf{GAP} package: Ensure that the kernel of the notebook is a \textsf{GAP} kernel, then execute the following code in one of the notebook cells. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@LoadPackage( "jupyter-viz" );|
+\end{Verbatim}
+ 
+
+ }
+
+ 
+\section{\textcolor{Chapter }{Creating a visualization}}\label{Chapter_How_to_use_this_package_Section_Creating_a_visualization}
+\logpage{[ 1, 3, 0 ]}
+\hyperdef{L}{X7878B43B78F7E099}{}
+{
+  
+
+ Visualizations of any kind supported by this package are created through one
+function, \texttt{CreateVisualization} (\ref{CreateVisualization}). You can view its complete documentation in for details, but examples are
+given in this section. 
+
+ Nearly all visualizations in this package are created by passing data to the \texttt{CreateVisualization} (\ref{CreateVisualization}) function as records describing what to draw. These records are converted into \href{http://www.json.org/} {JSON} form by the \textsf{json} package, and handed to whichever JavaScript toolkit you have chosen to use for
+creating the visualization. 
+
+ 
+\subsection{\textcolor{Chapter }{Example: AnyChart}}\label{Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_AnyChart}
+\logpage{[ 1, 3, 1 ]}
+\hyperdef{L}{X7B0290B3876FCDA1}{}
+{
+  
+
+ The AnyChart website contains \href{https://docs.anychart.com/Working_with_Data/Data_From_JSON} {documentation} on how to create visualizations from JSON data. Following those conventions,
+we could give AnyChart the following JSON to produce a pie chart. 
+
+ 
+\begin{verbatim}  
+  {
+    "chart" : {
+      "type" : "pie",
+      "data" : [
+        { "x" : "Subgroups of order 6", "value" : 1 },
+        { "x" : "Subgroups of order 3", "value" : 1 },
+        { "x" : "Subgroups of order 2", "value" : 3 },
+        { "x" : "Subgroups of order 1", "value" : 1 }
+      ]
+    }
+  }
+\end{verbatim}
+ 
+
+ In \textsf{GAP}, the same data would be represented with a record, as follows. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@myChartData := rec(|
+  !gapprompt@>| !gapinput@    chart := rec(|
+  !gapprompt@>| !gapinput@        type := "pie",|
+  !gapprompt@>| !gapinput@        data := [|
+  !gapprompt@>| !gapinput@            rec( x := "Subgroups of order 6", value := 1 ),|
+  !gapprompt@>| !gapinput@            rec( x := "Subgroups of order 3", value := 1 ),|
+  !gapprompt@>| !gapinput@            rec( x := "Subgroups of order 2", value := 3 ),|
+  !gapprompt@>| !gapinput@            rec( x := "Subgroups of order 1", value := 1 )|
+  !gapprompt@>| !gapinput@        ]|
+  !gapprompt@>| !gapinput@    )|
+  !gapprompt@>| !gapinput@);|
+\end{Verbatim}
+ 
+
+ We can ask \textsf{GAP}, running in a Jupyter notebook, to create a visualization from this data by
+passing that data directly to \texttt{CreateVisualization} (\ref{CreateVisualization}). We wrap it in a record that must specify the tool to use (in this case \texttt{"anychart"}) and optionally some other details not relevant here. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@CreateVisualization( rec( tool := "anychart", data := myChartData ) );|
+\end{Verbatim}
+ 
+
+ The results of this command are not shown here, but you can see the results of
+other examples in the file \texttt{in-noteboook-test.ipynb}, in the \texttt{tst} subfolder of this package's installation directory. 
+
+ If you have the data defining a visualization stored in a \texttt{.json} file on disk, you can use the following code rather than rewriting the JSON
+code into \textsf{GAP} code yourself. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@CreateVisualization( rec(|
+  !gapprompt@>| !gapinput@    tool := "anychart",|
+  !gapprompt@>| !gapinput@    data := JsonStringToGap( ReadAll( InputTextFile( "your-file.json" ) ) )|
+  !gapprompt@>| !gapinput@) );|
+\end{Verbatim}
+ 
+
+ AnyChart can make a wide variety of charts (area, bar, box, bubble, bullet,
+column, doughnut, and so on, for over 125 different types and subtypes). Other
+JavaScript libraries available also have similarly broad capabilities, but we
+do not include here examples of CanvasJS, ChartJS, or Plotly, because their
+capabilities and purpose are somewhat similar to that of AnyChart. Though
+their data formats are different, you can find links to those formats'
+documentation in the documentation for the function \texttt{CreateVisualization} (\ref{CreateVisualization}). So instead future sections focus on four other examples that are unlike
+AnyChart. 
+
+ }
+
+ 
+\subsection{\textcolor{Chapter }{Post-processing visualizations}}\label{Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Post-processing_visualizations}
+\logpage{[ 1, 3, 2 ]}
+\hyperdef{L}{X7D65933280120650}{}
+{
+  
+
+ Note that \texttt{CreateVisualization} (\ref{CreateVisualization}) takes an optional second parameter, a string of JavaScript code to be run once
+the visualization is complete. For example, if the visualization library did
+not support a solid black border, but you wanted to add one, you could do so
+in subsequent code. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@CreateVisualization(|
+  !gapprompt@>| !gapinput@    sameDataAsAbove, # plus this new second parameter:|
+  !gapprompt@>| !gapinput@    "visualization.style.border = '5px solid black'"|
+  !gapprompt@>| !gapinput@)|
+\end{Verbatim}
+ 
+
+ This holds for any visualization tool, not just AnyChart. In the code given in
+the second parameter, two variables will be defined for your use: \texttt{element} refers to the output cell element in the notebook and \texttt{visualization} refers to the visualization that the toolkit you chose created within that
+output cell (also an HTML element). 
+
+ }
+
+ 
+\subsection{\textcolor{Chapter }{Example: Cytoscape}}\label{Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_Cytoscape}
+\logpage{[ 1, 3, 3 ]}
+\hyperdef{L}{X7E2737FC7EDB79B1}{}
+{
+  
+
+ Unlike AnyChart, Cytoscape is for the vertices-and-edges type of graph, not
+the x-and-y-axes type. A tiny Cytoscape graph (just $A\to B$) is represented by the following JSON. 
+
+ 
+\begin{verbatim}  
+  {
+    elements : [
+      { data : { id : "A" } },
+      { data : { id : "B" } },
+      { data : { id : "edge", source : "A", target : "B" } }
+    ],
+    layout : { name : "grid", rows : 1 }
+  }
+\end{verbatim}
+ 
+
+ Cytoscape graphs can also have style attributes not shown here. 
+
+ Rather than copy this data directly into \textsf{GAP}, let's generate graph data in the same format using \textsf{GAP} code. Here we make a graph of the first 50 positive integers, with $n\to m$ iff $n\mid m$ (ordinary integer divisibility). 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@N := 50;|
+  !gapprompt@gap>| !gapinput@elements := [ ];|
+  !gapprompt@gap>| !gapinput@for i in [2..N] do|
+  !gapprompt@>| !gapinput@    Add( elements, rec( data := rec( id := String( i ) ) ) );|
+  !gapprompt@gap>| !gapinput@    if IsPrime( i ) then|
+  !gapprompt@>| !gapinput@        Add( roots, i );|
+  !gapprompt@gap>| !gapinput@    fi;|
+  !gapprompt@gap>| !gapinput@    for j in [2..i-1] do|
+  !gapprompt@>| !gapinput@        if i mod j = 0 then|
+  !gapprompt@>| !gapinput@            Add( elements, rec( data := rec(|
+  !gapprompt@>| !gapinput@                source := String( j ),|
+  !gapprompt@>| !gapinput@                target := String( i ) ) ) );|
+  !gapprompt@gap>| !gapinput@        fi;|
+  !gapprompt@gap>| !gapinput@    od;|
+  !gapprompt@gap>| !gapinput@od;|
+\end{Verbatim}
+ 
+
+ We then need to choose a layout algorithm. The Cytoscape documentation
+suggests that the "cose" layout works well. Here, we do choose a height (in
+pixels) for the result, because Cytoscape does not automaticlly resize
+visualizations to fit their contents. We also set the style for each node to
+display its ID (which is the integer associated with it). 
+
+ All the code below comes directly from translating the Cytoscape documentation
+from JSON form to \textsf{GAP} record form. See that documentation for more details; it is cited in the
+documentation for the \texttt{CreateVisualization} (\ref{CreateVisualization}) function. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@CreateVisualization( rec(|
+  !gapprompt@>| !gapinput@    tool := "cytoscape",|
+  !gapprompt@>| !gapinput@    height := 600,|
+  !gapprompt@>| !gapinput@    data := rec(|
+  !gapprompt@>| !gapinput@        elements := elements, # computed in the code above|
+  !gapprompt@>| !gapinput@        layout := rec( name := "cose" ),|
+  !gapprompt@>| !gapinput@        style := [|
+  !gapprompt@>| !gapinput@            rec( selector := "node", style := rec( content := "data(id)" ) )|
+  !gapprompt@>| !gapinput@        ]|
+  !gapprompt@>| !gapinput@    )|
+  !gapprompt@>| !gapinput@) );|
+\end{Verbatim}
+ 
+
+ }
+
+ 
+\subsection{\textcolor{Chapter }{Example: D3}}\label{Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_D3}
+\logpage{[ 1, 3, 4 ]}
+\hyperdef{L}{X7A2554B0847DD027}{}
+{
+  
+
+ While D3 is one of the most famous and powerful JavaScript visualization
+libraries, it does not have a JSON interface. Consequently, we can interact
+with D3 only through the JavaScript code passed in the second parameter to \texttt{CreateVisualization} (\ref{CreateVisualization}). This makes it much less convenient, but we include it in this package for
+those who need it. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@CreateVisualization(|
+  !gapprompt@>| !gapinput@    rec( tool := "d3" ),|
+  !gapprompt@>| !gapinput@    """|
+  !gapprompt@>| !gapinput@    // arbitrary JavaScript code can go here to interact with D3, like so:|
+  !gapprompt@>| !gapinput@    d3.select( visualization ).append( "circle" )|
+  !gapprompt@>| !gapinput@        .attr( "r", 50 ).attr( "cx", 55 ).attr( "cy", 55 )|
+  !gapprompt@>| !gapinput@        .style( "stroke", "red" ).style( "fill", "pink" );|
+  !gapprompt@gap>| !gapinput@    """|
+  !gapprompt@>| !gapinput@);|
+\end{Verbatim}
+ 
+
+ }
+
+ 
+\subsection{\textcolor{Chapter }{Example: Native HTML Canvas}}\label{Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_Native_HTML_Canvas}
+\logpage{[ 1, 3, 5 ]}
+\hyperdef{L}{X7836DDAA82B6A536}{}
+{
+  
+
+ You can create a blank canvas, then use the existing JavaScript canvas API to
+draw on it. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@CreateVisualization(|
+  !gapprompt@>| !gapinput@    rec( tool := "canvas", height := 300 ),|
+  !gapprompt@>| !gapinput@    """|
+  !gapprompt@>| !gapinput@    // visualization is the canvas element|
+  !gapprompt@>| !gapinput@    var context = visualization.getContext( '2d' );|
+  !gapprompt@gap>| !gapinput@    // draw an X|
+  !gapprompt@>| !gapinput@    context.moveTo( 0, 0 );|
+  !gapprompt@gap>| !gapinput@    context.lineTo( 100, 100 );|
+  !gapprompt@gap>| !gapinput@    context.moveTo( 100, 0 );|
+  !gapprompt@gap>| !gapinput@    context.lineTo( 0, 100 );|
+  !gapprompt@gap>| !gapinput@    context.stroke();|
+  !gapprompt@gap>| !gapinput@    """|
+  !gapprompt@>| !gapinput@);|
+\end{Verbatim}
+ 
+
+ }
+
+ 
+\subsection{\textcolor{Chapter }{Example: Plain HTML}}\label{Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_Plain_HTML}
+\logpage{[ 1, 3, 6 ]}
+\hyperdef{L}{X7C06E0117C8EF31B}{}
+{
+  
+
+ This is the degenerate example of a visualization. It does not create any
+visualization, but lets you specify arbitrary HTML content instead. It is
+provided here merely as a convenient way to insert HTML into the notebook. 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  !gapprompt@gap>| !gapinput@CreateVisualiation( rec(|
+  !gapprompt@>| !gapinput@    tool := "html",|
+  !gapprompt@>| !gapinput@    data := rec(|
+  !gapprompt@>| !gapinput@        html := "<i>Any</i> HTML can go here.  Tables, buttons, whatever."|
+  !gapprompt@>| !gapinput@    )|
+  !gapprompt@>| !gapinput@) );|
+\end{Verbatim}
+ }
+
+ }
+
+ }
+
+   
+\chapter{\textcolor{Chapter }{Function reference}}\label{Chapter_Function_reference}
+\logpage{[ 2, 0, 0 ]}
 \hyperdef{L}{X7ECCCA82839EA283}{}
 {
   
 \section{\textcolor{Chapter }{Public API}}\label{Chapter_Function_reference_Section_Public_API}
-\logpage{[ 1, 1, 0 ]}
+\logpage{[ 2, 1, 0 ]}
 \hyperdef{L}{X784AA528839119B9}{}
 {
   
 
 \subsection{\textcolor{Chapter }{RunJavaScript}}
-\logpage{[ 1, 1, 1 ]}\nobreak
+\logpage{[ 2, 1, 1 ]}\nobreak
 \hyperdef{L}{X78BDA43D7E633E33}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{RunJavaScript({\mdseries\slshape script})\index{RunJavaScript@\texttt{RunJavaScript}}
 \label{RunJavaScript}
@@ -158,12 +498,12 @@ notebook, will run the JavaScript code in \mbox{\texttt{\mdseries\slshape script
 Jupyter notebook corresponding to the code that was just evaluated. The script
 is free to write to that output element. 
 
- This function is not intended for use in the GAP REPL. }
+ This function is not intended for use in the \textsf{GAP} REPL. }
 
  
 
 \subsection{\textcolor{Chapter }{LoadJavaScriptFile}}
-\logpage{[ 1, 1, 2 ]}\nobreak
+\logpage{[ 2, 1, 2 ]}\nobreak
 \hyperdef{L}{X81E2B3A07EA7A02B}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{LoadJavaScriptFile({\mdseries\slshape filename})\index{LoadJavaScriptFile@\texttt{LoadJavaScriptFile}}
 \label{LoadJavaScriptFile}
@@ -177,15 +517,15 @@ the string contents of the file whose name is given
 this package stores its JavaScript libraries. A \texttt{.js} extension will be added to \mbox{\texttt{\mdseries\slshape filename}} iff needed. A \texttt{.min.js} extension will be added iff such a file exists, to prioritize minified
 versions of files. 
 
- If the file has been loaded before in this GAP session, it will not be
-reloaded, but will be returned from a cache in memory, for efficiency. 
+ If the file has been loaded before in this \textsf{GAP} session, it will not be reloaded, but will be returned from a cache in memory,
+for efficiency. 
 
  If no such file exists, returns \texttt{fail} and caches nothing. }
 
  
 
 \subsection{\textcolor{Chapter }{CreateVisualization}}
-\logpage{[ 1, 1, 3 ]}\nobreak
+\logpage{[ 2, 1, 3 ]}\nobreak
 \hyperdef{L}{X7BFFD8B7808F5BDA}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{CreateVisualization({\mdseries\slshape data[, code]})\index{CreateVisualization@\texttt{CreateVisualization}}
 \label{CreateVisualization}
@@ -196,7 +536,7 @@ the desired visualization
 
 
 
- The \mbox{\texttt{\mdseries\slshape data}} must be a record that will be converted to JSON using GAP's \textsf{json} package. 
+ The \mbox{\texttt{\mdseries\slshape data}} must be a record that will be converted to JSON using \textsf{GAP}'s \textsf{json} package. 
 
  The second argument is optional, a string containing JavaScript \mbox{\texttt{\mdseries\slshape code}} to run once the visualization has been created. When that code is run, the
 variables \texttt{element} and \texttt{visualization} will be in its environment, the former holding the output element in the
@@ -252,18 +592,17 @@ specified in the \texttt{tool} field, following the documentation for that libra
 
  
 \section{\textcolor{Chapter }{Internal methods}}\label{Chapter_Function_reference_Section_Internal_methods}
-\logpage{[ 1, 2, 0 ]}
+\logpage{[ 2, 2, 0 ]}
 \hyperdef{L}{X7B106BA97FD3C2BF}{}
 {
-  Using the convention common to GAP packages, we prefix all methods not
-intended for public use with a sequence of characters that indicate our
-particular package. In this case, we use the \texttt{JUPVIZ} prefix. This is a sort of "poor man's namespacing." 
+  Using the convention common to \textsf{GAP} packages, we prefix all methods not intended for public use with a sequence of
+characters that indicate our particular package. In this case, we use the \texttt{JUPVIZ} prefix. This is a sort of "poor man's namespacing." 
 
  \emph{None of these methods should need to be called by a client of this package. We
 provide this documentation here for completeness, not out of necessity.} 
 
 \subsection{\textcolor{Chapter }{JUPVIZAbsoluteJavaScriptFilename}}
-\logpage{[ 1, 2, 1 ]}\nobreak
+\logpage{[ 2, 2, 1 ]}\nobreak
 \hyperdef{L}{X7FA27984822A0E5E}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZAbsoluteJavaScriptFilename({\mdseries\slshape filename})\index{JUPVIZAbsoluteJavaScriptFilename@\texttt{JUPVIZAbsoluteJavaScriptFilename}}
 \label{JUPVIZAbsoluteJavaScriptFilename}
@@ -281,7 +620,7 @@ functions that need to find JavaScript files stored there.
  
 
 \subsection{\textcolor{Chapter }{JUPVIZLoadedJavaScriptCache}}
-\logpage{[ 1, 2, 2 ]}\nobreak
+\logpage{[ 2, 2, 2 ]}\nobreak
 \hyperdef{L}{X7F877B4279081217}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZLoadedJavaScriptCache\index{JUPVIZLoadedJavaScriptCache@\texttt{JUPVIZLoadedJavaScriptCache}}
 \label{JUPVIZLoadedJavaScriptCache}
@@ -290,12 +629,12 @@ functions that need to find JavaScript files stored there.
 
  A cache of the contents of any JavaScript files that have been loaded from
 this package's folder. The existence of this cache means needing to go to the
-filesystem for these files only once per GAP session. This cache is used by \texttt{LoadJavaScriptFile} (\ref{LoadJavaScriptFile}). }
+filesystem for these files only once per \textsf{GAP} session. This cache is used by \texttt{LoadJavaScriptFile} (\ref{LoadJavaScriptFile}). }
 
  
 
 \subsection{\textcolor{Chapter }{JUPVIZFillInJavaScriptTemplate}}
-\logpage{[ 1, 2, 3 ]}\nobreak
+\logpage{[ 2, 2, 3 ]}\nobreak
 \hyperdef{L}{X84F0A3C97FBC57EE}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZFillInJavaScriptTemplate({\mdseries\slshape filename, dictionary})\index{JUPVIZFillInJavaScriptTemplate@\texttt{JUPVIZFillInJavaScriptTemplate}}
 \label{JUPVIZFillInJavaScriptTemplate}
@@ -320,7 +659,7 @@ result.
  
 
 \subsection{\textcolor{Chapter }{JUPVIZRunJavaScriptFromTemplate}}
-\logpage{[ 1, 2, 4 ]}\nobreak
+\logpage{[ 2, 2, 4 ]}\nobreak
 \hyperdef{L}{X8603271979CCFA2A}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZRunJavaScriptFromTemplate({\mdseries\slshape filename, dictionary})\index{JUPVIZRunJavaScriptFromTemplate@\texttt{JUPVIZRunJavaScriptFromTemplate}}
 \label{JUPVIZRunJavaScriptFromTemplate}
@@ -335,19 +674,18 @@ the composition of \texttt{RunJavaScript} (\ref{RunJavaScript}) with \texttt{JUP
  
 
 \subsection{\textcolor{Chapter }{JUPVIZRunJavaScriptUsingRunGAP}}
-\logpage{[ 1, 2, 5 ]}\nobreak
+\logpage{[ 2, 2, 5 ]}\nobreak
 \hyperdef{L}{X804379D07F29E905}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZRunJavaScriptUsingRunGAP({\mdseries\slshape jsCode})\index{JUPVIZRunJavaScriptUsingRunGAP@\texttt{JUPVIZRunJavaScriptUsingRunGAP}}
 \label{JUPVIZRunJavaScriptUsingRunGAP}
 }\hfill{\scriptsize (function)}}\\
 \textbf{\indent Returns:\ }
-an object that, if rendered in a Jupyter notebook, will run \mbox{\texttt{\mdseries\slshape jsCode}} as JavaScript after \texttt{runGap} has been defined 
+an object that, if rendered in a Jupyter notebook, will run \mbox{\texttt{\mdseries\slshape jsCode}} as JavaScript after \texttt{runGAP} has been defined 
 
 
 
  There is a JavaScript function called \texttt{runGAP}, defined in the \texttt{using-runGAP.js} file distributed with this package. That function makes it easy to make
-callbacks from JavaScript in a Jupyter notebook to the GAP kernel underneath
-that notebook. This GAP function runs the given \mbox{\texttt{\mdseries\slshape jsCode}} in the notebook, but only after ensuring that \texttt{runGAP} is defined globally in that notebook, so that \mbox{\texttt{\mdseries\slshape jsCode}} can call \texttt{runGAP} as needed. 
+callbacks from JavaScript in a Jupyter notebook to the \textsf{GAP} kernel underneath that notebook. This \textsf{GAP} function runs the given \mbox{\texttt{\mdseries\slshape jsCode}} in the notebook, but only after ensuring that \texttt{runGAP} is defined globally in that notebook, so that \mbox{\texttt{\mdseries\slshape jsCode}} can call \texttt{runGAP} as needed. 
 
  Here is an example use, from JavaScript, of the \texttt{runGAP} function. 
 \begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
@@ -364,7 +702,7 @@ that notebook. This GAP function runs the given \mbox{\texttt{\mdseries\slshape 
  
 
 \subsection{\textcolor{Chapter }{JUPVIZRunJavaScriptUsingLibraries}}
-\logpage{[ 1, 2, 6 ]}\nobreak
+\logpage{[ 2, 2, 6 ]}\nobreak
 \hyperdef{L}{X79B7692C7F543161}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZRunJavaScriptUsingLibraries({\mdseries\slshape libraries, jsCode})\index{JUPVIZRunJavaScriptUsingLibraries@\texttt{JUPVIZRunJavaScriptUsingLibraries}}
 \label{JUPVIZRunJavaScriptUsingLibraries}
@@ -375,8 +713,7 @@ an object that, if rendered in a Jupyter notebook, will run \mbox{\texttt{\mdser
 
 
  There are a set of JavaScript libraries stored in the \texttt{lib/js/} subfolder of this package's installation folder. The Jupyter notebook does
-not, by default, know about any of those libraries. This GAP function runs the
-given \mbox{\texttt{\mdseries\slshape jsCode}} in the notebook, but only after ensuring that all JavaScript files on the list \mbox{\texttt{\mdseries\slshape libraries}} have been loaded, so that \mbox{\texttt{\mdseries\slshape jsCode}} can make use of the functions and variables that they define. 
+not, by default, know about any of those libraries. This \textsf{GAP} function runs the given \mbox{\texttt{\mdseries\slshape jsCode}} in the notebook, but only after ensuring that all JavaScript files on the list \mbox{\texttt{\mdseries\slshape libraries}} have been loaded, so that \mbox{\texttt{\mdseries\slshape jsCode}} can make use of the functions and variables that they define. 
 
  If the first parameter is given as a string instead of a list of strings, it
 is treated as a list of just one string. 
@@ -393,26 +730,26 @@ is treated as a list of just one string.
 
  
 \section{\textcolor{Chapter }{Representation wrapper}}\label{Chapter_Function_reference_Section_Representation_wrapper}
-\logpage{[ 1, 3, 0 ]}
+\logpage{[ 2, 3, 0 ]}
 \hyperdef{L}{X7CB82ABE7B3255EB}{}
 {
   This code is documented for completeness's sake only. It is not needed for
 clients of this package. Package maintainers may be interested in it in the
 future. 
 
- The \textsf{JupyterKernel} package defines a method \texttt{JupyterRender} that determines how GAP data will be shown to the user in the Jupyter notebook
-interface. When there is no method implemented for a specific data type, the
-fallback method uses the built-in GAP method \texttt{ViewString}. 
+ The \textsf{JupyterKernel} package defines a method \texttt{JupyterRender} that determines how \textsf{GAP} data will be shown to the user in the Jupyter notebook interface. When there
+is no method implemented for a specific data type, the fallback method uses
+the built-in \textsf{GAP} method \texttt{ViewString}. 
 
  This presents a problem, because we are often transmitting string data (the
-contents of JavaScript files) from the GAP kernel to the notebook, and \texttt{ViewString} is not careful about how it escapes characters such as quotation marks, which
+contents of JavaScript files) from the \textsf{GAP} kernel to the notebook, and \texttt{ViewString} is not careful about how it escapes characters such as quotation marks, which
 can seriously mangle code. Thus we must define our own type and \texttt{JupyterRender} method for that type, to prevent the use of \texttt{ViewString}. 
 
  The declarations documented below do just that. In the event that \texttt{ViewString} were upgraded to more useful behavior, this workaround could probably be
 removed. Note that it is used explicitly in the \texttt{using-library.js} file in this package. 
 
 \subsection{\textcolor{Chapter }{JUPVIZIsFileContents (for IsObject)}}
-\logpage{[ 1, 3, 1 ]}\nobreak
+\logpage{[ 2, 3, 1 ]}\nobreak
 \hyperdef{L}{X82269732822D224D}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZIsFileContents({\mdseries\slshape arg})\index{JUPVIZIsFileContents@\texttt{JUPVIZIsFileContents}!for IsObject}
 \label{JUPVIZIsFileContents:for IsObject}
@@ -428,7 +765,7 @@ a text file). }
  
 
 \subsection{\textcolor{Chapter }{JUPVIZIsFileContentsRep (for IsComponentObjectRep and JUPVIZIsFileContents)}}
-\logpage{[ 1, 3, 2 ]}\nobreak
+\logpage{[ 2, 3, 2 ]}\nobreak
 \hyperdef{L}{X84D70ACD7A72AA84}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZIsFileContentsRep({\mdseries\slshape arg})\index{JUPVIZIsFileContentsRep@\texttt{JUPVIZIsFileContentsRep}!for IsComponentObjectRep and JUPVIZIsFileContents}
 \label{JUPVIZIsFileContentsRep:for IsComponentObjectRep and JUPVIZIsFileContents}
@@ -443,7 +780,7 @@ a text file). }
  
 
 \subsection{\textcolor{Chapter }{JUPVIZFileContents (for IsString)}}
-\logpage{[ 1, 3, 3 ]}\nobreak
+\logpage{[ 2, 3, 3 ]}\nobreak
 \hyperdef{L}{X7D401DB582A5EBA2}{}
 {\noindent\textcolor{FuncColor}{$\triangleright$\enspace\texttt{JUPVIZFileContents({\mdseries\slshape arg})\index{JUPVIZFileContents@\texttt{JUPVIZFileContents}!for IsString}
 \label{JUPVIZFileContents:for IsString}

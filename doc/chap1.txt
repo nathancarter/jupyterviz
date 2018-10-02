@@ -1,266 +1,283 @@
   
-  [1X1 [33X[0;0YFunction reference[133X[101X
+  [1X1 [33X[0;0YHow to use this package[133X[101X
   
   
-  [1X1.1 [33X[0;0YPublic API[133X[101X
+  [1X1.1 [33X[0;0YPurpose[133X[101X
   
-  [1X1.1-1 RunJavaScript[101X
+  [33X[0;0YSince 2017, it has been possible to use [5XGAP[105X in Jupyter ([7Xhttp://jupyter.org/[107X)
+  through  the  [5XJupyterKernel[105X package. Output was limited to the ordinary text
+  output [5XGAP[105X produces; charts and graphs were not possible.[133X
   
-  [33X[1;0Y[29X[2XRunJavaScript[102X( [3Xscript[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3Xscript[103X
-            as JavaScript[133X
+  [33X[0;0YIn    2018,    Martins    and    Pfeiffer    released   [5Xfrancy[105X   (repository
+  ([7Xhttps://github.com/mcmartins/francy[107X),                               article
+  ([7Xhttps://arxiv.org/abs/1806.08648[107X)), which lets users create graphs of a few
+  types  (vertices  and  edges, line chart, bar chart, scatter chart). It also
+  allows  the  user  to  attach actions to the elements of these charts, which
+  result in callbacks to [5XGAP[105X that can update the visualization.[133X
   
-  [33X[0;0YIf  evaluated  in  a  Jupyter  notebook,  its  result, when rendered by that
-  notebook, will run the JavaScript code in [3Xscript[103X.[133X
+  [33X[0;0YThis  package  aims  to make a wider variety of visualizations accessible to
+  [5XGAP[105X  users,  but  does  not  provide  tools  for  conveniently  making  such
+  visualizations  interactive.  Where the [5Xfrancy[105X package excels at interactive
+  visualizations,  this package instead gives a broader scope of visualization
+  tools.[133X
   
-  [33X[0;0YWhen  the  given  code  is  run,  the varible [10Xelement[110X will be defined in its
-  environment,  and  will  contain  the output element in the Jupyter notebook
-  corresponding  to  the  code  that was just evaluated. The script is free to
-  write to that output element.[133X
+  [33X[0;0YThis  is  achieved  by  importing  several existing JavaScript visualization
+  toolkits and exposing them to [5XGAP[105X code, as described later in this manual.[133X
   
-  [33X[0;0YThis function is not intended for use in the GAP REPL.[133X
+  [33X[0;0YThe toolkits currently exposed by this package are listed here.[133X
   
-  [1X1.1-2 LoadJavaScriptFile[101X
+  [30X    [33X[0;6YAnyChart ([7Xhttps://www.anychart.com/[107X)[133X
   
-  [33X[1;0Y[29X[2XLoadJavaScriptFile[102X( [3Xfilename[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ythe string contents of the file whose name is given[133X
+  [30X    [33X[0;6YCanvasJS ([7Xhttps://canvasjs.com/[107X)[133X
   
-  [33X[0;0YInterprets   the  given  [3Xfilename[103X  relative  to  the  [11Xlib/js/[111X  path  in  the
-  Jupyter-Viz  package's  installation  folder,  because  that  is  where this
-  package  stores  its  JavaScript libraries. A [11X.js[111X extension will be added to
-  [3Xfilename[103X  iff  needed.  A  [11X.min.js[111X  extension  will be added iff such a file
-  exists, to prioritize minified versions of files.[133X
+  [30X    [33X[0;6YChartJS ([7Xhttps://www.chartjs.org/[107X)[133X
   
-  [33X[0;0YIf  the  file  has  been  loaded  before in this GAP session, it will not be
-  reloaded, but will be returned from a cache in memory, for efficiency.[133X
+  [30X    [33X[0;6YCytoscape ([7Xhttp://www.cytoscape.org/[107X)[133X
   
-  [33X[0;0YIf no such file exists, returns [9Xfail[109X and caches nothing.[133X
+  [30X    [33X[0;6YD3 ([7Xhttps://d3js.org/[107X)[133X
   
-  [1X1.1-3 CreateVisualization[101X
+  [30X    [33X[0;6YPlotly ([7Xhttps://plot.ly/[107X)[133X
   
-  [33X[1;0Y[29X[2XCreateVisualization[102X( [3Xdata[103X[, [3Xcode[103X] ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan  object  that,  if  rendered  in a Jupyter notebook, will run a
-            script to create the desired visualization[133X
+  [30X    [33X[0;6YNative HTML [10Xcanvas[110X element[133X
   
-  [33X[0;0YThe  [3Xdata[103X  must  be a record that will be converted to JSON using GAP's [5Xjson[105X
-  package.[133X
+  [30X    [33X[0;6YPlain HTML[133X
   
-  [33X[0;0YThe  second argument is optional, a string containing JavaScript [3Xcode[103X to run
-  once  the  visualization  has  been  created.  When  that  code  is run, the
-  variables  [10Xelement[110X  and [10Xvisualization[110X will be in its environment, the former
-  holding the output element in the notebook containing the visualization, and
-  the latter holding the visualization element itself.[133X
   
-  [33X[0;0YThe [3Xdata[103X should have the following attributes.[133X
+  [1X1.2 [33X[0;0YLoading the package into a Jupyter notebook[133X[101X
   
-  [30X    [33X[0;6Y[10Xtool[110X (required) - the name of the visualization tool to use. Currently
-        supported tools:[133X
-  
-        [30X    [33X[0;12Y[10Xanychart[110X, whose JSON data format is given here:[133X
-  
-              [33X[0;12Y[7Xhttps://docs.anychart.com/Working_with_Data/Data_From_JSON[107X[133X
-  
-        [30X    [33X[0;12Y[10Xcanvas[110X, that is, a regular HTML canvas element, on which you can
-              draw using arbitrary JavaScript included in the [3Xcode[103X parameter[133X
-  
-        [30X    [33X[0;12Y[10Xcanvasjs[110X, whose JSON data format is given here:[133X
-  
-              [33X[0;12Y[7Xhttps://canvasjs.com/docs/charts/chart-types/[107X[133X
-  
-        [30X    [33X[0;12Y[10Xchartjs[110X, whose JSON data format is given here:[133X
-  
-              [33X[0;12Y[7Xhttp://www.chartjs.org/docs/latest/getting-started/usage.html[107X[133X
-  
-        [30X    [33X[0;12Y[10Xcytoscape[110X, whose JSON data format is given here:[133X
-  
-              [33X[0;12Y[7Xhttp://js.cytoscape.org/#notation/elements-json[107X[133X
-  
-        [30X    [33X[0;12Y[10Xd3[110X, which is loaded into an SVG element in the notebook's output
-              cell,  and  the  caller  can call any D3 methods on that element
-              thereafter,  using  arbitrary  JavaScript  included  in the [3Xcode[103X
-              parameter[133X
-  
-        [30X    [33X[0;12Y[10Xhtml[110X,  which fills the output element with arbitrary HTML, which
-              the caller should provide as a string in the [10Xhtml[110X field of [3Xdata[103X,
-              as documented below[133X
-  
-        [30X    [33X[0;12Y[10Xplotly[110X, whose JSON data format is given here:[133X
-  
-              [33X[0;12Y[7Xhttps://plot.ly/javascript/plotlyjs-function-reference/#plotlynewplot[107X[133X
-  
-  [30X    [33X[0;6Y[10Xdata[110X  (required)  -  subobject  containing all options specific to the
-        content  of  the  visualization,  often  passed intact to the external
-        JavaScript  visualization library. You should prepare this data in the
-        format  required by the library specified in the [10Xtool[110X field, following
-        the documentation for that library cited above.[133X
-  
-  [30X    [33X[0;6Y[10Xwidth[110X (optional) - width to set on the output element being created[133X
-  
-  [30X    [33X[0;6Y[10Xheight[110X (optional) - similar, but height[133X
+  [33X[0;0YTo  import the package into a Jupyter notebook, do so just as with any other
+  [5XGAP[105X  package:  Ensure  that the kernel of the notebook is a [5XGAP[105X kernel, then
+  execute the following code in one of the notebook cells.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28XCreateVisualization( rec([128X[104X
-    [4X[28X  tool := "html",[128X[104X
-    [4X[28X  data := rec( html := "I am <i>SO</i> excited about this." )[128X[104X
-    [4X[28X), "console.log( 'Visualization created.' );" );[128X[104X
+    [4X[25Xgap>[125X [27XLoadPackage( "jupyter-viz" );[127X[104X
   [4X[32X[104X
   
   
-  [1X1.2 [33X[0;0YInternal methods[133X[101X
+  [1X1.3 [33X[0;0YCreating a visualization[133X[101X
   
-  [33X[0;0YUsing  the  convention  common  to  GAP  packages, we prefix all methods not
-  intended  for  public  use  with  a sequence of characters that indicate our
-  particular  package.  In this case, we use the [10XJUPVIZ[110X prefix. This is a sort
-  of "poor man's namespacing."[133X
+  [33X[0;0YVisualizations of any kind supported by this package are created through one
+  function,   [2XCreateVisualization[102X   ([14X2.1-3[114X).   You   can   view  its  complete
+  documentation in for details, but examples are given in this section.[133X
   
-  [33X[0;0Y[13XNone  of these methods should need to be called by a client of this package.
-  We provide this documentation here for completeness, not out of necessity.[113X[133X
+  [33X[0;0YNearly all visualizations in this package are created by passing data to the
+  [2XCreateVisualization[102X  ([14X2.1-3[114X)  function  as  records describing what to draw.
+  These  records  are  converted  into JSON ([7Xhttp://www.json.org/[107X) form by the
+  [5Xjson[105X  package, and handed to whichever JavaScript toolkit you have chosen to
+  use for creating the visualization.[133X
   
-  [1X1.2-1 JUPVIZAbsoluteJavaScriptFilename[101X
   
-  [33X[1;0Y[29X[2XJUPVIZAbsoluteJavaScriptFilename[102X( [3Xfilename[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ya JavaScript filename to an absolute path in the package dir[133X
+  [1X1.3-1 [33X[0;0YExample: AnyChart[133X[101X
   
-  [33X[0;0YGiven  a  relative  [3Xfilename[103X,  convert  it  into  an  absolute  filename  by
-  prepending  the  path to the [11Xlib/js/[111X folder within the Jupyter-Viz package's
-  installation  folder. This is used by functions that need to find JavaScript
-  files stored there.[133X
+  [33X[0;0YThe          AnyChart         website         contains         documentation
+  ([7Xhttps://docs.anychart.com/Working_with_Data/Data_From_JSON[107X)   on   how   to
+  create  visualizations from JSON data. Following those conventions, we could
+  give AnyChart the following JSON to produce a pie chart.[133X
   
-  [33X[0;0YA [11X.js[111X extension is appended if none is included in the given [3Xfilename[103X.[133X
+  {
+    "chart" : {
+      "type" : "pie",
+      "data" : [
+        { "x" : "Subgroups of order 6", "value" : 1 },
+        { "x" : "Subgroups of order 3", "value" : 1 },
+        { "x" : "Subgroups of order 2", "value" : 3 },
+        { "x" : "Subgroups of order 1", "value" : 1 }
+      ]
+    }
+  }
   
-  [1X1.2-2 JUPVIZLoadedJavaScriptCache[101X
-  
-  [33X[1;0Y[29X[2XJUPVIZLoadedJavaScriptCache[102X[32X global variable[133X
-  
-  [33X[0;0YA  cache  of the contents of any JavaScript files that have been loaded from
-  this  package's  folder.  The existence of this cache means needing to go to
-  the filesystem for these files only once per GAP session. This cache is used
-  by [2XLoadJavaScriptFile[102X ([14X1.1-2[114X).[133X
-  
-  [1X1.2-3 JUPVIZFillInJavaScriptTemplate[101X
-  
-  [33X[1;0Y[29X[2XJUPVIZFillInJavaScriptTemplate[102X( [3Xfilename[103X, [3Xdictionary[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ya  string  containing  the  contents  of  the given template file,
-            filled in using the given dictionary[133X
-  
-  [33X[0;0YA  template file is one containing identifiers that begin with a dollar sign
-  ([10X$[110X).  For  example,  [10X$one[110X  and [10X$two[110X are both identifiers. One "fills in" the
-  template  by  replacing  such  identifiers  with  whatever  text  the caller
-  associates with them.[133X
-  
-  [33X[0;0YThis  function loads the file specified by [3Xfilename[103X by passing that argument
-  directly  to  [2XLoadJavaScriptFile[102X  ([14X1.1-2[114X).  If  no such file exists, returns
-  [9Xfail[109X. Otherwise, it proceed as follows.[133X
-  
-  [33X[0;0YFor  each  key-value  pair in the given [3Xdictionary[103X, prefix a [10X$[110X onto the key,
-  suffix  a newline character onto the value, and then replace all occurrences
-  of the new key with the new value. The resulting string is the result.[133X
-  
-  [33X[0;0YThe  newline  character  is  included  so  that  if any of the values in the
-  [3Xdictionary[103X contains single-line JavaScript comment characters ([10X//[110X) then they
-  will not inadvertently affect later code in the template.[133X
-  
-  [1X1.2-4 JUPVIZRunJavaScriptFromTemplate[101X
-  
-  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptFromTemplate[102X( [3Xfilename[103X, [3Xdictionary[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Ythe      composition     of     [2XRunJavaScript[102X     ([14X1.1-1[114X)     with
-            [2XJUPVIZFillInJavaScriptTemplate[102X ([14X1.2-3[114X)[133X
-  
-  [33X[0;0YThis function is quite simple, and is just a convenience function[133X
-  
-  [1X1.2-5 JUPVIZRunJavaScriptUsingRunGAP[101X
-  
-  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptUsingRunGAP[102X( [3XjsCode[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3XjsCode[103X
-            as JavaScript after [10XrunGap[110X has been defined[133X
-  
-  [33X[0;0YThere is a JavaScript function called [10XrunGAP[110X, defined in the [11Xusing-runGAP.js[111X
-  file  distributed  with  this  package.  That function makes it easy to make
-  callbacks from JavaScript in a Jupyter notebook to the GAP kernel underneath
-  that  notebook. This GAP function runs the given [3XjsCode[103X in the notebook, but
-  only  after  ensuring  that  [10XrunGAP[110X is defined globally in that notebook, so
-  that [3XjsCode[103X can call [10XrunGAP[110X as needed.[133X
-  
-  [33X[0;0YHere is an example use, from JavaScript, of the [10XrunGAP[110X function.[133X
+  [33X[0;0YIn [5XGAP[105X, the same data would be represented with a record, as follows.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28Xvar calculation = "2^50";[128X[104X
-    [4X[28XrunGAP( calculation + ";", function ( result, error ) {[128X[104X
-    [4X[28X  if ( result )[128X[104X
-    [4X[28X    alert( calculation + "=" + result );[128X[104X
-    [4X[28X  else[128X[104X
-    [4X[28X    alert( "There was an error: " + error );[128X[104X
-    [4X[28X} );[128X[104X
+    [4X[25Xgap>[125X [27XmyChartData := rec([127X[104X
+    [4X[25X>[125X [27X    chart := rec([127X[104X
+    [4X[25X>[125X [27X        type := "pie",[127X[104X
+    [4X[25X>[125X [27X        data := [[127X[104X
+    [4X[25X>[125X [27X            rec( x := "Subgroups of order 6", value := 1 ),[127X[104X
+    [4X[25X>[125X [27X            rec( x := "Subgroups of order 3", value := 1 ),[127X[104X
+    [4X[25X>[125X [27X            rec( x := "Subgroups of order 2", value := 3 ),[127X[104X
+    [4X[25X>[125X [27X            rec( x := "Subgroups of order 1", value := 1 )[127X[104X
+    [4X[25X>[125X [27X        ][127X[104X
+    [4X[25X>[125X [27X    )[127X[104X
+    [4X[25X>[125X [27X);[127X[104X
   [4X[32X[104X
   
-  [1X1.2-6 JUPVIZRunJavaScriptUsingLibraries[101X
-  
-  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptUsingLibraries[102X( [3Xlibraries[103X, [3XjsCode[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3XjsCode[103X
-            as JavaScript after all [3Xlibraries[103X have been loaded[133X
-  
-  [33X[0;0YThere  are  a set of JavaScript libraries stored in the [11Xlib/js/[111X subfolder of
-  this  package's  installation  folder.  The  Jupyter  notebook  does not, by
-  default, know about any of those libraries. This GAP function runs the given
-  [3XjsCode[103X in the notebook, but only after ensuring that all JavaScript files on
-  the  list  [3Xlibraries[103X  have  been  loaded, so that [3XjsCode[103X can make use of the
-  functions and variables that they define.[133X
-  
-  [33X[0;0YIf the first parameter is given as a string instead of a list of strings, it
-  is treated as a list of just one string.[133X
+  [33X[0;0YWe  can  ask  [5XGAP[105X,  running in a Jupyter notebook, to create a visualization
+  from this data by passing that data directly to [2XCreateVisualization[102X ([14X2.1-3[114X).
+  We  wrap  it  in  a  record  that must specify the tool to use (in this case
+  [10X"anychart"[110X) and optionally some other details not relevant here.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28XJUPVIZRunJavaScriptUsingLibraries( [ "mylib.js" ],[128X[104X
-    [4X[28X  "alert( 'My Lib defines foo to be: ' + window.foo );" );[128X[104X
-    [4X[28X# Equivalently:[128X[104X
-    [4X[28XJUPVIZRunJavaScriptUsingLibraries( "mylib.js",[128X[104X
-    [4X[28X  "alert( 'My Lib defines foo to be: ' + window.foo );" );[128X[104X
+    [4X[25Xgap>[125X [27XCreateVisualization( rec( tool := "anychart", data := myChartData ) );[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  results of this command are not shown here, but you can see the results
+  of  other examples in the file [11Xin-noteboook-test.ipynb[111X, in the [11Xtst[111X subfolder
+  of this package's installation directory.[133X
+  
+  [33X[0;0YIf  you  have  the  data  defining a visualization stored in a [11X.json[111X file on
+  disk,  you  can  use  the following code rather than rewriting the JSON code
+  into [5XGAP[105X code yourself.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCreateVisualization( rec([127X[104X
+    [4X[25X>[125X [27X    tool := "anychart",[127X[104X
+    [4X[25X>[125X [27X    data := JsonStringToGap( ReadAll( InputTextFile( "your-file.json" ) ) )[127X[104X
+    [4X[25X>[125X [27X) );[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAnyChart  can make a wide variety of charts (area, bar, box, bubble, bullet,
+  column,  doughnut,  and  so  on, for over 125 different types and subtypes).
+  Other JavaScript libraries available also have similarly broad capabilities,
+  but we do not include here examples of CanvasJS, ChartJS, or Plotly, because
+  their  capabilities  and  purpose  are somewhat similar to that of AnyChart.
+  Though  their  data  formats  are  different,  you  can  find links to those
+  formats'    documentation    in   the   documentation   for   the   function
+  [2XCreateVisualization[102X  ([14X2.1-3[114X). So instead future sections focus on four other
+  examples that are unlike AnyChart.[133X
+  
+  
+  [1X1.3-2 [33X[0;0YPost-processing visualizations[133X[101X
+  
+  [33X[0;0YNote  that [2XCreateVisualization[102X ([14X2.1-3[114X) takes an optional second parameter, a
+  string  of JavaScript code to be run once the visualization is complete. For
+  example,  if the visualization library did not support a solid black border,
+  but you wanted to add one, you could do so in subsequent code.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCreateVisualization([127X[104X
+    [4X[25X>[125X [27X    sameDataAsAbove, # plus this new second parameter:[127X[104X
+    [4X[25X>[125X [27X    "visualization.style.border = '5px solid black'"[127X[104X
+    [4X[25X>[125X [27X)[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  holds for any visualization tool, not just AnyChart. In the code given
+  in the second parameter, two variables will be defined for your use: [10Xelement[110X
+  refers  to  the output cell element in the notebook and [10Xvisualization[110X refers
+  to  the  visualization that the toolkit you chose created within that output
+  cell (also an HTML element).[133X
+  
+  
+  [1X1.3-3 [33X[0;0YExample: Cytoscape[133X[101X
+  
+  [33X[0;0YUnlike  AnyChart, Cytoscape is for the vertices-and-edges type of graph, not
+  the  x-and-y-axes  type. A tiny Cytoscape graph (just [23XA\to B[123X) is represented
+  by the following JSON.[133X
+  
+  {
+    elements : [
+      { data : { id : "A" } },
+      { data : { id : "B" } },
+      { data : { id : "edge", source : "A", target : "B" } }
+    ],
+    layout : { name : "grid", rows : 1 }
+  }
+  
+  [33X[0;0YCytoscape graphs can also have style attributes not shown here.[133X
+  
+  [33X[0;0YRather  than  copy this data directly into [5XGAP[105X, let's generate graph data in
+  the  same  format  using  [5XGAP[105X  code.  Here  we  make a graph of the first 50
+  positive integers, with [23Xn\to m[123X iff [23Xn\mid m[123X (ordinary integer divisibility).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XN := 50;[127X[104X
+    [4X[25Xgap>[125X [27Xelements := [ ];[127X[104X
+    [4X[25Xgap>[125X [27Xfor i in [2..N] do[127X[104X
+    [4X[25X>[125X [27X    Add( elements, rec( data := rec( id := String( i ) ) ) );[127X[104X
+    [4X[25Xgap>[125X [27X    if IsPrime( i ) then[127X[104X
+    [4X[25X>[125X [27X        Add( roots, i );[127X[104X
+    [4X[25Xgap>[125X [27X    fi;[127X[104X
+    [4X[25Xgap>[125X [27X    for j in [2..i-1] do[127X[104X
+    [4X[25X>[125X [27X        if i mod j = 0 then[127X[104X
+    [4X[25X>[125X [27X            Add( elements, rec( data := rec([127X[104X
+    [4X[25X>[125X [27X                source := String( j ),[127X[104X
+    [4X[25X>[125X [27X                target := String( i ) ) ) );[127X[104X
+    [4X[25Xgap>[125X [27X        fi;[127X[104X
+    [4X[25Xgap>[125X [27X    od;[127X[104X
+    [4X[25Xgap>[125X [27Xod;[127X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  then  need  to  choose  a  layout algorithm. The Cytoscape documentation
+  suggests  that the "cose" layout works well. Here, we do choose a height (in
+  pixels)  for  the  result,  because  Cytoscape  does not automaticlly resize
+  visualizations to fit their contents. We also set the style for each node to
+  display its ID (which is the integer associated with it).[133X
+  
+  [33X[0;0YAll   the   code   below  comes  directly  from  translating  the  Cytoscape
+  documentation  from JSON form to [5XGAP[105X record form. See that documentation for
+  more  details;  it is cited in the documentation for the [2XCreateVisualization[102X
+  ([14X2.1-3[114X) function.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCreateVisualization( rec([127X[104X
+    [4X[25X>[125X [27X    tool := "cytoscape",[127X[104X
+    [4X[25X>[125X [27X    height := 600,[127X[104X
+    [4X[25X>[125X [27X    data := rec([127X[104X
+    [4X[25X>[125X [27X        elements := elements, # computed in the code above[127X[104X
+    [4X[25X>[125X [27X        layout := rec( name := "cose" ),[127X[104X
+    [4X[25X>[125X [27X        style := [[127X[104X
+    [4X[25X>[125X [27X            rec( selector := "node", style := rec( content := "data(id)" ) )[127X[104X
+    [4X[25X>[125X [27X        ][127X[104X
+    [4X[25X>[125X [27X    )[127X[104X
+    [4X[25X>[125X [27X) );[127X[104X
   [4X[32X[104X
   
   
-  [1X1.3 [33X[0;0YRepresentation wrapper[133X[101X
+  [1X1.3-4 [33X[0;0YExample: D3[133X[101X
   
-  [33X[0;0YThis  code  is documented for completeness's sake only. It is not needed for
-  clients  of this package. Package maintainers may be interested in it in the
-  future.[133X
+  [33X[0;0YWhile  D3  is  one  of the most famous and powerful JavaScript visualization
+  libraries,  it does not have a JSON interface. Consequently, we can interact
+  with  D3  only through the JavaScript code passed in the second parameter to
+  [2XCreateVisualization[102X  ([14X2.1-3[114X).  This  makes  it  much less convenient, but we
+  include it in this package for those who need it.[133X
   
-  [33X[0;0YThe [5XJupyterKernel[105X package defines a method [10XJupyterRender[110X that determines how
-  GAP  data  will be shown to the user in the Jupyter notebook interface. When
-  there is no method implemented for a specific data type, the fallback method
-  uses the built-in GAP method [10XViewString[110X.[133X
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCreateVisualization([127X[104X
+    [4X[25X>[125X [27X    rec( tool := "d3" ),[127X[104X
+    [4X[25X>[125X [27X    """[127X[104X
+    [4X[25X>[125X [27X    // arbitrary JavaScript code can go here to interact with D3, like so:[127X[104X
+    [4X[25X>[125X [27X    d3.select( visualization ).append( "circle" )[127X[104X
+    [4X[25X>[125X [27X        .attr( "r", 50 ).attr( "cx", 55 ).attr( "cy", 55 )[127X[104X
+    [4X[25X>[125X [27X        .style( "stroke", "red" ).style( "fill", "pink" );[127X[104X
+    [4X[25Xgap>[125X [27X    """[127X[104X
+    [4X[25X>[125X [27X);[127X[104X
+  [4X[32X[104X
   
-  [33X[0;0YThis  presents a problem, because we are often transmitting string data (the
-  contents  of  JavaScript  files)  from  the  GAP kernel to the notebook, and
-  [10XViewString[110X  is not careful about how it escapes characters such as quotation
-  marks, which can seriously mangle code. Thus we must define our own type and
-  [10XJupyterRender[110X method for that type, to prevent the use of [10XViewString[110X.[133X
   
-  [33X[0;0YThe declarations documented below do just that. In the event that [10XViewString[110X
-  were  upgraded  to  more  useful behavior, this workaround could probably be
-  removed.  Note  that  it  is used explicitly in the [11Xusing-library.js[111X file in
-  this package.[133X
+  [1X1.3-5 [33X[0;0YExample: Native HTML Canvas[133X[101X
   
-  [1X1.3-1 JUPVIZIsFileContents[101X
+  [33X[0;0YYou  can  create a blank canvas, then use the existing JavaScript canvas API
+  to draw on it.[133X
   
-  [33X[1;0Y[29X[2XJUPVIZIsFileContents[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCreateVisualization([127X[104X
+    [4X[25X>[125X [27X    rec( tool := "canvas", height := 300 ),[127X[104X
+    [4X[25X>[125X [27X    """[127X[104X
+    [4X[25X>[125X [27X    // visualization is the canvas element[127X[104X
+    [4X[25X>[125X [27X    var context = visualization.getContext( '2d' );[127X[104X
+    [4X[25Xgap>[125X [27X    // draw an X[127X[104X
+    [4X[25X>[125X [27X    context.moveTo( 0, 0 );[127X[104X
+    [4X[25Xgap>[125X [27X    context.lineTo( 100, 100 );[127X[104X
+    [4X[25Xgap>[125X [27X    context.moveTo( 100, 0 );[127X[104X
+    [4X[25Xgap>[125X [27X    context.lineTo( 0, 100 );[127X[104X
+    [4X[25Xgap>[125X [27X    context.stroke();[127X[104X
+    [4X[25Xgap>[125X [27X    """[127X[104X
+    [4X[25X>[125X [27X);[127X[104X
+  [4X[32X[104X
   
-  [33X[0;0YThe  type  we create is called [10XFileContents[110X, because that is our purpose for
-  it (to preserve, unaltered, the contents of a text file).[133X
   
-  [1X1.3-2 JUPVIZIsFileContentsRep[101X
+  [1X1.3-6 [33X[0;0YExample: Plain HTML[133X[101X
   
-  [33X[1;0Y[29X[2XJUPVIZIsFileContentsRep[102X( [3Xarg[103X ) [32X filter[133X
-  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  [33X[0;0YThis  is  the  degenerate example of a visualization. It does not create any
+  visualization,  but  lets  you specify arbitrary HTML content instead. It is
+  provided here merely as a convenient way to insert HTML into the notebook.[133X
   
-  [33X[0;0YThe representation for the [10XFileContents[110X type[133X
-  
-  [1X1.3-3 JUPVIZFileContents[101X
-  
-  [33X[1;0Y[29X[2XJUPVIZFileContents[102X( [3Xarg[103X ) [32X operation[133X
-  
-  [33X[0;0YA constructor for [10XFileContents[110X objects[133X
-  
-  [33X[0;0YElsewhere,  the [5XJupyter-Viz[105X package also installs a [10XJupyterRender[110X method for
-  [10XFileContents[110X objects that just returns their text content untouched.[133X
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XCreateVisualiation( rec([127X[104X
+    [4X[25X>[125X [27X    tool := "html",[127X[104X
+    [4X[25X>[125X [27X    data := rec([127X[104X
+    [4X[25X>[125X [27X        html := "<i>Any</i> HTML can go here.  Tables, buttons, whatever."[127X[104X
+    [4X[25X>[125X [27X    )[127X[104X
+    [4X[25X>[125X [27X) );[127X[104X
+  [4X[32X[104X
   

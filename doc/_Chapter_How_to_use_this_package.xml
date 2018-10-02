@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_How_to_use_this_package">
+<Heading>How to use this package</Heading>
+
+<P/>
+<Section Label="Chapter_How_to_use_this_package_Section_Purpose">
+<Heading>Purpose</Heading>
+
+<P/>
+Since 2017, it has been possible to use &GAP; in
+<URL Text="Jupyter">http://jupyter.org/</URL> through the
+<Package>JupyterKernel</Package> package. Output was limited to the
+ordinary text output &GAP; produces; charts and graphs were not possible.
+<P/>
+In 2018, Martins and Pfeiffer released <Package>francy</Package>
+(<URL Text="repository">https://github.com/mcmartins/francy</URL>,
+<URL Text="article">https://arxiv.org/abs/1806.08648</URL>), which lets
+users create graphs of a few types (vertices and edges, line chart, bar
+chart, scatter chart). It also allows the user to attach actions to the
+elements of these charts, which result in callbacks to &GAP; that can update
+the visualization.
+<P/>
+This package aims to make a wider variety of visualizations accessible to
+&GAP; users, but does not provide tools for conveniently making such
+visualizations interactive. Where the
+<Package>francy</Package> package excels at interactive visualizations,
+this package instead gives a broader scope of visualization tools.
+<P/>
+This is achieved by importing several existing JavaScript visualization
+toolkits and exposing them to &GAP; code, as described later in this
+manual.
+<P/>
+The toolkits currently exposed by this package are listed here.
+<P/>
+<List>
+<Item>
+<URL Text="AnyChart">https://www.anychart.com/</URL>
+</Item>
+<Item>
+<URL Text="CanvasJS">https://canvasjs.com/</URL>
+</Item>
+<Item>
+<URL Text="ChartJS">https://www.chartjs.org/</URL>
+</Item>
+<Item>
+<URL Text="Cytoscape">http://www.cytoscape.org/</URL>
+</Item>
+<Item>
+<URL Text="D3">https://d3js.org/</URL>
+</Item>
+<Item>
+<URL Text="Plotly">https://plot.ly/</URL>
+</Item>
+<Item>
+Native HTML <Code>canvas</Code> element
+</Item>
+<Item>
+Plain HTML
+</Item>
+</List>
+<P/>
+</Section>
+
+
+<Section Label="Chapter_How_to_use_this_package_Section_Loading_the_package_into_a_Jupyter_notebook">
+<Heading>Loading the package into a Jupyter notebook</Heading>
+
+<P/>
+To import the package into a Jupyter notebook, do so just as with any other
+&GAP; package: Ensure that the kernel of the notebook is a &GAP; kernel,
+then execute the following code in one of the notebook cells.
+<P/>
+<Example><![CDATA[
+gap> LoadPackage( "jupyter-viz" );
+]]></Example>
+
+
+<P/>
+</Section>
+
+
+<Section Label="Chapter_How_to_use_this_package_Section_Creating_a_visualization">
+<Heading>Creating a visualization</Heading>
+
+<P/>
+Visualizations of any kind supported by this package are created through one
+function, <Ref Func="CreateVisualization"/>. You can view its complete
+documentation in for details, but examples are given in this section.
+<P/>
+Nearly all visualizations in this package are created by passing data to the
+<Ref Func="CreateVisualization"/> function as records describing what to
+draw. These records are converted into
+<URL Text="JSON">http://www.json.org/</URL> form by the
+<Package>json</Package> package, and handed to whichever JavaScript toolkit
+you have chosen to use for creating the visualization.
+<P/>
+<Subsection Label="Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_AnyChart">
+<Heading>Example: AnyChart</Heading>
+
+<P/>
+The AnyChart website contains
+<URL Text="documentation">https://docs.anychart.com/Working_with_Data/Data_From_JSON</URL>
+on how to create visualizations from JSON data. Following those
+conventions, we could give AnyChart the following JSON to produce a pie
+chart.
+<P/>
+<Verb>
+{
+&nbsp;&nbsp;"chart" : {
+&nbsp;&nbsp;&nbsp;&nbsp;"type" : "pie",
+&nbsp;&nbsp;&nbsp;&nbsp;"data" : [
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "x" : "Subgroups of order 6", "value" : 1 },
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "x" : "Subgroups of order 3", "value" : 1 },
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "x" : "Subgroups of order 2", "value" : 3 },
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{ "x" : "Subgroups of order 1", "value" : 1 }
+&nbsp;&nbsp;&nbsp;&nbsp;]
+&nbsp;&nbsp;}
+}
+</Verb>
+<P/>
+In &GAP;, the same data would be represented with a record, as follows.
+<P/>
+<Example><![CDATA[
+gap> myChartData := rec(
+>     chart := rec(
+>         type := "pie",
+>         data := [
+>             rec( x := "Subgroups of order 6", value := 1 ),
+>             rec( x := "Subgroups of order 3", value := 1 ),
+>             rec( x := "Subgroups of order 2", value := 3 ),
+>             rec( x := "Subgroups of order 1", value := 1 )
+>         ]
+>     )
+> );
+]]></Example>
+
+
+<P/>
+We can ask &GAP;, running in a Jupyter notebook, to create a visualization
+from this data by passing that data directly to
+<Ref Func="CreateVisualization"/>. We wrap it in a record that must
+specify the tool to use (in this case <Code>"anychart"</Code>) and
+optionally some other details not relevant here.
+<P/>
+<Example><![CDATA[
+gap> CreateVisualization( rec( tool := "anychart", data := myChartData ) );
+]]></Example>
+
+
+<P/>
+The results of this command are not shown here, but you can see the results
+of other examples in the file <File>in-noteboook-test.ipynb</File>, in the
+<File>tst</File> subfolder of this package's installation directory.
+<P/>
+If you have the data defining a visualization stored in a <File>.json</File>
+file on disk, you can use the following code rather than rewriting the JSON
+code into &GAP; code yourself.
+<P/>
+<Example><![CDATA[
+gap> CreateVisualization( rec(
+>     tool := "anychart",
+>     data := JsonStringToGap( ReadAll( InputTextFile( "your-file.json" ) ) )
+> ) );
+]]></Example>
+
+
+<P/>
+AnyChart can make a wide variety of charts (area, bar, box, bubble, bullet,
+column, doughnut, and so on, for over 125 different types and subtypes).
+Other JavaScript libraries available also have similarly broad capabilities,
+but we do not include here examples of CanvasJS, ChartJS, or Plotly, because
+their capabilities and purpose are somewhat similar to that of AnyChart.
+Though their data formats are different, you can find links to those
+formats' documentation in the documentation for the function
+<Ref Func="CreateVisualization"/>. So instead future sections focus on
+four other examples that are unlike AnyChart.
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Post-processing_visualizations">
+<Heading>Post-processing visualizations</Heading>
+
+<P/>
+Note that <Ref Func="CreateVisualization"/> takes an optional second
+parameter, a string of JavaScript code to be run once the visualization is
+complete. For example, if the visualization library did not support a solid
+black border, but you wanted to add one, you could do so in subsequent code.
+<P/>
+<Example><![CDATA[
+gap> CreateVisualization(
+>     sameDataAsAbove, # plus this new second parameter:
+>     "visualization.style.border = '5px solid black'"
+> )
+]]></Example>
+
+
+<P/>
+This holds for any visualization tool, not just AnyChart. In the code given
+in the second parameter, two variables will be defined for your use:
+<Code>element</Code> refers to the output cell element in the notebook and
+<Code>visualization</Code> refers to the visualization that the toolkit you
+chose created within that output cell (also an HTML element).
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_Cytoscape">
+<Heading>Example: Cytoscape</Heading>
+
+<P/>
+Unlike AnyChart, Cytoscape is for the vertices-and-edges type of graph, not
+the x-and-y-axes type. A tiny Cytoscape graph (just <Math>A\to B</Math>) is
+represented by the following JSON.
+<P/>
+<Verb>
+{
+&nbsp;&nbsp;elements : [
+&nbsp;&nbsp;&nbsp;&nbsp;{ data : { id : "A" } },
+&nbsp;&nbsp;&nbsp;&nbsp;{ data : { id : "B" } },
+&nbsp;&nbsp;&nbsp;&nbsp;{ data : { id : "edge", source : "A", target : "B" } }
+&nbsp;&nbsp;],
+&nbsp;&nbsp;layout : { name : "grid", rows : 1 }
+}
+</Verb>
+<P/>
+Cytoscape graphs can also have style attributes not shown here.
+<P/>
+Rather than copy this data directly into &GAP;, let's generate graph data in
+the same format using &GAP; code. Here we make a graph of the first 50
+positive integers, with <Math>n\to m</Math> iff <Math>n\mid m</Math> (ordinary integer
+divisibility).
+<P/>
+<Example><![CDATA[
+gap> N := 50;
+gap> elements := [ ];
+gap> for i in [2..N] do
+>     Add( elements, rec( data := rec( id := String( i ) ) ) );
+gap>     if IsPrime( i ) then
+>         Add( roots, i );
+gap>     fi;
+gap>     for j in [2..i-1] do
+>         if i mod j = 0 then
+>             Add( elements, rec( data := rec(
+>                 source := String( j ),
+>                 target := String( i ) ) ) );
+gap>         fi;
+gap>     od;
+gap> od;
+]]></Example>
+
+
+<P/>
+We then need to choose a layout algorithm. The Cytoscape documentation
+suggests that the "cose" layout works well. Here, we do choose a height
+(in pixels) for the result, because Cytoscape does not automaticlly resize
+visualizations to fit their contents. We also set the style for each node
+to display its ID (which is the integer associated with it).
+<P/>
+All the code below comes directly from translating the Cytoscape
+documentation from JSON form to &GAP; record form. See that documentation
+for more details; it is cited in the documentation for the
+<Ref Func="CreateVisualization"/> function.
+<P/>
+<Example><![CDATA[
+gap> CreateVisualization( rec(
+>     tool := "cytoscape",
+>     height := 600,
+>     data := rec(
+>         elements := elements, # computed in the code above
+>         layout := rec( name := "cose" ),
+>         style := [
+>             rec( selector := "node", style := rec( content := "data(id)" ) )
+>         ]
+>     )
+> ) );
+]]></Example>
+
+
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_D3">
+<Heading>Example: D3</Heading>
+
+<P/>
+While D3 is one of the most famous and powerful JavaScript visualization
+libraries, it does not have a JSON interface. Consequently, we can
+interact with D3 only through the JavaScript code passed in the second
+parameter to <Ref Func="CreateVisualization"/>. This makes it much less
+convenient, but we include it in this package for those who need it.
+<P/>
+<Example><![CDATA[
+gap> CreateVisualization(
+>     rec( tool := "d3" ),
+>     """
+>     // arbitrary JavaScript code can go here to interact with D3, like so:
+>     d3.select( visualization ).append( "circle" )
+>         .attr( "r", 50 ).attr( "cx", 55 ).attr( "cy", 55 )
+>         .style( "stroke", "red" ).style( "fill", "pink" );
+gap>     """
+> );
+]]></Example>
+
+
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_Native_HTML_Canvas">
+<Heading>Example: Native HTML Canvas</Heading>
+
+<P/>
+You can create a blank canvas, then use the existing JavaScript canvas API
+to draw on it.
+<P/>
+<Example><![CDATA[
+gap> CreateVisualization(
+>     rec( tool := "canvas", height := 300 ),
+>     """
+>     // visualization is the canvas element
+>     var context = visualization.getContext( '2d' );
+gap>     // draw an X
+>     context.moveTo( 0, 0 );
+gap>     context.lineTo( 100, 100 );
+gap>     context.moveTo( 100, 0 );
+gap>     context.lineTo( 0, 100 );
+gap>     context.stroke();
+gap>     """
+> );
+]]></Example>
+
+
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_How_to_use_this_package_Section_Creating_a_visualization_Subsection_Example_Plain_HTML">
+<Heading>Example: Plain HTML</Heading>
+
+<P/>
+This is the degenerate example of a visualization. It does not create any
+visualization, but lets you specify arbitrary HTML content instead. It is
+provided here merely as a convenient way to insert HTML into the notebook.
+<P/>
+<Example><![CDATA[
+gap> CreateVisualiation( rec(
+>     tool := "html",
+>     data := rec(
+>         html := "<i>Any</i> HTML can go here.  Tables, buttons, whatever."
+>     )
+> ) );
+]]></Example>
+
+
+</Subsection>
+
+
+</Section>
+
+
+</Chapter>
+

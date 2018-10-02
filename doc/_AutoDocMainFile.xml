@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- This is an automatically generated file. -->
+<#Include SYSTEM "_Chapter_How_to_use_this_package.xml">
 <#Include SYSTEM "_Chapter_Function_reference.xml">

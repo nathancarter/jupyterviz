@@ -24,7 +24,7 @@
 #!  Jupyter notebook corresponding to the code that was just evaluated.
 #!  The script is free to write to that output element.
 #!  <P/>
-#!  This function is not intended for use in the GAP REPL.
+#!  This function is not intended for use in the &GAP; REPL.
 DeclareGlobalFunction( "RunJavaScript" );
 
 #! @Arguments filename
@@ -38,7 +38,7 @@ DeclareGlobalFunction( "RunJavaScript" );
 #!  be added iff such a file exists, to prioritize minified versions of
 #!  files.
 #!  <P/>
-#!  If the file has been loaded before in this GAP session, it will not be
+#!  If the file has been loaded before in this &GAP; session, it will not be
 #!  reloaded, but will be returned from a cache in memory, for efficiency.
 #!  <P/>
 #!  If no such file exists, returns <Keyword>fail</Keyword> and caches
@@ -49,7 +49,7 @@ DeclareGlobalFunction( "LoadJavaScriptFile" );
 #! @Returns an object that, if rendered in a Jupyter notebook, will run a script to create the desired visualization
 #! @Description
 #!  The <Arg>data</Arg> must be a record that will be converted to JSON
-#!  using GAP's <Package>json</Package> package.
+#!  using &GAP;'s <Package>json</Package> package.
 #!  <P/>
 #!  The second argument is optional, a string containing JavaScript
 #!  <Arg>code</Arg> to run once the visualization has been created.  When
@@ -100,7 +100,7 @@ DeclareGlobalFunction( "CreateVisualization" );
 
 #! @Section Internal methods
 
-#! Using the convention common to GAP packages, we prefix all methods not
+#! Using the convention common to &GAP; packages, we prefix all methods not
 #! intended for public use with a sequence of characters that indicate our
 #! particular package.  In this case, we use the <Code>JUPVIZ</Code> prefix.
 #! This is a sort of "poor man's namespacing."
@@ -124,7 +124,7 @@ DeclareGlobalFunction( "JUPVIZAbsoluteJavaScriptFilename" );
 #! @Description
 #!  A cache of the contents of any JavaScript files that have been loaded
 #!  from this package's folder.  The existence of this cache means needing
-#!  to go to the filesystem for these files only once per GAP session.
+#!  to go to the filesystem for these files only once per &GAP; session.
 #!  This cache is used by <Ref Func="LoadJavaScriptFile"/>.
 DeclareGlobalVariable( "JUPVIZLoadedJavaScriptCache" );
 
@@ -160,14 +160,14 @@ DeclareGlobalFunction( "JUPVIZFillInJavaScriptTemplate" );
 DeclareGlobalFunction( "JUPVIZRunJavaScriptFromTemplate" );
 
 #! @Arguments jsCode
-#! @Returns an object that, if rendered in a Jupyter notebook, will run <Arg>jsCode</Arg> as JavaScript after <Code>runGap</Code> has been defined
+#! @Returns an object that, if rendered in a Jupyter notebook, will run <Arg>jsCode</Arg> as JavaScript after <Code>runGAP</Code> has been defined
 #! @Description
 #!  There is a JavaScript function called <Code>runGAP</Code>, defined in
 #!  the <File>using-runGAP.js</File> file distributed with this package.
 #!  That function makes it easy to make callbacks from JavaScript in a
-#!  Jupyter notebook to the GAP kernel underneath that notebook.  This
-#!  GAP function runs the given <Arg>jsCode</Arg> in the notebook, but only
-#!  after ensuring that <Code>runGAP</Code> is defined globally in that
+#!  Jupyter notebook to the &GAP; kernel underneath that notebook.  This
+#!  &GAP; function runs the given <Arg>jsCode</Arg> in the notebook, but
+#!  only after ensuring that <Code>runGAP</Code> is defined globally in that
 #!  notebook, so that <Arg>jsCode</Arg> can call <Code>runGAP</Code> as
 #!  needed.
 #!  <P/>
@@ -190,7 +190,7 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingRunGAP" );
 #!  There are a set of JavaScript libraries stored in the
 #!  <File>lib/js/</File> subfolder of this package's installation folder.
 #!  The Jupyter notebook does not, by default, know about any of those
-#!  libraries.  This GAP function runs the given <Arg>jsCode</Arg> in the
+#!  libraries.  This &GAP; function runs the given <Arg>jsCode</Arg> in the
 #!  notebook, but only after ensuring that all JavaScript files on the list
 #!  <Arg>libraries</Arg> have been loaded, so that <Arg>jsCode</Arg> can
 #!  make use of the functions and variables that they define.
@@ -213,13 +213,13 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingLibraries" );
 #! in the future.
 #! <P/>
 #! The <Package>JupyterKernel</Package> package defines a method
-#! <Code>JupyterRender</Code> that determines how GAP data will be shown to
-#! the user in the Jupyter notebook interface.  When there is no method
+#! <Code>JupyterRender</Code> that determines how &GAP; data will be shown
+#! to the user in the Jupyter notebook interface.  When there is no method
 #! implemented for a specific data type, the fallback method uses the
-#! built-in GAP method <Code>ViewString</Code>.
+#! built-in &GAP; method <Code>ViewString</Code>.
 #! <P/>
 #! This presents a problem, because we are often transmitting string data
-#! (the contents of JavaScript files) from the GAP kernel to the notebook,
+#! (the contents of JavaScript files) from the &GAP; kernel to the notebook,
 #! and <Code>ViewString</Code> is not careful about how it escapes
 #! characters such as quotation marks, which can seriously mangle code.
 #! Thus we must define our own type and <Code>JupyterRender</Code> method
