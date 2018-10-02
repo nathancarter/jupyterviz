@@ -1,2 +1,4 @@
 notes.md
 .DS_Store
+.ipynb_checkpoints
+*.swp
