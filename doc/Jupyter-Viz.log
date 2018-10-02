@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  28 SEP 2018 12:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  2 OCT 2018 13:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**main
-(./main.tex
+**Jupyter-Viz
+(./Jupyter-Viz.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/report.cls
@@ -45,18 +45,15 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 Package: inputenc 2018/04/06 v1.3b Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/base/latin1.def
-File: latin1.def 2018/04/06 v1.3b Input encoding file
-))
+)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
 )
 \@indexfile=\write3
-\openout3 = `main.idx'.
+\openout3 = `Jupyter-Viz.idx'.
 
 
-Writing index file main.idx
+Writing index file Jupyter-Viz.idx
 (/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
 
@@ -415,7 +412,7 @@ File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
 \Hy@SectionHShift=\skip43
 )
 \pagenrlog=\write5
-\openout5 = `main.pnr'.
+\openout5 = `Jupyter-Viz.pnr'.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/enumitem/enumitem.sty
@@ -426,8 +423,8 @@ Package: enumitem 2011/09/28 v3.5.2 Customized lists
 \enit@inbox=\box27
 \enitdp@description=\count102
 )
-(./main.aux)
-\openout1 = `main.aux'.
+(./Jupyter-Viz.aux)
+\openout1 = `Jupyter-Viz.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
 LaTeX Font Info:    ... okay on input line 87.
@@ -443,7 +440,8 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
 LaTeX Font Info:    ... okay on input line 87.
 LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
 LaTeX Font Info:    Try loading font information for TS1+cmr on input line 87.
- (/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    ... okay on input line 87.
@@ -483,50 +481,41 @@ LaTeX Info: Redefining \ref on input line 87.
 LaTeX Info: Redefining \pageref on input line 87.
 LaTeX Info: Redefining \nameref on input line 87.
 
-(./main.out) (./main.out)
+(./Jupyter-Viz.out) (./Jupyter-Viz.out)
 \@outlinefile=\write6
-\openout6 = `main.out'.
+\openout6 = `Jupyter-Viz.out'.
 
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <50> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 93.
-LaTeX Font Info:    Try loading font information for T1+phv on input line 93.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/t1phv.fd
-File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
-)
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <50> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 93.
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 98.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 100.
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 106.
-LaTeX Font Info:    Try loading font information for T1+cmtt on input line 106.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 105.
 
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\\' on input line 107.
+
+LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 113.
+LaTeX Font Info:    Try loading font information for T1+cmtt on input line 113.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-Underfull \hbox (badness 10000) in paragraph at lines 104--107
+Underfull \hbox (badness 10000) in paragraph at lines 115--119
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 110--121
 
  []
 
 [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 113.
-
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-Underfull \hbox (badness 10000) in paragraph at lines 117--118
-
- []
-
-[2]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 122.
- (./main.toc
+(./Jupyter-Viz.toc
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 1.
 LaTeX Font Info:    Try loading font information for OT1+ztmcm on input line 2.
@@ -566,68 +555,86 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
 (Font)              Font shape `OT1/ptm/b/n' tried instead on input line 2.
 )
 \tf@toc=\write7
-\openout7 = `main.toc'.
+\openout7 = `Jupyter-Viz.toc'.
 
- [3
+ [2
 
 ]
 Chapter 1.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <20.74> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 126.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 132.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 149.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 143.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 199.
+(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/t1phv.fd
+File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
+) [3
 
-Underfull \hbox (badness 10000) in paragraph at lines 152--155
+]
+LaTeX Font Info:    Try loading font information for TS1+ptm on input line 208.
+
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+) [4]
+Underfull \hbox (badness 10000) in paragraph at lines 286--289
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 164--167
+Underfull \hbox (badness 10000) in paragraph at lines 325--330
+[]\T1/ptm/b/n/10.95 Returns:  \T1/ptm/m/n/10.95 the com-po-si-tion of \T1/cmtt/
+m/n/10.95 RunJavaScript \T1/ptm/m/n/10.95 ([][]1.1.1[][]) with
+ []
+
+[5] [6]
+Underfull \hbox (badness 1308) in paragraph at lines 430--430
+[][]\T1/ptm/b/n/12 JUPVIZIsFileContentsRep (for Is-Com-po-nen-tO-b-jec-tRep and
+ JUPVIZIs-File-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 448--451
 
  []
 
-[4
-
-] (./main.ind [5
+[7] (./Jupyter-Viz.ind [8
 
 
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 190.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 190.
- (./main.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 190.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 190.
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 7588072C6FF94D42A2939985FF99CA31;226.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 190.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 474.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 474.
+ (./Jupyter-Viz.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 474.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 474.
+Package rerunfilecheck Info: File `Jupyter-Viz.out' has not changed.
+(rerunfilecheck)             Checksum: FB40A33B7A8E981C03BC4A1A58B97607;280.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 474.
  ) 
 Here is how much of TeX's memory you used:
- 6878 strings out of 492649
- 101615 string characters out of 6129622
- 180609 words of memory out of 5000000
- 10619 multiletter control sequences out of 15000+600000
- 72320 words of font info for 93 fonts, out of 8000000 for 9000
+ 6894 strings out of 492649
+ 102376 string characters out of 6129622
+ 185653 words of memory out of 5000000
+ 10628 multiletter control sequences out of 15000+600000
+ 63332 words of font info for 79 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,6n,28p,251b,355s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}
-{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/tex
+ 32i,7n,28p,331b,424s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2018/texmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/t
+exlive/2018/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/tex
 live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texl
-ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texliv
-e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive
-/2018/texmf-dist/fonts/type1/public/cm-super/sfst1095.pfb></usr/local/texlive/2
-018/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/201
-8/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/2018/
-texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2018/texmf-d
-ist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2018/texmf-dist/fon
-ts/type1/urw/helvetic/uhvro8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/typ
-e1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/tim
-es/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmr8a.
-pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on main.pdf (5 pages, 144151 bytes).
+ive/2018/texmf-dist/fonts/type1/public/cm-super/sfst1095.pfb></usr/local/texliv
+e/2018/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/
+2018/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/texlive/20
+18/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2018/texm
+f-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2018/texmf-dist/fon
+ts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/u
+rw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/u
+tmri8a.pfb>
+Output written on Jupyter-Viz.pdf (8 pages, 168466 bytes).
 PDF statistics:
- 123 PDF objects out of 1000 (max. 8388607)
- 101 compressed objects within 2 object streams
- 20 named destinations out of 1000 (max. 500000)
- 33 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 171 PDF objects out of 1000 (max. 8388607)
+ 150 compressed objects within 2 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

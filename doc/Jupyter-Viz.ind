@@ -1,0 +1,29 @@
+\begin{theindex}
+
+  \item \texttt  {CreateVisualization}, \hyperpage{3}
+
+  \indexspace
+
+  \item \texttt  {JUPVIZAbsoluteJavaScriptFilename}, \hyperpage{5}
+  \item \texttt  {JUPVIZFileContents}
+    \subitem for IsString, \hyperpage{7}
+  \item \texttt  {JUPVIZFillInJavaScriptTemplate}, \hyperpage{5}
+  \item \texttt  {JUPVIZIsFileContents}
+    \subitem for IsObject, \hyperpage{7}
+  \item \texttt  {JUPVIZIsFileContentsRep}
+    \subitem for IsComponentObjectRep and JUPVIZIsFileContents, 
+		\hyperpage{7}
+  \item \texttt  {JUPVIZLoadedJavaScriptCache}, \hyperpage{5}
+  \item \texttt  {JUPVIZRunJavaScriptFromTemplate}, \hyperpage{5}
+  \item \texttt  {JUPVIZRunJavaScriptUsingLibraries}, \hyperpage{6}
+  \item \texttt  {JUPVIZRunJavaScriptUsingRunGAP}, \hyperpage{5}
+
+  \indexspace
+
+  \item \texttt  {LoadJavaScriptFile}, \hyperpage{3}
+
+  \indexspace
+
+  \item \texttt  {RunJavaScript}, \hyperpage{3}
+
+\end{theindex}

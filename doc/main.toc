@@ -1,6 +1,0 @@
-\contentsline {chapter}{\numberline {1}\leavevmode {\color {Chapter }Chapter heading here}}{4}{chapter.1}
-\contentsline {section}{\numberline {1.1}\leavevmode {\color {Chapter }Section heading here}}{4}{section.1.1}
-\contentsline {section}{\numberline {1.2}\leavevmode {\color {Chapter }Function Reference}}{4}{section.1.2}
-\contentsline {subsection}{\numberline {1.2.1}\leavevmode {\color {Chapter }RunJavaScript}}{4}{subsection.1.2.1}
-\contentsline {subsection}{\numberline {1.2.2}\leavevmode {\color {Chapter }LoadJavaScriptFile}}{4}{subsection.1.2.2}
-\contentsline {chapter}{Index}{5}{section*.3}

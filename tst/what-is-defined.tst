@@ -15,21 +15,21 @@ gap> IsBoundGlobal( "RunJavaScript" );
 true
 gap> IsBoundGlobal( "LoadJavaScriptFile" );
 true
-gap> IsBoundGlobal( "JUPVIZ_AbsoluteJavaScriptFilename" );
+gap> IsBoundGlobal( "JUPVIZAbsoluteJavaScriptFilename" );
 true
-gap> IsBoundGlobal( "JUPVIZ_FillInJavaScriptTemplate" );
+gap> IsBoundGlobal( "JUPVIZFillInJavaScriptTemplate" );
 true
-gap> IsBoundGlobal( "JUPVIZ_RunJavaScriptFromTemplate" );
+gap> IsBoundGlobal( "JUPVIZRunJavaScriptFromTemplate" );
 true
-gap> IsBoundGlobal( "JUPVIZ_RunJavaScriptUsingRunGAP" );
+gap> IsBoundGlobal( "JUPVIZRunJavaScriptUsingRunGAP" );
 true
-gap> IsBoundGlobal( "JUPVIZ_RunJavaScriptUsingLibraries" );
+gap> IsBoundGlobal( "JUPVIZRunJavaScriptUsingLibraries" );
 true
 gap> IsBoundGlobal( "CreateVisualization" );
 true
 
 # Ensure that global variables are defined
-gap> IsBoundGlobal( "JUPVIZ_LoadedJavaScriptCache" );
+gap> IsBoundGlobal( "JUPVIZLoadedJavaScriptCache" );
 true
 
 ## Each test file should finish with the call of STOP_TEST.

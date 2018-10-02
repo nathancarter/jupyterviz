@@ -68,7 +68,8 @@ Dependencies := rec(
     [ "JupyterKernel", "0.99999" ],
     [ "json",          "2.0.0"   ],
     [ "GAPDoc",        "1.3"     ]
-  ]
+  ],
+  SuggestedOtherPackages := [ ]
 ),
 
 

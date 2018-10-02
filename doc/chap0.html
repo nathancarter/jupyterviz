@@ -5,7 +5,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<title>GAP (Jupyter-Viz Package Documentation) - Contents</title>
+<title>GAP (Jupyter-Viz) - Contents</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -23,37 +23,60 @@
 <p><a id="X7D2C85EC87DD46E5" name="X7D2C85EC87DD46E5"></a></p>
 <div class="pcenter">
 
-<h1>The <strong class="pkg">Jupyter-Viz</strong> Package</h1>
+<h1>Jupyter-Viz</h1>
 
-<p>Version 1.0.0</p>
+
+<h2>Jupyter Notebook Visualization Tools</h2>
+
+<p>
+    1.0.0</p>
+
+<p>
+    26 September 2018
+  </p>
 
 </div>
-<p><b>Nathan Carter
-    
+<p><b>
+    Nathan Carter
+
+
+
+
   </b>
 <br />Email: <span class="URL"><a href="mailto:ncarter@bentley.edu">ncarter@bentley.edu</a></span>
+<br />Homepage: <span class="URL"><a href="http://nathancarter.github.io">http://nathancarter.github.io</a></span>
+<br />Address: <br />175 Forest St.<br /> Waltham, MA 02452<br /> USA<br />
 </p>
-
-<p><a id="X81488B807F2A1CF1" name="X81488B807F2A1CF1"></a></p>
-<h3>Copyright</h3>
-<p>© 2018 Nathan Carter.</p>
-
-<p>See GPL Licence in package README file.</p>
 
 <p><a id="X8537FEB07AF2BEC8" name="X8537FEB07AF2BEC8"></a></p>
 
 <div class="contents">
 <h3>Contents<a id="contents" name="contents"></a></h3>
 
-<div class="ContChap"><a href="chap1.html#X806A68248539B3F2">1 <span class="Heading">Chapter heading here</span></a>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X863B25987EEF194D">1.1 <span class="Heading">Section heading here</span></a>
-</span>
-</div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7ECCCA82839EA283">1.2 <span class="Heading">Function Reference</span></a>
+<div class="ContChap"><a href="chap1.html#X7ECCCA82839EA283">1 <span class="Heading">Function reference</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X784AA528839119B9">1.1 <span class="Heading">Public API</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X78BDA43D7E633E33">1.2-1 RunJavaScript</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X81E2B3A07EA7A02B">1.2-2 LoadJavaScriptFile</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X78BDA43D7E633E33">1.1-1 RunJavaScript</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X81E2B3A07EA7A02B">1.1-2 LoadJavaScriptFile</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7BFFD8B7808F5BDA">1.1-3 CreateVisualization</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7B106BA97FD3C2BF">1.2 <span class="Heading">Internal methods</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7FA27984822A0E5E">1.2-1 JUPVIZAbsoluteJavaScriptFilename</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7F877B4279081217">1.2-2 JUPVIZLoadedJavaScriptCache</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X84F0A3C97FBC57EE">1.2-3 JUPVIZFillInJavaScriptTemplate</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X8603271979CCFA2A">1.2-4 JUPVIZRunJavaScriptFromTemplate</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X804379D07F29E905">1.2-5 JUPVIZRunJavaScriptUsingRunGAP</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X79B7692C7F543161">1.2-6 JUPVIZRunJavaScriptUsingLibraries</a></span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1.html#X7CB82ABE7B3255EB">1.3 <span class="Heading">Representation wrapper</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X82269732822D224D">1.3-1 JUPVIZIsFileContents</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X84D70ACD7A72AA84">1.3-2 JUPVIZIsFileContentsRep</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap1.html#X7D401DB582A5EBA2">1.3-3 JUPVIZFileContents</a></span>
 </div></div>
 </div>
 <div class="ContChap"><a href="chapInd.html"><span class="Heading">Index</span></a></div>
