@@ -16,7 +16,9 @@
 InstallGlobalFunction( RunJavaScript, function ( script )
     return JupyterRenderable( rec(
         application\/javascript := Concatenation(
-            "( function ( element ) { ", script, " } )( element.get( 0 ) )"
+            # use newlines to prevent // comments from harming code
+            "( function ( element ) {\n", script,
+            "\n} )( element.get( 0 ) )"
         )
     ), rec(
         application\/javascript := ""
