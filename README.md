@@ -32,10 +32,14 @@ The package does not need to be compiled.
 
 See [the manual as a PDF here](doc/manual.pdf).
 
-See [an example notebook here](tst/in-notebook-test.ipynb), but GitHub does
-not render its visualizations because they are JavaScript-based.  Download
-it and try it for yourself instead.  (Some cells use external `.json`
-files, which are also in the `tst/` folder.)
+Or check out an example notebook:
+ * [Get PDF version](tst/in-notebook-test.pdf) - all visualizations
+   shown, but content is static (and print-to-PDF not very attractive)
+ * [Get .ipynb version](tst/in-notebook-test.ipynb) - no visualizations
+   render live on GitHub because they are JavaScript-based, but if you
+   download this you can run it yourself and get a bit of interactivity.
+   Some cells load external `.json` files, which are included in the
+   `tst/` folder of this repository.
 
 ## Maintainer
 
