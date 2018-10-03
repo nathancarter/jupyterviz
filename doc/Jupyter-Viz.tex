@@ -136,7 +136,7 @@
   
 
  
-\section{\textcolor{Chapter }{Purpose}}\label{Chapter_How_to_use_this_package_Section_Purpose}
+\section{\textcolor{Chapter }{Purpose}}\label{Section_purpose}
 \logpage{[ 1, 1, 0 ]}
 \hyperdef{L}{X78E0A9867DABCE86}{}
 {
@@ -261,8 +261,6 @@ passing that data directly to \texttt{CreateVisualization} (\ref{CreateVisualiza
 \includegraphics[width=4in]{anychart-example.png}
 \end{center}
    
-
- You can see the results of several examples in the files \texttt{in-noteboook-test.pdf} and \texttt{in-noteboook-test.ipynb}, in the \texttt{tst/} subfolder of this package's installation directory. 
 
  If you have the data defining a visualization stored in a \texttt{.json} file on disk, you can use the following code rather than rewriting the JSON
 code into \textsf{GAP} code yourself. 
@@ -489,6 +487,39 @@ provided here merely as a convenient way to insert HTML into the notebook.
  
 
  }
+
+ }
+
+ 
+\section{\textcolor{Chapter }{Gallery}}\label{Chapter_How_to_use_this_package_Section_Gallery}
+\logpage{[ 1, 4, 0 ]}
+\hyperdef{L}{X871A653B85A24E11}{}
+{
+  
+
+ Readers who would like to see a gallery of examples are encouraged to inspect
+the following files in this package's repository and/or installation
+directory. 
+
+ 
+\begin{itemize}
+\item  \texttt{tst/in-noteboook-test.ipynb} shows several different visualizations, but can only be loaded in a running
+Jupyter notebook with this package installed. 
+\item  \texttt{tst/in-noteboook-test.pdf} is a printout, to PDF, of the previous file, with graphics included (though
+printing from Jupyter notebooks is not perfect, and thus the formatting of
+this PDF is not that great). 
+\end{itemize}
+ 
+
+ Please be aware, however, that the tools imported by this package have an
+enormous breadth of capabilities not shown in that file. The reader is
+encouraged to browse their websites (cited in Section \ref{Section_purpose}) for extensive galleries of visualizations. 
+
+ 
+\begin{center}
+\includegraphics[width=4in]{canvasjs-example.png}
+\end{center}
+   
 
  }
 
@@ -816,6 +847,168 @@ a text file). }
  A constructor for \texttt{FileContents} objects }
 
  Elsewhere, the \textsf{Jupyter-Viz} package also installs a \texttt{JupyterRender} method for \texttt{FileContents} objects that just returns their text content untouched. }
+
+ }
+
+   
+\chapter{\textcolor{Chapter }{Adding new visualization tools}}\label{Chapter_Adding_new_visualization_tools}
+\logpage{[ 3, 0, 0 ]}
+\hyperdef{L}{X81249ADA79916213}{}
+{
+  
+
+ 
+\section{\textcolor{Chapter }{Why you might want to do this}}\label{Chapter_Adding_new_visualization_tools_Section_Why_you_might_want_to_do_this}
+\logpage{[ 3, 1, 0 ]}
+\hyperdef{L}{X7DB91A9C7C03FF67}{}
+{
+  
+
+ The visualization tools made available by this package (Plotly, D3, CanvasJS,
+etc.) provide many visualization options. However, you may come across a
+situation that they do not cover. Or a new and better tool may be invented
+after this package is created, and you wish to add it to the package. 
+
+ Currently, the only supported way to do this is to alter the package code
+itself. In the future, it would be nice to make it so that you can register
+new visualization tools with the package without modifying the package code.
+But until then, this is the supported method. 
+
+ }
+
+ 
+\section{\textcolor{Chapter }{What you will need}}\label{Chapter_Adding_new_visualization_tools_Section_What_you_will_need}
+\logpage{[ 3, 2, 0 ]}
+\hyperdef{L}{X858B113D80E8D32B}{}
+{
+  
+
+ Before proceeding, you will need the following information: 
+\begin{itemize}
+\item  A URL on the internet that serves the JavaScript code defining the new
+visualization tool you wish to add. For instance, the ChartJS library is
+imported from CloudFlare, at \href{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min} {\texttt{https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min}}. It is best if you have this URL from a Content Delivery Network (CDN) to
+ensure very high availability. 
+\item  Knowledge of how to write a short JavaScript function that can embed the given
+tool into any given DOM \texttt{Element}. For many tools, this is just a single call to the main class's contructor or
+the library's initialization function. 
+\item  While not necessary, it makes things easy if you know what function to call in
+your chosen library to define a visualization from JSON data. This makes it
+easier for users to pass all the required data and options from \textsf{GAP} code, which is the typical user's preferred way of defining a visualization. 
+\end{itemize}
+ 
+
+ }
+
+ 
+\section{\textcolor{Chapter }{The appropriate procedure}}\label{Chapter_Adding_new_visualization_tools_Section_The_appropriate_procedure}
+\logpage{[ 3, 3, 0 ]}
+\hyperdef{L}{X8251958E7CD211DE}{}
+{
+  
+
+ Throughout these steps, I will assume that the name of the new tool you wish
+to install is \texttt{NEWTOOL}. I choose all capital letters to make it stand out, so that you can tell
+where you need to fill in blanks in the examples, but you should probably use
+lower-case letters, to match the convention used by all of the built-in tools. 
+
+ 
+\begin{enumerate}
+\item Clone the repository for this package.
+\item Enter the \texttt{lib/js/} folder in the repository.
+\item Duplicate the file \texttt{viz-tool-chartjs.js} and rename it suitably for the tool you wish to import, such as \texttt{viz-tool-NEWTOOL.js}. It \emph{must} begin with \texttt{viz-tool-}.
+\item Edit that file. At the top, you will notice the installation of the CDN URL
+mentioned in the previous section. Replace it with the URL for your toolkit,
+and replace the identifier \texttt{chartjs} with \texttt{NEWTOOL}. 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  window.requirejs.config( {
+      paths : {
+          NEWTOOL : 'https://cdn.example.com/NEWTOOL.min.js'
+      }
+  } );
+\end{Verbatim}
+ 
+\item In the middle of the same file, feel free to update the comments to reflect
+your toolkit rather than ChartJS.
+\item At the end of the same file, you will notice code that installs \texttt{chartjs} as a new function in the \texttt{window.VisualizationTools} object. Replace it with code that installs your tool instead. See the comments
+below for some guidance. 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  window.VisualizationTools.NEWTOOL = function ( element, json, callback ) {
+      // The variable "element" is the output cell in the notebook into
+      // which you should place your visualization.  For example, perhaps
+      // your new toolkit draws in SVG elements, so you need one:
+      var result = document.createElement( 'SVG' );
+      element.append( result );
+      // The variable "json" is all the data, in JSON form, passed from
+      // GAP to tell you how to create a visualization.  The data format
+      // convention is up to you to explain and document with your new
+      // tool.  Two attributes in particular are important here, "width"
+      // and "height" -- if you ignore everything else, at least respect
+      // those in whatever way makes sense for your visualization.  Here
+      // is an example for an SVG:
+      if ( json.width ) result.width = json.width;
+      if ( json.height ) result.width = json.height;
+      // Then use RequireJS to import your toolkit (which will use the CDN
+      // URL you registered above) and use it to fill the element with the
+      // desired visualization.  You may or may not need to modify "json"
+      // before passing it to your toolkit; this is up to the conventions
+      // you choose to establish.
+      require( [ 'NEWTOOL' ], function ( NEWTOOL ) {
+          // Use your library to set up a visualization.  Example:
+          var viz = NEWTOOL.setUpVisualizationInElement( result );
+          // Tell your library what to draw.  Example:
+          viz.buildVisualizationFromJSON( json );
+          // Call the callback when you're done.  Pass the element you were
+          // given, plus the visualization you created.
+          callback( element, result );
+      } );
+  };
+\end{Verbatim}
+ 
+\item Optionally, in the \texttt{lib/js/} folder, run the \texttt{minify-all-scripts.sh} script, which compresses your JavaScript code to save on data transfer, memory
+allocation, and parsing time. Rerun that script each time you change your file
+as well.
+\item You should now be able to use your new visualization tool in \textsf{GAP}. Verify that your changes worked, and debug as necessary. You may be able to
+notice the change only if you refresh in your browser the page containing the
+Jupyter notebook in question and also restart the \textsf{GAP} kernel in that same page. Then try code like the following in the Jupyter
+notebook to test what you've done. 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  CreateVisualization( rec(
+      tool := "NEWTOOL",
+      # any other data you need goes here
+  ) );
+\end{Verbatim}
+ 
+\item Once your changes work, commit them to the repository and submit a pull
+request back to the original repository, to have your work included in the
+default distribution.
+\end{enumerate}
+ A complete and working (but silly) example follows. This portion would go in \texttt{lib/js/viz-tool-color.js}: 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  // No need to import any library from a CDN for this baby example.
+  window.VisualizationTools.color = function ( element, json, callback ) {
+      // just writes json.text in json.color, that's all
+      var span = document.createElement( 'span' );
+      span.textContent = json.text;
+      span.style.color = json.color;
+      callback( element, span );
+  };
+\end{Verbatim}
+ 
+
+ This is an example usage of that simple tool from \textsf{GAP} in a Jupyter notebook: 
+
+ 
+\begin{Verbatim}[commandchars=!@|,fontsize=\small,frame=single,label=Example]
+  CreateVisualization( rec(
+      tool := "color",
+      text := "Happy St. Patrick's Day.",
+      color := "green"
+  ) );
+\end{Verbatim}
+ 
+
+ }
 
  }
 

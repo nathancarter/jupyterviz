@@ -8,6 +8,7 @@
 \contentsline {subsection}{\numberline {1.3.4}\leavevmode {\color {Chapter }Example: D3}}{7}{subsection.1.3.4}
 \contentsline {subsection}{\numberline {1.3.5}\leavevmode {\color {Chapter }Example: Native HTML Canvas}}{8}{subsection.1.3.5}
 \contentsline {subsection}{\numberline {1.3.6}\leavevmode {\color {Chapter }Example: Plain HTML}}{8}{subsection.1.3.6}
+\contentsline {section}{\numberline {1.4}\leavevmode {\color {Chapter }Gallery}}{9}{section.1.4}
 \contentsline {chapter}{\numberline {2}\leavevmode {\color {Chapter }Function reference}}{10}{chapter.2}
 \contentsline {section}{\numberline {2.1}\leavevmode {\color {Chapter }Public API}}{10}{section.2.1}
 \contentsline {subsection}{\numberline {2.1.1}\leavevmode {\color {Chapter }RunJavaScript}}{10}{subsection.2.1.1}
@@ -24,4 +25,8 @@
 \contentsline {subsection}{\numberline {2.3.1}\leavevmode {\color {Chapter }JUPVIZIsFileContents (for IsObject)}}{14}{subsection.2.3.1}
 \contentsline {subsection}{\numberline {2.3.2}\leavevmode {\color {Chapter }JUPVIZIsFileContentsRep (for IsComponentObjectRep and JUPVIZIsFileContents)}}{14}{subsection.2.3.2}
 \contentsline {subsection}{\numberline {2.3.3}\leavevmode {\color {Chapter }JUPVIZFileContents (for IsString)}}{14}{subsection.2.3.3}
-\contentsline {chapter}{Index}{15}{section*.2}
+\contentsline {chapter}{\numberline {3}\leavevmode {\color {Chapter }Adding new visualization tools}}{15}{chapter.3}
+\contentsline {section}{\numberline {3.1}\leavevmode {\color {Chapter }Why you might want to do this}}{15}{section.3.1}
+\contentsline {section}{\numberline {3.2}\leavevmode {\color {Chapter }What you will need}}{15}{section.3.2}
+\contentsline {section}{\numberline {3.3}\leavevmode {\color {Chapter }The appropriate procedure}}{15}{section.3.3}
+\contentsline {chapter}{Index}{18}{section*.2}

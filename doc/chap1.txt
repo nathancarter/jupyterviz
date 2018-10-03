@@ -115,10 +115,6 @@
   
   [33X[0;0YResulting image not shown here.[133X
   
-  [33X[0;0YYou   can   see   the   results   of   several   examples   in   the   files
-  [11Xin-noteboook-test.pdf[111X  and [11Xin-noteboook-test.ipynb[111X, in the [11Xtst/[111X subfolder of
-  this package's installation directory.[133X
-  
   [33X[0;0YIf  you  have  the  data  defining a visualization stored in a [11X.json[111X file on
   disk,  you  can  use  the following code rather than rewriting the JSON code
   into [5XGAP[105X code yourself.[133X
@@ -293,4 +289,26 @@
     [4X[28X    )[128X[104X
     [4X[28X) );[128X[104X
   [4X[32X[104X
+  
+  
+  [1X1.4 [33X[0;0YGallery[133X[101X
+  
+  [33X[0;0YReaders  who  would  like  to  see  a  gallery of examples are encouraged to
+  inspect the following files in this package's repository and/or installation
+  directory.[133X
+  
+  [30X    [33X[0;6Y[11Xtst/in-noteboook-test.ipynb[111X  shows  several  different visualizations,
+        but can only be loaded in a running Jupyter notebook with this package
+        installed.[133X
+  
+  [30X    [33X[0;6Y[11Xtst/in-noteboook-test.pdf[111X is a printout, to PDF, of the previous file,
+        with  graphics included (though printing from Jupyter notebooks is not
+        perfect, and thus the formatting of this PDF is not that great).[133X
+  
+  [33X[0;0YPlease  be  aware,  however, that the tools imported by this package have an
+  enormous  breadth  of  capabilities  not  shown  in that file. The reader is
+  encouraged  to  browse  their  websites (cited in Section [14X1.1[114X) for extensive
+  galleries of visualizations.[133X
+  
+  [33X[0;0YResulting image not shown here.[133X
   

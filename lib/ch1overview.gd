@@ -2,6 +2,7 @@
 #! @Chapter How to use this package
 #!
 #! @Section Purpose
+#! @SectionLabel purpose
 #!
 #! Since 2017, it has been possible to use &GAP; in
 #! <URL Text="Jupyter">http://jupyter.org/</URL> through the
@@ -116,11 +117,6 @@
 #! </Alt>
 #! <Alt Only="HTML"><![CDATA[<img src="anychart-example.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
-#!
-#! You can see the results of several examples in the files
-#! <File>in-noteboook-test.pdf</File> and
-#! <File>in-noteboook-test.ipynb</File>, in the
-#! <File>tst/</File> subfolder of this package's installation directory.
 #!
 #! If you have the data defining a visualization stored in a
 #! <File>.json</File> file on disk, you can use the following code rather
@@ -313,4 +309,31 @@
 #!     )
 #! ) );
 #! @EndLog
+#!
+#! @Section Gallery
+#!
+#! Readers who would like to see a gallery of examples are encouraged to
+#! inspect the following files in this package's repository and/or
+#! installation directory.
+#!
+#!  * <File>tst/in-noteboook-test.ipynb</File> shows several different
+#!    visualizations, but can only be loaded in a running Jupyter notebook
+#!    with this package installed.
+#!  * <File>tst/in-noteboook-test.pdf</File> is a printout, to PDF, of the
+#!    previous file, with graphics included (though printing from Jupyter
+#!    notebooks is not perfect, and thus the formatting of this PDF is not
+#!    that great).
+#!
+#! Please be aware, however, that the tools imported by this package have an
+#! enormous breadth of capabilities not shown in that file.  The reader is
+#! encouraged to browse their websites (cited in Section
+#! <Ref Sect="Section_purpose"/>) for extensive galleries of visualizations.
+#!
+#! <Alt Only="LaTeX">
+#!     \begin{center}
+#!         \includegraphics[width=4in]{canvasjs-example.png}
+#!     \end{center}
+#! </Alt>
+#! <Alt Only="HTML"><![CDATA[<img src="canvasjs-example.png"/>]]></Alt>
+#! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!

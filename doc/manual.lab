@@ -11,10 +11,15 @@
 \makelabel{jupyter-viz:Example: D3}{1.3.4}{X7A2554B0847DD027}
 \makelabel{jupyter-viz:Example: Native HTML Canvas}{1.3.5}{X7836DDAA82B6A536}
 \makelabel{jupyter-viz:Example: Plain HTML}{1.3.6}{X7C06E0117C8EF31B}
+\makelabel{jupyter-viz:Gallery}{1.4}{X871A653B85A24E11}
 \makelabel{jupyter-viz:Function reference}{2}{X7ECCCA82839EA283}
 \makelabel{jupyter-viz:Public API}{2.1}{X784AA528839119B9}
 \makelabel{jupyter-viz:Internal methods}{2.2}{X7B106BA97FD3C2BF}
 \makelabel{jupyter-viz:Representation wrapper}{2.3}{X7CB82ABE7B3255EB}
+\makelabel{jupyter-viz:Adding new visualization tools}{3}{X81249ADA79916213}
+\makelabel{jupyter-viz:Why you might want to do this}{3.1}{X7DB91A9C7C03FF67}
+\makelabel{jupyter-viz:What you will need}{3.2}{X858B113D80E8D32B}
+\makelabel{jupyter-viz:The appropriate procedure}{3.3}{X8251958E7CD211DE}
 \makelabel{jupyter-viz:Index}{Ind}{X83A0356F839C696F}
 \makelabel{jupyter-viz:RunJavaScript}{2.1.1}{X78BDA43D7E633E33}
 \makelabel{jupyter-viz:LoadJavaScriptFile}{2.1.2}{X81E2B3A07EA7A02B}
