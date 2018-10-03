@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  2 OCT 2018 16:17
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  3 OCT 2018 14:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -24,6 +24,30 @@ File: size11.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen103
+\Gin@req@width=\dimen104
+)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/a4wide/a4wide.sty
 Package: a4wide 1994/08/30
 
@@ -35,7 +59,7 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks14
+\@emptytoks=\toks15
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
@@ -43,8 +67,8 @@ LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 ))
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2018/04/06 v1.3b Input encoding file
-\inpenc@prehook=\toks15
-\inpenc@posthook=\toks16
+\inpenc@prehook=\toks16
+\inpenc@posthook=\toks17
 )
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
@@ -61,19 +85,12 @@ Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 147.
-
-(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
-))
+)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 2008/02/07
 
 Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
 <2008/02/07> (tvz)
-(/usr/local/texlive/2018/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks17
-)
 \FV@CodeLineNo=\count89
 \FV@InFile=\read1
 \FV@TabBox=\box26
@@ -340,7 +357,7 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
-\@linkdim=\dimen103
+\@linkdim=\dimen105
 \Hy@linkcounter=\count92
 \Hy@pagecounter=\count93
 
@@ -386,10 +403,10 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5115.
-\XeTeXLinkMargin=\dimen104
+\XeTeXLinkMargin=\dimen106
 \Fld@menulength=\count96
-\Field@Width=\dimen105
-\Fld@charsize=\dimen106
+\Field@Width=\dimen107
+\Fld@charsize=\dimen108
 Package hyperref Info: Hyper figures OFF on input line 6369.
 Package hyperref Info: Link nesting OFF on input line 6374.
 Package hyperref Info: Hyper index ON on input line 6377.
@@ -418,7 +435,7 @@ File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
 (/usr/local/texlive/2018/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2011/09/28 v3.5.2 Customized lists
 \labelindent=\skip44
-\enit@outerparindent=\dimen107
+\enit@outerparindent=\dimen109
 \enit@toks=\toks18
 \enit@inbox=\box27
 \enitdp@description=\count102
@@ -455,21 +472,38 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count103
-\scratchdimen=\dimen108
+\scratchdimen=\dimen110
 \scratchbox=\box28
 \nofMPsegments=\count104
 \nofMParguments=\count105
 \everyMPshowfont=\toks19
 \MPscratchCnt=\count106
-\MPscratchDim=\dimen109
+\MPscratchDim=\dimen111
 \MPnumerator=\count107
 \makeMPintoPDFobject=\count108
 \everyMPtoPDFconversion=\toks20
+) (/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 )
-\big@size=\dimen110
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\big@size=\dimen112
 \AtBeginShipoutBox=\box29
 Package hyperref Info: Link coloring ON on input line 87.
- (/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
+
+(/usr/local/texlive/2018/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
 (/usr/local/texlive/2018/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -572,10 +606,7 @@ LaTeX Font Info:    Try loading font information for TS1+ptm on input line 162.
 
 (/usr/local/texlive/2018/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 186.
- [3
+) [3
 
 ]
 Underfull \hbox (badness 3364) in paragraph at lines 199--202
@@ -585,51 +616,79 @@ e-ated through one func-tion,
 
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <12> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 207.
-[4] [5] [6] [7]
-Chapter 2.
-[8
+<anychart-example.png, id=87, 584.1825pt x 569.12625pt>
+File: anychart-example.png Graphic file (type png)
+<use anychart-example.png>
+Package pdftex.def Info: anychart-example.png  used on input line 261.
+(pdftex.def)             Requested size: 289.07999pt x 281.63586pt.
+[4]
+Underfull \hbox (badness 1472) in paragraph at lines 265--266
+[]\T1/ptm/m/n/10.95 You can see the re-sults of sev-eral ex-am-ples in the file
+s \T1/cmtt/m/n/10.95 in-noteboook-test.pdf \T1/ptm/m/n/10.95 and
+ []
 
-] [9]
-Underfull \hbox (badness 10000) in paragraph at lines 625--628
+[5 <./anychart-example.png>] [6]
+<cytoscape-example.png, id=116, 412.54124pt x 435.6275pt>
+File: cytoscape-example.png Graphic file (type png)
+<use cytoscape-example.png>
+Package pdftex.def Info: cytoscape-example.png  used on input line 393.
+(pdftex.def)             Requested size: 289.07999pt x 305.26288pt.
+ [7 <./cytoscape-example.png>]
+<d3-example.png, id=126, 106.3975pt x 103.38625pt>
+File: d3-example.png Graphic file (type png)
+<use d3-example.png>
+Package pdftex.def Info: d3-example.png  used on input line 427.
+(pdftex.def)             Requested size: 106.39723pt x 103.38599pt.
+<canvas-example.png, id=127, 102.3825pt x 102.3825pt>
+File: canvas-example.png Graphic file (type png)
+<use canvas-example.png>
+Package pdftex.def Info: canvas-example.png  used on input line 463.
+(pdftex.def)             Requested size: 102.38225pt x 102.38225pt.
+ [8 <./d3-example.png> <./canvas-example.png>] [9]
+Chapter 2.
+[10
+
+] [11]
+Underfull \hbox (badness 10000) in paragraph at lines 651--654
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 664--669
+Underfull \hbox (badness 10000) in paragraph at lines 690--695
 []\T1/ptm/b/n/10.95 Returns:  \T1/ptm/m/n/10.95 the com-po-si-tion of \T1/cmtt/
 m/n/10.95 RunJavaScript \T1/ptm/m/n/10.95 ([][]2.1.1[][]) with
  []
 
-[10] [11]
-Underfull \hbox (badness 1308) in paragraph at lines 767--767
+[12] [13]
+Underfull \hbox (badness 1308) in paragraph at lines 793--793
 [][]\T1/ptm/b/n/12 JUPVIZIsFileContentsRep (for Is-Com-po-nen-tO-b-jec-tRep and
  JUPVIZIs-File-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 785--788
+Underfull \hbox (badness 10000) in paragraph at lines 811--814
 
  []
 
-[12] (./Jupyter-Viz.ind [13
+[14] (./Jupyter-Viz.ind [15
 
 
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 811.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 811.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 837.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 837.
  (./Jupyter-Viz.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 811.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 811.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 837.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 837.
 Package rerunfilecheck Info: File `Jupyter-Viz.out' has not changed.
 (rerunfilecheck)             Checksum: B6B20D4AC13EC10CDDC026923EBFD1CB;550.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 811.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 837.
  ) 
 Here is how much of TeX's memory you used:
- 6937 strings out of 492649
- 103637 string characters out of 6129622
- 187320 words of memory out of 5000000
- 10643 multiletter control sequences out of 15000+600000
+ 7267 strings out of 492649
+ 108876 string characters out of 6129622
+ 192149 words of memory out of 5000000
+ 10945 multiletter control sequences out of 15000+600000
  64084 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  32i,7n,28p,419b,637s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -645,10 +704,10 @@ ve/2018/texmf-dist/fonts/type1/public/cm-super/sfst1095.pfb></usr/local/texlive
 s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/ur
 w/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on Jupyter-Viz.pdf (13 pages, 196742 bytes).
+Output written on Jupyter-Viz.pdf (15 pages, 365186 bytes).
 PDF statistics:
- 255 PDF objects out of 1000 (max. 8388607)
- 227 compressed objects within 3 object streams
- 69 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 272 PDF objects out of 1000 (max. 8388607)
+ 234 compressed objects within 3 object streams
+ 71 named destinations out of 1000 (max. 500000)
+ 93 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -100,8 +100,8 @@
   
   [4X[32X  Example  [32X[104X
     [4X[28XCreateVisualization( rec([128X[104X
-    [4X[28X  tool := "html",[128X[104X
-    [4X[28X  data := rec( html := "I am <i>SO</i> excited about this." )[128X[104X
+    [4X[28X    tool := "html",[128X[104X
+    [4X[28X    data := rec( html := "I am <i>SO</i> excited about this." )[128X[104X
     [4X[28X), "console.log( 'Visualization created.' );" );[128X[104X
   [4X[32X[104X
   
@@ -186,10 +186,10 @@
   [4X[32X  Example  [32X[104X
     [4X[28Xvar calculation = "2^50";[128X[104X
     [4X[28XrunGAP( calculation + ";", function ( result, error ) {[128X[104X
-    [4X[28X  if ( result )[128X[104X
-    [4X[28X    alert( calculation + "=" + result );[128X[104X
-    [4X[28X  else[128X[104X
-    [4X[28X    alert( "There was an error: " + error );[128X[104X
+    [4X[28X    if ( result )[128X[104X
+    [4X[28X        alert( calculation + "=" + result );[128X[104X
+    [4X[28X    else[128X[104X
+    [4X[28X        alert( "There was an error: " + error );[128X[104X
     [4X[28X} );[128X[104X
   [4X[32X[104X
   
@@ -211,10 +211,10 @@
   
   [4X[32X  Example  [32X[104X
     [4X[28XJUPVIZRunJavaScriptUsingLibraries( [ "mylib.js" ],[128X[104X
-    [4X[28X  "alert( 'My Lib defines foo to be: ' + window.foo );" );[128X[104X
+    [4X[28X    "alert( 'My Lib defines foo to be: ' + window.foo );" );[128X[104X
     [4X[28X# Equivalently:[128X[104X
     [4X[28XJUPVIZRunJavaScriptUsingLibraries( "mylib.js",[128X[104X
-    [4X[28X  "alert( 'My Lib defines foo to be: ' + window.foo );" );[128X[104X
+    [4X[28X    "alert( 'My Lib defines foo to be: ' + window.foo );" );[128X[104X
   [4X[32X[104X
   
   

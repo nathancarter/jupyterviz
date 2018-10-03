@@ -97,7 +97,7 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">LoadPackage( "jupyter-viz" );</span>
+LoadPackage( "jupyter-viz" );
 </pre></div>
 
 <p><a id="X7878B43B78F7E099" name="X7878B43B78F7E099"></a></p>
@@ -115,56 +115,56 @@
 <p>The AnyChart website contains <span class="URL"><a href="https://docs.anychart.com/Working_with_Data/Data_From_JSON">documentation</a></span> on how to create visualizations from JSON data. Following those conventions, we could give AnyChart the following JSON to produce a pie chart.</p>
 
 
-<pre class="normal">
-
+<div class="example"><pre>
 {
-  "chart" : {
-    "type" : "pie",
-    "data" : [
-      { "x" : "Subgroups of order 6", "value" : 1 },
-      { "x" : "Subgroups of order 3", "value" : 1 },
-      { "x" : "Subgroups of order 2", "value" : 3 },
-      { "x" : "Subgroups of order 1", "value" : 1 }
-    ]
-  }
+    "chart" : {
+        "type" : "pie",
+        "data" : [
+            { "x" : "Subgroups of order 6", "value" : 1 },
+            { "x" : "Subgroups of order 3", "value" : 1 },
+            { "x" : "Subgroups of order 2", "value" : 3 },
+            { "x" : "Subgroups of order 1", "value" : 1 }
+        ]
+    }
 }
-
-</pre>
+</pre></div>
 
 <p>In <strong class="pkg">GAP</strong>, the same data would be represented with a record, as follows.</p>
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">myChartData := rec(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    chart := rec(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        type := "pie",</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        data := [</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">            rec( x := "Subgroups of order 6", value := 1 ),</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">            rec( x := "Subgroups of order 3", value := 1 ),</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">            rec( x := "Subgroups of order 2", value := 3 ),</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">            rec( x := "Subgroups of order 1", value := 1 )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        ]</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">);</span>
+myChartData := rec(
+    chart := rec(
+        type := "pie",
+        data := [
+            rec( x := "Subgroups of order 6", value := 1 ),
+            rec( x := "Subgroups of order 3", value := 1 ),
+            rec( x := "Subgroups of order 2", value := 3 ),
+            rec( x := "Subgroups of order 1", value := 1 )
+        ]
+    )
+);
 </pre></div>
 
 <p>We can ask <strong class="pkg">GAP</strong>, running in a Jupyter notebook, to create a visualization from this data by passing that data directly to <code class="func">CreateVisualization</code> (<a href="chap2.html#X7BFFD8B7808F5BDA"><span class="RefLink">2.1-3</span></a>). We wrap it in a record that must specify the tool to use (in this case <code class="code">"anychart"</code>) and optionally some other details not relevant here.</p>
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CreateVisualization( rec( tool := "anychart", data := myChartData ) );</span>
+CreateVisualization( rec( tool := "anychart", data := myChartData ) );
 </pre></div>
 
-<p>The results of this command are not shown here, but you can see the results of other examples in the file <code class="file">in-noteboook-test.ipynb</code>, in the <code class="file">tst</code> subfolder of this package's installation directory.</p>
+<p><img src="anychart-example.png"/></p>
+
+<p>You can see the results of several examples in the files <code class="file">in-noteboook-test.pdf</code> and <code class="file">in-noteboook-test.ipynb</code>, in the <code class="file">tst/</code> subfolder of this package's installation directory.</p>
 
 <p>If you have the data defining a visualization stored in a <code class="file">.json</code> file on disk, you can use the following code rather than rewriting the JSON code into <strong class="pkg">GAP</strong> code yourself.</p>
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CreateVisualization( rec(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    tool := "anychart",</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    data := JsonStringToGap( ReadAll( InputTextFile( "your-file.json" ) ) )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">) );</span>
+CreateVisualization( rec(
+    tool := "anychart",
+    data := JsonStringToGap( ReadAll( InputTextFile( "your-file.json" ) ) )
+) );
 </pre></div>
 
 <p>AnyChart can make a wide variety of charts (area, bar, box, bubble, bullet, column, doughnut, and so on, for over 125 different types and subtypes). Other JavaScript libraries available also have similarly broad capabilities, but we do not include here examples of CanvasJS, ChartJS, or Plotly, because their capabilities and purpose are somewhat similar to that of AnyChart. Though their data formats are different, you can find links to those formats' documentation in the documentation for the function <code class="func">CreateVisualization</code> (<a href="chap2.html#X7BFFD8B7808F5BDA"><span class="RefLink">2.1-3</span></a>). So instead future sections focus on four other examples that are unlike AnyChart.</p>
@@ -177,10 +177,10 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CreateVisualization(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    sameDataAsAbove, # plus this new second parameter:</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    "visualization.style.border = '5px solid black'"</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">)</span>
+CreateVisualization(
+    sameDataAsAbove, # plus this new second parameter:
+    "visualization.style.border = '5px solid black'"
+)
 </pre></div>
 
 <p>This holds for any visualization tool, not just AnyChart. In the code given in the second parameter, two variables will be defined for your use: <code class="code">element</code> refers to the output cell element in the notebook and <code class="code">visualization</code> refers to the visualization that the toolkit you chose created within that output cell (also an HTML element).</p>
@@ -192,18 +192,16 @@
 <p>Unlike AnyChart, Cytoscape is for the vertices-and-edges type of graph, not the x-and-y-axes type. A tiny Cytoscape graph (just <span class="Math">A\to B</span>) is represented by the following JSON.</p>
 
 
-<pre class="normal">
-
+<div class="example"><pre>
 {
-  elements : [
-    { data : { id : "A" } },
-    { data : { id : "B" } },
-    { data : { id : "edge", source : "A", target : "B" } }
-  ],
-  layout : { name : "grid", rows : 1 }
+    elements : [
+        { data : { id : "A" } },
+        { data : { id : "B" } },
+        { data : { id : "edge", source : "A", target : "B" } }
+    ],
+    layout : { name : "grid", rows : 1 }
 }
-
-</pre>
+</pre></div>
 
 <p>Cytoscape graphs can also have style attributes not shown here.</p>
 
@@ -211,21 +209,22 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">N := 50;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">elements := [ ];</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">for i in [2..N] do</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    Add( elements, rec( data := rec( id := String( i ) ) ) );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    if IsPrime( i ) then</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        Add( roots, i );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    fi;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    for j in [2..i-1] do</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        if i mod j = 0 then</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">            Add( elements, rec( data := rec(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">                source := String( j ),</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">                target := String( i ) ) ) );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">        fi;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    od;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">od;</span>
+N := 50;
+elements := [ ];
+roots := [ ];
+for i in [2..N] do
+    Add( elements, rec( data := rec( id := String( i ) ) ) );
+    if IsPrime( i ) then
+        Add( roots, i );
+    fi;
+    for j in [2..i-1] do
+        if i mod j = 0 then
+            Add( elements, rec( data := rec(
+                source := String( j ),
+                target := String( i ) ) ) );
+        fi;
+    od;
+od;
 </pre></div>
 
 <p>We then need to choose a layout algorithm. The Cytoscape documentation suggests that the "cose" layout works well. Here, we do choose a height (in pixels) for the result, because Cytoscape does not automaticlly resize visualizations to fit their contents. We also set the style for each node to display its ID (which is the integer associated with it).</p>
@@ -234,18 +233,20 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CreateVisualization( rec(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    tool := "cytoscape",</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    height := 600,</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    data := rec(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        elements := elements, # computed in the code above</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        layout := rec( name := "cose" ),</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        style := [</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">            rec( selector := "node", style := rec( content := "data(id)" ) )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        ]</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">) );</span>
+CreateVisualization( rec(
+    tool := "cytoscape",
+    height := 600,
+    data := rec(
+        elements := elements, # computed in the code above
+        layout := rec( name := "cose" ),
+        style := [
+            rec( selector := "node", style := rec( content := "data(id)" ) )
+        ]
+    )
+) );
 </pre></div>
+
+<p><img src="cytoscape-example.png"/></p>
 
 <p><a id="X7A2554B0847DD027" name="X7A2554B0847DD027"></a></p>
 
@@ -255,16 +256,18 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CreateVisualization(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    rec( tool := "d3" ),</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    """</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    // arbitrary JavaScript code can go here to interact with D3, like so:</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    d3.select( visualization ).append( "circle" )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        .attr( "r", 50 ).attr( "cx", 55 ).attr( "cy", 55 )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        .style( "stroke", "red" ).style( "fill", "pink" );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    """</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">);</span>
+CreateVisualization(
+    rec( tool := "d3" ),
+    """
+    // arbitrary JavaScript code can go here to interact with D3, like so:
+    d3.select( visualization ).append( "circle" )
+        .attr( "r", 50 ).attr( "cx", 55 ).attr( "cy", 55 )
+        .style( "stroke", "red" ).style( "fill", "pink" );
+    """
+);
 </pre></div>
+
+<p><img src="d3-example.png"/></p>
 
 <p><a id="X7836DDAA82B6A536" name="X7836DDAA82B6A536"></a></p>
 
@@ -274,20 +277,22 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CreateVisualization(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    rec( tool := "canvas", height := 300 ),</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    """</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    // visualization is the canvas element</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    var context = visualization.getContext( '2d' );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    // draw an X</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    context.moveTo( 0, 0 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    context.lineTo( 100, 100 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    context.moveTo( 100, 0 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    context.lineTo( 0, 100 );</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    context.stroke();</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    """</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">);</span>
+CreateVisualization(
+    rec( tool := "canvas", height := 300 ),
+    """
+    // visualization is the canvas element
+    var context = visualization.getContext( '2d' );
+    // draw an X
+    context.moveTo( 0, 0 );
+    context.lineTo( 100, 100 );
+    context.moveTo( 100, 0 );
+    context.lineTo( 0, 100 );
+    context.stroke();
+    """
+);
 </pre></div>
+
+<p><img src="canvas-example.png"/></p>
 
 <p><a id="X7C06E0117C8EF31B" name="X7C06E0117C8EF31B"></a></p>
 
@@ -297,12 +302,12 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">CreateVisualiation( rec(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    tool := "html",</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    data := rec(</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">        html := "&lt;i&gt;Any&lt;/i&gt; HTML can go here.  Tables, buttons, whatever."</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">    )</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">) );</span>
+CreateVisualiation( rec(
+    tool := "html",
+    data := rec(
+        html := "&lt;i&gt;Any&lt;/i&gt; HTML can go here.  Tables, buttons, whatever."
+    )
+) );
 </pre></div>
 
 

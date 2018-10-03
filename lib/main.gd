@@ -90,12 +90,12 @@ DeclareGlobalFunction( "LoadJavaScriptFile" );
 #!   * <Code>width</Code> (optional) - width to set on the output element
 #!     being created
 #!   * <Code>height</Code> (optional) - similar, but height
-#! @Example
+#! @BeginLog
 #! CreateVisualization( rec(
-#!   tool := "html",
-#!   data := rec( html := "I am <i>SO</i> excited about this." )
+#!     tool := "html",
+#!     data := rec( html := "I am <i>SO</i> excited about this." )
 #! ), "console.log( 'Visualization created.' );" );
-#! @EndExample
+#! @EndLog
 DeclareGlobalFunction( "CreateVisualization" );
 
 #! @Section Internal methods
@@ -173,15 +173,15 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptFromTemplate" );
 #!  <P/>
 #!  Here is an example use, from JavaScript, of the <Code>runGAP</Code>
 #!  function.
-#! @Example
+#! @BeginLog
 #! var calculation = "2^50";
 #! runGAP( calculation + ";", function ( result, error ) {
-#!   if ( result )
-#!     alert( calculation + "=" + result );
-#!   else
-#!     alert( "There was an error: " + error );
+#!     if ( result )
+#!         alert( calculation + "=" + result );
+#!     else
+#!         alert( "There was an error: " + error );
 #! } );
-#! @EndExample
+#! @EndLog
 DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingRunGAP" );
 
 #! @Arguments libraries, jsCode
@@ -197,13 +197,13 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingRunGAP" );
 #!  <P/>
 #!  If the first parameter is given as a string instead of a list of
 #!  strings, it is treated as a list of just one string.
-#! @Example
+#! @BeginLog
 #! JUPVIZRunJavaScriptUsingLibraries( [ "mylib.js" ],
-#!   "alert( 'My Lib defines foo to be: ' + window.foo );" );
+#!     "alert( 'My Lib defines foo to be: ' + window.foo );" );
 #! # Equivalently:
 #! JUPVIZRunJavaScriptUsingLibraries( "mylib.js",
-#!   "alert( 'My Lib defines foo to be: ' + window.foo );" );
-#! @EndExample
+#!     "alert( 'My Lib defines foo to be: ' + window.foo );" );
+#! @EndLog
 DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingLibraries" );
 
 #! @Section Representation wrapper

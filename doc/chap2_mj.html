@@ -151,8 +151,8 @@
 
 <div class="example"><pre>
 CreateVisualization( rec(
-  tool := "html",
-  data := rec( html := "I am &lt;i&gt;SO&lt;/i&gt; excited about this." )
+    tool := "html",
+    data := rec( html := "I am &lt;i&gt;SO&lt;/i&gt; excited about this." )
 ), "console.log( 'Visualization created.' );" );
 </pre></div>
 
@@ -221,10 +221,10 @@ CreateVisualization( rec(
 <div class="example"><pre>
 var calculation = "2^50";
 runGAP( calculation + ";", function ( result, error ) {
-  if ( result )
-    alert( calculation + "=" + result );
-  else
-    alert( "There was an error: " + error );
+    if ( result )
+        alert( calculation + "=" + result );
+    else
+        alert( "There was an error: " + error );
 } );
 </pre></div>
 
@@ -242,10 +242,10 @@ runGAP( calculation + ";", function ( result, error ) {
 
 <div class="example"><pre>
 JUPVIZRunJavaScriptUsingLibraries( [ "mylib.js" ],
-  "alert( 'My Lib defines foo to be: ' + window.foo );" );
+    "alert( 'My Lib defines foo to be: ' + window.foo );" );
 # Equivalently:
 JUPVIZRunJavaScriptUsingLibraries( "mylib.js",
-  "alert( 'My Lib defines foo to be: ' + window.foo );" );
+    "alert( 'My Lib defines foo to be: ' + window.foo );" );
 </pre></div>
 
 <p><a id="X7CB82ABE7B3255EB" name="X7CB82ABE7B3255EB"></a></p>

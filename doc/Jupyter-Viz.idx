@@ -1,12 +1,12 @@
-\indexentry{RunJavaScript@\texttt  {RunJavaScript}|hyperpage}{8}
-\indexentry{LoadJavaScriptFile@\texttt  {LoadJavaScriptFile}|hyperpage}{8}
-\indexentry{CreateVisualization@\texttt  {CreateVisualization}|hyperpage}{8}
-\indexentry{JUPVIZAbsoluteJavaScriptFilename@\texttt  {JUPVIZAbsoluteJavaScriptFilename}|hyperpage}{10}
-\indexentry{JUPVIZLoadedJavaScriptCache@\texttt  {JUPVIZLoadedJavaScriptCache}|hyperpage}{10}
-\indexentry{JUPVIZFillInJavaScriptTemplate@\texttt  {JUPVIZFillInJavaScriptTemplate}|hyperpage}{10}
-\indexentry{JUPVIZRunJavaScriptFromTemplate@\texttt  {JUPVIZRunJavaScriptFromTemplate}|hyperpage}{10}
-\indexentry{JUPVIZRunJavaScriptUsingRunGAP@\texttt  {JUPVIZRunJavaScriptUsingRunGAP}|hyperpage}{10}
-\indexentry{JUPVIZRunJavaScriptUsingLibraries@\texttt  {JUPVIZRunJavaScriptUsingLibraries}|hyperpage}{11}
-\indexentry{JUPVIZIsFileContents@\texttt  {JUPVIZIsFileContents}!for IsObject|hyperpage}{12}
-\indexentry{JUPVIZIsFileContentsRep@\texttt  {JUPVIZIsFileContentsRep}!for IsComponentObjectRep and JUPVIZIsFileContents|hyperpage}{12}
-\indexentry{JUPVIZFileContents@\texttt  {JUPVIZFileContents}!for IsString|hyperpage}{12}
+\indexentry{RunJavaScript@\texttt  {RunJavaScript}|hyperpage}{10}
+\indexentry{LoadJavaScriptFile@\texttt  {LoadJavaScriptFile}|hyperpage}{10}
+\indexentry{CreateVisualization@\texttt  {CreateVisualization}|hyperpage}{10}
+\indexentry{JUPVIZAbsoluteJavaScriptFilename@\texttt  {JUPVIZAbsoluteJavaScriptFilename}|hyperpage}{12}
+\indexentry{JUPVIZLoadedJavaScriptCache@\texttt  {JUPVIZLoadedJavaScriptCache}|hyperpage}{12}
+\indexentry{JUPVIZFillInJavaScriptTemplate@\texttt  {JUPVIZFillInJavaScriptTemplate}|hyperpage}{12}
+\indexentry{JUPVIZRunJavaScriptFromTemplate@\texttt  {JUPVIZRunJavaScriptFromTemplate}|hyperpage}{12}
+\indexentry{JUPVIZRunJavaScriptUsingRunGAP@\texttt  {JUPVIZRunJavaScriptUsingRunGAP}|hyperpage}{12}
+\indexentry{JUPVIZRunJavaScriptUsingLibraries@\texttt  {JUPVIZRunJavaScriptUsingLibraries}|hyperpage}{13}
+\indexentry{JUPVIZIsFileContents@\texttt  {JUPVIZIsFileContents}!for IsObject|hyperpage}{14}
+\indexentry{JUPVIZIsFileContentsRep@\texttt  {JUPVIZIsFileContentsRep}!for IsComponentObjectRep and JUPVIZIsFileContents|hyperpage}{14}
+\indexentry{JUPVIZFileContents@\texttt  {JUPVIZFileContents}!for IsString|hyperpage}{14}

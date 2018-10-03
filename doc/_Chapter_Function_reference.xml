@@ -122,12 +122,12 @@ being created
 <Code>height</Code> (optional) - similar, but height
 </Item>
 </List>
-<Example><![CDATA[
+<Log><![CDATA[
 CreateVisualization( rec(
-  tool := "html",
-  data := rec( html := "I am <i>SO</i> excited about this." )
+    tool := "html",
+    data := rec( html := "I am <i>SO</i> excited about this." )
 ), "console.log( 'Visualization created.' );" );
-]]></Example>
+]]></Log>
 
 
  </Description>
@@ -230,15 +230,15 @@ needed.
 <P/>
 Here is an example use, from JavaScript, of the <Code>runGAP</Code>
 function.
-<Example><![CDATA[
+<Log><![CDATA[
 var calculation = "2^50";
 runGAP( calculation + ";", function ( result, error ) {
-  if ( result )
-    alert( calculation + "=" + result );
-  else
-    alert( "There was an error: " + error );
+    if ( result )
+        alert( calculation + "=" + result );
+    else
+        alert( "There was an error: " + error );
 } );
-]]></Example>
+]]></Log>
 
 
  </Description>
@@ -260,13 +260,13 @@ make use of the functions and variables that they define.
 <P/>
 If the first parameter is given as a string instead of a list of
 strings, it is treated as a list of just one string.
-<Example><![CDATA[
+<Log><![CDATA[
 JUPVIZRunJavaScriptUsingLibraries( [ "mylib.js" ],
-  "alert( 'My Lib defines foo to be: ' + window.foo );" );
+    "alert( 'My Lib defines foo to be: ' + window.foo );" );
 # Equivalently:
 JUPVIZRunJavaScriptUsingLibraries( "mylib.js",
-  "alert( 'My Lib defines foo to be: ' + window.foo );" );
-]]></Example>
+    "alert( 'My Lib defines foo to be: ' + window.foo );" );
+]]></Log>
 
 
  </Description>
