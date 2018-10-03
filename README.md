@@ -8,9 +8,6 @@ integrated into GAP or its build system.
 
 # The Jupyter Notebook Visualization Package
 
-* Website: nathancarter.github.io/jupyter-viz/
-* Repository: https://github.com/nathancarter/jupyter-viz
-
 ## Purpose
 
 This package adds visualization tools to GAP for use in Jupyter notebooks.
