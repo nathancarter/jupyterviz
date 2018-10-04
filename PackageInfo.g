@@ -98,7 +98,7 @@ PackageInfoURL   := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 ##  example/init.g, ...    or example-3.3/init.g, ...  )
 ArchiveURL := Concatenation( ~.SourceRepository.URL,
                              "/releases/download/v", ~.Version,
-                             "/", ~.PackageName, "-", ~.Version ),
+                             "/jupyter-viz-", ~.Version ),
 ArchiveFormats := ".tar.gz",
 
 
