@@ -79,11 +79,13 @@ Dependencies := rec(
 #
 #########
 
-PackageWWWHome   := "https://nathancarter.github.io/jupyter-viz",
+PackageWWWHome   := Concatentation( "https://nathancarter.github.io/",
+                                    LowercaseString( ~.PackageName ) ),
 ##  Later, if this becomes part of GAP, use:
 ##  Concatenation( "https://gap-packages.github.io/", LowercaseString( ~.PackageName ) ),
 SourceRepository := rec( Type := "git",
-                         URL  := "http://github.com/nathancarter/jupyter-viz" ),
+                         URL  := Concatenation( "http://github.com/nathancarter/",
+                                                LowercaseString( ~.PackageName ) ) ),
 IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
 SupportEmail     := "ncarter@bentley.edu",
 README_URL       := Concatenation( ~.PackageWWWHome, "/README.md" ),
@@ -97,8 +99,8 @@ PackageInfoURL   := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
 ##  directory containing the package (in our "example" probably:
 ##  example/init.g, ...    or example-3.3/init.g, ...  )
 ArchiveURL := Concatenation( ~.SourceRepository.URL,
-                             "/releases/download/v", ~.Version,
-                             "/jupyter-viz-", ~.Version ),
+                             "/releases/download/v", ~.Version, "/",
+                             LowercaseString( ~.PackageName ), "-", ~.Version ),
 ArchiveFormats := ".tar.gz",
 
 
