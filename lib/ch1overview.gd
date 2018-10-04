@@ -262,7 +262,7 @@
 #!         \includegraphics{d3-example.png}
 #!     \end{center}
 #! </Alt>
-#! <Alt Only="HTML"><![CDATA[<img width="500" src="d3-example.png"/>]]></Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="200" src="d3-example.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!
 #! @Subsection Example: Native HTML Canvas
@@ -334,6 +334,6 @@
 #!         \includegraphics[width=4in]{canvasjs-example.png}
 #!     \end{center}
 #! </Alt>
-#! <Alt Only="HTML"><![CDATA[<img width="200" src="canvasjs-example.png"/>]]></Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="500" src="canvasjs-example.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!

@@ -332,7 +332,7 @@ CreateVisualization(
 \includegraphics{d3-example.png}
 \end{center}
 </Alt>
-<Alt Only="HTML"><![CDATA[<img width="500" src="d3-example.png"/>]]></Alt>
+<Alt Only="HTML"><![CDATA[<img width="200" src="d3-example.png"/>]]></Alt>
 <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 <P/>
 </Subsection>
@@ -432,7 +432,7 @@ encouraged to browse their websites (cited in Section
 \includegraphics[width=4in]{canvasjs-example.png}
 \end{center}
 </Alt>
-<Alt Only="HTML"><![CDATA[<img width="200" src="canvasjs-example.png"/>]]></Alt>
+<Alt Only="HTML"><![CDATA[<img width="500" src="canvasjs-example.png"/>]]></Alt>
 <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 <P/>
 </Section>
