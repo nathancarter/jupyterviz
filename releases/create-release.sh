@@ -41,7 +41,7 @@ cd "$myPkgDir/.."
 echo "Archiving folder $myPkgName/ into its releases/downloads/ folder..."
 
 tar -cvzf "$myPkgName/releases/downloads/$myPkgName-$myPkgVersion.tar.gz" \
-    --exclude .git --exclude releases/downloads \
+    --exclude .git --exclude releases/downloads --exclude gh-pages \
     "$myPkgName"
 
 echo "Done."
