@@ -84,7 +84,7 @@ PackageWWWHome   := Concatenation( "https://nathancarter.github.io/",
 ##  Later, if this becomes part of GAP, use:
 ##  Concatenation( "https://gap-packages.github.io/", LowercaseString( ~.PackageName ) ),
 SourceRepository := rec( Type := "git",
-                         URL  := Concatenation( "http://github.com/nathancarter/",
+                         URL  := Concatenation( "https://github.com/nathancarter/",
                                                 LowercaseString( ~.PackageName ) ) ),
 IssueTrackerURL  := Concatenation( ~.SourceRepository.URL, "/issues" ),
 SupportEmail     := "ncarter@bentley.edu",
