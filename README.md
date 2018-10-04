@@ -27,7 +27,7 @@ visualization libraries can be added easily.
 
 The package does not need to be compiled.
 
-See [the manual as a PDF here](doc/manual.pdf).
+See the manual on [the package website](http://nathancarter.github.io/jupyter-viz)
 
 Or check out an example notebook:
  * Live on Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/nathancarter/jupyter-viz/master?filepath=inst%2Fgap-4.9.3%2Fpkg%2Fjupyter-viz%2Ftst%2Fin-notebook-test.ipynb)
