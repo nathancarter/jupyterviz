@@ -17,6 +17,9 @@ cd ..
 
 Optionally, commit and push changes.
 
+Upload that file as a new release
+[here](https://github.com/nathancarter/jupyter-viz/releases).
+
 ## Rebuilding the documentation
 
 ```sh
