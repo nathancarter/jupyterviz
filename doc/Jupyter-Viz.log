@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  4 OCT 2018 10:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  4 OCT 2018 10:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -721,7 +721,7 @@ ve/2018/texmf-dist/fonts/type1/public/cm-super/sfst1095.pfb></usr/local/texlive
 s/type1/urw/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/ur
 w/times/utmr8a.pfb></usr/local/texlive/2018/texmf-dist/fonts/type1/urw/times/ut
 mri8a.pfb>
-Output written on Jupyter-Viz.pdf (18 pages, 583336 bytes).
+Output written on Jupyter-Viz.pdf (18 pages, 583339 bytes).
 PDF statistics:
  332 PDF objects out of 1000 (max. 8388607)
  289 compressed objects within 3 object streams

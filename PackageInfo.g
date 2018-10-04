@@ -28,14 +28,14 @@ SetPackageInfo( rec(
 
 PackageName := "Jupyter-Viz",
 Subtitle    := "Jupyter Notebook Visualization Tools",
-Version     := "1.0.0",
-Date        := "26/09/2018", # Release date of current version, dd/mm/yyyy
+Version     := "1.1.0",
+Date        := "04/10/2018", # Release date of current version, dd/mm/yyyy
 
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "1.0.0">
+##  <!ENTITY VERSION "1.1.0">
 ##  <!ENTITY RELEASEDATE "26 September 2018">
 ##  <#/GAPDoc>
 
