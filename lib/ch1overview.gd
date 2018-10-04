@@ -115,7 +115,7 @@
 #!         \includegraphics[width=4in]{anychart-example.png}
 #!     \end{center}
 #! </Alt>
-#! <Alt Only="HTML"><![CDATA[<img src="anychart-example.png"/>]]></Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="500" src="anychart-example.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!
 #! If you have the data defining a visualization stored in a
@@ -234,7 +234,7 @@
 #!         \includegraphics[width=4in]{cytoscape-example.png}
 #!     \end{center}
 #! </Alt>
-#! <Alt Only="HTML"><![CDATA[<img src="cytoscape-example.png"/>]]></Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="500" src="cytoscape-example.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!
 #! @Subsection Example: D3
@@ -262,7 +262,7 @@
 #!         \includegraphics{d3-example.png}
 #!     \end{center}
 #! </Alt>
-#! <Alt Only="HTML"><![CDATA[<img src="d3-example.png"/>]]></Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="500" src="d3-example.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!
 #! @Subsection Example: Native HTML Canvas
@@ -291,7 +291,7 @@
 #!         \includegraphics{canvas-example.png}
 #!     \end{center}
 #! </Alt>
-#! <Alt Only="HTML"><![CDATA[<img src="canvas-example.png"/>]]></Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="200" src="canvas-example.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!
 #! @Subsection Example: Plain HTML
@@ -334,6 +334,6 @@
 #!         \includegraphics[width=4in]{canvasjs-example.png}
 #!     \end{center}
 #! </Alt>
-#! <Alt Only="HTML"><![CDATA[<img src="canvasjs-example.png"/>]]></Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="200" src="canvasjs-example.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!

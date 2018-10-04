@@ -3,77 +3,97 @@ HELPBOOKINFOSIXTMP := rec(
 encoding := "UTF-8",
 bookname := "Jupyter-Viz",
 entries :=
-[ [ "Title page", ".", [ 0, 0, 0 ], 1, 1, "title page", "X7D2C85EC87DD46E5" ],
-  [ "Table of Contents", ".-1", [ 0, 0, 1 ], 29, 2, "table of contents", 
-      "X8537FEB07AF2BEC8" ], 
-  [ "\033[1X\033[33X\033[0;-2YHow to use this package\033[133X\033[101X", 
-      "1", [ 1, 0, 0 ], 1, 3, "how to use this package", "X805201F27AA23554" ]
-    , 
-  [ "\033[1X\033[33X\033[0;-2YPurpose\033[133X\033[101X", "1.1", [ 1, 1, 0 ], 
-      4, 3, "purpose", "X78E0A9867DABCE86" ], 
+[ [ "Title page", ".", [ 0, 0, 0 ], 1, 1, "title page", 
+      "X7D2C85EC87DD46E5" ], 
+  [ "Table of Contents", ".-1", [ 0, 0, 1 ], 29, 2, 
+      "table of contents", "X8537FEB07AF2BEC8" ], 
   [ 
-      "\033[1X\033[33X\033[0;-2YLoading the package into a Jupyter notebook\033[1\
-33X\033[101X", "1.2", [ 1, 2, 0 ], 45, 3, 
-      "loading the package into a jupyter notebook", "X80DC99A778923B3D" ], 
-  [ "\033[1X\033[33X\033[0;-2YCreating a visualization\033[133X\033[101X", 
-      "1.3", [ 1, 3, 0 ], 56, 4, "creating a visualization", 
+      "\033[1X\033[33X\033[0;-2YHow to use this package\033[133X\033[10\
+1X", "1", [ 1, 0, 0 ], 1, 3, "how to use this package", 
+      "X805201F27AA23554" ], 
+  [ "\033[1X\033[33X\033[0;-2YPurpose\033[133X\033[101X", "1.1", 
+      [ 1, 1, 0 ], 4, 3, "purpose", "X78E0A9867DABCE86" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YLoading the package into a Jupyter note\
+book\033[133X\033[101X", "1.2", [ 1, 2, 0 ], 45, 3, 
+      "loading the package into a jupyter notebook", 
+      "X80DC99A778923B3D" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YCreating a visualization\033[133X\033[1\
+01X", "1.3", [ 1, 3, 0 ], 56, 4, "creating a visualization", 
       "X7878B43B78F7E099" ], 
-  [ "\033[1X\033[33X\033[0;-2YExample: AnyChart\033[133X\033[101X", "1.3-1", 
-      [ 1, 3, 1 ], 69, 4, "example: anychart", "X7B0290B3876FCDA1" ], 
+  [ "\033[1X\033[33X\033[0;-2YExample: AnyChart\033[133X\033[101X", 
+      "1.3-1", [ 1, 3, 1 ], 69, 4, "example: anychart", 
+      "X7B0290B3876FCDA1" ], 
   [ 
-      "\033[1X\033[33X\033[0;-2YPost-processing visualizations\033[133X\033[101X"
-        , "1.3-2", [ 1, 3, 2 ], 139, 5, "post-processing visualizations", 
-      "X7D65933280120650" ], 
-  [ "\033[1X\033[33X\033[0;-2YExample: Cytoscape\033[133X\033[101X", "1.3-3", 
-      [ 1, 3, 3 ], 160, 6, "example: cytoscape", "X7E2737FC7EDB79B1" ], 
-  [ "\033[1X\033[33X\033[0;-2YExample: D3\033[133X\033[101X", "1.3-4", 
-      [ 1, 3, 4 ], 230, 7, "example: d3", "X7A2554B0847DD027" ], 
-  [ "\033[1X\033[33X\033[0;-2YExample: Native HTML Canvas\033[133X\033[101X", 
-      "1.3-5", [ 1, 3, 5 ], 253, 8, "example: native html canvas", 
-      "X7836DDAA82B6A536" ], 
-  [ "\033[1X\033[33X\033[0;-2YExample: Plain HTML\033[133X\033[101X", 
-      "1.3-6", [ 1, 3, 6 ], 277, 8, "example: plain html", 
+      "\033[1X\033[33X\033[0;-2YPost-processing visualizations\033[133X\
+\033[101X", "1.3-2", [ 1, 3, 2 ], 139, 5, 
+      "post-processing visualizations", "X7D65933280120650" ], 
+  [ "\033[1X\033[33X\033[0;-2YExample: Cytoscape\033[133X\033[101X",
+      "1.3-3", [ 1, 3, 3 ], 160, 6, "example: cytoscape", 
+      "X7E2737FC7EDB79B1" ], 
+  [ "\033[1X\033[33X\033[0;-2YExample: D3\033[133X\033[101X", 
+      "1.3-4", [ 1, 3, 4 ], 230, 7, "example: d3", 
+      "X7A2554B0847DD027" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YExample: Native HTML Canvas\033[133X\\
+033[101X", "1.3-5", [ 1, 3, 5 ], 253, 8, 
+      "example: native html canvas", "X7836DDAA82B6A536" ], 
+  [ "\033[1X\033[33X\033[0;-2YExample: Plain HTML\033[133X\033[101X"
+        , "1.3-6", [ 1, 3, 6 ], 277, 8, "example: plain html", 
       "X7C06E0117C8EF31B" ], 
-  [ "\033[1X\033[33X\033[0;-2YGallery\033[133X\033[101X", "1.4", [ 1, 4, 0 ], 
-      293, 9, "gallery", "X871A653B85A24E11" ], 
-  [ "\033[1X\033[33X\033[0;-2YFunction reference\033[133X\033[101X", "2", 
-      [ 2, 0, 0 ], 1, 10, "function reference", "X7ECCCA82839EA283" ], 
+  [ "\033[1X\033[33X\033[0;-2YGallery\033[133X\033[101X", "1.4", 
+      [ 1, 4, 0 ], 293, 9, "gallery", "X871A653B85A24E11" ], 
+  [ "\033[1X\033[33X\033[0;-2YFunction reference\033[133X\033[101X",
+      "2", [ 2, 0, 0 ], 1, 10, "function reference", 
+      "X7ECCCA82839EA283" ], 
   [ "\033[1X\033[33X\033[0;-2YPublic API\033[133X\033[101X", "2.1", 
       [ 2, 1, 0 ], 4, 10, "public api", "X784AA528839119B9" ], 
-  [ "\033[1X\033[33X\033[0;-2YInternal methods\033[133X\033[101X", "2.2", 
-      [ 2, 2, 0 ], 108, 11, "internal methods", "X7B106BA97FD3C2BF" ], 
-  [ "\033[1X\033[33X\033[0;-2YRepresentation wrapper\033[133X\033[101X", 
-      "2.3", [ 2, 3, 0 ], 220, 13, "representation wrapper", 
+  [ "\033[1X\033[33X\033[0;-2YInternal methods\033[133X\033[101X", 
+      "2.2", [ 2, 2, 0 ], 108, 11, "internal methods", 
+      "X7B106BA97FD3C2BF" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YRepresentation wrapper\033[133X\033[101\
+X", "2.3", [ 2, 3, 0 ], 220, 13, "representation wrapper", 
       "X7CB82ABE7B3255EB" ], 
   [ 
-      "\033[1X\033[33X\033[0;-2YAdding new visualization tools\033[133X\033[101X"
-        , "3", [ 3, 0, 0 ], 1, 15, "adding new visualization tools", 
-      "X81249ADA79916213" ], 
-  [ "\033[1X\033[33X\033[0;-2YWhy you might want to do this\033[133X\033[101X"
-        , "3.1", [ 3, 1, 0 ], 4, 15, "why you might want to do this", 
-      "X7DB91A9C7C03FF67" ], 
-  [ "\033[1X\033[33X\033[0;-2YWhat you will need\033[133X\033[101X", "3.2", 
-      [ 3, 2, 0 ], 18, 15, "what you will need", "X858B113D80E8D32B" ], 
-  [ "\033[1X\033[33X\033[0;-2YThe appropriate procedure\033[133X\033[101X", 
-      "3.3", [ 3, 3, 0 ], 41, 15, "the appropriate procedure", 
+      "\033[1X\033[33X\033[0;-2YAdding new visualization tools\033[133X\
+\033[101X", "3", [ 3, 0, 0 ], 1, 15, 
+      "adding new visualization tools", "X81249ADA79916213" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YWhy you might want to do this\033[133X\\
+033[101X", "3.1", [ 3, 1, 0 ], 4, 15, 
+      "why you might want to do this", "X7DB91A9C7C03FF67" ], 
+  [ "\033[1X\033[33X\033[0;-2YWhat you will need\033[133X\033[101X",
+      "3.2", [ 3, 2, 0 ], 18, 15, "what you will need", 
+      "X858B113D80E8D32B" ], 
+  [ 
+      "\033[1X\033[33X\033[0;-2YThe appropriate procedure\033[133X\033[\
+101X", "3.3", [ 3, 3, 0 ], 41, 15, "the appropriate procedure", 
       "X8251958E7CD211DE" ], 
-  [ "Index", "ind", [ "Ind", 0, 0 ], 1, 18, "index", "X83A0356F839C696F" ], 
+  [ "Index", "ind", [ "Ind", 0, 0 ], 1, 18, "index", 
+      "X83A0356F839C696F" ], 
   [ "\033[2XRunJavaScript\033[102X", "2.1-1", [ 2, 1, 1 ], 7, 10, 
       "runjavascript", "X78BDA43D7E633E33" ], 
-  [ "\033[2XLoadJavaScriptFile\033[102X", "2.1-2", [ 2, 1, 2 ], 23, 10, 
-      "loadjavascriptfile", "X81E2B3A07EA7A02B" ], 
-  [ "\033[2XCreateVisualization\033[102X", "2.1-3", [ 2, 1, 3 ], 39, 10, 
-      "createvisualization", "X7BFFD8B7808F5BDA" ], 
-  [ "\033[2XJUPVIZAbsoluteJavaScriptFilename\033[102X", "2.2-1", [ 2, 2, 1 ], 
-      119, 12, "jupvizabsolutejavascriptfilename", "X7FA27984822A0E5E" ], 
-  [ "\033[2XJUPVIZLoadedJavaScriptCache\033[102X", "2.2-2", [ 2, 2, 2 ], 131, 
-      12, "jupvizloadedjavascriptcache", "X7F877B4279081217" ], 
-  [ "\033[2XJUPVIZFillInJavaScriptTemplate\033[102X", "2.2-3", [ 2, 2, 3 ], 
-      140, 12, "jupvizfillinjavascripttemplate", "X84F0A3C97FBC57EE" ], 
-  [ "\033[2XJUPVIZRunJavaScriptFromTemplate\033[102X", "2.2-4", [ 2, 2, 4 ], 
-      163, 12, "jupvizrunjavascriptfromtemplate", "X8603271979CCFA2A" ], 
-  [ "\033[2XJUPVIZRunJavaScriptUsingRunGAP\033[102X", "2.2-5", [ 2, 2, 5 ], 
-      171, 12, "jupvizrunjavascriptusingrungap", "X804379D07F29E905" ], 
+  [ "\033[2XLoadJavaScriptFile\033[102X", "2.1-2", [ 2, 1, 2 ], 23, 
+      10, "loadjavascriptfile", "X81E2B3A07EA7A02B" ], 
+  [ "\033[2XCreateVisualization\033[102X", "2.1-3", [ 2, 1, 3 ], 
+      39, 10, "createvisualization", "X7BFFD8B7808F5BDA" ], 
+  [ "\033[2XJUPVIZAbsoluteJavaScriptFilename\033[102X", "2.2-1", 
+      [ 2, 2, 1 ], 119, 12, "jupvizabsolutejavascriptfilename", 
+      "X7FA27984822A0E5E" ], 
+  [ "\033[2XJUPVIZLoadedJavaScriptCache\033[102X", "2.2-2", 
+      [ 2, 2, 2 ], 131, 12, "jupvizloadedjavascriptcache", 
+      "X7F877B4279081217" ], 
+  [ "\033[2XJUPVIZFillInJavaScriptTemplate\033[102X", "2.2-3", 
+      [ 2, 2, 3 ], 140, 12, "jupvizfillinjavascripttemplate", 
+      "X84F0A3C97FBC57EE" ], 
+  [ "\033[2XJUPVIZRunJavaScriptFromTemplate\033[102X", "2.2-4", 
+      [ 2, 2, 4 ], 163, 12, "jupvizrunjavascriptfromtemplate", 
+      "X8603271979CCFA2A" ], 
+  [ "\033[2XJUPVIZRunJavaScriptUsingRunGAP\033[102X", "2.2-5", 
+      [ 2, 2, 5 ], 171, 12, "jupvizrunjavascriptusingrungap", 
+      "X804379D07F29E905" ], 
   [ "\033[2XJUPVIZRunJavaScriptUsingLibraries\033[102X", "2.2-6", 
       [ 2, 2, 6 ], 196, 13, "jupvizrunjavascriptusinglibraries", 
       "X79B7692C7F543161" ], 
@@ -81,10 +101,11 @@ entries :=
       [ 2, 3, 1 ], 243, 14, "jupvizisfilecontents for isobject", 
       "X82269732822D224D" ], 
   [ 
-      "\033[2XJUPVIZIsFileContentsRep\033[102X for iscomponentobjectrep and jupvi\
-zisfilecontents", "2.3-2", [ 2, 3, 2 ], 251, 14, 
-      "jupvizisfilecontentsrep for iscomponentobjectrep and jupvizisfileconten\
-ts", "X84D70ACD7A72AA84" ], 
-  [ "\033[2XJUPVIZFileContents\033[102X for isstring", "2.3-3", [ 2, 3, 3 ], 
-      258, 14, "jupvizfilecontents for isstring", "X7D401DB582A5EBA2" ] ]
+      "\033[2XJUPVIZIsFileContentsRep\033[102X for iscomponentobjectrep\
+ and jupvizisfilecontents", "2.3-2", [ 2, 3, 2 ], 251, 14, 
+      "jupvizisfilecontentsrep for iscomponentobjectrep and jupvizis\
+filecontents", "X84D70ACD7A72AA84" ], 
+  [ "\033[2XJUPVIZFileContents\033[102X for isstring", "2.3-3", 
+      [ 2, 3, 3 ], 258, 14, "jupvizfilecontents for isstring", 
+      "X7D401DB582A5EBA2" ] ]
 );
