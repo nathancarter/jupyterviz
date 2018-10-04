@@ -1,9 +1,0 @@
-
-See here:
-
-https://github.com/gap-system/ReleaseTools#the-release-process
-
-In particular, you will run:
-
-~/Development/gap-4.9.2/pkg/ReleaseTools/release
-
