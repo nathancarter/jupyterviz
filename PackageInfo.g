@@ -79,8 +79,8 @@ Dependencies := rec(
 #
 #########
 
-PackageWWWHome   := Concatentation( "https://nathancarter.github.io/",
-                                    LowercaseString( ~.PackageName ) ),
+PackageWWWHome   := Concatenation( "https://nathancarter.github.io/",
+                                   LowercaseString( ~.PackageName ) ),
 ##  Later, if this becomes part of GAP, use:
 ##  Concatenation( "https://gap-packages.github.io/", LowercaseString( ~.PackageName ) ),
 SourceRepository := rec( Type := "git",
