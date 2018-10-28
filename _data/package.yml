@@ -55,13 +55,16 @@ citeas: |
 bibtex: |
     @misc{ JupyterViz1.2.0,
       author =           {Carter, N.},
-      title =            {{JupyterViz}, Jupyter Notebook Visualization Tools, {V}ersion 1.2.0},
+      title =            {{JupyterViz},  Jupyter  Notebook  Visualization Tools,
+                          {V}ersion 1.2.0},
       month =            {Oct},
       year =             {2018},
       note =             {GAP package},
-      howpublished =     {\href      {https://nathancarter.github.io/jupyterviz}      {\texttt{https://nathancarter.github.io/}\discretionary
+      howpublished =     {\href      {https://nathancarter.github.io/jupyterviz}
+                          {\texttt{https://nathancarter.github.io/}\discretionary
                           {}{}{}\texttt{jupyterviz}}},
-      keywords =         {Jupyter Notebook; visualization; graph; plot; chart; JavaScript},
+      keywords =         {Jupyter  Notebook;  visualization; graph; plot; chart;
+                          JavaScript},
       printedkey =       {Car18}
     }
 
