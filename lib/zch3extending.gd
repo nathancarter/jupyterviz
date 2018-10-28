@@ -9,31 +9,57 @@
 #! may be invented after this package is created, and you wish to add it to
 #! the package.
 #!
-#! Currently, the only supported way to do this is to alter the package code
-#! itself.  In the future, it would be nice to make it so that you can
-#! register new visualization tools with the package without modifying the
-#! package code.  But until then, this is the supported method.
+#! There are two supported way to do this.  First, for tools that you wish
+#! to be available to all users of this package, you can alter the package
+#! code itself to include the tool.  Second, for tools that you need for
+#! just one project or just one other package, there is support for
+#! installing such tools at runtime.  This chapter documents both
+#! approaches, each in its own section.  But first, we begin with the list
+#! of what you will need to have on hand before you begin, which is the same
+#! for both approaches.
 #!
 #! @Section What you will need
 #!
-#! Before proceeding, you will need the following information:
+#! Begin by gathering the following information.
 #!  * A URL on the internet that serves the JavaScript code defining the new
 #!    visualization tool you wish to add.  For instance, the ChartJS library
 #!    is imported from CloudFlare, at
-#!    <URL>https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min</URL>.
+#!    <URL>https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js</URL>.
 #!    It is best if you have this URL from a Content Delivery Network (CDN)
-#!    to ensure very high availability.
+#!    to ensure very high availability.  This URL may not be necessary in
+#!    all cases.  For instance, perhaps the new visualization tool you wish
+#!    to install can be defined using just the JavaScript tools in the
+#!    Jupyter notebook, or is imported via an <Code>iframe</Code> rather
+#!    than a script in the notebook page itself.  If you choose to use such
+#!    a URL, note that RequireJS expects you to omit the final
+#!    <Code>.js</Code> suffix at the end.
 #!  * Knowledge of how to write a short JavaScript function that can embed
 #!    the given tool into any given DOM <Code>Element</Code>.  For many
 #!    tools, this is just a single call to the main class's contructor or
-#!    the library's initialization function.
-#!  * While not necessary, it makes things easy if you know what function to
-#!    call in your chosen library to define a visualization from JSON data.
-#!    This makes it easier for users to pass all the required data and
-#!    options from &GAP; code, which is the typical user's preferred way of
-#!    defining a visualization.
+#!    the library's initialization function.  Or, if you haven't imported
+#!    any library that constructs the visualization for you, then this
+#!    function may be more extensive, as you construct the visualization
+#!    yourself.
+#!  * While not necessary, it makes things easy if you know a function to
+#!    call in your chosen library that converts JSON data into a
+#!    visualization.  This makes it easier for users to pass all the
+#!    required data and options from &GAP; code, which is the typical
+#!    user's preferred way of defining a visualization.
 #!
-#! @Section The appropriate procedure
+#! With this information available, proceed to either of the next two
+#! sections, depending on whether you intend to upgrade this package itself
+#! with a new visulization, or just install one into it at runtime.
+#!
+#! @Section Extending this package with a new tool
+#!
+#! This section explains how to enhance this package itself.  If you follow
+#! these instructions, you should submit a pull request to have your work
+#! added to the main repository for the package, and thus eventually
+#! included in the next release of GAP.
+#!
+#! If instead you wish to install a new visualization at runtime for just
+#! your own use in a particular project (or in a package that depends on
+#! this one), refer to the instructions in the next section instead.
 #!
 #! Throughout these steps, I will assume that the name of the new tool you
 #! wish to install is <Code>NEWTOOL</Code>.  I choose all capital letters
@@ -149,3 +175,90 @@
 #! ) );
 #! @EndLog
 #!
+#! @Section Installing a new tool at runtime
+#!
+#! This section explains how to add a new visualization tool to this
+#! package at runtime, by calling functions built into the package.  This is
+#! most useful when the visualization tool you wish to install is useful in
+#! only a narrow context, such as one of your projects or packages.
+#!
+#! If you have a visualization tool that might be of use to anyone who uses
+#! this package, consider instead adding it to the package itself and
+#! submitting a pull request to have it included in the next release.  The
+#! previous section explains how to do that.
+#!
+#! To install a new visualization tool at runtime, you have two methods
+#! available.  You can either provide all the JavaScript code yourself or
+#! you can provide the necessary ingredients that will be automatically
+#! filled into a pre-existing JavaScript code template.  We will examine
+#! both methods in this section.
+#!
+#! The previous section thoroughly documents the two types of code that are
+#! likely to show up in the definition of a new tool: the installation into
+#! RequireJS of the tool's CDN URL and the installation into
+#! <Code>window.VisualizationTool</Code> of a function that uses that tool
+#! to create a visualization from a given JSON object.
+#!
+#! If you have all of this JavaScript code already stored in a single GAP
+#! string (or in a file that you can load into a string), call it
+#! <Code>S</Code>, then you can install it into this package with a single
+#! function call, like so:
+#! @BeginLog
+#! InstallVisualizationTool( "TOOL_NAME_HERE", S );
+#! @EndLog
+#! Here is a trivial working example.  It is sufficiently small that it does
+#! not install any new JavaScript libraries into RequireJS.
+#! @BeginLog
+#! # GAP code to install a new visualization tool:
+#! InstallVisualizationTool( "smallExample",
+#! """
+#! window.VisualizationTool.smallExample =
+#! function ( element, json, callback ) {
+#!     element.innerHTML = '<span color=red>' + json.text + '</span>';
+#!     callback( element, element.childNodes[0] );
+#! }
+#! """
+#! ) );
+#!
+#! # GAP code to use that new visualization tool:
+#! CreateVisualization( rec(
+#!     tool := "smallExample",
+#!     text := "This text will show up red."
+#! ) );
+#! @EndLog
+#!
+#! Because the assignment of a function to create visualizations from JSON
+#! is the essential component of installing a new visualization, we have
+#! made that step easier by creating a template into which you can just fill
+#! in the function body.  So the above call to
+#! <Ref Func="InstallVisualizationTool"/> is equivalent to the following
+#! call to <Ref Func="InstallVisualizationToolFromTemplate"/>.
+#! @BeginLog
+#! InstallVisualizationToolFromTemplate( "smallExample",
+#! """
+#!     element.innerHTML = '<span color=red>' + json.text + '</span>';
+#!     callback( element, element.childNodes[0] );
+#! """
+#! ) );
+#! @EndLog
+#!
+#! If you provide a third parametr to
+#! <Ref Func="InstallVisualizationToolFromTemplate"/>, it is treated as the
+#! CDN URL for an external library, and code is automatically inserted that
+#! installs that external library into RequireJS and wraps the tool's
+#! function body in a <Code>require</Code> call.  For instance, the
+#! CanvasJS library (which is built into this package) could have been
+#! installed with code like the following.
+#! @BeginLog
+#! InstallVisualizationToolFromTemplate( "canvasjs",
+#! """
+#!     ( new window.CanvasJS.Chart( element, json.data ) ).render();
+#!     window.resizeToShowContents( element );
+#!     callback( element, element.childNodes[0] );
+#! """,
+#! "https://cdnjs.cloudflare.com/ajax/libs/canvasjs/1.7.0/canvasjs.min.js"
+#! ) );
+#! @EndLog
+#! While RequireJS demands that you omit the <Code>.js</Code> suffix from
+#! such an URL, <Ref Func="InstallVisualizationToolFromTemplate"/> will
+#! automatically remove it for you if you forget to remove it.
