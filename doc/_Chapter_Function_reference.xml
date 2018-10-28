@@ -31,18 +31,77 @@ This function is not intended for use in the &GAP; REPL.
 </Returns>
  <Description>
 Interprets the given <Arg>filename</Arg> relative to the
-<File>lib/js/</File> path in the JupyterViz package's installation
-folder, because that is where this package stores its JavaScript
-libraries. A <File>.js</File> extension will be added to
-<Arg>filename</Arg> iff needed. A <File>.min.js</File> extension will
-be added iff such a file exists, to prioritize minified versions of
-files.
+<File>lib/js/</File> path in the <Package>JupyterViz</Package>
+package's installation folder, because that is where this package
+stores its JavaScript libraries. A <File>.js</File> extension will be
+added to <Arg>filename</Arg> iff needed. A <File>.min.js</File>
+extension will be added iff such a file exists, to prioritize minified
+versions of files.
 <P/>
 If the file has been loaded before in this &GAP; session, it will not be
 reloaded, but will be returned from a cache in memory, for efficiency.
 <P/>
 If no such file exists, returns <Keyword>fail</Keyword> and caches
 nothing.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="toolName,script" Name="InstallVisualizationTool" />
+ <Returns>boolean indicating success (true) or failure (false)
+</Returns>
+ <Description>
+This function permits extending, at runtime, the set of JavaScript
+visualization tools beyond those that are built into the
+<Package>JupyterViz</Package> package.
+<P/>
+The first argument must be the name of the visualization tool (a string,
+which you will later use in the <Code>tool</Code> field when calling
+<Ref Func="CreateVisualization"/>). The second must be a string of
+JavaScript code that installs into
+<Code>window.VisualizationTools.TOOL_NAME_HERE</Code> the function for
+creating visualizations using that tool. It can also define other
+helper functions or make calls to <Code>window.requirejs.config</Code>.
+For examples of how to write such JavaScript code, see the chapter on
+extending this package in its manual.
+<P/>
+This function returns false and does nothing if a tool of that name has
+already been installed. Otherwise, it installs the tool and returns
+true.
+<P/>
+There is also a convenience method that calls this one on your behalf;
+see <Ref Func="InstallVisualizationToolFromTemplate"/>.
+ </Description>
+</ManSection>
+
+
+<ManSection>
+  <Func Arg="toolName,functionBody[,CDNURL]" Name="InstallVisualizationToolFromTemplate" />
+ <Returns>boolean indicating success (true) or failure (false)
+</Returns>
+ <Description>
+This function is a convenience function that makes it easier to use
+<Ref Func="InstallVisualizationTool"/>; see the documentation for that
+function, then read on below for how this function makes it easier.
+<P/>
+Most visualization tools do two things: First, they install a CDN URL
+into <Code>window.requirejs.config</Code> for some external JavaScript
+library that must be loaded in the client to support the given type of
+visualization. Second, they install a function as
+<Code>window.VisualizationTools.TOOL_NAME_HERE</Code> accepting
+parameters <Code>element</Code>, <Code>json</Code>, and
+<Code>callback</Code>, and building the desired visualization inside
+the given DOM element. Such code often begins with a call to
+<Code>require(['...'],function(library}{/*...*/}))</Code>, but not
+always.
+<P/>
+This function will write for you the boiler plate code for calling
+<Code>window.requirejs.config</Code> and the declaration and
+installation of a function into
+<Code>window.VisualizationTools.TOOL_NAME_HERE</Code>. You provide the
+function body and optionally the CDN URL. (If you provide no CDN URL,
+then no external CDN will be installed into <Code>requirejs</Code>.)
  </Description>
 </ManSection>
 
@@ -155,8 +214,9 @@ necessity.</Emph>
  <Description>
 Given a relative <Arg>filename</Arg>, convert it into an absolute
 filename by prepending the path to the <File>lib/js/</File> folder
-within the JupyterViz package's installation folder. This is used by
-functions that need to find JavaScript files stored there.
+within the <Package>JupyterViz</Package> package's installation
+folder. This is used by functions that need to find JavaScript files
+stored there.
 <P/>
 A <File>.js</File> extension is appended if none is included in the
 given <Arg>filename</Arg>.
