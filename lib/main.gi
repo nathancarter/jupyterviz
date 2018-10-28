@@ -92,6 +92,9 @@ function ( toolName, functionBody, CDNURL... )
     else
         template := "template-for-viz-tools-with-cdn";
         record.toolString := GapToJsonString( toolName );
+        if EndsWith( CDNURL, ".js" )
+            CDNURL := CDNURL{[1..Length(CDNURL)-3]};
+        fi;
         record.CDNURL := GapToJsonString( CDNURL );
     fi;
     return InstallVisualizationTool( toolName,
