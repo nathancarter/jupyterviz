@@ -1,0 +1,266 @@
+  
+  [1X2 [33X[0;0YFunction reference[133X[101X
+  
+  
+  [1X2.1 [33X[0;0YPublic API[133X[101X
+  
+  [1X2.1-1 RunJavaScript[101X
+  
+  [33X[1;0Y[29X[2XRunJavaScript[102X( [3Xscript[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3Xscript[103X
+            as JavaScript[133X
+  
+  [33X[0;0YIf  evaluated  in  a  Jupyter  notebook,  its  result, when rendered by that
+  notebook, will run the JavaScript code in [3Xscript[103X.[133X
+  
+  [33X[0;0YWhen  the  given  code  is  run,  the varible [10Xelement[110X will be defined in its
+  environment,  and  will  contain  the output element in the Jupyter notebook
+  corresponding  to  the  code  that was just evaluated. The script is free to
+  write to that output element.[133X
+  
+  [33X[0;0YThis function is not intended for use in the [5XGAP[105X REPL.[133X
+  
+  [1X2.1-2 LoadJavaScriptFile[101X
+  
+  [33X[1;0Y[29X[2XLoadJavaScriptFile[102X( [3Xfilename[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe string contents of the file whose name is given[133X
+  
+  [33X[0;0YInterprets the given [3Xfilename[103X relative to the [11Xlib/js/[111X path in the JupyterViz
+  package's installation folder, because that is where this package stores its
+  JavaScript  libraries. A [11X.js[111X extension will be added to [3Xfilename[103X iff needed.
+  A  [11X.min.js[111X  extension  will  be  added iff such a file exists, to prioritize
+  minified versions of files.[133X
+  
+  [33X[0;0YIf  the  file  has  been  loaded  before in this [5XGAP[105X session, it will not be
+  reloaded, but will be returned from a cache in memory, for efficiency.[133X
+  
+  [33X[0;0YIf no such file exists, returns [9Xfail[109X and caches nothing.[133X
+  
+  [1X2.1-3 CreateVisualization[101X
+  
+  [33X[1;0Y[29X[2XCreateVisualization[102X( [3Xdata[103X[, [3Xcode[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yan  object  that,  if  rendered  in a Jupyter notebook, will run a
+            script to create the desired visualization[133X
+  
+  [33X[0;0YThe  [3Xdata[103X  must  be a record that will be converted to JSON using [5XGAP[105X's [5Xjson[105X
+  package.[133X
+  
+  [33X[0;0YThe  second argument is optional, a string containing JavaScript [3Xcode[103X to run
+  once  the  visualization  has  been  created.  When  that  code  is run, the
+  variables  [10Xelement[110X  and [10Xvisualization[110X will be in its environment, the former
+  holding the output element in the notebook containing the visualization, and
+  the latter holding the visualization element itself.[133X
+  
+  [33X[0;0YThe [3Xdata[103X should have the following attributes.[133X
+  
+  [30X    [33X[0;6Y[10Xtool[110X (required) - the name of the visualization tool to use. Currently
+        supported tools:[133X
+  
+        [30X    [33X[0;12Y[10Xanychart[110X, whose JSON data format is given here:[133X
+  
+              [33X[0;12Y[7Xhttps://docs.anychart.com/Working_with_Data/Data_From_JSON[107X[133X
+  
+        [30X    [33X[0;12Y[10Xcanvas[110X, that is, a regular HTML canvas element, on which you can
+              draw using arbitrary JavaScript included in the [3Xcode[103X parameter[133X
+  
+        [30X    [33X[0;12Y[10Xcanvasjs[110X, whose JSON data format is given here:[133X
+  
+              [33X[0;12Y[7Xhttps://canvasjs.com/docs/charts/chart-types/[107X[133X
+  
+        [30X    [33X[0;12Y[10Xchartjs[110X, whose JSON data format is given here:[133X
+  
+              [33X[0;12Y[7Xhttp://www.chartjs.org/docs/latest/getting-started/usage.html[107X[133X
+  
+        [30X    [33X[0;12Y[10Xcytoscape[110X, whose JSON data format is given here:[133X
+  
+              [33X[0;12Y[7Xhttp://js.cytoscape.org/#notation/elements-json[107X[133X
+  
+        [30X    [33X[0;12Y[10Xd3[110X, which is loaded into an SVG element in the notebook's output
+              cell,  and  the  caller  can call any D3 methods on that element
+              thereafter,  using  arbitrary  JavaScript  included  in the [3Xcode[103X
+              parameter[133X
+  
+        [30X    [33X[0;12Y[10Xhtml[110X,  which fills the output element with arbitrary HTML, which
+              the caller should provide as a string in the [10Xhtml[110X field of [3Xdata[103X,
+              as documented below[133X
+  
+        [30X    [33X[0;12Y[10Xplotly[110X, whose JSON data format is given here:[133X
+  
+              [33X[0;12Y[7Xhttps://plot.ly/javascript/plotlyjs-function-reference/#plotlynewplot[107X[133X
+  
+  [30X    [33X[0;6Y[10Xdata[110X  (required)  -  subobject  containing all options specific to the
+        content  of  the  visualization,  often  passed intact to the external
+        JavaScript  visualization library. You should prepare this data in the
+        format  required by the library specified in the [10Xtool[110X field, following
+        the documentation for that library cited above.[133X
+  
+  [30X    [33X[0;6Y[10Xwidth[110X (optional) - width to set on the output element being created[133X
+  
+  [30X    [33X[0;6Y[10Xheight[110X (optional) - similar, but height[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec([128X[104X
+    [4X[28X    tool := "html",[128X[104X
+    [4X[28X    data := rec( html := "I am <i>SO</i> excited about this." )[128X[104X
+    [4X[28X), "console.log( 'Visualization created.' );" );[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.2 [33X[0;0YInternal methods[133X[101X
+  
+  [33X[0;0YUsing  the  convention  common  to  [5XGAP[105X  packages, we prefix all methods not
+  intended  for  public  use  with  a sequence of characters that indicate our
+  particular  package.  In this case, we use the [10XJUPVIZ[110X prefix. This is a sort
+  of "poor man's namespacing."[133X
+  
+  [33X[0;0Y[13XNone  of these methods should need to be called by a client of this package.
+  We provide this documentation here for completeness, not out of necessity.[113X[133X
+  
+  [1X2.2-1 JUPVIZAbsoluteJavaScriptFilename[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZAbsoluteJavaScriptFilename[102X( [3Xfilename[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya JavaScript filename to an absolute path in the package dir[133X
+  
+  [33X[0;0YGiven  a  relative  [3Xfilename[103X,  convert  it  into  an  absolute  filename  by
+  prepending  the  path  to the [11Xlib/js/[111X folder within the JupyterViz package's
+  installation  folder. This is used by functions that need to find JavaScript
+  files stored there.[133X
+  
+  [33X[0;0YA [11X.js[111X extension is appended if none is included in the given [3Xfilename[103X.[133X
+  
+  [1X2.2-2 JUPVIZLoadedJavaScriptCache[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZLoadedJavaScriptCache[102X[32X global variable[133X
+  
+  [33X[0;0YA  cache  of the contents of any JavaScript files that have been loaded from
+  this  package's  folder.  The existence of this cache means needing to go to
+  the filesystem for these files only once per [5XGAP[105X session. This cache is used
+  by [2XLoadJavaScriptFile[102X ([14X2.1-2[114X).[133X
+  
+  [1X2.2-3 JUPVIZFillInJavaScriptTemplate[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZFillInJavaScriptTemplate[102X( [3Xfilename[103X, [3Xdictionary[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya  string  containing  the  contents  of  the given template file,
+            filled in using the given dictionary[133X
+  
+  [33X[0;0YA  template file is one containing identifiers that begin with a dollar sign
+  ([10X$[110X).  For  example,  [10X$one[110X  and [10X$two[110X are both identifiers. One "fills in" the
+  template  by  replacing  such  identifiers  with  whatever  text  the caller
+  associates with them.[133X
+  
+  [33X[0;0YThis  function loads the file specified by [3Xfilename[103X by passing that argument
+  directly  to  [2XLoadJavaScriptFile[102X  ([14X2.1-2[114X).  If  no such file exists, returns
+  [9Xfail[109X. Otherwise, it proceed as follows.[133X
+  
+  [33X[0;0YFor  each  key-value  pair in the given [3Xdictionary[103X, prefix a [10X$[110X onto the key,
+  suffix  a newline character onto the value, and then replace all occurrences
+  of the new key with the new value. The resulting string is the result.[133X
+  
+  [33X[0;0YThe  newline  character  is  included  so  that  if any of the values in the
+  [3Xdictionary[103X contains single-line JavaScript comment characters ([10X//[110X) then they
+  will not inadvertently affect later code in the template.[133X
+  
+  [1X2.2-4 JUPVIZRunJavaScriptFromTemplate[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptFromTemplate[102X( [3Xfilename[103X, [3Xdictionary[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe      composition     of     [2XRunJavaScript[102X     ([14X2.1-1[114X)     with
+            [2XJUPVIZFillInJavaScriptTemplate[102X ([14X2.2-3[114X)[133X
+  
+  [33X[0;0YThis function is quite simple, and is just a convenience function[133X
+  
+  [1X2.2-5 JUPVIZRunJavaScriptUsingRunGAP[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptUsingRunGAP[102X( [3XjsCode[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3XjsCode[103X
+            as JavaScript after [10XrunGAP[110X has been defined[133X
+  
+  [33X[0;0YThere is a JavaScript function called [10XrunGAP[110X, defined in the [11Xusing-runGAP.js[111X
+  file  distributed  with  this  package.  That function makes it easy to make
+  callbacks from JavaScript in a Jupyter notebook to the [5XGAP[105X kernel underneath
+  that  notebook. This [5XGAP[105X function runs the given [3XjsCode[103X in the notebook, but
+  only  after  ensuring  that  [10XrunGAP[110X is defined globally in that notebook, so
+  that [3XjsCode[103X can call [10XrunGAP[110X as needed.[133X
+  
+  [33X[0;0YHere is an example use, from JavaScript, of the [10XrunGAP[110X function.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xvar calculation = "2^50";[128X[104X
+    [4X[28XrunGAP( calculation + ";", function ( result, error ) {[128X[104X
+    [4X[28X    if ( result )[128X[104X
+    [4X[28X        alert( calculation + "=" + result );[128X[104X
+    [4X[28X    else[128X[104X
+    [4X[28X        alert( "There was an error: " + error );[128X[104X
+    [4X[28X} );[128X[104X
+  [4X[32X[104X
+  
+  [1X2.2-6 JUPVIZRunJavaScriptUsingLibraries[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptUsingLibraries[102X( [3Xlibraries[103X, [3XjsCode[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3XjsCode[103X
+            as JavaScript after all [3Xlibraries[103X have been loaded[133X
+  
+  [33X[0;0YThere  are  a set of JavaScript libraries stored in the [11Xlib/js/[111X subfolder of
+  this  package's  installation  folder.  The  Jupyter  notebook  does not, by
+  default, know about any of those libraries. This [5XGAP[105X function runs the given
+  [3XjsCode[103X in the notebook, but only after ensuring that all JavaScript files on
+  the  list  [3Xlibraries[103X  have  been  loaded, so that [3XjsCode[103X can make use of the
+  functions and variables that they define.[133X
+  
+  [33X[0;0YIf the first parameter is given as a string instead of a list of strings, it
+  is treated as a list of just one string.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XJUPVIZRunJavaScriptUsingLibraries( [ "mylib.js" ],[128X[104X
+    [4X[28X    "alert( 'My Lib defines foo to be: ' + window.foo );" );[128X[104X
+    [4X[28X# Equivalently:[128X[104X
+    [4X[28XJUPVIZRunJavaScriptUsingLibraries( "mylib.js",[128X[104X
+    [4X[28X    "alert( 'My Lib defines foo to be: ' + window.foo );" );[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.3 [33X[0;0YRepresentation wrapper[133X[101X
+  
+  [33X[0;0YThis  code  is documented for completeness's sake only. It is not needed for
+  clients  of this package. Package maintainers may be interested in it in the
+  future.[133X
+  
+  [33X[0;0YThe [5XJupyterKernel[105X package defines a method [10XJupyterRender[110X that determines how
+  [5XGAP[105X  data  will be shown to the user in the Jupyter notebook interface. When
+  there is no method implemented for a specific data type, the fallback method
+  uses the built-in [5XGAP[105X method [10XViewString[110X.[133X
+  
+  [33X[0;0YThis  presents a problem, because we are often transmitting string data (the
+  contents  of  JavaScript  files)  from  the  [5XGAP[105X kernel to the notebook, and
+  [10XViewString[110X  is not careful about how it escapes characters such as quotation
+  marks, which can seriously mangle code. Thus we must define our own type and
+  [10XJupyterRender[110X method for that type, to prevent the use of [10XViewString[110X.[133X
+  
+  [33X[0;0YThe declarations documented below do just that. In the event that [10XViewString[110X
+  were  upgraded  to  more  useful behavior, this workaround could probably be
+  removed.  Note  that  it  is used explicitly in the [11Xusing-library.js[111X file in
+  this package.[133X
+  
+  [1X2.3-1 JUPVIZIsFileContents[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZIsFileContents[102X( [3Xarg[103X ) [32X filter[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  
+  [33X[0;0YThe  type  we create is called [10XFileContents[110X, because that is our purpose for
+  it (to preserve, unaltered, the contents of a text file).[133X
+  
+  [1X2.3-2 JUPVIZIsFileContentsRep[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZIsFileContentsRep[102X( [3Xarg[103X ) [32X filter[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xtrue[110X or [10Xfalse[110X[133X
+  
+  [33X[0;0YThe representation for the [10XFileContents[110X type[133X
+  
+  [1X2.3-3 JUPVIZFileContents[101X
+  
+  [33X[1;0Y[29X[2XJUPVIZFileContents[102X( [3Xarg[103X ) [32X operation[133X
+  
+  [33X[0;0YA constructor for [10XFileContents[110X objects[133X
+  
+  [33X[0;0YElsewhere,  the  [5XJupyterViz[105X package also installs a [10XJupyterRender[110X method for
+  [10XFileContents[110X objects that just returns their text content untouched.[133X
+  

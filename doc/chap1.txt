@@ -1,0 +1,314 @@
+  
+  [1X1 [33X[0;0YHow to use this package[133X[101X
+  
+  
+  [1X1.1 [33X[0;0YPurpose[133X[101X
+  
+  [33X[0;0YSince 2017, it has been possible to use [5XGAP[105X in Jupyter ([7Xhttp://jupyter.org/[107X)
+  through  the  [5XJupyterKernel[105X package. Output was limited to the ordinary text
+  output [5XGAP[105X produces; charts and graphs were not possible.[133X
+  
+  [33X[0;0YIn    2018,    Martins    and    Pfeiffer    released   [5Xfrancy[105X   (repository
+  ([7Xhttps://github.com/mcmartins/francy[107X),                               article
+  ([7Xhttps://arxiv.org/abs/1806.08648[107X)), which lets users create graphs of a few
+  types  (vertices  and  edges, line chart, bar chart, scatter chart). It also
+  allows  the  user  to  attach actions to the elements of these charts, which
+  result in callbacks to [5XGAP[105X that can update the visualization.[133X
+  
+  [33X[0;0YThis  package  aims  to make a wider variety of visualizations accessible to
+  [5XGAP[105X  users,  but  does  not  provide  tools  for  conveniently  making  such
+  visualizations  interactive.  Where the [5Xfrancy[105X package excels at interactive
+  visualizations,  this package instead gives a broader scope of visualization
+  tools.[133X
+  
+  [33X[0;0YThis  is  achieved  by  importing  several existing JavaScript visualization
+  toolkits and exposing them to [5XGAP[105X code, as described later in this manual.[133X
+  
+  [33X[0;0YThe toolkits currently exposed by this package are listed here.[133X
+  
+  [30X    [33X[0;6YAnyChart ([7Xhttps://www.anychart.com/[107X)[133X
+  
+  [30X    [33X[0;6YCanvasJS ([7Xhttps://canvasjs.com/[107X)[133X
+  
+  [30X    [33X[0;6YChartJS ([7Xhttps://www.chartjs.org/[107X)[133X
+  
+  [30X    [33X[0;6YCytoscape ([7Xhttp://www.cytoscape.org/[107X)[133X
+  
+  [30X    [33X[0;6YD3 ([7Xhttps://d3js.org/[107X)[133X
+  
+  [30X    [33X[0;6YPlotly ([7Xhttps://plot.ly/[107X)[133X
+  
+  [30X    [33X[0;6YNative HTML [10Xcanvas[110X element[133X
+  
+  [30X    [33X[0;6YPlain HTML[133X
+  
+  
+  [1X1.2 [33X[0;0YLoading the package into a Jupyter notebook[133X[101X
+  
+  [33X[0;0YTo  import the package into a Jupyter notebook, do so just as with any other
+  [5XGAP[105X  package:  Ensure  that the kernel of the notebook is a [5XGAP[105X kernel, then
+  execute the following code in one of the notebook cells.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XLoadPackage( "jupyterviz" );[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.3 [33X[0;0YCreating a visualization[133X[101X
+  
+  [33X[0;0YVisualizations of any kind supported by this package are created through one
+  function,   [2XCreateVisualization[102X   ([14X2.1-3[114X).   You   can   view  its  complete
+  documentation in for details, but examples are given in this section.[133X
+  
+  [33X[0;0YNearly all visualizations in this package are created by passing data to the
+  [2XCreateVisualization[102X  ([14X2.1-3[114X)  function  as  records describing what to draw.
+  These  records  are  converted  into JSON ([7Xhttp://www.json.org/[107X) form by the
+  [5Xjson[105X  package, and handed to whichever JavaScript toolkit you have chosen to
+  use for creating the visualization.[133X
+  
+  
+  [1X1.3-1 [33X[0;0YExample: AnyChart[133X[101X
+  
+  [33X[0;0YThe          AnyChart         website         contains         documentation
+  ([7Xhttps://docs.anychart.com/Working_with_Data/Data_From_JSON[107X)   on   how   to
+  create  visualizations from JSON data. Following those conventions, we could
+  give AnyChart the following JSON to produce a pie chart.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X{[128X[104X
+    [4X[28X    "chart" : {[128X[104X
+    [4X[28X        "type" : "pie",[128X[104X
+    [4X[28X        "data" : [[128X[104X
+    [4X[28X            { "x" : "Subgroups of order 6", "value" : 1 },[128X[104X
+    [4X[28X            { "x" : "Subgroups of order 3", "value" : 1 },[128X[104X
+    [4X[28X            { "x" : "Subgroups of order 2", "value" : 3 },[128X[104X
+    [4X[28X            { "x" : "Subgroups of order 1", "value" : 1 }[128X[104X
+    [4X[28X        ][128X[104X
+    [4X[28X    }[128X[104X
+    [4X[28X}[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn [5XGAP[105X, the same data would be represented with a record, as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XmyChartData := rec([128X[104X
+    [4X[28X    chart := rec([128X[104X
+    [4X[28X        type := "pie",[128X[104X
+    [4X[28X        data := [[128X[104X
+    [4X[28X            rec( x := "Subgroups of order 6", value := 1 ),[128X[104X
+    [4X[28X            rec( x := "Subgroups of order 3", value := 1 ),[128X[104X
+    [4X[28X            rec( x := "Subgroups of order 2", value := 3 ),[128X[104X
+    [4X[28X            rec( x := "Subgroups of order 1", value := 1 )[128X[104X
+    [4X[28X        ][128X[104X
+    [4X[28X    )[128X[104X
+    [4X[28X);[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  can  ask  [5XGAP[105X,  running in a Jupyter notebook, to create a visualization
+  from this data by passing that data directly to [2XCreateVisualization[102X ([14X2.1-3[114X).
+  We  wrap  it  in  a  record  that must specify the tool to use (in this case
+  [10X"anychart"[110X) and optionally some other details not relevant here.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec( tool := "anychart", data := myChartData ) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  [33X[0;0YIf  you  have  the  data  defining a visualization stored in a [11X.json[111X file on
+  disk,  you  can  use  the following code rather than rewriting the JSON code
+  into [5XGAP[105X code yourself.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec([128X[104X
+    [4X[28X    tool := "anychart",[128X[104X
+    [4X[28X    data := JsonStringToGap( ReadAll( InputTextFile( "your-file.json" ) ) )[128X[104X
+    [4X[28X) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAnyChart  can make a wide variety of charts (area, bar, box, bubble, bullet,
+  column,  doughnut,  and  so  on, for over 125 different types and subtypes).
+  Other JavaScript libraries available also have similarly broad capabilities,
+  but we do not include here examples of CanvasJS, ChartJS, or Plotly, because
+  their  capabilities  and  purpose  are somewhat similar to that of AnyChart.
+  Though  their  data  formats  are  different,  you  can  find links to those
+  formats'    documentation    in   the   documentation   for   the   function
+  [2XCreateVisualization[102X  ([14X2.1-3[114X). So instead future sections focus on four other
+  examples that are unlike AnyChart.[133X
+  
+  
+  [1X1.3-2 [33X[0;0YPost-processing visualizations[133X[101X
+  
+  [33X[0;0YNote  that [2XCreateVisualization[102X ([14X2.1-3[114X) takes an optional second parameter, a
+  string  of JavaScript code to be run once the visualization is complete. For
+  example,  if the visualization library did not support a solid black border,
+  but you wanted to add one, you could do so in subsequent code.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization([128X[104X
+    [4X[28X    sameDataAsAbove, # plus this new second parameter:[128X[104X
+    [4X[28X    "visualization.style.border = '5px solid black'"[128X[104X
+    [4X[28X)[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  holds for any visualization tool, not just AnyChart. In the code given
+  in the second parameter, two variables will be defined for your use: [10Xelement[110X
+  refers  to  the output cell element in the notebook and [10Xvisualization[110X refers
+  to  the  visualization that the toolkit you chose created within that output
+  cell (also an HTML element).[133X
+  
+  
+  [1X1.3-3 [33X[0;0YExample: Cytoscape[133X[101X
+  
+  [33X[0;0YUnlike  AnyChart, Cytoscape is for the vertices-and-edges type of graph, not
+  the  x-and-y-axes  type. A tiny Cytoscape graph (just [23XA\to B[123X) is represented
+  by the following JSON.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X{[128X[104X
+    [4X[28X    elements : [[128X[104X
+    [4X[28X        { data : { id : "A" } },[128X[104X
+    [4X[28X        { data : { id : "B" } },[128X[104X
+    [4X[28X        { data : { id : "edge", source : "A", target : "B" } }[128X[104X
+    [4X[28X    ],[128X[104X
+    [4X[28X    layout : { name : "grid", rows : 1 }[128X[104X
+    [4X[28X}[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YCytoscape graphs can also have style attributes not shown here.[133X
+  
+  [33X[0;0YRather  than  copy this data directly into [5XGAP[105X, let's generate graph data in
+  the  same  format  using  [5XGAP[105X  code.  Here  we  make a graph of the first 50
+  positive integers, with [23Xn\to m[123X iff [23Xn\mid m[123X (ordinary integer divisibility).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XN := 50;[128X[104X
+    [4X[28Xelements := [ ];[128X[104X
+    [4X[28Xroots := [ ];[128X[104X
+    [4X[28Xfor i in [2..N] do[128X[104X
+    [4X[28X    Add( elements, rec( data := rec( id := String( i ) ) ) );[128X[104X
+    [4X[28X    if IsPrime( i ) then[128X[104X
+    [4X[28X        Add( roots, i );[128X[104X
+    [4X[28X    fi;[128X[104X
+    [4X[28X    for j in [2..i-1] do[128X[104X
+    [4X[28X        if i mod j = 0 then[128X[104X
+    [4X[28X            Add( elements, rec( data := rec([128X[104X
+    [4X[28X                source := String( j ),[128X[104X
+    [4X[28X                target := String( i ) ) ) );[128X[104X
+    [4X[28X        fi;[128X[104X
+    [4X[28X    od;[128X[104X
+    [4X[28Xod;[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  then  need  to  choose  a  layout algorithm. The Cytoscape documentation
+  suggests  that the "cose" layout works well. Here, we do choose a height (in
+  pixels)  for  the  result,  because  Cytoscape  does not automaticlly resize
+  visualizations to fit their contents. We also set the style for each node to
+  display its ID (which is the integer associated with it).[133X
+  
+  [33X[0;0YAll   the   code   below  comes  directly  from  translating  the  Cytoscape
+  documentation  from JSON form to [5XGAP[105X record form. See that documentation for
+  more  details;  it is cited in the documentation for the [2XCreateVisualization[102X
+  ([14X2.1-3[114X) function.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec([128X[104X
+    [4X[28X    tool := "cytoscape",[128X[104X
+    [4X[28X    height := 600,[128X[104X
+    [4X[28X    data := rec([128X[104X
+    [4X[28X        elements := elements, # computed in the code above[128X[104X
+    [4X[28X        layout := rec( name := "cose" ),[128X[104X
+    [4X[28X        style := [[128X[104X
+    [4X[28X            rec( selector := "node", style := rec( content := "data(id)" ) )[128X[104X
+    [4X[28X        ][128X[104X
+    [4X[28X    )[128X[104X
+    [4X[28X) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  
+  [1X1.3-4 [33X[0;0YExample: D3[133X[101X
+  
+  [33X[0;0YWhile  D3  is  one  of the most famous and powerful JavaScript visualization
+  libraries,  it does not have a JSON interface. Consequently, we can interact
+  with  D3  only through the JavaScript code passed in the second parameter to
+  [2XCreateVisualization[102X  ([14X2.1-3[114X).  This  makes  it  much less convenient, but we
+  include it in this package for those who need it.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization([128X[104X
+    [4X[28X    rec( tool := "d3" ),[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X    // arbitrary JavaScript code can go here to interact with D3, like so:[128X[104X
+    [4X[28X    d3.select( visualization ).append( "circle" )[128X[104X
+    [4X[28X        .attr( "r", 50 ).attr( "cx", 55 ).attr( "cy", 55 )[128X[104X
+    [4X[28X        .style( "stroke", "red" ).style( "fill", "pink" );[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X);[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  
+  [1X1.3-5 [33X[0;0YExample: Native HTML Canvas[133X[101X
+  
+  [33X[0;0YYou  can  create a blank canvas, then use the existing JavaScript canvas API
+  to draw on it.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization([128X[104X
+    [4X[28X    rec( tool := "canvas", height := 300 ),[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X    // visualization is the canvas element[128X[104X
+    [4X[28X    var context = visualization.getContext( '2d' );[128X[104X
+    [4X[28X    // draw an X[128X[104X
+    [4X[28X    context.moveTo( 0, 0 );[128X[104X
+    [4X[28X    context.lineTo( 100, 100 );[128X[104X
+    [4X[28X    context.moveTo( 100, 0 );[128X[104X
+    [4X[28X    context.lineTo( 0, 100 );[128X[104X
+    [4X[28X    context.stroke();[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X);[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  
+  [1X1.3-6 [33X[0;0YExample: Plain HTML[133X[101X
+  
+  [33X[0;0YThis  is  the  degenerate example of a visualization. It does not create any
+  visualization,  but  lets  you specify arbitrary HTML content instead. It is
+  provided here merely as a convenient way to insert HTML into the notebook.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualiation( rec([128X[104X
+    [4X[28X    tool := "html",[128X[104X
+    [4X[28X    data := rec([128X[104X
+    [4X[28X        html := "<i>Any</i> HTML can go here.  Tables, buttons, whatever."[128X[104X
+    [4X[28X    )[128X[104X
+    [4X[28X) );[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X1.4 [33X[0;0YGallery[133X[101X
+  
+  [33X[0;0YReaders  who  would  like  to  see  a  gallery of examples are encouraged to
+  inspect the following files in this package's repository and/or installation
+  directory.[133X
+  
+  [30X    [33X[0;6Y[11Xtst/in-noteboook-test.ipynb[111X  shows  several  different visualizations,
+        but can only be loaded in a running Jupyter notebook with this package
+        installed.[133X
+  
+  [30X    [33X[0;6Y[11Xtst/in-noteboook-test.pdf[111X is a printout, to PDF, of the previous file,
+        with  graphics included (though printing from Jupyter notebooks is not
+        perfect, and thus the formatting of this PDF is not that great).[133X
+  
+  [33X[0;0YPlease  be  aware,  however, that the tools imported by this package have an
+  enormous  breadth  of  capabilities  not  shown  in that file. The reader is
+  encouraged  to  browse  their  websites (cited in Section [14X1.1[114X) for extensive
+  galleries of visualizations.[133X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
