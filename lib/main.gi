@@ -72,6 +72,33 @@ InstallGlobalFunction( LoadJavaScriptFile, function ( filename )
 end );
 
 
+InstallGlobalFunction( InstallVisualizationTool,
+function ( toolName, script )
+    local key;
+    key := Concatenation( "viz-tool-", toolName );
+    if IsBound( JUPVIZLoadedJavaScriptCache.( key ) ) then
+        return false;
+    fi;
+    JUPVIZLoadedJavaScriptCache.( key ) := script;
+    return true;
+end );
+InstallGlobalFunction( InstallVisualizationToolFromTemplate,
+function ( toolName, functionBody, CDNURL... )
+    local key, template, record;
+    key := Concatenation( "viz-tool-", toolName );
+    record := rec( toolName := toolName, functionBody := functionBody );
+    if Length( CDNURL ) = 0 then
+        template := "template-for-viz-tools-without-cdn";
+    else
+        template := "template-for-viz-tools-with-cdn";
+        record.toolString := GapToJsonString( toolName );
+        record.CDNURL := GapToJsonString( CDNURL );
+    fi;
+    return InstallVisualizationTool( toolName,
+        JUPVIZFillInJavaScriptTemplate( template, record ) );
+end );
+
+
 InstallGlobalFunction( JUPVIZFillInJavaScriptTemplate,
 function ( filename, dictionary )
     local key, result;
@@ -124,7 +151,8 @@ InstallGlobalFunction( CreateVisualization, function ( json, code... )
     local libraries, toolFile;
     libraries := [ "main" ];
     toolFile := Concatenation( "viz-tool-", json.tool );
-    if IsExistingFile( JUPVIZAbsoluteJavaScriptFilename( toolFile ) ) then
+    if IsExistingFile( JUPVIZAbsoluteJavaScriptFilename( toolFile ) )
+    or IsBound( JUPVIZLoadedJavaScriptCache.( toolFile ) ) then
         Add( libraries, toolFile );
     fi;
     if Length( code ) = 0 then
