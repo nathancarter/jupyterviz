@@ -4,10 +4,10 @@
 <!DOCTYPE Book SYSTEM "gapdoc.dtd"
 [
 <!ENTITY see '<Alt Only="LaTeX">$	o$</Alt><Alt Not="LaTeX">--&gt;</Alt>'>
-<!ENTITY Jupyter-Viz '<Package>Jupyter-Viz</Package>'>
+<!ENTITY JupyterViz '<Package>JupyterViz</Package>'>
 ]
 >
-<Book Name="Jupyter-Viz">
+<Book Name="JupyterViz">
 <#Include SYSTEM "title.xml">
 <TableOfContents/>
 <Body>

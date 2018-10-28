@@ -73,7 +73,7 @@ other &GAP; package: Ensure that the kernel of the notebook is a &GAP;
 kernel, then execute the following code in one of the notebook cells.
 <P/>
 <Example><![CDATA[
-LoadPackage( "jupyter-viz" );
+LoadPackage( "jupyterviz" );
 ]]></Example>
 
 
