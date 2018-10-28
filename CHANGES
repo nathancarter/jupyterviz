@@ -2,3 +2,9 @@
 September 2018
  - First version of the package created
 
+October 2018
+ - Renamed to JupyterViz (from Jupyter-Viz) to respect GAP naming
+   requirements
+ - Submitted to official GAP package repository for inclusion in
+   GAP 4.10
+

@@ -6,10 +6,10 @@
                      [1X Jupyter Notebook Visualization Tools [101X
   
   
-                                     1.1.1
+                                     1.2.0
   
   
-                                 4 October 2018
+                                28 October 2018
   
   
                                  Nathan Carter
