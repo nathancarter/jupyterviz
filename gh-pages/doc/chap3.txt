@@ -1,0 +1,157 @@
+  
+  [1X3 [33X[0;0YAdding new visualization tools[133X[101X
+  
+  
+  [1X3.1 [33X[0;0YWhy you might want to do this[133X[101X
+  
+  [33X[0;0YThe  visualization  tools  made  available  by  this  package  (Plotly,  D3,
+  CanvasJS,  etc.)  provide  many visualization options. However, you may come
+  across  a  situation that they do not cover. Or a new and better tool may be
+  invented  after  this  package  is  created,  and  you wish to add it to the
+  package.[133X
+  
+  [33X[0;0YCurrently,  the  only  supported way to do this is to alter the package code
+  itself.  In the future, it would be nice to make it so that you can register
+  new visualization tools with the package without modifying the package code.
+  But until then, this is the supported method.[133X
+  
+  
+  [1X3.2 [33X[0;0YWhat you will need[133X[101X
+  
+  [33X[0;0YBefore proceeding, you will need the following information:[133X
+  
+  [30X    [33X[0;6YA URL on the internet that serves the JavaScript code defining the new
+        visualization  tool you wish to add. For instance, the ChartJS library
+        is           imported           from           CloudFlare,          at
+        [7Xhttps://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min[107X.
+        It  is best if you have this URL from a Content Delivery Network (CDN)
+        to ensure very high availability.[133X
+  
+  [30X    [33X[0;6YKnowledge  of  how to write a short JavaScript function that can embed
+        the  given  tool  into  any given DOM [10XElement[110X. For many tools, this is
+        just  a  single  call  to the main class's contructor or the library's
+        initialization function.[133X
+  
+  [30X    [33X[0;6YWhile not necessary, it makes things easy if you know what function to
+        call  in your chosen library to define a visualization from JSON data.
+        This  makes  it  easier  for  users  to pass all the required data and
+        options  from  [5XGAP[105X  code, which is the typical user's preferred way of
+        defining a visualization.[133X
+  
+  
+  [1X3.3 [33X[0;0YThe appropriate procedure[133X[101X
+  
+  [33X[0;0YThroughout these steps, I will assume that the name of the new tool you wish
+  to install is [10XNEWTOOL[110X. I choose all capital letters to make it stand out, so
+  that  you can tell where you need to fill in blanks in the examples, but you
+  should  probably use lower-case letters, to match the convention used by all
+  of the built-in tools.[133X
+  
+  [31X1[131X   [33X[0;6YClone the repository for this package.[133X
+  
+  [31X2[131X   [33X[0;6YEnter the [11Xlib/js/[111X folder in the repository.[133X
+  
+  [31X3[131X   [33X[0;6YDuplicate  the file [11Xviz-tool-chartjs.js[111X and rename it suitably for the
+        tool  you  wish  to import, such as [11Xviz-tool-NEWTOOL.js[111X. It [13Xmust[113X begin
+        with [11Xviz-tool-[111X.[133X
+  
+  [31X4[131X   [33X[0;6YEdit  that  file.  At the top, you will notice the installation of the
+        CDN URL mentioned in the previous section. Replace it with the URL for
+        your toolkit, and replace the identifier [10Xchartjs[110X with [10XNEWTOOL[110X.[133X
+  
+  [4X      [32X  Example  [32X[104X
+          [4X[28Xwindow.requirejs.config( {[128X[104X
+          [4X[28X    paths : {[128X[104X
+          [4X[28X        NEWTOOL : 'https://cdn.example.com/NEWTOOL.min.js'[128X[104X
+          [4X[28X    }[128X[104X
+          [4X[28X} );[128X[104X
+        [4X[32X[104X
+  
+  [31X5[131X   [33X[0;6YIn  the  middle  of the same file, feel free to update the comments to
+        reflect your toolkit rather than ChartJS.[133X
+  
+  [31X6[131X   [33X[0;6YAt  the  end  of  the  same  file,  you will notice code that installs
+        [10Xchartjs[110X  as  a  new  function in the [10Xwindow.VisualizationTools[110X object.
+        Replace it with code that installs your tool instead. See the comments
+        below for some guidance.[133X
+  
+  [4X      [32X  Example  [32X[104X
+          [4X[28Xwindow.VisualizationTools.NEWTOOL = function ( element, json, callback ) {[128X[104X
+          [4X[28X    // The variable "element" is the output cell in the notebook into[128X[104X
+          [4X[28X    // which you should place your visualization.  For example, perhaps[128X[104X
+          [4X[28X    // your new toolkit draws in SVG elements, so you need one:[128X[104X
+          [4X[28X    var result = document.createElement( 'SVG' );[128X[104X
+          [4X[28X    element.append( result );[128X[104X
+          [4X[28X    // The variable "json" is all the data, in JSON form, passed from[128X[104X
+          [4X[28X    // GAP to tell you how to create a visualization.  The data format[128X[104X
+          [4X[28X    // convention is up to you to explain and document with your new[128X[104X
+          [4X[28X    // tool.  Two attributes in particular are important here, "width"[128X[104X
+          [4X[28X    // and "height" -- if you ignore everything else, at least respect[128X[104X
+          [4X[28X    // those in whatever way makes sense for your visualization.  Here[128X[104X
+          [4X[28X    // is an example for an SVG:[128X[104X
+          [4X[28X    if ( json.width ) result.width = json.width;[128X[104X
+          [4X[28X    if ( json.height ) result.width = json.height;[128X[104X
+          [4X[28X    // Then use RequireJS to import your toolkit (which will use the CDN[128X[104X
+          [4X[28X    // URL you registered above) and use it to fill the element with the[128X[104X
+          [4X[28X    // desired visualization.  You may or may not need to modify "json"[128X[104X
+          [4X[28X    // before passing it to your toolkit; this is up to the conventions[128X[104X
+          [4X[28X    // you choose to establish.[128X[104X
+          [4X[28X    require( [ 'NEWTOOL' ], function ( NEWTOOL ) {[128X[104X
+          [4X[28X        // Use your library to set up a visualization.  Example:[128X[104X
+          [4X[28X        var viz = NEWTOOL.setUpVisualizationInElement( result );[128X[104X
+          [4X[28X        // Tell your library what to draw.  Example:[128X[104X
+          [4X[28X        viz.buildVisualizationFromJSON( json );[128X[104X
+          [4X[28X        // Call the callback when you're done.  Pass the element you were[128X[104X
+          [4X[28X        // given, plus the visualization you created.[128X[104X
+          [4X[28X        callback( element, result );[128X[104X
+          [4X[28X    } );[128X[104X
+          [4X[28X};[128X[104X
+        [4X[32X[104X
+  
+  [31X7[131X   [33X[0;6YOptionally,  in  the  [11Xlib/js/[111X  folder,  run  the [11Xminify-all-scripts.sh[111X
+        script,  which  compresses  your  JavaScript  code  to  save  on  data
+        transfer,  memory allocation, and parsing time. Rerun that script each
+        time you change your file as well.[133X
+  
+  [31X8[131X   [33X[0;6YYou  should  now  be  able  to use your new visualization tool in [5XGAP[105X.
+        Verify  that  your  changes worked, and debug as necessary. You may be
+        able to notice the change only if you refresh in your browser the page
+        containing  the  Jupyter notebook in question and also restart the [5XGAP[105X
+        kernel  in  that  same  page.  Then try code like the following in the
+        Jupyter notebook to test what you've done.[133X
+  
+  [4X      [32X  Example  [32X[104X
+          [4X[28XCreateVisualization( rec([128X[104X
+          [4X[28X    tool := "NEWTOOL",[128X[104X
+          [4X[28X    # any other data you need goes here[128X[104X
+          [4X[28X) );[128X[104X
+        [4X[32X[104X
+  
+  [31X9[131X   [33X[0;6YOnce  your  changes  work,  commit them to the repository and submit a
+        pull  request  back  to  the  original  repository,  to have your work
+        included in the default distribution.[133X
+  
+  [33X[0;0YA complete and working (but silly) example follows. This portion would go in
+  [11Xlib/js/viz-tool-color.js[111X:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X// No need to import any library from a CDN for this baby example.[128X[104X
+    [4X[28Xwindow.VisualizationTools.color = function ( element, json, callback ) {[128X[104X
+    [4X[28X    // just writes json.text in json.color, that's all[128X[104X
+    [4X[28X    var span = document.createElement( 'span' );[128X[104X
+    [4X[28X    span.textContent = json.text;[128X[104X
+    [4X[28X    span.style.color = json.color;[128X[104X
+    [4X[28X    callback( element, span );[128X[104X
+    [4X[28X};[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis is an example usage of that simple tool from [5XGAP[105X in a Jupyter notebook:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec([128X[104X
+    [4X[28X    tool := "color",[128X[104X
+    [4X[28X    text := "Happy St. Patrick's Day.",[128X[104X
+    [4X[28X    color := "green"[128X[104X
+    [4X[28X) );[128X[104X
+  [4X[32X[104X
+  
