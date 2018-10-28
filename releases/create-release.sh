@@ -7,7 +7,7 @@
 
 echo "Starting..."
 
-myPkgName="jupyter-viz"
+myPkgName="jupyterviz"
 
 echo "Creating release for package $myPkgName..."
 

@@ -1,13 +1,13 @@
 ############################################################################
 ##
-#A  correct-output.tst      Jupyter-Viz Package           Nathan Carter
+#A  correct-output.tst      JupyterViz Package           Nathan Carter
 ##
-gap> START_TEST("Jupyter-Viz package: correct-output.tst");
+gap> START_TEST("JupyterViz package: correct-output.tst");
 
 # First load the package without banner (the banner must be suppressed to
 # avoid reporting discrepancies in the case when the package is already
 # loaded)
-gap> LoadPackage( "jupyter-viz", false );
+gap> LoadPackage( "jupyterviz", false );
 true
 
 # Ensure some basic requirements of the output of functions defined in this
@@ -17,7 +17,7 @@ true
 gap> tmp := RunJavaScript( "var x = 5;" );
 <jupyter renderable>
 gap> JupyterRenderableData( tmp ).( "application/javascript" );
-"( function ( element ) { var x = 5; } )( element.get( 0 ) )"
+"( function ( element ) {\nvar x = 5;\n} )( element.get( 0 ) )"
 
 # JUPVIZLoadedJavaScriptCache (internal) is an empty record (at first)
 gap> JUPVIZLoadedJavaScriptCache;
@@ -49,7 +49,7 @@ true
 gap> tmp := JUPVIZRunJavaScriptFromTemplate( "testing-template.js", rec( debug := "A", param := "B" ) );
 <jupyter renderable>
 gap> JupyterRenderableData( tmp ).( "application/javascript" );
-"( function ( element ) { function f ( x ) {\n  console.log( A\n );\n  return B\n + x;\n}\n } )( element.get( 0 ) )"
+"( function ( element ) {\nfunction f ( x ) {\n  console.log( A\n );\n  return B\n + x;\n}\n\n})( element.get( 0 ) )"
 
 # JUPVIZRunJavaScriptUsingRunGAP function (internal)
 gap> tmp := JUPVIZRunJavaScriptUsingRunGAP( "2+2" );

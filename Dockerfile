@@ -2,7 +2,7 @@ FROM gapsystem/gap-docker
 
 MAINTAINER Nathan Carter <ncarter@bentley.edu>
 
-COPY --chown=1000:1000 . $HOME/inst/gap-4.9.3/pkg/jupyter-viz
+COPY --chown=1000:1000 . $HOME/inst/gap-4.9.3/pkg/jupyterviz
 
 USER gap
 ENV HOME /home/gap

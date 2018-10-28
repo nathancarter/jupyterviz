@@ -45,7 +45,7 @@
 #! kernel, then execute the following code in one of the notebook cells.
 #!
 #! @Example
-#! LoadPackage( "jupyter-viz" );
+#! LoadPackage( "jupyterviz" );
 #! @EndExample
 #!
 #! @Section Creating a visualization

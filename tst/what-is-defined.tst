@@ -1,13 +1,13 @@
 ############################################################################
 ##
-#A  what-is-defined.tst      Jupyter-Viz Package           Nathan Carter
+#A  what-is-defined.tst      JupyterViz Package           Nathan Carter
 ##
-gap> START_TEST("Jupyter-Viz package: what-is-defined.tst");
+gap> START_TEST("JupyterViz package: what-is-defined.tst");
 
 # First load the package without banner (the banner must be suppressed to
 # avoid reporting discrepancies in the case when the package is already
 # loaded)
-gap> LoadPackage( "jupyter-viz", false );
+gap> LoadPackage( "jupyterviz", false );
 true
 
 # Ensure that the functions that are supposed to be exposed are exposed

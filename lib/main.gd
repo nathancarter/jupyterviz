@@ -1,9 +1,9 @@
 ############################################################################
 ##
 ##
-#W  main.gd              Jupyter-Viz Package                  Nathan Carter
+#W  main.gd              JupyterViz Package                  Nathan Carter
 ##
-##  Declaration file for functions of the Jupyter-Viz package.
+##  Declaration file for functions of the JupyterViz package.
 ##
 #Y  Copyright (C) 2018 University of St. Andrews, North Haugh,
 #Y                     St. Andrews, Fife KY16 9SS, Scotland
@@ -31,7 +31,7 @@ DeclareGlobalFunction( "RunJavaScript" );
 #! @Returns the string contents of the file whose name is given
 #! @Description
 #!  Interprets the given <Arg>filename</Arg> relative to the
-#!  <File>lib/js/</File> path in the Jupyter-Viz package's installation
+#!  <File>lib/js/</File> path in the JupyterViz package's installation
 #!  folder, because that is where this package stores its JavaScript
 #!  libraries.  A <File>.js</File> extension will be added to
 #!  <Arg>filename</Arg> iff needed.  A <File>.min.js</File> extension will
@@ -114,7 +114,7 @@ DeclareGlobalFunction( "CreateVisualization" );
 #! @Description
 #!  Given a relative <Arg>filename</Arg>, convert it into an absolute
 #!  filename by prepending the path to the <File>lib/js/</File> folder
-#!  within the Jupyter-Viz package's installation folder.  This is used by
+#!  within the JupyterViz package's installation folder.  This is used by
 #!  functions that need to find JavaScript files stored there.
 #!  <P/>
 #!  A <File>.js</File> extension is appended if none is included in the
@@ -245,7 +245,7 @@ DeclareRepresentation( "JUPVIZIsFileContentsRep",
 #!  A constructor for <Code>FileContents</Code> objects
 DeclareOperation( "JUPVIZFileContents", [ IsString ] );
 
-#! Elsewhere, the <Package>Jupyter-Viz</Package> package also installs a
+#! Elsewhere, the <Package>JupyterViz</Package> package also installs a
 #! <Code>JupyterRender</Code> method for <Code>FileContents</Code> objects
 #! that just returns their text content untouched.
 

@@ -1,8 +1,8 @@
 ############################################################################
 ##
-#W  main.gi              Jupyter-Viz Package                  Nathan Carter
+#W  main.gi              JupyterViz Package                  Nathan Carter
 ##
-##  Installation file for functions of the Jupyter-Viz package.
+##  Installation file for functions of the JupyterViz package.
 ##
 #Y  Copyright (C) 2018 University of St. Andrews, North Haugh,
 #Y                     St. Andrews, Fife KY16 9SS, Scotland
@@ -32,7 +32,7 @@ function ( relativeFilename )
         relativeFilename := Concatenation( relativeFilename, ".js" );
     fi;
     return Filename( DirectoriesPackageLibrary(
-        "jupyter-viz", "lib/js" )[1], relativeFilename );
+        "jupyterviz", "lib/js" )[1], relativeFilename );
 end );
 
 

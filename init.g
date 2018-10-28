@@ -1,12 +1,12 @@
 #############################################################################
 ##
-#W    init.g              Jupyter-Viz Package                Nathan Carter
+#W    init.g              JupyterViz Package                Nathan Carter
 ##
 
 #############################################################################
 ##
 #R  Read the declaration files.
 ##
-ReadPackage( "jupyter-viz", "lib/main.gd" );
+ReadPackage( "jupyterviz", "lib/main.gd" );
 
 #E  init.g . . . . . . . . . . . . . . . . . . . . . . . . . . . . ends here
