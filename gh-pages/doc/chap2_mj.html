@@ -8,7 +8,7 @@
 <script type="text/javascript"
   src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
-<title>GAP (Jupyter-Viz) - Chapter 2: Function reference</title>
+<title>GAP (JupyterViz) - Chapter 2: Function reference</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <meta name="generator" content="GAPDoc2HTML" />
 <link rel="stylesheet" type="text/css" href="manual.css" />
@@ -77,7 +77,7 @@
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; LoadJavaScriptFile</code>( <var class="Arg">filename</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: the string contents of the file whose name is given</p>
 
-<p>Interprets the given <var class="Arg">filename</var> relative to the <code class="file">lib/js/</code> path in the Jupyter-Viz package's installation folder, because that is where this package stores its JavaScript libraries. A <code class="file">.js</code> extension will be added to <var class="Arg">filename</var> iff needed. A <code class="file">.min.js</code> extension will be added iff such a file exists, to prioritize minified versions of files.</p>
+<p>Interprets the given <var class="Arg">filename</var> relative to the <code class="file">lib/js/</code> path in the JupyterViz package's installation folder, because that is where this package stores its JavaScript libraries. A <code class="file">.js</code> extension will be added to <var class="Arg">filename</var> iff needed. A <code class="file">.min.js</code> extension will be added iff such a file exists, to prioritize minified versions of files.</p>
 
 <p>If the file has been loaded before in this <strong class="pkg">GAP</strong> session, it will not be reloaded, but will be returned from a cache in memory, for efficiency.</p>
 
@@ -171,7 +171,7 @@ CreateVisualization( rec(
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JUPVIZAbsoluteJavaScriptFilename</code>( <var class="Arg">filename</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: a JavaScript filename to an absolute path in the package dir</p>
 
-<p>Given a relative <var class="Arg">filename</var>, convert it into an absolute filename by prepending the path to the <code class="file">lib/js/</code> folder within the Jupyter-Viz package's installation folder. This is used by functions that need to find JavaScript files stored there.</p>
+<p>Given a relative <var class="Arg">filename</var>, convert it into an absolute filename by prepending the path to the <code class="file">lib/js/</code> folder within the JupyterViz package's installation folder. This is used by functions that need to find JavaScript files stored there.</p>
 
 <p>A <code class="file">.js</code> extension is appended if none is included in the given <var class="Arg">filename</var>.</p>
 
@@ -285,7 +285,7 @@ JUPVIZRunJavaScriptUsingLibraries( "mylib.js",
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JUPVIZFileContents</code>( <var class="Arg">arg</var> )</td><td class="tdright">(&nbsp;operation&nbsp;)</td></tr></table></div>
 <p>A constructor for <code class="code">FileContents</code> objects</p>
 
-<p>Elsewhere, the <strong class="pkg">Jupyter-Viz</strong> package also installs a <code class="code">JupyterRender</code> method for <code class="code">FileContents</code> objects that just returns their text content untouched.</p>
+<p>Elsewhere, the <strong class="pkg">JupyterViz</strong> package also installs a <code class="code">JupyterRender</code> method for <code class="code">FileContents</code> objects that just returns their text content untouched.</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>

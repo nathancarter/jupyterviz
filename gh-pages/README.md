@@ -2,8 +2,8 @@
 Removing these lines for now because this package is not yet
 integrated into GAP or its build system.
 
-[![Build Status](https://travis-ci.org/gap-packages/jupyter-viz.svg?branch=master)](https://travis-ci.org/gap-packages/jupyter-viz)
-[![Code Coverage](https://codecov.io/github/gap-packages/jupyter-viz/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/jupyter-viz)
+[![Build Status](https://travis-ci.org/gap-packages/jupyterviz.svg?branch=master)](https://travis-ci.org/gap-packages/jupyterviz)
+[![Code Coverage](https://codecov.io/github/gap-packages/jupyterviz/coverage.svg?branch=master&token=)](https://codecov.io/gh/gap-packages/jupyterviz)
 -->
 
 # The Jupyter Notebook Visualization Package
@@ -27,10 +27,10 @@ visualization libraries can be added easily.
 
 The package does not need to be compiled.
 
-See the manual on [the package website](http://nathancarter.github.io/jupyter-viz).
+See the manual on [the package website](http://nathancarter.github.io/jupyterviz).
 
 Or check out an example notebook:
- * Live on Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/nathancarter/jupyter-viz/master?filepath=inst%2Fgap-4.9.3%2Fpkg%2Fjupyter-viz%2Ftst%2Fin-notebook-test.ipynb) (which takes time to load, so be patient!)
+ * Live on Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/nathancarter/jupyterviz/master?filepath=inst%2Fgap-4.9.3%2Fpkg%2Fjupyterviz%2Ftst%2Fin-notebook-test.ipynb) (which takes time to load, so be patient!)
  * [Get PDF version](tst/in-notebook-test.pdf) - all visualizations
    shown, but content is static (and print-to-PDF not very attractive)
  * [Get .ipynb version](tst/in-notebook-test.ipynb) - no visualizations

@@ -25,11 +25,11 @@
   [33X[1;0Y[29X[2XLoadJavaScriptFile[102X( [3Xfilename[103X ) [32X function[133X
   [6XReturns:[106X  [33X[0;10Ythe string contents of the file whose name is given[133X
   
-  [33X[0;0YInterprets   the  given  [3Xfilename[103X  relative  to  the  [11Xlib/js/[111X  path  in  the
-  Jupyter-Viz  package's  installation  folder,  because  that  is  where this
-  package  stores  its  JavaScript libraries. A [11X.js[111X extension will be added to
-  [3Xfilename[103X  iff  needed.  A  [11X.min.js[111X  extension  will be added iff such a file
-  exists, to prioritize minified versions of files.[133X
+  [33X[0;0YInterprets the given [3Xfilename[103X relative to the [11Xlib/js/[111X path in the JupyterViz
+  package's installation folder, because that is where this package stores its
+  JavaScript  libraries. A [11X.js[111X extension will be added to [3Xfilename[103X iff needed.
+  A  [11X.min.js[111X  extension  will  be  added iff such a file exists, to prioritize
+  minified versions of files.[133X
   
   [33X[0;0YIf  the  file  has  been  loaded  before in this [5XGAP[105X session, it will not be
   reloaded, but will be returned from a cache in memory, for efficiency.[133X
@@ -122,7 +122,7 @@
   [6XReturns:[106X  [33X[0;10Ya JavaScript filename to an absolute path in the package dir[133X
   
   [33X[0;0YGiven  a  relative  [3Xfilename[103X,  convert  it  into  an  absolute  filename  by
-  prepending  the  path to the [11Xlib/js/[111X folder within the Jupyter-Viz package's
+  prepending  the  path  to the [11Xlib/js/[111X folder within the JupyterViz package's
   installation  folder. This is used by functions that need to find JavaScript
   files stored there.[133X
   
@@ -261,6 +261,6 @@
   
   [33X[0;0YA constructor for [10XFileContents[110X objects[133X
   
-  [33X[0;0YElsewhere,  the [5XJupyter-Viz[105X package also installs a [10XJupyterRender[110X method for
+  [33X[0;0YElsewhere,  the  [5XJupyterViz[105X package also installs a [10XJupyterRender[110X method for
   [10XFileContents[110X objects that just returns their text content untouched.[133X
   

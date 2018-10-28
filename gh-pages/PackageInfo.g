@@ -1,6 +1,6 @@
 #############################################################################
 ##
-##  PackageInfo.g for the package `Jupyter-Viz'               Nathan Carter
+##  PackageInfo.g for the package `JupyterViz'               Nathan Carter
 ##  (copied and edited from the Example package)
 ##
 ##  This file contains meta-information on the package. It is used by
@@ -26,7 +26,7 @@ SetPackageInfo( rec(
 #
 #########
 
-PackageName := "Jupyter-Viz",
+PackageName := "JupyterViz",
 Subtitle    := "Jupyter Notebook Visualization Tools",
 Version     := "1.1.1",
 Date        := "04/10/2018", # Release date of current version, dd/mm/yyyy
@@ -143,14 +143,14 @@ Persons := [
 # computing the Smith normal form of integer matrices and some related \
 # utilities.",
 AbstractHTML :=
-  "The <span class=\"pkgname\">Jupyter-Viz</span> package \
+  "The <span class=\"pkgname\">JupyterViz</span> package \
    is intended for use in Jupyter Notebooks running \
    <span class=\"pkgname\">GAP</span> kernels.  \
    It adds visualization tools for use in such notebooks, such as \
    charts and graphs.",
 
 PackageDoc := rec(
-  BookName  := "Jupyter-Viz",
+  BookName  := "JupyterViz",
   ArchiveURLSubset := [ "doc" ],
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",

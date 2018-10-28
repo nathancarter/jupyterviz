@@ -50,7 +50,7 @@
   execute the following code in one of the notebook cells.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28XLoadPackage( "jupyter-viz" );[128X[104X
+    [4X[28XLoadPackage( "jupyterviz" );[128X[104X
   [4X[32X[104X
   
   
