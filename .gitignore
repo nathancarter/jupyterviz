@@ -25,3 +25,4 @@ doc/*.toc
 doc/*.txt
 gh-pages/
 tmp/
+tst/*demo.*
