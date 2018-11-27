@@ -51,6 +51,7 @@
 #! with a new visulization, or just install one into it at runtime.
 #!
 #! @Section Extending this package with a new tool
+#! @SectionLabel extending
 #!
 #! This section explains how to enhance this package itself.  If you follow
 #! these instructions, you should submit a pull request to have your work
@@ -144,12 +145,68 @@
 #! ) );
 #! @EndLog
 #! </Item>
+#! </Enum>
+#!
+#! At this point, you have added support in
+#! <Ref Func="CreateVisualization"/> for the new tool but have not extended
+#! that support to include the high-level functions <Ref Func="Plot"/> or
+#! <Ref Func="PlotGraph"/>.  If possible, you should add that support as
+#! well, by following the steps below.
+#!
+#! <Enum>
+#!   <Item>Read the documentation for either
+#!     <Ref Func="ConvertDataSeriesForTool"/> or
+#!     <Ref Func="ConvertGraphForTool"/>, depending on whether the new tool
+#!     you have installed supports plots or graphs.  If it supports both,
+#!     read both.  That documentation explains the new function you would
+#!     need to install in one or both of those records in order to convert
+#!     the type of data users provide to <Ref Func="Plot"/> or
+#!     <Ref Func="PlotGraph"/> into the type of data used by
+#!     <Ref Func="CreateVisualization"/>.</Item>
+#!   <Item>Edit the <File>main.gi</File> file in this package.  Find the
+#!     section in which new elements are added to the
+#!     <Ref Func="ConvertDataSeriesForTool"/> or
+#!     <Ref Func="ConvertGraphForTool"/> records.  Add a new section of
+#!     code that installs a new member for your tool.  It will look like
+#!     one of the following two blocks (or both if your tool supports both
+#!     types of visualization).
+#! @BeginLog
+#! ConvertDataSeriesForTool.NEWTOOL := function ( series )
+#!   local result;
+#!   # Write the code here that builds the components of the
+#!   # GAP record you need, stored in result.
+#!   # You can leverage series.x, series.y, and series.options.
+#!   return result;
+#! end;
+#! ConvertGraphForTool.NEWTOOL := function ( graph )
+#!   local result;
+#!   # Write the code here that builds the components of the
+#!   # GAP record you need, stored in result.
+#!   # You can leverage graph.vertices, graph.edges, and graph.options.
+#!   return result;
+#! end;
+#! @EndLog
+#! </Item>
+#!   <Item>Test your work by loading the updated package into the Jupyter
+#!     Notebook and making a call to <Ref Func="Plot"/> or
+#!     <Ref Func="PlotGraph"/> that specifically requests the use of your
+#!     newly-supported visualization tool.
+#! @BeginLog
+#! # for plots:
+#! Plot( x -> x^2, rec( tool := "NEWTOOL" ) );
+#! # or for graphs:
+#! PlotGraph( RandomMat( 5, 5 ), rec( tool := "NEWTOOL" ) );
+#! @EndLog
+#! Verify that it produces the desired results.
+#! </Item>
 #!   <Item>Once your changes work, commit them to the repository and submit
 #!     a pull request back to the original repository, to have your work
 #!     included in the default distribution.</Item>
 #! </Enum>
 #!
-#! A complete and working (but silly) example follows.
+#! A complete and working (but silly) example follows.  It is a tiny enough
+#! visualization tool that it cannot support either plotting data nor
+#! drawing graphs, so we don't have to install high-level API support.
 #!
 #! This portion would go in <File>lib/js/viz-tool-color.js</File>:
 #!
@@ -262,3 +319,8 @@
 #! While RequireJS demands that you omit the <Code>.js</Code> suffix from
 #! such an URL, <Ref Func="InstallVisualizationToolFromTemplate"/> will
 #! automatically remove it for you if you forget to remove it.
+#!
+#! After using either of those two methods, if the new visualization tool
+#! is capable of drawing either plots or graphs, and you wish to expose it
+#! to the high-level API, you should follow the steps for doing so
+#! documented in the second half of Section <Ref Sect="Section_extending"/>.

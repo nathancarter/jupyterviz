@@ -205,6 +205,7 @@ DeclareGlobalVariable( "ConvertDataSeriesForTool" );
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #! @BeginLog
 #! # Plot a random graph on 5 vertices:
+#! # (The results change from one run to the next, of course.)
 #! PlotGraph( RandomMat(5,5) );
 #! @EndLog
 #! <Alt Only="LaTeX">

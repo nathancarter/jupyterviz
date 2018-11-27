@@ -27,22 +27,55 @@
 #! toolkits and exposing them to &GAP; code, as described later in this
 #! manual.
 #!
-#! The toolkits currently exposed by this package are listed here.
-#! We split them into four categories: plot tools (which make
-#! visualizations such as bar graphs, line graphs, pie charts, etc.),
-#! graph tools (which make vertex-and-edge graphs), 3D tools
-#! (planned for addition in a future version of this package), and low-level
-#! tools that are very general-purpose, and thus with which you can build
-#! whatever you want (with effort).
+#! The toolkits currently exposed by this package are listed later in this
+#! section.  Each supports its own feature set.  We distinguish informally
+#! (just for the purposes of this package) among four types of
+#! visualizations supported by the tools this package imports:
 #!
-#!  * <URL Text="AnyChart">https://www.anychart.com/</URL> - plot tool
-#!  * <URL Text="CanvasJS">https://canvasjs.com/</URL> - plot tool
-#!  * <URL Text="ChartJS">https://www.chartjs.org/</URL> - plot tool
-#!  * <URL Text="Cytoscape">http://www.cytoscape.org/</URL> - graph tool
-#!  * <URL Text="D3">https://d3js.org/</URL> - plot tool
-#!  * <URL Text="Plotly">https://plot.ly/</URL> - plot tool
-#!  * Native HTML <Code>canvas</Code> element - low-level tool
-#!  * Plain HTML - low-level tool
+#!  * plots - plotting one or more data series, usually on coordinate axes,
+#!    using lines, bars, dots, or sometimes a pie chart
+#!  * graphs - vertices connected by edges (a graph in the mathematical
+#!    sense)
+#!  * maps - geographical maps with data overlayed on them
+#!  * 3D - a three-dimensional scene composed of various 3D shapes
+#!
+#! We now list the visualization tools this package exposes to the user, and
+#! we list the types of visualizations that each can produce.
+#!
+#!  * <URL Text="AnyChart">https://www.anychart.com/</URL> - plots, maps
+#!  * <URL Text="CanvasJS">https://canvasjs.com/</URL> - plots
+#!  * <URL Text="ChartJS">https://www.chartjs.org/</URL> - plots
+#!  * <URL Text="Cytoscape">http://www.cytoscape.org/</URL> - graphs
+#!  * <URL Text="D3">https://d3js.org/</URL> - this is a general-purpose,
+#!    low-level tool on which you can build whatever visualizations you
+#!    choose, with effort
+#!  * <URL Text="Plotly">https://plot.ly/</URL> - plots, maps
+#!  * Native HTML <Code>canvas</Code> element - this is a general-purpose,
+#!    low-level tool on which you can build whatever visualizations you
+#!    choose, with effort
+#!  * Plain HTML - this is a general-purpose,
+#!    low-level tool on which you can build whatever visualizations you
+#!    choose, with effort
+#!
+#! Future plans include adding tools that support 3D visualizations, such as
+#! <URL Text="SceneJS">http://scenejs.org/</URL>, but that has not yet been
+#! done.
+#!
+#! @Section Two APIs
+#!
+#! The package provides a high-level API and a low-level API for accessing
+#! its feature set.
+#!
+#! The high-level API is much easier to use, but does not give the user
+#! access to every last feature of the underlying visulization tools.  Most
+#! users will wish to use this API.
+#!
+#! The low-level API requires contructing large nested &GAP; records that,
+#! once converted into JSON objects, tell the visualization tools what to
+#! display.  This is more work for the user but gives full control over the
+#! results.
+#!
+#! Both of these APIs are documented in this manual.
 #!
 #! @Section Loading the package into a Jupyter notebook
 #!
@@ -56,17 +89,94 @@
 #!
 #! @Section Creating a visualization
 #!
-#! Visualizations of any kind supported by this package are created through
-#! one function, <Ref Func="CreateVisualization"/>.  You can view its
-#! complete documentation in for details, but examples are given in this
-#! section.
+#! @Subsection High-Level API
+#!
+#! The high-level API of this package is accessed through one of two
+#! functions, <Ref Func="Plot"/> and <Ref Func="PlotGraph"/>.  We introduce
+#! each here, but you can read full details about them in the next chapter.
+#!
+#! The <Code>Plot</Code> function produces only "plots" as defined in the
+#! previous section (e.g., bar charts, line charts, pie charts, etc.).
+#! It supports the following signatures.
+#!
+#! @BeginLog
+#! # Plot a set of (x,y) pairs
+#! Plot( [ [1,6.2], [2,0.3], [3,9.1], [4,8.8] ] );
+#! # Plot a set of x values and a set of y values
+#! Plot( [1..4], [6.2,0.3,9.1,8.8] );
+#! # Or more succinctly:
+#! Plot( [6.2,0.3,9.1,8.8] );
+#! # Plot a function over a given domain
+#! Plot( [1..10], x -> x^2 );
+#! # Omitting the domain assumes 1..5
+#! Plot( x -> x^0.5 );
+#! # You can add options; this one is shown below
+#! Plot( x -> x^2, rec( title := "Squared Integers" ) );
+#! @EndLog
+#! <Alt Only="LaTeX">
+#!     \begin{center}
+#!         \includegraphics[width=4in]{squared-ints.png}
+#!     \end{center}
+#! </Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="500" src="squared-ints.png"/>]]></Alt>
+#! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+#!
+#! For the full list of options, refer to the documentation for
+#! <Ref Func="Plot"/> and <Ref Func="ConvertDataSeriesForTool"/>.
+#!
+#! The <Code>PlotGraph</Code> function produces only "graphs" as defined in
+#! the previous section (i.e., vertices and edges).
+#! It supports the following signatures.
+#!
+#! @BeginLog
+#! # Provide vertices and edges as lists
+#! PlotGraph( [ "start", "option1", "option2", "end" ],
+#!            [ [ "start", "option1" ], [ "start", "option2" ],
+#!              [ "option1", "end" ], [ "option2", "end" ] ] );
+#! # Provide edges only, vertices inferred
+#! PlotGraph( [ [ "start", "option1" ], [ "start", "option2" ],
+#!              [ "option1", "end" ], [ "option2", "end" ] ] );
+#! # Provide vertices and a binary edge relation
+#! PlotGraph( [ "this", "will", "show", "lex", "order", "on", "words" ],
+#!            function ( w1, w2 ) return w1 < w2; end );
+#! # Provide an adjacency matrix; entries >0 produce an edge.
+#! # This example is the one shown below.
+#! # (Obviously, because it is random, your result may differ.)
+#! PlotGraph( RandomMat( 10, 10 ) - 1 );
+#! @EndLog
+#! <Alt Only="LaTeX">
+#!     \begin{center}
+#!         \includegraphics[width=2in]{random-graph-10.png}
+#!     \end{center}
+#! </Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="250" src="random-graph-10.png"/>]]></Alt>
+#! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+#!
+#! For the full list of options, refer to the documentation for
+#! <Ref Func="PlotGraph"/> and <Ref Func="ConvertGraphForTool"/>.
+#!
+#! @Subsection Low-Level API
+#!
+#! The low-level API is accessed through just one function,
+#! <Ref Func="CreateVisualization"/>.  You can view its complete
+#! documentation in the next chapter for details, but examples are given in
+#! this section.
 #!
 #! Nearly all visualizations in this package are created by passing data to
 #! the <Ref Func="CreateVisualization"/> function as records describing
-#! what to draw.  These records are converted into
+#! what to draw.  (Even visualizations created by the high-level API
+#! documented above call the <Ref Func="CreateVisualization"/> function
+#! under the hood.)  Those records are converted into
 #! <URL Text="JSON">http://www.json.org/</URL> form by the
 #! <Package>json</Package> package, and handed to whichever JavaScript
-#! toolkit you have chosen to use for creating the visualization.
+#! toolkit you have chosen to use for creating the visualization (or the
+#! default tool if you use a high-level function and do not specify).
+#!
+#! The sections below describe how to communicate, with
+#! <Ref Func="CreateVisualization"/>, each of the visualization tools
+#! this package makes available.  Thus <Ref Func="CreateVisualization"/> is
+#! the low-level API for the entire package, and it usage is documented
+#! here.
 #!
 #! @Subsection Example: AnyChart
 #!
