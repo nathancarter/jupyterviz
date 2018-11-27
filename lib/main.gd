@@ -11,7 +11,235 @@
 
 #! @Chapter Function reference
 
-#! @Section Public API
+#! @Section High-Level Public API
+
+#! @Arguments various
+#! @Returns an object that, if rendered in a Jupyter notebook, will produce a plot
+#! @Description
+#!  If evaluated in a Jupyter notebook, the result of this function, when
+#!  rendered by that notebook, will run JavaScript code that generates and
+#!  shows a plot, which could be any of a wide variety of data
+#!  visualizations, including bar charts, pie charts, scatterplots, etc.
+#!  <P/>
+#!  This function can take data in a wide variety of input formats.  Here is
+#!  the current list of acceptable formats:
+#!  <List>
+#!    <Item>If <Code>X</Code> is a list of <Math>x</Math> values and
+#!      <Code>Y</Code> is a list of <Math>y</Math> values then
+#!      <Code>Plot(X,Y)</Code> plots them as ordered pairs.</Item>
+#!    <Item>If <Code>X</Code> is a list of <Math>x</Math> values and
+#!      <Code>f</Code> is a &GAP; function that can be applied to each
+#!      <Math>x</Math> to yield a corresponding <Math>y</Math>, then
+#!      <Code>Plot(X,f)</Code> computes those corresponding <Math>y</Math>
+#!      values and plots everything as ordered pairs.</Item>
+#!    <Item>If <Code>P</Code> is a list of <Math>(x,y)</Math> pairs then
+#!      <Code>Plot(P)</Code> plots those ordered pairs.</Item>
+#!    <Item>If <Code>Y</Code> is a list of <Math>y</Math> values then
+#!      <Code>Plot(Y)</Code> assumes the corresponding <Math>x</Math>
+#!      values are 1, 2, 3, and so on up to the length of <Code>Y</Code>.
+#!      It then plots the corresponding set of ordered pairs.</Item>
+#!    <Item>If <Code>f</Code> is a &GAP; function then it is assumed to
+#!      take integer inputs and is evaluated on a small domain (1 through 5)
+#!      of <Math>x</Math> values and the resulting <Math>(x,y)</Math> pairs
+#!      are plotted.</Item>
+#!    <Item>In any of the cases above, a new, last argument may be added
+#!      that is a &GAP; record containing options for how to draw the plot,
+#!      including the plot type, title, axes options, and more.</Item>
+#!    <Item>If <Code>A1</Code> is a list of arguments from any of the points
+#!      just listed (for example, it might be <Code>[X,f]</Code>) and so is
+#!      <Code>A2</Code>, and so on through <Code>An</Code>, then
+#!      <Code>Plot(A1,A2,...,An)</Code> creates a combination plot with all
+#!      of the data from each of the arguments treated as a separate data
+#!      series.  If the arguments contain conflicting plot options (e.g.,
+#!      the first requests a line plot and the second a bar chart) then the
+#!      earliest option specified takes precedence.</Item>
+#!  </List>
+#!  <P/>
+#!  Examples:
+#! @BeginLog
+#! # Plot the number of small groups of order n, from n=1 to n=50:
+#! Plot( [1..50], NrSmallGroups );
+#! # Plot how much Andrea has been jogging lately:
+#! Plot( ["Jan","Feb","Mar"],[46,59,61],rec(title:="Andrea's Jogging"));
+#! @EndLog
+DeclareGlobalFunction( "Plot" );
+
+#! @Description
+#!  The <Package>JupyterViz</Package> Package has a high-level API and a
+#!  low-level API.  The high-level API involves functions like
+#!  <Code>Plot</Code>, which take data in a variety of convenient formats,
+#!  and produce visualizations from them.  The low-level API can be used to
+#!  pass JSON data structures to JavaScript visualization tools in their own
+#!  native formats for rendering.  The high-level API is built on the
+#!  low-level API, using key functions to do the conversion.
+#!  <P/>
+#!  The conversion functions for plots are stored in a global dictionary
+#!  in this variable.  It is a &GAP; record mapping visualization tool
+#!  names (such as plotly, etc., a complete list of which appears in Section
+#!  <Ref Sect="Section_purpose") to conversion functions.  Only those tools
+#!  that support plotting data in the form of <Math>(x,y)</Math> pairs
+#!  should be included.  (For example, tools that specialize in drawing
+#!  vertex-and-edge graphs are not relevant here.)
+#!  <P/>
+#!  Each conversion function must behave as follows.  It expects its input
+#!  object to be a single data series, which will be a &GAP; record with
+#!  three fields:
+#!  <List>
+#!    <Item><Code>x</Code> - a list of <Math>x</Math> values for the
+#!      plot</Item>
+#!    <Item><Code>y</Code> - the corresponding list of <Math>y</Math> values
+#!      for the same plot</Item>
+#!    <Item><Code>options</Code> - another (inner) &GAP; record containing
+#!      any of the following options.
+#!      <List>
+#!        <Item><Code>tool</Code> - the visualization tool to use to make
+#!          the plot.  The default is plotly.  The full list of tools is
+#!          available in Section <Ref Sect="Section_purpose"/>.</Item>
+#!        <Item><Code>type</Code> - the type of chart, as a string, the
+#!          default for which is "line".  Which types are available depends
+#!          on which tool you are using, though it is safe to assume that
+#!          most common chart types (line, bar, pie) are supported by all
+#!          tools.  Section <Ref Sect="Section_purpose"/> contains links to
+#!          the documentation for each tool, so that you might see its
+#!          full list of capabilities.</Item>
+#!        <Item><Code>height</Code> - the height in pixels of the
+#!          visualization to produce.  A sensible default is provided,
+#!          which varies by tool.</Item>
+#!        <Item><Code>width</Code> - the width in pixels of the
+#!          visualization to produce.  If omitted, the tool usually fills
+#!          the width of the Jupyter Notebook output cell.</Item>
+#!        <Item><Code>title</Code> - the title to place at the top of the
+#!          chart, as a string.</Item>
+#!        <Item><Code>xaxis</Code> - the text to write below the
+#!          <Math>x</Math> axis, as a string.</Item>
+#!        <Item><Code>yaxis</Code> - the text to write to the left of the
+#!          <Math>y</Math> axis, as a string.</Item>
+#!      </List>
+#!    </Item>
+#!  </List>
+#!  <P/>
+#!  The output of the conversion function should be a &GAP; record amenable
+#!  to conversion (using <Code>GapToJsonString</Code> from the
+#!  <Package>json</Package> package) into JSON.  The format of the JSON is
+#!  governed entirely by the tool that will be used to visualize it, each of
+#!  which has a different data format it expects.
+#!  <P/>
+#!  Those who wish to install new visualization tools for plots (as
+#!  discussed in Chapter
+#!  <Ref Chap="Chapter_Adding_new_visualization_tools"/>) will want
+#!  to install a new function in this object corresponding to the new tool.
+#!  If you plan to do so, consider the source code for the existing
+#!  conversion functions, which makes use of two useful convenince methods,
+#!  <Ref Func="JUPVIZFetchWithDefault"/> and
+#!  <Ref Func="JUPVIZFetchIfPresent"/>.  Following those examples will
+#!  help keep your code consistent with existing code, and as concise as
+#!  possible.
+DeclareGlobalVariable( "ConvertDataSeriesForTool" );
+
+#! @Arguments various
+#! @Returns an object that, if rendered in a Jupyter notebook, will show graph
+#! @Description
+#!  If evaluated in a Jupyter notebook, the result of this function, when
+#!  rendered by that notebook, will run JavaScript code that generates and
+#!  shows a graph, not in the sense of coordinate axes, but in the sense of
+#!  vertices and edges.
+#!  <P/>
+#!  This function can take data in a wide variety of input formats.  Here is
+#!  the current list of acceptable formats:
+#!  <List>
+#!    <Item>If <Code>V</Code> is a list and <Code>E</Code> is a list of
+#!      pairs of items from <Code>V</Code> then <Code>PlotGraph(V,E)</Code>
+#!      treats them as vertex and edge sets, respectively.</Item>
+#!    <Item>If <Code>V</Code> is a list and <Code>R</Code> is a &GAP;
+#!      function then <Code>PlotGraph(V,R)</Code> treats <Code>V</Code> as
+#!      the vertex set and calls <Code>R(v1,v2)</Code> for every pair of
+#!      vertices (both forwards backwards) to test whether there is an edge
+#!      between them.  It exepcts <Code>R</Code> to return
+#!      boolean values.</Item>
+#!    <Item>If <Code>E</Code> is a list of pairs then
+#!      <Code>PlotGraph(E)</Code> treats <Code>E</Code> as a list of edges,
+#!      inferring the vertex set to be any vertex mentioned in any of the
+#!      edge pairs.</Item>
+#!    <Item>If <Code>M</Code> is a square matrix then
+#!      <Code>PlotGraph(M)</Code> treats <Code>M</Code> as an adjacency
+#!      matrix whose vertices are the integers 1 through <Math>n</Math>
+#!      (the height of the matrix) and where two vertices are connected by
+#!      an edge if and only if that matrix entry is positive.</Item>
+#!    <Item>In any of the cases above, a new, last argument may be added
+#!      that is a &GAP; record containing options for how to draw the graph,
+#!      such as the tool to use.</Item>
+#!  </List>
+#!  <P/>
+#!  Examples:
+#! @BeginLog
+#! # Plot the subgroup lattice for a small group:
+#! G := Group((1,2),(2,3));
+#! PlotGraph( AllSubgroups(G), IsSubgroup );
+#! # Plot a random graph on 5 vertices:
+#! PlotGraph( RandomMat(5,5) );
+#! @EndLog
+DeclareGlobalFunction( "PlotGraph" );
+
+#! @Description
+#!  The <Package>JupyterViz</Package> Package has a high-level API and a
+#!  low-level API.  The high-level API involves functions like
+#!  <Code>PlotGraph</Code>, which take data in a variety of convenient
+#!  formats, and produce visualizations from them.  The low-level API can
+#!  be used to pass JSON data structures to JavaScript visualization tools
+#!  in their own native formats for rendering.  The high-level API is built
+#!  on the low-level API, using key functions to do the conversion.
+#!  <P/>
+#!  The conversion functions for graphs are stored in a global dictionary
+#!  in this variable.  It is a &GAP; record mapping visualization tool
+#!  names (such as cytoscape, a complete list of which appears in Section
+#!  <Ref Sect="Section_purpose") to conversion functions.  Only those tools
+#!  that support graphing vertex and edge sets should be included.  (For
+#!  example, tools that specialize in drawing plots of data stored as
+#!  <Math>(x,y)</Math> pairs are not relevant here.)
+#!  <P/>
+#!  Each conversion function must behave as follows.  It expects its input
+#!  object to be a single graph, which will be a &GAP; record with three
+#!  fields:
+#!  <List>
+#!    <Item><Code>vertices</Code> - a list of vertex names for the
+#!      graph</Item>
+#!    <Item><Code>edges</Code> - a list of pairs from the
+#!      <Code>vertices</Code> list, each of which represents an edge</Item>
+#!    <Item><Code>options</Code> - a &GAP; record containing
+#!      any of the following options.
+#!      <List>
+#!        <Item><Code>tool</Code> - the visualization tool to use to make
+#!          the plot.  The default is plotly.  The full list of tools is
+#!          available in Section <Ref Sect="Section_purpose"/>.</Item>
+#!        <Item><Code>height</Code> - the height in pixels of the
+#!          visualization to produce.  A sensible default is provided,
+#!          which varies by tool.</Item>
+#!        <Item><Code>width</Code> - the width in pixels of the
+#!          visualization to produce.  If omitted, the tool usually fills
+#!          the width of the Jupyter Notebook output cell.</Item>
+#!      </List>
+#!    </Item>
+#!  </List>
+#!  <P/>
+#!  The output of the conversion function should be a &GAP; record amenable
+#!  to conversion (using <Code>GapToJsonString</Code> from the
+#!  <Package>json</Package> package) into JSON.  The format of the JSON is
+#!  governed entirely by the tool that will be used to visualize it, each of
+#!  which has a different data format it expects.
+#!  <P/>
+#!  Those who wish to install new visualization tools for graphs (as
+#!  discussed in Chapter
+#!  <Ref Chap="Chapter_Adding_new_visualization_tools"/>) will want
+#!  to install a new function in this object corresponding to the new tool.
+#!  If you plan to do so, consider the source code for the existing
+#!  conversion functions, which makes use of two useful convenince methods,
+#!  <Ref Func="JUPVIZFetchWithDefault"/> and
+#!  <Ref Func="JUPVIZFetchIfPresent"/>.  Following those examples will
+#!  help keep your code consistent with existing code, and as concise as
+#!  possible.
+DeclareGlobalVariable( "ConvertGraphForTool" );
+
+#! @Section Low-Level Public API
 
 #! @Arguments script
 #! @Returns an object that, if rendered in a Jupyter notebook, will run <Arg>script</Arg> as JavaScript
@@ -257,6 +485,167 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingRunGAP" );
 #!     "alert( 'My Lib defines foo to be: ' + window.foo );" );
 #! @EndLog
 DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingLibraries" );
+
+#! @Arguments series
+#! @Returns a record with the appropriate fields (<Code>x</Code>, <Code>y</Code>, <Code>options</Code>) that it can be passed to one of the functions in <Ref Var="ConvertDataSeriesForTool"/>
+#! @Description
+#!  This function is called by <Ref Func="Plot"/> to convert any of the wide
+#!  variety of inputs that <Ref Func="Plot"/> might receive into a single
+#!  internal format.  Then that internal format can be converted to the JSON
+#!  format needed by any of the visualization tools supported by this
+#!  package.
+#!  <P/>
+#!  See the documentation for <Ref Var="ConvertDataSeriesForTool"/> for
+#!  more information on how that latter conversion takes place, and the
+#!  format it expects.
+DeclareGlobalFunction( "JUPVIZMakePlotDataSeries" );
+
+#! @Arguments series1, series2, series3...
+#! @Returns a <Code>JupyterRenderable</Code> object ready to be displayed in the Jupyter Notebook
+#! @Description
+#!  Because the <Ref Func="Plot"/> function can take a single data series or
+#!  many data series as input, it detects which it received, then passes the
+#!  resulting data series (as an array containing one or more series) to
+#!  this function for collecting into a single plot.
+#!  <P/>
+#!  It is not expected that clients of this package will need to call this
+#!  internal function.
+DeclareGlobalFunction( "JUPVIZPlotDataSeriesList" );
+
+#! @Arguments record, keychain, default
+#! @Returns the result of looking up the chain of keys in the given record
+#! @Description
+#!  In nested records, such as <Code>myRec:=rec(a:=rec(b:=5))</Code>, it
+#!  is common to write code such as <Code>myRec.a.b</Code> to access the
+#!  internal values.  However when records are passed as parameters, and may
+#!  not contain every key (as in the case when some default values should be
+#!  filled in automatically), code like <Code>myRec.a.b</Code> could cause
+#!  an error.  Thus we wish to first check before indexing a record that the
+#!  key we're looking up exists.  If not, we wish to return the value given
+#!  as the <Code>default</Code> instead.
+#!  <P/>
+#!  This function accepts a <Code>record</Code> (which may have other
+#!  records inside it as values), an array of strings that describe a
+#!  chain of keys to follow inward (<Code>["a","b"]</Code> in the example
+#!  just given), and a <Code>default</Code> value to return if any of the
+#!  keys do not exist.
+#!  <P/>
+#!  It is not expected that clients of this package will need to call this
+#!  internal function.  It is used primarily to implement the
+#!  <Ref Func="JUPVIZFetchWithDefault"/> function, which is useful to those
+#!  who wish to extend the <Ref Var="ConvertDataSeriesForTool"/> and
+#!  <Ref Var="ConvertGraphForTool"/> objects.
+#!  <P/>
+#!  Examples:
+#! @BeginLog
+#! myRec := rec( height := 50, width := 50, title := rec(
+#!   text := "Hello, world!", fontSize := 20
+#! ) );
+#! JUPVIZRecordKeychainLookup( myRec, [ "height" ], 10 ); # = 50
+#! JUPVIZRecordKeychainLookup( myRec, [ "width" ], 10 ); # = 50
+#! JUPVIZRecordKeychainLookup( myRec, [ "depth" ], 10 ); # = 10
+#! JUPVIZRecordKeychainLookup( myRec, [ "title", "text" ], "Title" ); # = "Hello, world!"
+#! JUPVIZRecordKeychainLookup( myRec, [ "title", "color" ], "black" ); # = "black"
+#! JUPVIZRecordKeychainLookup( myRec, [ "one", "two", "three" ], fail ); # = fail
+#! @EndLog
+DeclareGlobalFunction( "JUPVIZRecordKeychainLookup" );
+
+#! @Arguments records, keychain, default
+#! @Returns the result of looking up the chain of keys in each of the given records until a lookup succeeds
+#! @Description
+#!  This function is extremely similar to
+#!  <Ref Func="JUPVIZRecordKeychainLookup"/> with the following difference:
+#!  The first parameter is a list of records, and
+#!  <Ref Func="JUPVIZRecordKeychainLookup"/> is called on each in succession
+#!  with the same <Code>keychain</Code>.  If any of the lookups succeeds,
+#!  then its value is returned and no further searching through the list is
+#!  done.  If all of the lookups fail, the <Code>default</Code> is returned.
+#!  <P/>
+#!  It is not expected that clients of this package will need to call this
+#!  internal function.  It is used primarily to implement the
+#!  <Ref Func="JUPVIZFetchWithDefault"/> function, which is useful to those
+#!  who wish to extend the <Ref Var="ConvertDataSeriesForTool"/> and
+#!  <Ref Var="ConvertGraphForTool"/> objects.
+#!  <P/>
+#!  Examples:
+#! @BeginLog
+#! myRecs := [
+#!   rec( height := 50, width := 50, title := rec(
+#!     text := "Hello, world!", fontSize := 20
+#!   ) ),
+#!   rec( width := 10, depth := 10, color := "blue" )
+#! ];
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "height" ], 0 ); # = 50
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "width" ], 0 ); # = 50
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "depth" ], 0 ); # = 10
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "title", "text" ], "Title" ); # = "Hello, world!"
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "color" ], "" ); # = "blue"
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "flavor" ], fail ); # = fail
+#! @EndLog
+DeclareGlobalFunction( "JUPVIZRecordsKeychainLookup" );
+
+#! @Arguments record, others, chain, default, action
+#! @Returns nothing
+#! @Description
+#!  This function is designed to make it easier to write new entries in the
+#!  <Ref Var="ConvertDataSeriesForTool"/> and
+#!  <Ref Var="ConvertGraphForTool"/> functions.
+#!  Those functions are often processing a list of records (here called
+#!  <Code>others</Code>) sometimes with one record the most important one
+#!  (here called <Code>record</Code>) and looking up a <Code>chain</Code> of
+#!  keys (using <Code>default</Code> just as in
+#!  <Ref Func="JUPVIZRecordKeychainLookup"/>) and then taking some
+#!  <Code>action</Code> based on the result.
+#!  This function just allows all of that to be done with a single call.
+#!  <P/>
+#!  Specifically, it considers the array of records formed by
+#!  <Code>Concatenation([record],others)</Code> and calls
+#!  <Ref Func="JUPVIZRecordsKeychainLookup"/> on it with the given
+#!  <Code>chain</Code> and <Code>default</Code>.  (If the <Code>chain</Code>
+#!  is a string, it is automatically converted to a length-one list with
+#!  the string inside.)  Whatever the result, the function
+#!  <Code>action</Code> is called on it, even if it is the default.
+#!  <P/>
+#!  Examples:
+#! @BeginLog
+#! # Trivial examples:
+#! myRec := rec( a := 5 );
+#! myRecs := [ rec( b := 3 ), rec( a := 6 ) ];
+#! f := function ( x ) Print( x, "\n" ); end;
+#! JUPVIZFetchWithDefault( myRec, myRecs, "a", 0, f ); # prints 5
+#! JUPVIZFetchWithDefault( myRec, myRecs, "b", 0, f ); # prints 3
+#! JUPVIZFetchWithDefault( myRec, myRecs, "c", 0, f ); # prints 0
+#! JUPVIZFetchWithDefault( myRec, myRecs, ["a","b"], 0, f ); # prints 0
+#! # Useful example:
+#! JUPVIZFetchWithDefault( primaryRecord, secondaryRecordsList,
+#!   [ "options", "height" ], 400,
+#!   function ( h ) myGraphJSON.height := h; end
+#! );
+#! @EndLog
+#!  <P/>
+#!  See also <Ref Func="JUPVIZFetchIfPresent"/>.
+DeclareGlobalFunction( "JUPVIZFetchWithDefault" );
+
+#! @Arguments record, others, chain, action
+#! @Returns nothing
+#! @Description
+#!  This function is extremely similar to
+#!  <Ref Func="JUPVIZFetchWithDefault"/> with the following exception:
+#!  No default value is provided, and thus if the lookup fails for all the
+#!  records (including <Code>record</Code> and everything in
+#!  <Code>others</Code>) then the <Code>action</Code> is not called.
+#!  <P/>
+#!  Examples:
+#! @BeginLog
+#! myRec := rec( a := 5 );
+#! myRecs := [ rec( b := 3 ), rec( a := 6 ) ];
+#! f := function ( x ) Print( x, "\n" ); end;
+#! JUPVIZFetchIfPresent( myRec, myRecs, "a", 0, f ); # prints 5
+#! JUPVIZFetchIfPresent( myRec, myRecs, "b", 0, f ); # prints 3
+#! JUPVIZFetchIfPresent( myRec, myRecs, "c", 0, f ); # does nothing
+#! JUPVIZFetchIfPresent( myRec, myRecs, ["a","b"], 0, f ); # does nothing
+#! @EndLog
+DeclareGlobalFunction( "JUPVIZFetchIfPresent" );
 
 #! @Section Representation wrapper
 
