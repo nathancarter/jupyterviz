@@ -20,6 +20,7 @@
 #!  rendered by that notebook, will run JavaScript code that generates and
 #!  shows a plot, which could be any of a wide variety of data
 #!  visualizations, including bar charts, pie charts, scatterplots, etc.
+#!  (To draw a vertex-and-edge graph, see <Ref Func="PlotGraph"/> instead.)
 #!  <P/>
 #!  This function can take data in a wide variety of input formats.  Here is
 #!  the current list of acceptable formats:
@@ -44,7 +45,8 @@
 #!      are plotted.</Item>
 #!    <Item>In any of the cases above, a new, last argument may be added
 #!      that is a &GAP; record containing options for how to draw the plot,
-#!      including the plot type, title, axes options, and more.</Item>
+#!      including the plot type, title, axes options, and more.
+#!      (For details, see <Ref Var="ConvertDataSeriesForTool"/>.)</Item>
 #!    <Item>If <Code>A1</Code> is a list of arguments from any of the points
 #!      just listed (for example, it might be <Code>[X,f]</Code>) and so is
 #!      <Code>A2</Code>, and so on through <Code>An</Code>, then
@@ -55,13 +57,29 @@
 #!      earliest option specified takes precedence.</Item>
 #!  </List>
 #!  <P/>
-#!  Examples:
 #! @BeginLog
 #! # Plot the number of small groups of order n, from n=1 to n=50:
 #! Plot( [1..50], NrSmallGroups );
-#! # Plot how much Andrea has been jogging lately:
-#! Plot( ["Jan","Feb","Mar"],[46,59,61],rec(title:="Andrea's Jogging"));
 #! @EndLog
+#! <Alt Only="LaTeX">
+#!     \begin{center}
+#!         \includegraphics[width=4in]{groups-plot.png}
+#!     \end{center}
+#! </Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="500" src="groups-plot.png"/>]]></Alt>
+#! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+#! @BeginLog
+#! # Plot how much Andrea has been jogging lately:
+#! Plot( ["Jan","Feb","Mar"], [46,59,61],
+#!       rec( title := "Andrea's Jogging", yaxis := "miles per month" ) );
+#! @EndLog
+#! <Alt Only="LaTeX">
+#!     \begin{center}
+#!         \includegraphics[width=4in]{andrea-plot.png}
+#!     \end{center}
+#! </Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="500" src="andrea-plot.png"/>]]></Alt>
+#! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 DeclareGlobalFunction( "Plot" );
 
 #! @Description
@@ -76,8 +94,8 @@ DeclareGlobalFunction( "Plot" );
 #!  The conversion functions for plots are stored in a global dictionary
 #!  in this variable.  It is a &GAP; record mapping visualization tool
 #!  names (such as plotly, etc., a complete list of which appears in Section
-#!  <Ref Sect="Section_purpose") to conversion functions.  Only those tools
-#!  that support plotting data in the form of <Math>(x,y)</Math> pairs
+#!  <Ref Sect="Section_purpose"/>) to conversion functions.  Only those
+#!  tools that support plotting data in the form of <Math>(x,y)</Math> pairs
 #!  should be included.  (For example, tools that specialize in drawing
 #!  vertex-and-edge graphs are not relevant here.)
 #!  <P/>
@@ -93,8 +111,9 @@ DeclareGlobalFunction( "Plot" );
 #!      any of the following options.
 #!      <List>
 #!        <Item><Code>tool</Code> - the visualization tool to use to make
-#!          the plot.  The default is plotly.  The full list of tools is
-#!          available in Section <Ref Sect="Section_purpose"/>.</Item>
+#!          the plot, as a string.  The default is "plotly".  The full list
+#!          of tools is available in Section
+#!          <Ref Sect="Section_purpose"/>.</Item>
 #!        <Item><Code>type</Code> - the type of chart, as a string, the
 #!          default for which is "line".  Which types are available depends
 #!          on which tool you are using, though it is safe to assume that
@@ -109,11 +128,11 @@ DeclareGlobalFunction( "Plot" );
 #!          visualization to produce.  If omitted, the tool usually fills
 #!          the width of the Jupyter Notebook output cell.</Item>
 #!        <Item><Code>title</Code> - the title to place at the top of the
-#!          chart, as a string.</Item>
+#!          chart, as a string.  Can be omitted.</Item>
 #!        <Item><Code>xaxis</Code> - the text to write below the
-#!          <Math>x</Math> axis, as a string.</Item>
+#!          <Math>x</Math> axis, as a string.  Can be omitted.</Item>
 #!        <Item><Code>yaxis</Code> - the text to write to the left of the
-#!          <Math>y</Math> axis, as a string.</Item>
+#!          <Math>y</Math> axis, as a string.  Can be omitted.</Item>
 #!      </List>
 #!    </Item>
 #!  </List>
@@ -132,17 +151,18 @@ DeclareGlobalFunction( "Plot" );
 #!  conversion functions, which makes use of two useful convenince methods,
 #!  <Ref Func="JUPVIZFetchWithDefault"/> and
 #!  <Ref Func="JUPVIZFetchIfPresent"/>.  Following those examples will
-#!  help keep your code consistent with existing code, and as concise as
+#!  help keep your code consistent with existing code and as concise as
 #!  possible.
 DeclareGlobalVariable( "ConvertDataSeriesForTool" );
 
 #! @Arguments various
-#! @Returns an object that, if rendered in a Jupyter notebook, will show graph
+#! @Returns an object that, if rendered in a Jupyter notebook, will show a graph
 #! @Description
 #!  If evaluated in a Jupyter notebook, the result of this function, when
 #!  rendered by that notebook, will run JavaScript code that generates and
 #!  shows a graph, not in the sense of coordinate axes, but in the sense of
-#!  vertices and edges.
+#!  vertices and edges.  (To graph a function or data set on coordinate
+#!  axes, use <Ref Func="Plot"/> instead.)
 #!  <P/>
 #!  This function can take data in a wide variety of input formats.  Here is
 #!  the current list of acceptable formats:
@@ -159,7 +179,7 @@ DeclareGlobalVariable( "ConvertDataSeriesForTool" );
 #!    <Item>If <Code>E</Code> is a list of pairs then
 #!      <Code>PlotGraph(E)</Code> treats <Code>E</Code> as a list of edges,
 #!      inferring the vertex set to be any vertex mentioned in any of the
-#!      edge pairs.</Item>
+#!      edges.</Item>
 #!    <Item>If <Code>M</Code> is a square matrix then
 #!      <Code>PlotGraph(M)</Code> treats <Code>M</Code> as an adjacency
 #!      matrix whose vertices are the integers 1 through <Math>n</Math>
@@ -167,17 +187,33 @@ DeclareGlobalVariable( "ConvertDataSeriesForTool" );
 #!      an edge if and only if that matrix entry is positive.</Item>
 #!    <Item>In any of the cases above, a new, last argument may be added
 #!      that is a &GAP; record containing options for how to draw the graph,
-#!      such as the tool to use.</Item>
+#!      such as the tool to use.  For details on the supported options,
+#!      see <Ref Var="ConvertGraphForTool"/>.</Item>
 #!  </List>
 #!  <P/>
-#!  Examples:
 #! @BeginLog
 #! # Plot the subgroup lattice for a small group:
 #! G := Group((1,2),(2,3));
 #! PlotGraph( AllSubgroups(G), IsSubgroup );
+#! @EndLog
+#! <Alt Only="LaTeX">
+#!     \begin{center}
+#!         \includegraphics[width=4in]{subgroup-lattice.png}
+#!     \end{center}
+#! </Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="500" src="subgroup-lattice.png"/>]]></Alt>
+#! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+#! @BeginLog
 #! # Plot a random graph on 5 vertices:
 #! PlotGraph( RandomMat(5,5) );
 #! @EndLog
+#! <Alt Only="LaTeX">
+#!     \begin{center}
+#!         \includegraphics[width=2in]{random-graph.png}
+#!     \end{center}
+#! </Alt>
+#! <Alt Only="HTML"><![CDATA[<img width="250" src="random-graph.png"/>]]></Alt>
+#! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 DeclareGlobalFunction( "PlotGraph" );
 
 #! @Description
@@ -192,9 +228,9 @@ DeclareGlobalFunction( "PlotGraph" );
 #!  The conversion functions for graphs are stored in a global dictionary
 #!  in this variable.  It is a &GAP; record mapping visualization tool
 #!  names (such as cytoscape, a complete list of which appears in Section
-#!  <Ref Sect="Section_purpose") to conversion functions.  Only those tools
-#!  that support graphing vertex and edge sets should be included.  (For
-#!  example, tools that specialize in drawing plots of data stored as
+#!  <Ref Sect="Section_purpose"/>) to conversion functions.  Only those
+#!  tools that support graphing vertex and edge sets should be included.
+#!  (For example, tools that specialize in drawing plots of data stored as
 #!  <Math>(x,y)</Math> pairs are not relevant here.)
 #!  <P/>
 #!  Each conversion function must behave as follows.  It expects its input
@@ -209,8 +245,9 @@ DeclareGlobalFunction( "PlotGraph" );
 #!      any of the following options.
 #!      <List>
 #!        <Item><Code>tool</Code> - the visualization tool to use to make
-#!          the plot.  The default is plotly.  The full list of tools is
-#!          available in Section <Ref Sect="Section_purpose"/>.</Item>
+#!          the plot, as a string.  The default is "cytoscape".  The full
+#!          list of tools is available in Section
+#!          <Ref Sect="Section_purpose"/>.</Item>
 #!        <Item><Code>height</Code> - the height in pixels of the
 #!          visualization to produce.  A sensible default is provided,
 #!          which varies by tool.</Item>
@@ -235,7 +272,7 @@ DeclareGlobalFunction( "PlotGraph" );
 #!  conversion functions, which makes use of two useful convenince methods,
 #!  <Ref Func="JUPVIZFetchWithDefault"/> and
 #!  <Ref Func="JUPVIZFetchIfPresent"/>.  Following those examples will
-#!  help keep your code consistent with existing code, and as concise as
+#!  help keep your code consistent with existing code and as concise as
 #!  possible.
 DeclareGlobalVariable( "ConvertGraphForTool" );
 
@@ -536,16 +573,15 @@ DeclareGlobalFunction( "JUPVIZPlotDataSeriesList" );
 #!  who wish to extend the <Ref Var="ConvertDataSeriesForTool"/> and
 #!  <Ref Var="ConvertGraphForTool"/> objects.
 #!  <P/>
-#!  Examples:
 #! @BeginLog
 #! myRec := rec( height := 50, width := 50, title := rec(
-#!   text := "Hello, world!", fontSize := 20
+#!   text := "GAP", fontSize := 20
 #! ) );
-#! JUPVIZRecordKeychainLookup( myRec, [ "height" ], 10 ); # = 50
-#! JUPVIZRecordKeychainLookup( myRec, [ "width" ], 10 ); # = 50
-#! JUPVIZRecordKeychainLookup( myRec, [ "depth" ], 10 ); # = 10
-#! JUPVIZRecordKeychainLookup( myRec, [ "title", "text" ], "Title" ); # = "Hello, world!"
-#! JUPVIZRecordKeychainLookup( myRec, [ "title", "color" ], "black" ); # = "black"
+#! JUPVIZRecordKeychainLookup( myRec, [ "height" ], 10 );                # = 50
+#! JUPVIZRecordKeychainLookup( myRec, [ "width" ], 10 );                 # = 50
+#! JUPVIZRecordKeychainLookup( myRec, [ "depth" ], 10 );                 # = 10
+#! JUPVIZRecordKeychainLookup( myRec, [ "title", "text" ], "Title" );    # = "GAP"
+#! JUPVIZRecordKeychainLookup( myRec, [ "title", "color" ], "black" );   # = "black"
 #! JUPVIZRecordKeychainLookup( myRec, [ "one", "two", "three" ], fail ); # = fail
 #! @EndLog
 DeclareGlobalFunction( "JUPVIZRecordKeychainLookup" );
@@ -567,20 +603,19 @@ DeclareGlobalFunction( "JUPVIZRecordKeychainLookup" );
 #!  who wish to extend the <Ref Var="ConvertDataSeriesForTool"/> and
 #!  <Ref Var="ConvertGraphForTool"/> objects.
 #!  <P/>
-#!  Examples:
 #! @BeginLog
 #! myRecs := [
 #!   rec( height := 50, width := 50, title := rec(
-#!     text := "Hello, world!", fontSize := 20
+#!     text := "GAP", fontSize := 20
 #!   ) ),
 #!   rec( width := 10, depth := 10, color := "blue" )
 #! ];
-#! JUPVIZRecordsKeychainLookup( myRecs, [ "height" ], 0 ); # = 50
-#! JUPVIZRecordsKeychainLookup( myRecs, [ "width" ], 0 ); # = 50
-#! JUPVIZRecordsKeychainLookup( myRecs, [ "depth" ], 0 ); # = 10
-#! JUPVIZRecordsKeychainLookup( myRecs, [ "title", "text" ], "Title" ); # = "Hello, world!"
-#! JUPVIZRecordsKeychainLookup( myRecs, [ "color" ], "" ); # = "blue"
-#! JUPVIZRecordsKeychainLookup( myRecs, [ "flavor" ], fail ); # = fail
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "height" ], 0 );              # = 50
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "width" ], 0 );               # = 50
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "depth" ], 0 );               # = 10
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "title", "text" ], "Title" ); # = "GAP"
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "color" ], "" );              # = "blue"
+#! JUPVIZRecordsKeychainLookup( myRecs, [ "flavor" ], fail );           # = fail
 #! @EndLog
 DeclareGlobalFunction( "JUPVIZRecordsKeychainLookup" );
 
@@ -606,15 +641,14 @@ DeclareGlobalFunction( "JUPVIZRecordsKeychainLookup" );
 #!  the string inside.)  Whatever the result, the function
 #!  <Code>action</Code> is called on it, even if it is the default.
 #!  <P/>
-#!  Examples:
 #! @BeginLog
 #! # Trivial examples:
 #! myRec := rec( a := 5 );
 #! myRecs := [ rec( b := 3 ), rec( a := 6 ) ];
 #! f := function ( x ) Print( x, "\n" ); end;
-#! JUPVIZFetchWithDefault( myRec, myRecs, "a", 0, f ); # prints 5
-#! JUPVIZFetchWithDefault( myRec, myRecs, "b", 0, f ); # prints 3
-#! JUPVIZFetchWithDefault( myRec, myRecs, "c", 0, f ); # prints 0
+#! JUPVIZFetchWithDefault( myRec, myRecs, "a", 0, f );       # prints 5
+#! JUPVIZFetchWithDefault( myRec, myRecs, "b", 0, f );       # prints 3
+#! JUPVIZFetchWithDefault( myRec, myRecs, "c", 0, f );       # prints 0
 #! JUPVIZFetchWithDefault( myRec, myRecs, ["a","b"], 0, f ); # prints 0
 #! # Useful example:
 #! JUPVIZFetchWithDefault( primaryRecord, secondaryRecordsList,
@@ -640,9 +674,9 @@ DeclareGlobalFunction( "JUPVIZFetchWithDefault" );
 #! myRec := rec( a := 5 );
 #! myRecs := [ rec( b := 3 ), rec( a := 6 ) ];
 #! f := function ( x ) Print( x, "\n" ); end;
-#! JUPVIZFetchIfPresent( myRec, myRecs, "a", 0, f ); # prints 5
-#! JUPVIZFetchIfPresent( myRec, myRecs, "b", 0, f ); # prints 3
-#! JUPVIZFetchIfPresent( myRec, myRecs, "c", 0, f ); # does nothing
+#! JUPVIZFetchIfPresent( myRec, myRecs, "a", 0, f );       # prints 5
+#! JUPVIZFetchIfPresent( myRec, myRecs, "b", 0, f );       # prints 3
+#! JUPVIZFetchIfPresent( myRec, myRecs, "c", 0, f );       # does nothing
 #! JUPVIZFetchIfPresent( myRec, myRecs, ["a","b"], 0, f ); # does nothing
 #! @EndLog
 DeclareGlobalFunction( "JUPVIZFetchIfPresent" );

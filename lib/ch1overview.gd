@@ -28,15 +28,21 @@
 #! manual.
 #!
 #! The toolkits currently exposed by this package are listed here.
+#! We split them into four categories: plot tools (which make
+#! visualizations such as bar graphs, line graphs, pie charts, etc.),
+#! graph tools (which make vertex-and-edge graphs), 3D tools
+#! (planned for addition in a future version of this package), and low-level
+#! tools that are very general-purpose, and thus with which you can build
+#! whatever you want (with effort).
 #!
-#!  * <URL Text="AnyChart">https://www.anychart.com/</URL>
-#!  * <URL Text="CanvasJS">https://canvasjs.com/</URL>
-#!  * <URL Text="ChartJS">https://www.chartjs.org/</URL>
-#!  * <URL Text="Cytoscape">http://www.cytoscape.org/</URL>
-#!  * <URL Text="D3">https://d3js.org/</URL>
-#!  * <URL Text="Plotly">https://plot.ly/</URL>
-#!  * Native HTML <Code>canvas</Code> element
-#!  * Plain HTML
+#!  * <URL Text="AnyChart">https://www.anychart.com/</URL> - plot tool
+#!  * <URL Text="CanvasJS">https://canvasjs.com/</URL> - plot tool
+#!  * <URL Text="ChartJS">https://www.chartjs.org/</URL> - plot tool
+#!  * <URL Text="Cytoscape">http://www.cytoscape.org/</URL> - graph tool
+#!  * <URL Text="D3">https://d3js.org/</URL> - plot tool
+#!  * <URL Text="Plotly">https://plot.ly/</URL> - plot tool
+#!  * Native HTML <Code>canvas</Code> element - low-level tool
+#!  * Plain HTML - low-level tool
 #!
 #! @Section Loading the package into a Jupyter notebook
 #!
