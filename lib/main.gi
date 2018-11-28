@@ -565,10 +565,10 @@ InstallValue( ConvertGraphForTool, rec() );
 
 
 ConvertGraphForTool.cytoscape := function ( graph )
-    local result;
+    local result, edgestyle;
     result := rec(
         elements := [ ],
-        layout := rec( name := "cose" ),
+        layout := rec(),
         style := [
             rec(
                 selector := "node",
@@ -576,10 +576,48 @@ ConvertGraphForTool.cytoscape := function ( graph )
             )
         ]
     );
+    JUPVIZFetchWithDefault( graph, [], [ "options", "layout" ], "cose",
+        function ( lname ) result.layout.name := lname; end );
+    JUPVIZFetchIfPresent( graph, [], [ "options", "vertexwidth" ],
+        function ( w ) result.style[1].style.width := w; end );
+    JUPVIZFetchIfPresent( graph, [], [ "options", "vertexheight" ],
+        function ( h ) result.style[1].style.height := h; end );
+    JUPVIZFetchIfPresent( graph, [], [ "options", "vertexcolor" ],
+        function ( c ) result.style[1].style.( "background-color" ) := c;
+        end );
+    edgestyle := rec();
+    JUPVIZFetchIfPresent( graph, [], [ "options", "edgewidth" ],
+        function ( w ) edgestyle.width := w; end );
+    JUPVIZFetchIfPresent( graph, [], [ "options", "edgecolor" ],
+        function ( c ) edgestyle.( "line-color" ) := c; end );
+    JUPVIZFetchWithDefault( graph, [], [ "options", "directed" ], false,
+        function ( directed )
+            if directed then
+                edgestyle.( "mid-target-arrow-shape" ) := "vee";
+                JUPVIZFetchIfPresent( graph, [], [ "options", "edgecolor" ],
+                    function ( c )
+                        edgestyle.( "mid-target-arrow-color" ) := c;
+                    end );
+                JUPVIZFetchIfPresent( graph, [],
+                    [ "options", "arrowscale" ],
+                    function ( s ) edgestyle.( "arrow-scale" ) := s; end );
+            fi;
+        end );
+    if Length( RecNames( edgestyle ) ) > 0 then
+        Add( result.style, rec( selector := "edge", style := edgestyle ) );
+    fi;
     Perform( graph.vertices, function ( v )
-        Add( result.elements,
-            rec( data := rec( id := PrintString( v ) ) )
-        );
+        local vertex;
+        if IsRecord( v ) and IsBound( v.name ) and
+           IsBound( v.x ) and IsBound( v.y ) then
+            vertex := rec(
+                data := rec( id := v.name ),
+                position := rec( x := v.x, y := v.y )
+            );
+        else
+            vertex := rec( data := rec( id := PrintString( v ) ) );
+        fi;
+        Add( result.elements, vertex );
     end );
     Perform( graph.edges, function ( e )
         Add( result.elements,

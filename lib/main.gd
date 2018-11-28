@@ -239,16 +239,44 @@ DeclareGlobalFunction( "PlotGraph" );
 #!  fields:
 #!  <List>
 #!    <Item><Code>vertices</Code> - a list of vertex names for the
-#!      graph</Item>
+#!      graph.  These can be any &GAP; data structure and they will be
+#!      converted to strings with <Code>PrintString</Code>.  The one
+#!      exception is that you can give each vertex a position by making it
+#!      a record with three entries: <Code>name</Code>, <Code>x</Code>, and
+#!      <Code>y</Code>.  In this way, you can manually lay out a
+#!      graph.</Item>
 #!    <Item><Code>edges</Code> - a list of pairs from the
 #!      <Code>vertices</Code> list, each of which represents an edge</Item>
 #!    <Item><Code>options</Code> - a &GAP; record containing
-#!      any of the following options.
+#!      any of the following options.  (The underlying graph engines
+#!      typically support far more options than these, but these are what
+#!      this package currently exposes to the high-level API.)
 #!      <List>
 #!        <Item><Code>tool</Code> - the visualization tool to use to make
 #!          the plot, as a string.  The default is "cytoscape".  The full
 #!          list of tools is available in Section
 #!          <Ref Sect="Section_purpose"/>.</Item>
+#!        <Item><Code>layout</Code> - the name of the layout algorithm to
+#!          use, as a string.  Permitted values vary by tool.  Currently
+#!          cytoscape supports "preset" (meaning you must have specified
+#!          the nodes' positions manually), "cose" (virtual-spring-based
+#!          automatic layout), "random", "grid", "circle", "concentric"
+#!          (multiple concentric circles), and "breadthfirst" (a
+#!          hierarchy).</Item>
+#!        <Item><Code>vertexwidth</Code> and <Code>vertexheight</Code> -
+#!          the dimensions of each vertex.</Item>
+#!        <Item><Code>vertexcolor</Code> - the color of the vertices in the
+#!          graph.  This should be a string representing an HTML color,
+#!          such as "#ccc" or "red".</Item>
+#!        <Item><Code>edgewidth</Code> - the thickness of each edge.</Item>
+#!        <Item><Code>edgecolor</Code> - the color of each edge and its
+#!          corresponding arrow.  This should be a string representing an
+#!          HTML color, such as "#ccc" or "red".</Item>
+#!        <Item><Code>directed</Code> - a boolean defaulting to false,
+#!          whether to draw arrows to visually indicate that the graph is
+#!          a directed graph</Item>
+#!        <Item><Code>arrowscale</Code> - a multiplier to increase or
+#!          decrease the size of arrows in a directed graph.</Item>
 #!        <Item><Code>height</Code> - the height in pixels of the
 #!          visualization to produce.  A sensible default is provided,
 #!          which varies by tool.</Item>
