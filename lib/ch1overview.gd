@@ -29,15 +29,17 @@
 #!
 #! The toolkits currently exposed by this package are listed later in this
 #! section.  Each supports its own feature set.  We distinguish informally
-#! (just for the purposes of this package) among four types of
+#! (just for the purposes of this package) between two types of
 #! visualizations supported by the tools this package imports:
 #!
 #!  * plots - plotting one or more data series, usually on coordinate axes,
 #!    using lines, bars, dots, or sometimes a pie chart
 #!  * graphs - vertices connected by edges (a graph in the mathematical
 #!    sense)
-#!  * maps - geographical maps with data overlayed on them
-#!  * 3D - a three-dimensional scene composed of various 3D shapes
+#!
+#! While the low-level API gives access to several other types of
+#! visualizations, including maps, 3D surfaces, and more, these are the two
+#! types of visualizations on which the high-level API focuses.
 #!
 #! We now list the visualization tools this package exposes to the user, and
 #! we list the types of visualizations that each can produce.
@@ -56,10 +58,6 @@
 #!  * Plain HTML - this is a general-purpose,
 #!    low-level tool on which you can build whatever visualizations you
 #!    choose, with effort
-#!
-#! Future plans include adding tools that support 3D visualizations, such as
-#! <URL Text="SceneJS">http://scenejs.org/</URL>, but that has not yet been
-#! done.
 #!
 #! @Section Two APIs
 #!
