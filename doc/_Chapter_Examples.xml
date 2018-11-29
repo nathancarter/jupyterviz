@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_Examples">
+<Heading>Examples</Heading>
+
+<P/>
+<Section Label="Section_Ex01plotfunction">
+<Heading>Simple line plot</Heading>
+
+<P/>
+The most common thing you might want to do is plot a function on
+coordinate axes. To do so, simply choose a list of <Math>x</Math> values and
+pass them to `Plot` with the function.
+<P/>
+<Log><![CDATA[
+Plot( [1..50], NrSmallGroups );
+]]></Log>
+
+
+<P/>
+The default plotting tool is `plotly`, but you can change that
+easily, as later examples show.
+<P/>
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{01plotfunction.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="01plotfunction.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+<P/>
+<Section Label="Section_Ex02plotoptions">
+<Heading>Adding an options parameter</Heading>
+
+<P/>
+You can append a final parameter to the `Plot` command, a record
+containing a set of options. Here is an example of using that
+options record to choose the visualization tool, title, and axis
+labels.
+<P/>
+<Log><![CDATA[
+Plot( [1..50], n -> Length( DivisorsInt( n ) ),
+      rec(
+          tool := "chartjs",
+          title := "Number of divisors of some small integers",
+          xaxis := "n",
+          yaxis := "number of divisors of n"
+) );
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{02plotoptions.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="02plotoptions.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+<P/>
+<Section Label="Section_Ex03dataseries">
+<Heading>Two data series on the same plot</Heading>
+
+<P/>
+Let's combine the previous two examples (regardless of whether
+that's mathematically useful). Let's pretend you wanted to
+compare the number of divisors of <Math>n</Math> with the number of groups of
+order <Math>n</Math> for the first 50 positive integers <Math>n</Math>.
+<P/>
+To do so, take each call you would make to `Plot` to make the
+separate plots, and place those arguments in a list. Pass both
+lists to `Plot` to combine the plots, as shown below. You can put
+the options record in either list. Options specified earlier take
+precedence if there's a conflict.
+<P/>
+<Log><![CDATA[
+# We're combining Plot( [1..50], NrSmallGroups );
+# with Plot( [1..50], n -> Length( DivisorsInt( n ) ) );
+Plot( [ [1..50], NrSmallGroups,
+        rec( title := "Comparison", tool := "anychart" ) ],
+[ [1..50], n -> Length( DivisorsInt( n ) ) ] );
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{03dataseries.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="03dataseries.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+<P/>
+<Section Label="Section_Ex04charttypes">
+<Heading>Types of plots</Heading>
+
+<P/>
+The default plot type is "line", as you've been seeing in the
+preceding examples. You can also choose "bar", "column", "pie",
+and others. Let's use a pie chart to show the relative sizes of
+the conjugacy classes in a group.
+<P/>
+<Log><![CDATA[
+G := Group( (1,2,3,4,5,6,7), (1,2) );;
+CCs := ConjugacyClasses( G );;
+Plot(
+    # for class labels, we'll use the first element in the class
+    List( CCs, C -> PrintString( Set( C )[1] ) ),
+    # for class sizes, we have to ask for the class as a set
+    List( CCs, C -> Length( Set( C ) ) ),
+    # ask for a pie chart with enough height to read the legend
+    rec( type := "pie", height := 500 )
+);
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{04charttypes.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="04charttypes.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+<P/>
+<Section Label="Section_Ex05createplot">
+<Heading>Greater plot control with the low-level API</Heading>
+
+<P/>
+Let's say you have a plot that you're creating with the high-level
+API, like the following one.
+<P/>
+<Log><![CDATA[
+Plot( x -> x^0.5, rec( tool := "canvasjs" ) );
+]]></Log>
+
+
+<P/>
+You can find out what kind of data is being passed, under the
+hood, to the `CreateVisualization` function by running the
+following code.
+<P/>
+<Log><![CDATA[
+dataSeries := JUPVIZMakePlotDataSeries( x -> x^0.5 );;
+big := ConvertDataSeriesForTool.canvasjs( [ dataSeries ] );
+# yields:
+# rec(
+#     animationEnabled := true,
+#     data := [
+#         rec(
+#             dataPoints := [
+#                 rec( x := 1, y := 1 ),
+#                 rec( x := 2, y := 1.4142135623730951 ),
+#                 rec( x := 3, y := 1.7320508075688772 ),
+#                 rec( x := 4, y := 2. ),
+#                 rec( x := 5, y := 2.2360679774997898 )
+#             ],
+#             type := "line"
+#         )
+#     ],
+#     height := 400
+# )
+]]></Log>
+
+
+<P/>
+That record is passed to `CreateVisualization` as follows.
+<P/>
+<Log><![CDATA[
+CreateVisualization( rec( tool := "canvasjs", data := big ) );
+]]></Log>
+
+
+<P/>
+If you wanted to change any of the internal options, such as the
+default `animationEnabled := true` or the default `height := 400`,
+you could alter the record yourself before passing it on to
+`CreateVisualization`.
+<P/>
+Such options may be specific to the tool you've chosen, and are
+not guaranteed to work with other tools. For example, you can't
+change `"canvasjs"` to `"anychart"` and expect all the
+`animationEnabled` setting to work.
+<P/>
+If you had researched other options about CanvasJS and wanted to
+include those, you could do so as well, as shown below.
+<P/>
+<Log><![CDATA[
+big.animationEnabled := false;;     # changing an option
+big.height := 500;;                 # changing an option
+big.backgroundColor := "#F5DEB3";;  # adding an option
+CreateVisualization( rec( tool := "canvasjs", data := big ) );
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{05createplot.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="05createplot.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+<P/>
+<Section Label="Section_Ex06loadfromjson">
+<Heading>Loading plot data from JSON</Heading>
+
+<P/>
+Many of the underlying visualization tools can store their plot
+data in JSON form, and you might have some generated by another
+source or downloaded from the web. For example, in this package's
+directory, the file `example/EV Charge Points.json`
+contains JSON data from one of the Plotly project's blog posts.
+<P/>
+You can load it and use it in a visualization as follows.
+<P/>
+<Log><![CDATA[
+# load and convert into a record
+jsonText := ReadAll( InputTextFile( "EV Charge Points.json" ) );;
+gapRecord := JsonStringToGap( jsonText );;
+
+# ensure it's big enough to be visible:
+if IsBound( gapRecord.layout ) then
+    gapRecord.layout.height := 500;;
+else
+    gapRecord.layout := rec( height := 500 );;
+fi;
+
+# show it
+CreateVisualization( rec( tool := "plotly", data := gapRecord ) );
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{06loadfromjson.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="06loadfromjson.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+<P/>
+<Section Label="Section_Ex07simplegraph">
+<Heading>Drawing a simple graph</Heading>
+
+<P/>
+Previous examples dealt with charting and plotting, but now we
+transition into examples on graph drawing (with vertices and
+edges). Thus we begin using the `PlotGraph` function.
+<P/>
+It can take a vertex set and relation, as shown below.
+<P/>
+<Log><![CDATA[
+G := Group( (1,2,3), (1,2) );;
+S := function ( H, G ) return IsSubgroup( G, H ); end;;
+PlotGraph( AllSubgroups( G ), S );
+]]></Log>
+
+
+<P/>
+As you can see below, this doesn't look as nice as we'd like, so
+let's consider how to improve it in the next example.
+<P/>
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{07simplegraph.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="07simplegraph.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+<P/>
+<Section Label="Section_Ex08bettergraph">
+<Heading>Drawing a better graph</Heading>
+
+<P/>
+We can improve the previous example by removing the edges from
+each subgroup to itself. We do so by redefining our edge relation
+to exclude nonproper inclusions.
+<P/>
+We can improve it further by making the edges directed and the
+layout try to respect the graph's structure. We do so by passing
+a third argument to `PlotGraph`, a record of options.
+<P/>
+<Log><![CDATA[
+G := Group( (1,2,3), (1,2) );
+S := function ( H, G )
+    return IsSubgroup( G, H ) and H <> G;
+end;
+PlotGraph(
+    AllSubgroups( G ), S,
+    rec( directed := true, layout := "grid" )
+);
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{08bettergraph.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="08bettergraph.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+<P/>
+<Section Label="Section_Ex09creategraph">
+<Heading>Greater graph control with the low-level API</Heading>
+
+<P/>
+The high-level graph API provides convenience functions, but there
+are many options you can access in the underlying graph-drawing
+tool (cytoscape, by default) through only the low-level API. If
+you need them, you will need to produce the parameters for
+`CreateVisualization` yourself.
+<P/>
+You can find out what kind of data `PlotGraph` is passing, under
+the hood, as follows. Your graph will need to be in the following
+format.
+<P/>
+<Log><![CDATA[
+# Assume the GAP variable vertices contains a GAP list of
+# your graph's vertices.
+vertices := [ 1, 2, 3, 4 ];
+# Assume the GAP variable edges contains a GAP list of
+# your graph's edges, each of which is a length-2 list,
+# a pair of elements from vertices, the first connected
+# to the second by the edge.
+edges := [ [ 1, 2 ], [ 2, 3 ], [ 2, 4 ] ];
+]]></Log>
+
+
+<P/>
+You can then convert your graph into the format used by cytoscape
+as follows.
+<P/>
+<Log><![CDATA[
+big := ConvertGraphForTool.cytoscape( rec(
+    vertices := vertices,
+    edges := edges,
+    options := rec() # or any options you like here
+) );
+# yields:
+# rec(
+#     elements := [
+#         rec( data := rec( id := "1" ) ),
+#         rec( data := rec( id := "2" ) ),
+#         rec( data := rec( id := "3" ) ),
+#         rec( data := rec( id := "4" ) ),
+#         rec( data := rec( source := "1", target := "2" ) ),
+#         rec( data := rec( source := "2", target := "3" ) ),
+#         rec( data := rec( source := "2", target := "4" ) )
+#     ],
+#     layout := rec( name := "cose" ),
+#     style := [
+#         rec(
+#             selector := "node",
+#             style := rec( content := "data(id)" )
+#         )
+#     ]
+# )
+]]></Log>
+
+
+<P/>
+That record is passed to `CreateVisualization` as follows. Note
+the inclusion of a default height, if you don't provide one.
+<P/>
+<Log><![CDATA[
+CreateVisualization( rec(
+    tool := "cytoscape", data := big, height := 400
+) );
+]]></Log>
+
+
+<P/>
+If you wanted to change any of the internal options, including
+creating elements not supported by the simple high-level API,
+you could alter or recreate the contents of the `big` record.
+<P/>
+Here is an example.
+<P/>
+<Log><![CDATA[
+CreateVisualization( rec(
+    tool := "cytoscape",
+    height := 400,
+    data := rec(
+        elements := [
+            rec( # node 1
+                group := "nodes",
+                data := rec( id := "Child1", parent := "Parent" ),
+                position := rec( x := 100, y := 100 ),
+                selected := false,
+                selectable := true,
+                locked := false,
+                grabbable := true
+            ),
+            rec( # node 2
+                data := rec( id := "Friend" ),
+                renderedPosition := rec( x := 200, y := 200 )
+            ),
+            rec( # node 3
+                data := rec( id := "Child2", parent := "Parent" ),
+                position := rec( x := 123, y := 234 )
+            ),
+            rec( # node parent
+                data := rec(
+                    id := "Parent",
+                    position := rec( x := 200, y := 100 )
+                )
+            ),
+            rec( # edge 1
+                data := rec(
+                    id := "Edge1",
+                    source := "Child1",
+                    target := "Friend"
+                )
+            )
+        ],
+        layout := rec( name := "preset" ),
+        style := [
+            rec(
+                selector := "node",
+                style := rec( content := "data(id)" )
+            )
+        ]
+    )
+) );
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{09creategraph.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="09creategraph.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+</Section>
+
+
+</Chapter>
+

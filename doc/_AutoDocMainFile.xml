@@ -4,3 +4,4 @@
 <#Include SYSTEM "_Chapter_How_to_use_this_package.xml">
 <#Include SYSTEM "_Chapter_Function_reference.xml">
 <#Include SYSTEM "_Chapter_Adding_new_visualization_tools.xml">
+<#Include SYSTEM "_Chapter_Examples.xml">
