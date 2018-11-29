@@ -309,6 +309,17 @@ ConvertDataSeriesForTool.plotly := function ( series )
         JUPVIZFetchIfPresent( s.options, [], "name",
             function ( n ) s.name := n; end );
     end );
+    JUPVIZFetchWithDefault( 0, series, [ "options", "type" ], "line",
+        function ( t )
+            if t = "pie" then
+                Perform( result.data, function ( s )
+                    s.labels := s.x;
+                    s.values := s.y;
+                    Unbind( s.x );
+                    Unbind( s.y );
+                end );
+            fi;
+        end );
     JUPVIZFetchWithDefault( 0, series, [ "options", "height" ], 400,
         function ( h ) result.layout := rec( height := h ); end );
     JUPVIZFetchIfPresent( 0, series, [ "options", "width" ],
