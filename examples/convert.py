@@ -173,7 +173,7 @@ def process_file ( mdfile ):
     
     # Replace markdown headings with AutoDoc headings,
     # then write the .gd output file in the ../lib/ folder.
-    outfname = "../lib/zch4-examples-" + mdfile[:-3] + ".gd"
+    outfname = "../lib/ch2-examples-" + mdfile[:-3] + ".gd"
     print "\tWriting " + outfname + "..."
     outf = open( outfname, 'w' )
     outf.write( "#! @Chapter Examples\n" );
