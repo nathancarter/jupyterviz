@@ -26,4 +26,4 @@ doc/*.txt
 gh-pages/
 tmp/
 tst/*demo.*
-examples/*.ipynb
+experiments/
