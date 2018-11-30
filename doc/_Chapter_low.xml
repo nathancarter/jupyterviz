@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This is an automatically generated file. -->
+<Chapter Label="Chapter_low">
+<Heading>Using the low-level API</Heading>
+
+<P/>
+<Section Label="Chapter_Using_the_low-level_API_Section_The_CodeCreateVisualizationCode_function">
+<Heading>The <Code>CreateVisualization</Code> function</Heading>
+
+<P/>
+The low-level API is accessed through just one function,
+<Ref Func="CreateVisualization"/>. You can view its complete
+documentation in the function reference chapter (Chapter
+<Ref Chap="Chapter_funcref"/>) for details, but examples are given in
+this chapter.
+<P/>
+Nearly all visualizations in this package are created by passing data to
+the <Ref Func="CreateVisualization"/> function as records describing
+what to draw. Even visualizations created by the high-level API
+documented in Chapter <Ref Chap="Chapter_high"/> call the
+<Ref Func="CreateVisualization"/> function under the hood.
+Those records are converted into
+<URL Text="JSON">http://www.json.org/</URL> form by the
+<Package>json</Package> package, and handed to whichever JavaScript
+toolkit you have chosen to use for creating the visualization (or the
+default tool if you use a high-level function and do not specify).
+<P/>
+The sections below describe how to communicate, using
+<Ref Func="CreateVisualization"/>, with each of the visualization tools
+this package makes available.
+<P/>
+</Section>
+
+
+<Section Label="Chapter_Using_the_low-level_API_Section_Looking_beneath_the_high-level_API">
+<Heading>Looking beneath the high-level API</Heading>
+
+<P/>
+There are a few techniques for taking a call to the high-level API
+(either to <Ref Func="Plot"/> or <Ref Func="PlotGraph"/>) and computing
+what data it eventally passes to <Ref Func="CreateVisualization"/>. This
+is a great starting point for learning the data formats that
+<Ref Func="CreateVisualization"/> expects, in preparation for either
+tweaking them or creating them from scratch. We cover two examples here.
+<P/>
+<Subsection Label="Chapter_Using_the_low-level_API_Section_Looking_beneath_the_high-level_API_Subsection_Looking_beneath_CodePlotCode">
+<Heading>Looking beneath <Code>Plot</Code></Heading>
+
+<P/>
+Assume that you have a plot that you're creating with the high-level
+API, like the following example.
+<P/>
+<Log><![CDATA[
+Plot( x -> x^0.5, rec( tool := "canvasjs" ) );
+]]></Log>
+
+
+<P/>
+You can find out what kind of data is being passed, under the hood, to
+<Ref Func="CreateVisualization"/> by running the following code.
+<P/>
+<Log><![CDATA[
+dataSeries := JUPVIZMakePlotDataSeries( x -> x^0.5 );;
+big := ConvertDataSeriesForTool.canvasjs( [ dataSeries ] );
+# yields:
+# rec(
+#     animationEnabled := true,
+#     data := [
+#         rec(
+#             dataPoints := [
+#                 rec( x := 1, y := 1 ),
+#                 rec( x := 2, y := 1.4142135623730951 ),
+#                 rec( x := 3, y := 1.7320508075688772 ),
+#                 rec( x := 4, y := 2. ),
+#                 rec( x := 5, y := 2.2360679774997898 )
+#             ],
+#             type := "line"
+#         )
+#     ],
+#     height := 400
+# )
+]]></Log>
+
+
+<P/>
+That record is passed to <Ref Func="CreateVisualization"/> with a call
+like the following.
+<P/>
+<Log><![CDATA[
+CreateVisualization( rec( tool := "canvasjs", data := big ) );
+]]></Log>
+
+
+<P/>
+If you wanted to change any of the internal options, such as the
+default <Code>animationEnabled := true</Code> or the default
+<Code>height := 400</Code>, you could alter the record yourself before
+passing it on to <Ref Func="CreateVisualization"/>.
+<P/>
+Such options may be specific to the tool you've chosen, and are
+not guaranteed to work with other tools. For example, you can't
+change `"canvasjs"` to `"anychart"` and expect the
+<Code>animationEnabled</Code> setting to work, because it is specific
+to CanvasJS. See Section <Ref Sect="Section_tooldocs"/> for links to
+each tool's documentation, which give detailed data formats.
+<P/>
+If you had researched other options about CanvasJS and wanted to
+include those, you could do so as well, as shown below.
+<P/>
+<Log><![CDATA[
+big.animationEnabled := false;;     # changing an option
+big.height := 500;;                 # changing an option
+big.backgroundColor := "#F5DEB3";;  # adding an option
+CreateVisualization( rec( tool := "canvasjs", data := big ) );
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=2in]{05createplot.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="240" src="05createplot.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_Using_the_low-level_API_Section_Looking_beneath_the_high-level_API_Subsection_Looking_beneath_CodePlotGraphCode">
+<Heading>Looking beneath <Code>PlotGraph</Code></Heading>
+
+<P/>
+In the previous section, we saw how you could take a call to
+<Ref Func="Plot"/> and find out what data that call would pass to
+<Ref Func="CreateVisualization"/>. You can do the same with
+<Ref Func="PlotGraph"/>, but it takes a few more steps.
+<P/>
+First, we you must have a list of your graph's vertices. Here we will
+assume it is in a variable called <Code>vertices</Code>. Second, you
+must have a list of your graph's edges. Similarly, we will assume it is
+in a variable called <Code>edges</Code>.
+<P/>
+<Log><![CDATA[
+vertices := [ 1, 2, 3, 4 ];
+edges := [ [ 1, 2 ], [ 2, 3 ], [ 2, 4 ] ];
+]]></Log>
+
+
+<P/>
+You can then convert your graph into the format passed to
+<Ref Func="CreateVisualization"/> as follows. Note that at the time of
+this writing, there is only one graph visualization tool, cytoscape,
+so we use that one directly.
+<P/>
+<Log><![CDATA[
+big := ConvertGraphForTool.cytoscape( rec(
+    vertices := vertices,
+    edges := edges,
+    options := rec() # or any options you like here
+) );
+# yields:
+# rec(
+#     elements := [
+#         rec( data := rec( id := "1" ) ),
+#         rec( data := rec( id := "2" ) ),
+#         rec( data := rec( id := "3" ) ),
+#         rec( data := rec( id := "4" ) ),
+#         rec( data := rec( source := "1", target := "2" ) ),
+#         rec( data := rec( source := "2", target := "3" ) ),
+#         rec( data := rec( source := "2", target := "4" ) )
+#     ],
+#     layout := rec( name := "cose" ),
+#     style := [
+#         rec(
+#             selector := "node",
+#             style := rec( content := "data(id)" )
+#         )
+#     ]
+# )
+]]></Log>
+
+
+<P/>
+That record is passed to <Ref Func="CreateVisualization"/> with a call
+like the following. Note the inclusion of a default height, if you
+don't provide one.
+<P/>
+<Log><![CDATA[
+CreateVisualization( rec(
+    tool := "cytoscape", data := big, height := 400
+) );
+]]></Log>
+
+
+<P/>
+If you wanted to change any of the internal options, including
+creating elements not supported by the simple high-level API,
+you could alter or recreate the contents of the <Code>big</Code> record.
+We do so here, using features we could learn from the cytoscape JSON
+format reference, linked to in Section <Ref Sect="Section_tooldocs"/>.
+<P/>
+<Log><![CDATA[
+CreateVisualization( rec(
+    tool := "cytoscape",
+    height := 400,
+    data := rec(
+        elements := [
+            rec( # node 1
+                group := "nodes",
+                data := rec( id := "Child1", parent := "Parent" ),
+                position := rec( x := 100, y := 100 ),
+                selected := false,
+                selectable := true,
+                locked := false,
+                grabbable := true
+            ),
+            rec( # node 2
+                data := rec( id := "Friend" ),
+                renderedPosition := rec( x := 200, y := 200 )
+            ),
+            rec( # node 3
+                data := rec( id := "Child2", parent := "Parent" ),
+                position := rec( x := 123, y := 234 )
+            ),
+            rec( # node parent
+                data := rec(
+                    id := "Parent",
+                    position := rec( x := 200, y := 100 )
+                )
+            ),
+            rec( # edge 1
+                data := rec(
+                    id := "Edge1",
+                    source := "Child1",
+                    target := "Friend"
+                )
+            )
+        ],
+        layout := rec( name := "preset" ),
+        style := [
+            rec(
+                selector := "node",
+                style := rec( content := "data(id)" )
+            )
+        ]
+    )
+) );
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=2in]{09creategraph.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="240" src="09creategraph.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+<P/>
+</Subsection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_the_low-level_API_Section_Using_JSON_from_a_file">
+<Heading>Using JSON from a file</Heading>
+
+<P/>
+As the documentation linked to in Section <Ref Sect="Section_tooldocs"/>
+states, all of the underlying visualization tools used by this package
+accept input in JSON form. You might have some data in that form
+generated by another source or downloaded from the web. For example, in
+this package's directory, the file
+<File>example/EV Charge Points.json</File> contains JSON data from one of
+<URL Text="the Plotly project's blog posts">https://medium.com/&#64;plotlygraphs/leading-the-charge-10-charts-on-electric-vehicles-in-plotly-d951acdc49c1</URL>.
+<P/>
+You can load it and use it in a visualization as follows.
+<P/>
+<Log><![CDATA[
+# read file and convert JSON into a GAP record
+jsonText := ReadAll( InputTextFile( "EV Charge Points.json" ) );;
+gapRecord := JsonStringToGap( jsonText );;
+
+# ensure it's big enough to be visible:
+if IsBound( gapRecord.layout ) then
+    gapRecord.layout.height := 500;;
+else
+    gapRecord.layout := rec( height := 500 );;
+fi;
+
+# show it
+CreateVisualization( rec( tool := "plotly", data := gapRecord ) );
+]]></Log>
+
+
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[height=3in]{06loadfromjson.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img height="350" src="06loadfromjson.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+<P/>
+</Section>
+
+
+<Section Label="Section_tooldocs">
+<Heading>Documentation for each visualization tool</Heading>
+
+<P/>
+This section provides links to documentation on the web for each
+JavaScript visualization tool supported by this package. When possible,
+we link directly to that portion of the tool's documentation that
+covers its JSON data format requirements.
+<P/>
+<Subsection Label="Chapter_Using_the_low-level_API_Section_Documentation_for_each_visualization_tool_Subsection_Charting_and_plotting_tools">
+<Heading>Charting and plotting tools</Heading>
+
+<P/>
+<List>
+<Item>
+<Code>anychart</Code>'s JSON data format is given here:<P/>
+<URL>https://docs.anychart.com/Working_with_Data/Data_From_JSON</URL>
+</Item>
+<Item>
+<Code>canvasjs</Code>'s JSON data format is given here:<P/>
+<URL>https://canvasjs.com/docs/charts/chart-types/</URL>
+</Item>
+<Item>
+<Code>chartjs</Code>'s JSON data format is given here:<P/>
+<URL>http://www.chartjs.org/docs/latest/getting-started/usage.html</URL>
+</Item>
+<Item>
+<Code>plotly</Code>'s JSON data format is given here:<P/>
+<URL>https://plot.ly/javascript/plotlyjs-function-reference/#plotlynewplot</URL>
+</Item>
+</List>
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_Using_the_low-level_API_Section_Documentation_for_each_visualization_tool_Subsection_Graph_drawing_tools">
+<Heading>Graph drawing tools</Heading>
+
+<P/>
+<List>
+<Item>
+<Code>cytoscape</Code>'s JSON data format is given here:<P/>
+<URL>http://js.cytoscape.org/#notation/elements-json</URL>
+</Item>
+</List>
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_Using_the_low-level_API_Section_Documentation_for_each_visualization_tool_Subsection_General-purpose_tools_for_custom_visualizations">
+<Heading>General-purpose tools for custom visualizations</Heading>
+
+<P/>
+<List>
+<Item>
+<Code>canvas</Code> is a regular HTML canvas element, on
+which you can draw using arbitrary JavaScript included in
+the <Arg>code</Arg> parameter
+</Item>
+<Item>
+<Code>d3</Code> is loaded into an SVG element in the
+notebook's output cell, and the caller can call any D3 methods on
+that element thereafter, using arbitrary JavaScript included in
+the <Arg>code</Arg> parameter. It does not support creating charts
+from JSON input only, but its full documentation appears here:
+<URL>https://github.com/d3/d3/wiki</URL>
+</Item>
+<Item>
+<Code>html</Code> fills the output element with arbitrary
+HTML, which the caller should provide as a string in the
+<Code>html</Code> field of <Arg>data</Arg>, as documented below
+</Item>
+</List>
+<P/>
+</Subsection>
+
+
+</Section>
+
+
+<Section Label="Chapter_Using_the_low-level_API_Section_Example_uses_of_the_low-level_API">
+<Heading>Example uses of the low-level API</Heading>
+
+<P/>
+<Subsection Label="Chapter_Using_the_low-level_API_Section_Example_uses_of_the_low-level_API_Subsection_Example_AnyChart">
+<Heading>Example: AnyChart</Heading>
+
+<P/>
+Following the conventions in the AnyChart documentation linked to in the
+previous section, we could give AnyChart the following JSON to produce a
+pie chart.
+<P/>
+<Log><![CDATA[
+{
+    "chart" : {
+        "type" : "pie",
+        "data" : [
+            { "x" : "Subgroups of order 6", "value" : 1 },
+            { "x" : "Subgroups of order 3", "value" : 1 },
+            { "x" : "Subgroups of order 2", "value" : 3 },
+            { "x" : "Subgroups of order 1", "value" : 1 }
+        ]
+    }
+}
+]]></Log>
+
+
+<P/>
+In &GAP;, the same data would be represented with a record, as follows.
+<P/>
+<Log><![CDATA[
+myChartData := rec(
+    chart := rec(
+        type := "pie",
+        data := [
+            rec( x := "Subgroups of order 6", value := 1 ),
+            rec( x := "Subgroups of order 3", value := 1 ),
+            rec( x := "Subgroups of order 2", value := 3 ),
+            rec( x := "Subgroups of order 1", value := 1 )
+        ]
+    )
+);
+]]></Log>
+
+
+<P/>
+We can pass that data directly to <Ref Func="CreateVisualization"/>.
+We wrap it in a record that specifies the tool to use and
+optionally other details not used in this example.
+<P/>
+<Log><![CDATA[
+CreateVisualization( rec( tool := "anychart", data := myChartData ) );
+]]></Log>
+
+
+<P/>
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[width=2.5in]{anychart-example.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img width="350" src="anychart-example.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+<P/>
+</Subsection>
+
+
+<Subsection Label="Chapter_Using_the_low-level_API_Section_Example_uses_of_the_low-level_API_Subsection_Example_Cytoscape">
+<Heading>Example: Cytoscape</Heading>
+
+<P/>
+Unlike AnyChart, which is for charts and plots, Cytoscape is for graph
+drawing. A tiny Cytoscape graph (just <Math>A\to B</Math>) is represented by the
+following JSON.
+<P/>
+<Log><![CDATA[
+{
+    elements : [
+        { data : { id : "A" } },
+        { data : { id : "B" } },
+        { data : { id : "edge", source : "A", target : "B" } }
+    ],
+    layout : { name : "grid", rows : 1 }
+}
+]]></Log>
+
+
+<P/>
+Cytoscape graphs can also have style attributes not shown here.
+Refer to its documentation, linked to in the previous section.
+<P/>
+Rather than copy this data directly into &GAP;, let's generate graph
+data in the same format using &GAP; code. Here we make a graph of the
+first 50 positive integers, with <Math>n\to m</Math> iff <Math>n\mid m</Math> (ordinary integer
+divisibility).
+<P/>
+<Log><![CDATA[
+N := 50;
+elements := [ ];
+for i in [2..N] do
+    Add( elements, rec( data := rec( id := String( i ) ) ) );
+    for j in [2..i-1] do
+        if i mod j = 0 then
+            Add( elements, rec( data := rec(
+                source := String( j ),
+                target := String( i ) ) ) );
+        fi;
+    od;
+od;
+]]></Log>
+
+
+<P/>
+We then need to choose a layout algorithm. The Cytoscape documentation
+suggests that the "cose" layout works well as a force-directed layout.
+Here, we do choose a height (in pixels) for the result, because
+Cytoscape does not automaticlly resize visualizations to fit their
+containing HTML element. We also set the style for each node to display
+its ID (which is the integer associated with it).
+<P/>
+<Log><![CDATA[
+CreateVisualization( rec(
+    tool := "cytoscape",
+    height := 600,
+    data := rec(
+        elements := elements, # computed in the code above
+        layout := rec( name := "cose" ),
+        style := [
+            rec( selector := "node", style := rec( content := "data(id)" ) )
+        ]
+    )
+) );
+]]></Log>
+
+
+<P/>
+<Alt Only="LaTeX">
+\begin{center}
+\includegraphics[width=2.5in]{cytoscape-example.png}
+\end{center}
+</Alt>
+<Alt Only="HTML"><![CDATA[<img width="350" src="cytoscape-example.png"/>]]></Alt>
+<Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
+<P/>
+</Subsection>
+
+
+</Section>
+
+
+</Chapter>
+

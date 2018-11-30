@@ -5,33 +5,6 @@
 <Heading>How to use this package</Heading>
 
 <P/>
-<Section Label="Section_purpose">
-<Heading>Purpose</Heading>
-
-<P/>
-Since 2017, it has been possible to use &GAP; in
-<URL Text="Jupyter">http://jupyter.org/</URL> through the
-<Package>JupyterKernel</Package> package. Output was limited to the
-ordinary text output &GAP; produces; charts and graphs were not possible.
-<P/>
-In 2018, Martins and Pfeiffer released <Package>francy</Package>
-(<URL Text="repository">https://github.com/mcmartins/francy</URL>,
-<URL Text="article">https://arxiv.org/abs/1806.08648</URL>), which lets
-users create graphs of a few types (vertices and edges, line chart, bar
-chart, scatter chart). It also allows the user to attach actions to the
-elements of these charts, which result in callbacks to &GAP; that can
-update the visualization.
-<P/>
-This package aims to make a wider variety of visualizations accessible to
-&GAP; users, but does not provide tools for conveniently making such
-visualizations interactive. Where the
-<Package>francy</Package> package excels at interactive visualizations,
-this package instead gives a broader scope of visualization tools.
-<P/>
-This is achieved by importing several existing JavaScript visualization
-toolkits and exposing them to &GAP; code, as described later in this
-manual.
-<P/>
 The toolkits currently exposed by this package are listed later in this
 section. Each supports its own feature set. We distinguish informally
 (just for the purposes of this package) between two types of
@@ -88,9 +61,6 @@ choose, with effort
 </Item>
 </List>
 <P/>
-</Section>
-
-
 <Section Label="Chapter_How_to_use_this_package_Section_Two_APIs">
 <Heading>Two APIs</Heading>
 

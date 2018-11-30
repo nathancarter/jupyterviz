@@ -10,6 +10,7 @@
 ##
 
 #! @Chapter Function reference
+#! @ChapterLabel funcref
 
 #! @Section High-Level Public API
 
@@ -108,33 +109,8 @@ DeclareGlobalFunction( "Plot" );
 #!    <Item><Code>y</Code> - the corresponding list of <Math>y</Math> values
 #!      for the same plot</Item>
 #!    <Item><Code>options</Code> - another (inner) &GAP; record containing
-#!      any of the following options.
-#!      <List>
-#!        <Item><Code>tool</Code> - the visualization tool to use to make
-#!          the plot, as a string.  The default is "plotly".  The full list
-#!          of tools is available in Section
-#!          <Ref Sect="Section_purpose"/>.</Item>
-#!        <Item><Code>type</Code> - the type of chart, as a string, the
-#!          default for which is "line".  Which types are available depends
-#!          on which tool you are using, though it is safe to assume that
-#!          most common chart types (line, bar, pie) are supported by all
-#!          tools.  Section <Ref Sect="Section_purpose"/> contains links to
-#!          the documentation for each tool, so that you might see its
-#!          full list of capabilities.</Item>
-#!        <Item><Code>height</Code> - the height in pixels of the
-#!          visualization to produce.  A sensible default is provided,
-#!          which varies by tool.</Item>
-#!        <Item><Code>width</Code> - the width in pixels of the
-#!          visualization to produce.  If omitted, the tool usually fills
-#!          the width of the Jupyter Notebook output cell.</Item>
-#!        <Item><Code>title</Code> - the title to place at the top of the
-#!          chart, as a string.  Can be omitted.</Item>
-#!        <Item><Code>xaxis</Code> - the text to write below the
-#!          <Math>x</Math> axis, as a string.  Can be omitted.</Item>
-#!        <Item><Code>yaxis</Code> - the text to write to the left of the
-#!          <Math>y</Math> axis, as a string.  Can be omitted.</Item>
-#!      </List>
-#!    </Item>
+#!      any of the options documented in Section
+#!      <Ref Sect="Section_plotopts"/>.</Item>
 #!  </List>
 #!  <P/>
 #!  The output of the conversion function should be a &GAP; record amenable
@@ -144,8 +120,7 @@ DeclareGlobalFunction( "Plot" );
 #!  which has a different data format it expects.
 #!  <P/>
 #!  Those who wish to install new visualization tools for plots (as
-#!  discussed in Chapter
-#!  <Ref Chap="Chapter_Adding_new_visualization_tools"/>) will want
+#!  discussed in Chapter <Ref Chap="Chapter_extend"/>) will want
 #!  to install a new function in this object corresponding to the new tool.
 #!  If you plan to do so, consider the source code for the existing
 #!  conversion functions, which makes use of two useful convenince methods,
@@ -247,44 +222,9 @@ DeclareGlobalFunction( "PlotGraph" );
 #!      graph.</Item>
 #!    <Item><Code>edges</Code> - a list of pairs from the
 #!      <Code>vertices</Code> list, each of which represents an edge</Item>
-#!    <Item><Code>options</Code> - a &GAP; record containing
-#!      any of the following options.  (The underlying graph engines
-#!      typically support far more options than these, but these are what
-#!      this package currently exposes to the high-level API.)
-#!      <List>
-#!        <Item><Code>tool</Code> - the visualization tool to use to make
-#!          the plot, as a string.  The default is "cytoscape".  The full
-#!          list of tools is available in Section
-#!          <Ref Sect="Section_purpose"/>.</Item>
-#!        <Item><Code>layout</Code> - the name of the layout algorithm to
-#!          use, as a string.  Permitted values vary by tool.  Currently
-#!          cytoscape supports "preset" (meaning you must have specified
-#!          the nodes' positions manually), "cose" (virtual-spring-based
-#!          automatic layout), "random", "grid", "circle", "concentric"
-#!          (multiple concentric circles), and "breadthfirst" (a
-#!          hierarchy).</Item>
-#!        <Item><Code>vertexwidth</Code> and <Code>vertexheight</Code> -
-#!          the dimensions of each vertex.</Item>
-#!        <Item><Code>vertexcolor</Code> - the color of the vertices in the
-#!          graph.  This should be a string representing an HTML color,
-#!          such as "#ccc" or "red".</Item>
-#!        <Item><Code>edgewidth</Code> - the thickness of each edge.</Item>
-#!        <Item><Code>edgecolor</Code> - the color of each edge and its
-#!          corresponding arrow.  This should be a string representing an
-#!          HTML color, such as "#ccc" or "red".</Item>
-#!        <Item><Code>directed</Code> - a boolean defaulting to false,
-#!          whether to draw arrows to visually indicate that the graph is
-#!          a directed graph</Item>
-#!        <Item><Code>arrowscale</Code> - a multiplier to increase or
-#!          decrease the size of arrows in a directed graph.</Item>
-#!        <Item><Code>height</Code> - the height in pixels of the
-#!          visualization to produce.  A sensible default is provided,
-#!          which varies by tool.</Item>
-#!        <Item><Code>width</Code> - the width in pixels of the
-#!          visualization to produce.  If omitted, the tool usually fills
-#!          the width of the Jupyter Notebook output cell.</Item>
-#!      </List>
-#!    </Item>
+#!    <Item><Code>options</Code> - a &GAP; record containing any of the
+#!      options documented in Section
+#!      <Ref Sect="Section_graphopts"/>.</Item>
 #!  </List>
 #!  <P/>
 #!  The output of the conversion function should be a &GAP; record amenable
@@ -294,8 +234,7 @@ DeclareGlobalFunction( "PlotGraph" );
 #!  which has a different data format it expects.
 #!  <P/>
 #!  Those who wish to install new visualization tools for graphs (as
-#!  discussed in Chapter
-#!  <Ref Chap="Chapter_Adding_new_visualization_tools"/>) will want
+#!  discussed in Chapter <Ref Chap="Chapter_extend"/>) will want
 #!  to install a new function in this object corresponding to the new tool.
 #!  If you plan to do so, consider the source code for the existing
 #!  conversion functions, which makes use of two useful convenince methods,
@@ -405,33 +344,15 @@ DeclareGlobalFunction( "InstallVisualizationToolFromTemplate" );
 #!  <P/>
 #!  The <Arg>data</Arg> should have the following attributes.
 #!   * <Code>tool</Code> (required) - the name of the visualization tool to
-#!     use.  Currently supported tools:
-#!      * <Code>anychart</Code>, whose JSON data format is given here:<P/>
-#!        <URL>https://docs.anychart.com/Working_with_Data/Data_From_JSON</URL>
-#!      * <Code>canvas</Code>, that is, a regular HTML canvas element, on
-#!        which you can draw using arbitrary JavaScript included in
-#!        the <Arg>code</Arg> parameter
-#!      * <Code>canvasjs</Code>, whose JSON data format is given here:<P/>
-#!        <URL>https://canvasjs.com/docs/charts/chart-types/</URL>
-#!      * <Code>chartjs</Code>, whose JSON data format is given here:<P/>
-#!        <URL>http://www.chartjs.org/docs/latest/getting-started/usage.html</URL>
-#!      * <Code>cytoscape</Code>, whose JSON data format is given here:<P/>
-#!        <URL>http://js.cytoscape.org/#notation/elements-json</URL>
-#!      * <Code>d3</Code>, which is loaded into an SVG element in the
-#!        notebook's output cell, and the caller can call any D3 methods on
-#!        that element thereafter, using arbitrary JavaScript included in
-#!        the <Arg>code</Arg> parameter
-#!      * <Code>html</Code>, which fills the output element with arbitrary
-#!        HTML, which the caller should provide as a string in the
-#!        <Code>html</Code> field of <Arg>data</Arg>, as documented below
-#!      * <Code>plotly</Code>, whose JSON data format is given here:<P/>
-#!        <URL>https://plot.ly/javascript/plotlyjs-function-reference/#plotlynewplot</URL>
+#!     use.  Currently supported tools are listed in Section
+#!     <Ref Sect="Section_term"/> and links to their documentation are given
+#!     in Section <Ref Sect="Section_tooldocs"/>.
 #!   * <Code>data</Code> (required) - subobject containing all options
 #!     specific to the content of the visualization, often passed intact to
 #!     the external JavaScript visualization library.  You should prepare
 #!     this data in the format required by the library specified in the
 #!     <Code>tool</Code> field, following the documentation for that
-#!     library cited above.
+#!     library, linked to in Section <Ref Sect="Section_tooldocs"/>.
 #!   * <Code>width</Code> (optional) - width to set on the output element
 #!     being created
 #!   * <Code>height</Code> (optional) - similar, but height
@@ -517,17 +438,8 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptFromTemplate" );
 #!  notebook, so that <Arg>jsCode</Arg> can call <Code>runGAP</Code> as
 #!  needed.
 #!  <P/>
-#!  Here is an example use, from JavaScript, of the <Code>runGAP</Code>
-#!  function.
-#! @BeginLog
-#! var calculation = "2^50";
-#! runGAP( calculation + ";", function ( result, error ) {
-#!     if ( result )
-#!         alert( calculation + "=" + result );
-#!     else
-#!         alert( "There was an error: " + error );
-#! } );
-#! @EndLog
+#!  An example use, from JavaScript, of the <Code>runGAP</Code> function
+#!  appears at the end of Section <Ref Sect="Section_plainhtml"/>.
 DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingRunGAP" );
 
 #! @Arguments libraries, jsCode

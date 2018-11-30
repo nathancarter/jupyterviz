@@ -1,5 +1,6 @@
 #!
 #! @Chapter Adding new visualization tools
+#! @ChapterLabel extend
 #!
 #! @Section Why you might want to do this
 #!
