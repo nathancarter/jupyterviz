@@ -8,3 +8,10 @@ October 2018
  - Submitted to official GAP package repository for inclusion in
    GAP 4.10
 
+December 2018
+ - Added high-level Plot() and PlotGraph() functions to make the package
+   much easier to use
+ - Now supports installing new visualization tools at runtime
+ - More options supported and documented
+ - Many more examples added to manual, some moved from external .ipynb file
+ - Improved testing scripts

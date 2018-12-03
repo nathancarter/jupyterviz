@@ -27,17 +27,12 @@ visualization libraries can be added easily.
 
 The package does not need to be compiled.
 
-See the manual on [the package website](http://nathancarter.github.io/jupyterviz).
+See the manual on [the package website](http://nathancarter.github.io/jupyterviz),
+which contains many usage examples.
 
-Or check out an example notebook:
- * Live on Binder: [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/nathancarter/jupyterviz/master?filepath=inst%2Fgap-4.9.3%2Fpkg%2Fjupyterviz%2Ftst%2Fin-notebook-test.ipynb) (which takes time to load, so be patient!)
- * [Get PDF version](tst/in-notebook-test.pdf) - all visualizations
-   shown, but content is static (and print-to-PDF not very attractive)
- * [Get .ipynb version](tst/in-notebook-test.ipynb) - no visualizations
-   render live on GitHub because they are JavaScript-based, but if you
-   download this you can run it yourself and get a bit of interactivity.
-   Some cells load external `.json` files, which are included in the
-   `tst/` folder of this repository.
+Or experiment with a live notebook on Binder:
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/nathancarter/jupyterviz/master?filepath=inst%2Fgap-4.9.3%2Fpkg%2Fjupyterviz%2F).
+(It can be a long loading time, so have patience!)
 
 ## Maintainer
 
