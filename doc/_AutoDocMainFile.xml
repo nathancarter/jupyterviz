@@ -6,4 +6,5 @@
 <#Include SYSTEM "_Chapter_low.xml">
 <#Include SYSTEM "_Chapter_Using_general_tools_HTML_canvas_D3.xml">
 <#Include SYSTEM "_Chapter_extend.xml">
+<#Include SYSTEM "_Chapter_Limitations.xml">
 <#Include SYSTEM "_Chapter_funcref.xml">
