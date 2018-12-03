@@ -1,0 +1,20 @@
+  
+  [1X6 [33X[0;0YLimitations[133X[101X
+  
+  [33X[0;0YThe  functions in this package depend upon being evaluated in a live Jupyter
+  Notebook. This brings up a few limitations:[133X
+  
+  [30X    [33X[0;6YIf a notebook with visualizations created by this package is saved and
+        later  reloaded,  the  visualizations  will  not persist. They will be
+        replaced  by  an error message instructing the user to re-run the cell
+        that  created the visualization. This limitation may be removable with
+        some refactoring of the internal workings of this package.[133X
+  
+  [30X    [33X[0;6YThe  [10Xnbconvert[110X  tool,  which converts [11X.ipynb[111X files into other formats,
+        will  not  include  the  visualizations,  because  [10Xnbconvert[110X  is not a
+        browser  that  can  evaluate  the  JavaScript  code that generates the
+        visualizations.[133X
+  
+  [30X    [33X[0;6YSince  most  visualizations load a JavaScript library from a CDN, they
+        require a working Internet connection to function.[133X
+  

@@ -1,0 +1,138 @@
+  
+  [1X4 [33X[0;0YUsing general tools (HTML, canvas, D3)[133X[101X
+  
+  
+  [1X4.1 [33X[0;0YWhy these tools are present[133X[101X
+  
+  [33X[0;0YThese  general  tools  can be used as building blocks to create other custom
+  visualization  tools.  As  a first example, the canvas tool installs an HTML
+  canvas element and then lets you draw arbitrary shapes on it with JavaScript
+  code. As a second example, some of the high-level tools this package imports
+  were built on top of D3, a foundational visualization toolkit, which you can
+  access directly.[133X
+  
+  [33X[0;0YFirst, we cover an as-yet-unmentioned feature of [2XCreateVisualization[102X ([14X7.2-5[114X)
+  that lets us make use of such general tools.[133X
+  
+  
+  [1X4.2 [33X[0;0YPost-processing visualizations[133X[101X
+  
+  [33X[0;0YThe [2XCreateVisualization[102X ([14X7.2-5[114X) function takes an optional second parameter,
+  a  string  of  JavaScript  code  to  be  run once the visualization has been
+  rendered.  For  example, if the visualization library you were using did not
+  support  adding  borders  around a visualization, but you wanted to add one,
+  you  could  add  it  by writing one line of JavaScript code to run after the
+  visualization was rendered.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization([128X[104X
+    [4X[28X    rec([128X[104X
+    [4X[28X        # put your data here, as in previous sections[128X[104X
+    [4X[28X    ),[128X[104X
+    [4X[28X    "visualization.style.border = '5px solid black'"[128X[104X
+    [4X[28X)[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  holds for any visualization tool, not just AnyChart. In the code given
+  in the second parameter, two variables will be defined for your use: [10Xelement[110X
+  refers  to  the output cell element in the notebook and [10Xvisualization[110X refers
+  to  the  visualization that the toolkit you chose created within that output
+  cell (also an HTML element).[133X
+  
+  [33X[0;0YNow   that  we  know  that  we  can  run  arbitrary  JavaScript  code  on  a
+  visualization  once  it's  been  produced,  we  can call [2XCreateVisualization[102X
+  ([14X7.2-5[114X)  to  produce  rather  empty  results,  then  fill them using our own
+  JavaScript  code. The next section explains how this could be done to create
+  custom visualizations.[133X
+  
+  
+  [1X4.3 [33X[0;0YInjecting JavaScript into general tools[133X[101X
+  
+  
+  [1X4.3-1 [33X[0;0YExample: Native HTML Canvas[133X[101X
+  
+  [33X[0;0YYou  can  create a blank canvas, then use the existing JavaScript canvas API
+  to  draw  on  it.  This  example  is  trivial, but more complex examples are
+  possible.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization([128X[104X
+    [4X[28X    rec( tool := "canvas", height := 300 ),[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X    // visualization is the canvas element[128X[104X
+    [4X[28X    var context = visualization.getContext( '2d' );[128X[104X
+    [4X[28X    // draw an X[128X[104X
+    [4X[28X    context.moveTo( 0, 0 );[128X[104X
+    [4X[28X    context.lineTo( 100, 100 );[128X[104X
+    [4X[28X    context.moveTo( 100, 0 );[128X[104X
+    [4X[28X    context.lineTo( 0, 100 );[128X[104X
+    [4X[28X    context.stroke();[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X);[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  
+  [1X4.3-2 [33X[0;0YExample: Plain HTML[133X[101X
+  
+  [33X[0;0YThis  is  the  degenerate example of a visualization. It does not create any
+  visualization,  but  lets  you specify arbitrary HTML content instead. It is
+  provided here merely as a convenient way to insert HTML into the notebook.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualiation([128X[104X
+    [4X[28X    rec([128X[104X
+    [4X[28X        tool := "html",[128X[104X
+    [4X[28X        data := rec([128X[104X
+    [4X[28X            html := "<i>Any</i> HTML can go here.  Tables, buttons, whatever."[128X[104X
+    [4X[28X        )[128X[104X
+    [4X[28X    ),[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X    // Here you could install event handlers on tools created above.[128X[104X
+    [4X[28X    // For example, if you had created a button with id="myButton":[128X[104X
+    [4X[28X    var button = document.getElementById( "myButton" );[128X[104X
+    [4X[28X    button.addEventListener( "click", function () {[128X[104X
+    [4X[28X        alert( "My button was clicked." );[128X[104X
+    [4X[28X    } );[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X);[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWhen  writing  such  JavaScript  code, note that you have access to a useful
+  function   that  this  package  has  installed,  [10XrunGAP[110X.  Its  signature  is
+  [10XrunGAP(stringToEvaluate,callback)[110X and the following code shows an example of
+  how you could call it from JavaScript in the notebook.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XrunGAP( "2^100;", function ( result, error ) {[128X[104X
+    [4X[28X    if ( result )[128X[104X
+    [4X[28X        alert( "2^100 = " + result );[128X[104X
+    [4X[28X    else[128X[104X
+    [4X[28X        alert( "GAP gave this error: " + error );[128X[104X
+    [4X[28X} );[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X4.3-3 [33X[0;0YExample: D3[133X[101X
+  
+  [33X[0;0YWhile  D3  is  one  of the most famous and powerful JavaScript visualization
+  libraries,  it does not have a JSON interface. Consequently, we can interact
+  with  D3  only through the JavaScript code passed in the second parameter to
+  [2XCreateVisualization[102X  ([14X7.2-5[114X).  This  makes  it  much less convenient, but we
+  include it in this package for those who need it.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization([128X[104X
+    [4X[28X    rec( tool := "d3" ),[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X    // arbitrary JavaScript code can go here to interact with D3, like so:[128X[104X
+    [4X[28X    d3.select( visualization ).append( "circle" )[128X[104X
+    [4X[28X        .attr( "r", 50 ).attr( "cx", 55 ).attr( "cy", 55 )[128X[104X
+    [4X[28X        .style( "stroke", "red" ).style( "fill", "pink" );[128X[104X
+    [4X[28X    """[128X[104X
+    [4X[28X);[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  

@@ -1,157 +1,405 @@
   
-  [1X3 [33X[0;0YAdding new visualization tools[133X[101X
+  [1X3 [33X[0;0YUsing the low-level API[133X[101X
   
   
-  [1X3.1 [33X[0;0YWhy you might want to do this[133X[101X
+  [1X3.1 [33X[0;0YThe [10XCreateVisualization[110X[101X[1X function[133X[101X
   
-  [33X[0;0YThe  visualization  tools  made  available  by  this  package  (Plotly,  D3,
-  CanvasJS,  etc.)  provide  many visualization options. However, you may come
-  across  a  situation that they do not cover. Or a new and better tool may be
-  invented  after  this  package  is  created,  and  you wish to add it to the
-  package.[133X
+  [33X[0;0YThe low-level API is accessed through just one function, [2XCreateVisualization[102X
+  ([14X7.2-5[114X).  You  can view its complete documentation in the function reference
+  chapter (Chapter [14X7[114X) for details, but examples are given in this chapter.[133X
   
-  [33X[0;0YCurrently,  the  only  supported way to do this is to alter the package code
-  itself.  In the future, it would be nice to make it so that you can register
-  new visualization tools with the package without modifying the package code.
-  But until then, this is the supported method.[133X
+  [33X[0;0YNearly all visualizations in this package are created by passing data to the
+  [2XCreateVisualization[102X  ([14X7.2-5[114X)  function  as  records describing what to draw.
+  Even  visualizations  created  by the high-level API documented in Chapter [14X2[114X
+  call  the [2XCreateVisualization[102X ([14X7.2-5[114X) function under the hood. Those records
+  are converted into JSON ([7Xhttp://www.json.org/[107X) form by the [5Xjson[105X package, and
+  handed  to  whichever JavaScript toolkit you have chosen to use for creating
+  the  visualization (or the default tool if you use a high-level function and
+  do not specify).[133X
   
-  
-  [1X3.2 [33X[0;0YWhat you will need[133X[101X
-  
-  [33X[0;0YBefore proceeding, you will need the following information:[133X
-  
-  [30X    [33X[0;6YA URL on the internet that serves the JavaScript code defining the new
-        visualization  tool you wish to add. For instance, the ChartJS library
-        is           imported           from           CloudFlare,          at
-        [7Xhttps://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min[107X.
-        It  is best if you have this URL from a Content Delivery Network (CDN)
-        to ensure very high availability.[133X
-  
-  [30X    [33X[0;6YKnowledge  of  how to write a short JavaScript function that can embed
-        the  given  tool  into  any given DOM [10XElement[110X. For many tools, this is
-        just  a  single  call  to the main class's contructor or the library's
-        initialization function.[133X
-  
-  [30X    [33X[0;6YWhile not necessary, it makes things easy if you know what function to
-        call  in your chosen library to define a visualization from JSON data.
-        This  makes  it  easier  for  users  to pass all the required data and
-        options  from  [5XGAP[105X  code, which is the typical user's preferred way of
-        defining a visualization.[133X
+  [33X[0;0YThe  sections  below  describe how to communicate, using [2XCreateVisualization[102X
+  ([14X7.2-5[114X), with each of the visualization tools this package makes available.[133X
   
   
-  [1X3.3 [33X[0;0YThe appropriate procedure[133X[101X
+  [1X3.2 [33X[0;0YLooking beneath the high-level API[133X[101X
   
-  [33X[0;0YThroughout these steps, I will assume that the name of the new tool you wish
-  to install is [10XNEWTOOL[110X. I choose all capital letters to make it stand out, so
-  that  you can tell where you need to fill in blanks in the examples, but you
-  should  probably use lower-case letters, to match the convention used by all
-  of the built-in tools.[133X
+  [33X[0;0YThere  are  a few techniques for taking a call to the high-level API (either
+  to  [2XPlot[102X  ([14X7.1-1[114X) or [2XPlotGraph[102X ([14X7.1-3[114X)) and computing what data it eventally
+  passes  to  [2XCreateVisualization[102X  ([14X7.2-5[114X). This is a great starting point for
+  learning  the  data  formats  that  [2XCreateVisualization[102X  ([14X7.2-5[114X) expects, in
+  preparation for either tweaking them or creating them from scratch. We cover
+  two examples here.[133X
   
-  [31X1[131X   [33X[0;6YClone the repository for this package.[133X
   
-  [31X2[131X   [33X[0;6YEnter the [11Xlib/js/[111X folder in the repository.[133X
+  [1X3.2-1 [33X[0;0YLooking beneath [10XPlot[110X[101X[1X[133X[101X
   
-  [31X3[131X   [33X[0;6YDuplicate  the file [11Xviz-tool-chartjs.js[111X and rename it suitably for the
-        tool  you  wish  to import, such as [11Xviz-tool-NEWTOOL.js[111X. It [13Xmust[113X begin
-        with [11Xviz-tool-[111X.[133X
-  
-  [31X4[131X   [33X[0;6YEdit  that  file.  At the top, you will notice the installation of the
-        CDN URL mentioned in the previous section. Replace it with the URL for
-        your toolkit, and replace the identifier [10Xchartjs[110X with [10XNEWTOOL[110X.[133X
-  
-  [4X      [32X  Example  [32X[104X
-          [4X[28Xwindow.requirejs.config( {[128X[104X
-          [4X[28X    paths : {[128X[104X
-          [4X[28X        NEWTOOL : 'https://cdn.example.com/NEWTOOL.min.js'[128X[104X
-          [4X[28X    }[128X[104X
-          [4X[28X} );[128X[104X
-        [4X[32X[104X
-  
-  [31X5[131X   [33X[0;6YIn  the  middle  of the same file, feel free to update the comments to
-        reflect your toolkit rather than ChartJS.[133X
-  
-  [31X6[131X   [33X[0;6YAt  the  end  of  the  same  file,  you will notice code that installs
-        [10Xchartjs[110X  as  a  new  function in the [10Xwindow.VisualizationTools[110X object.
-        Replace it with code that installs your tool instead. See the comments
-        below for some guidance.[133X
-  
-  [4X      [32X  Example  [32X[104X
-          [4X[28Xwindow.VisualizationTools.NEWTOOL = function ( element, json, callback ) {[128X[104X
-          [4X[28X    // The variable "element" is the output cell in the notebook into[128X[104X
-          [4X[28X    // which you should place your visualization.  For example, perhaps[128X[104X
-          [4X[28X    // your new toolkit draws in SVG elements, so you need one:[128X[104X
-          [4X[28X    var result = document.createElement( 'SVG' );[128X[104X
-          [4X[28X    element.append( result );[128X[104X
-          [4X[28X    // The variable "json" is all the data, in JSON form, passed from[128X[104X
-          [4X[28X    // GAP to tell you how to create a visualization.  The data format[128X[104X
-          [4X[28X    // convention is up to you to explain and document with your new[128X[104X
-          [4X[28X    // tool.  Two attributes in particular are important here, "width"[128X[104X
-          [4X[28X    // and "height" -- if you ignore everything else, at least respect[128X[104X
-          [4X[28X    // those in whatever way makes sense for your visualization.  Here[128X[104X
-          [4X[28X    // is an example for an SVG:[128X[104X
-          [4X[28X    if ( json.width ) result.width = json.width;[128X[104X
-          [4X[28X    if ( json.height ) result.width = json.height;[128X[104X
-          [4X[28X    // Then use RequireJS to import your toolkit (which will use the CDN[128X[104X
-          [4X[28X    // URL you registered above) and use it to fill the element with the[128X[104X
-          [4X[28X    // desired visualization.  You may or may not need to modify "json"[128X[104X
-          [4X[28X    // before passing it to your toolkit; this is up to the conventions[128X[104X
-          [4X[28X    // you choose to establish.[128X[104X
-          [4X[28X    require( [ 'NEWTOOL' ], function ( NEWTOOL ) {[128X[104X
-          [4X[28X        // Use your library to set up a visualization.  Example:[128X[104X
-          [4X[28X        var viz = NEWTOOL.setUpVisualizationInElement( result );[128X[104X
-          [4X[28X        // Tell your library what to draw.  Example:[128X[104X
-          [4X[28X        viz.buildVisualizationFromJSON( json );[128X[104X
-          [4X[28X        // Call the callback when you're done.  Pass the element you were[128X[104X
-          [4X[28X        // given, plus the visualization you created.[128X[104X
-          [4X[28X        callback( element, result );[128X[104X
-          [4X[28X    } );[128X[104X
-          [4X[28X};[128X[104X
-        [4X[32X[104X
-  
-  [31X7[131X   [33X[0;6YOptionally,  in  the  [11Xlib/js/[111X  folder,  run  the [11Xminify-all-scripts.sh[111X
-        script,  which  compresses  your  JavaScript  code  to  save  on  data
-        transfer,  memory allocation, and parsing time. Rerun that script each
-        time you change your file as well.[133X
-  
-  [31X8[131X   [33X[0;6YYou  should  now  be  able  to use your new visualization tool in [5XGAP[105X.
-        Verify  that  your  changes worked, and debug as necessary. You may be
-        able to notice the change only if you refresh in your browser the page
-        containing  the  Jupyter notebook in question and also restart the [5XGAP[105X
-        kernel  in  that  same  page.  Then try code like the following in the
-        Jupyter notebook to test what you've done.[133X
-  
-  [4X      [32X  Example  [32X[104X
-          [4X[28XCreateVisualization( rec([128X[104X
-          [4X[28X    tool := "NEWTOOL",[128X[104X
-          [4X[28X    # any other data you need goes here[128X[104X
-          [4X[28X) );[128X[104X
-        [4X[32X[104X
-  
-  [31X9[131X   [33X[0;6YOnce  your  changes  work,  commit them to the repository and submit a
-        pull  request  back  to  the  original  repository,  to have your work
-        included in the default distribution.[133X
-  
-  [33X[0;0YA complete and working (but silly) example follows. This portion would go in
-  [11Xlib/js/viz-tool-color.js[111X:[133X
+  [33X[0;0YAssume  that  you  have a plot that you're creating with the high-level API,
+  like the following example.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X// No need to import any library from a CDN for this baby example.[128X[104X
-    [4X[28Xwindow.VisualizationTools.color = function ( element, json, callback ) {[128X[104X
-    [4X[28X    // just writes json.text in json.color, that's all[128X[104X
-    [4X[28X    var span = document.createElement( 'span' );[128X[104X
-    [4X[28X    span.textContent = json.text;[128X[104X
-    [4X[28X    span.style.color = json.color;[128X[104X
-    [4X[28X    callback( element, span );[128X[104X
-    [4X[28X};[128X[104X
+    [4X[28XPlot( x -> x^0.5, rec( tool := "canvasjs" ) );[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YThis is an example usage of that simple tool from [5XGAP[105X in a Jupyter notebook:[133X
+  [33X[0;0YYou  can  find  out  what  kind  of data is being passed, under the hood, to
+  [2XCreateVisualization[102X ([14X7.2-5[114X) by running the following code.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XdataSeries := JUPVIZMakePlotDataSeries( x -> x^0.5 );;[128X[104X
+    [4X[28Xbig := ConvertDataSeriesForTool.canvasjs( [ dataSeries ] );[128X[104X
+    [4X[28X# yields:[128X[104X
+    [4X[28X# rec([128X[104X
+    [4X[28X#     animationEnabled := true,[128X[104X
+    [4X[28X#     data := [[128X[104X
+    [4X[28X#         rec([128X[104X
+    [4X[28X#             dataPoints := [[128X[104X
+    [4X[28X#                 rec( x := 1, y := 1 ),[128X[104X
+    [4X[28X#                 rec( x := 2, y := 1.4142135623730951 ),[128X[104X
+    [4X[28X#                 rec( x := 3, y := 1.7320508075688772 ),[128X[104X
+    [4X[28X#                 rec( x := 4, y := 2. ),[128X[104X
+    [4X[28X#                 rec( x := 5, y := 2.2360679774997898 )[128X[104X
+    [4X[28X#             ],[128X[104X
+    [4X[28X#             type := "line"[128X[104X
+    [4X[28X#         )[128X[104X
+    [4X[28X#     ],[128X[104X
+    [4X[28X#     height := 400[128X[104X
+    [4X[28X# )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThat  record  is  passed to [2XCreateVisualization[102X ([14X7.2-5[114X) with a call like the
+  following.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec( tool := "canvasjs", data := big ) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIf  you  wanted  to  change any of the internal options, such as the default
+  [10XanimationEnabled  :=  true[110X or the default [10Xheight := 400[110X, you could alter the
+  record yourself before passing it on to [2XCreateVisualization[102X ([14X7.2-5[114X).[133X
+  
+  [33X[0;0YSuch  options  may  be  specific  to  the  tool  you've  chosen, and are not
+  guaranteed  to  work  with  other  tools.  For  example,  you  can't  change
+  `"canvasjs"`  to  `"anychart"`  and  expect  the [10XanimationEnabled[110X setting to
+  work,  because it is specific to CanvasJS. See Section [14X3.4[114X for links to each
+  tool's documentation, which give detailed data formats.[133X
+  
+  [33X[0;0YIf  you  had  researched  other options about CanvasJS and wanted to include
+  those, you could do so as well, as shown below.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xbig.animationEnabled := false;;     # changing an option[128X[104X
+    [4X[28Xbig.height := 500;;                 # changing an option[128X[104X
+    [4X[28Xbig.backgroundColor := "#F5DEB3";;  # adding an option[128X[104X
+    [4X[28XCreateVisualization( rec( tool := "canvasjs", data := big ) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  
+  [1X3.2-2 [33X[0;0YLooking beneath [10XPlotGraph[110X[101X[1X[133X[101X
+  
+  [33X[0;0YIn  the  previous  section, we saw how you could take a call to [2XPlot[102X ([14X7.1-1[114X)
+  and  find out what data that call would pass to [2XCreateVisualization[102X ([14X7.2-5[114X).
+  You can do the same with [2XPlotGraph[102X ([14X7.1-3[114X), but it takes a few more steps.[133X
+  
+  [33X[0;0YFirst, we you must have a list of your graph's vertices. Here we will assume
+  it  is  in  a variable called [10Xvertices[110X. Second, you must have a list of your
+  graph's edges. Similarly, we will assume it is in a variable called [10Xedges[110X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xvertices := [ 1, 2, 3, 4 ];[128X[104X
+    [4X[28Xedges := [ [ 1, 2 ], [ 2, 3 ], [ 2, 4 ] ];[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YYou   can   then   convert   your   graph   into   the   format   passed  to
+  [2XCreateVisualization[102X  ([14X7.2-5[114X)  as  follows.  Note  that  at  the time of this
+  writing,  there  is  only one graph visualization tool, cytoscape, so we use
+  that one directly.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28Xbig := ConvertGraphForTool.cytoscape( rec([128X[104X
+    [4X[28X    vertices := vertices,[128X[104X
+    [4X[28X    edges := edges,[128X[104X
+    [4X[28X    options := rec() # or any options you like here[128X[104X
+    [4X[28X) );[128X[104X
+    [4X[28X# yields:[128X[104X
+    [4X[28X# rec([128X[104X
+    [4X[28X#     elements := [[128X[104X
+    [4X[28X#         rec( data := rec( id := "1" ) ),[128X[104X
+    [4X[28X#         rec( data := rec( id := "2" ) ),[128X[104X
+    [4X[28X#         rec( data := rec( id := "3" ) ),[128X[104X
+    [4X[28X#         rec( data := rec( id := "4" ) ),[128X[104X
+    [4X[28X#         rec( data := rec( source := "1", target := "2" ) ),[128X[104X
+    [4X[28X#         rec( data := rec( source := "2", target := "3" ) ),[128X[104X
+    [4X[28X#         rec( data := rec( source := "2", target := "4" ) )[128X[104X
+    [4X[28X#     ],[128X[104X
+    [4X[28X#     layout := rec( name := "cose" ),[128X[104X
+    [4X[28X#     style := [[128X[104X
+    [4X[28X#         rec([128X[104X
+    [4X[28X#             selector := "node",[128X[104X
+    [4X[28X#             style := rec( content := "data(id)" )[128X[104X
+    [4X[28X#         )[128X[104X
+    [4X[28X#     ][128X[104X
+    [4X[28X# )[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThat  record  is  passed to [2XCreateVisualization[102X ([14X7.2-5[114X) with a call like the
+  following. Note the inclusion of a default height, if you don't provide one.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28XCreateVisualization( rec([128X[104X
-    [4X[28X    tool := "color",[128X[104X
-    [4X[28X    text := "Happy St. Patrick's Day.",[128X[104X
-    [4X[28X    color := "green"[128X[104X
+    [4X[28X    tool := "cytoscape", data := big, height := 400[128X[104X
     [4X[28X) );[128X[104X
   [4X[32X[104X
+  
+  [33X[0;0YIf  you  wanted  to  change  any of the internal options, including creating
+  elements  not  supported  by  the  simple high-level API, you could alter or
+  recreate  the  contents  of the [10Xbig[110X record. We do so here, using features we
+  could  learn  from the cytoscape JSON format reference, linked to in Section
+  [14X3.4[114X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec([128X[104X
+    [4X[28X    tool := "cytoscape",[128X[104X
+    [4X[28X    height := 400,[128X[104X
+    [4X[28X    data := rec([128X[104X
+    [4X[28X        elements := [[128X[104X
+    [4X[28X            rec( # node 1[128X[104X
+    [4X[28X                group := "nodes",[128X[104X
+    [4X[28X                data := rec( id := "Child1", parent := "Parent" ),[128X[104X
+    [4X[28X                position := rec( x := 100, y := 100 ),[128X[104X
+    [4X[28X                selected := false,[128X[104X
+    [4X[28X                selectable := true,[128X[104X
+    [4X[28X                locked := false,[128X[104X
+    [4X[28X                grabbable := true[128X[104X
+    [4X[28X            ),[128X[104X
+    [4X[28X            rec( # node 2[128X[104X
+    [4X[28X                data := rec( id := "Friend" ),[128X[104X
+    [4X[28X                renderedPosition := rec( x := 200, y := 200 )[128X[104X
+    [4X[28X            ),[128X[104X
+    [4X[28X            rec( # node 3[128X[104X
+    [4X[28X                data := rec( id := "Child2", parent := "Parent" ),[128X[104X
+    [4X[28X                position := rec( x := 123, y := 234 )[128X[104X
+    [4X[28X            ),[128X[104X
+    [4X[28X            rec( # node parent[128X[104X
+    [4X[28X                data := rec([128X[104X
+    [4X[28X                    id := "Parent",[128X[104X
+    [4X[28X                    position := rec( x := 200, y := 100 )[128X[104X
+    [4X[28X                )[128X[104X
+    [4X[28X            ),[128X[104X
+    [4X[28X            rec( # edge 1[128X[104X
+    [4X[28X                data := rec([128X[104X
+    [4X[28X                    id := "Edge1",[128X[104X
+    [4X[28X                    source := "Child1",[128X[104X
+    [4X[28X                    target := "Friend"[128X[104X
+    [4X[28X                )[128X[104X
+    [4X[28X            )[128X[104X
+    [4X[28X        ],[128X[104X
+    [4X[28X        layout := rec( name := "preset" ),[128X[104X
+    [4X[28X        style := [[128X[104X
+    [4X[28X            rec([128X[104X
+    [4X[28X                selector := "node",[128X[104X
+    [4X[28X                style := rec( content := "data(id)" )[128X[104X
+    [4X[28X            )[128X[104X
+    [4X[28X        ][128X[104X
+    [4X[28X    )[128X[104X
+    [4X[28X) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  
+  [1X3.3 [33X[0;0YUsing JSON from a file[133X[101X
+  
+  [33X[0;0YAs  the documentation linked to in Section [14X3.4[114X states, all of the underlying
+  visualization  tools  used  by  this  package accept input in JSON form. You
+  might  have some data in that form generated by another source or downloaded
+  from  the web. For example, in this package's directory, the file [11Xexample/EV
+  Charge  Points.json[111X contains JSON data from one of the Plotly project's blog
+  posts
+  (
+  https://medium.com/@plotlygraphs/leading-the-charge-10-charts-on-electric-vehicles-in-plotly-d951acdc49c1
+  ).[133X
+  
+  [33X[0;0YYou can load it and use it in a visualization as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X# read file and convert JSON into a GAP record[128X[104X
+    [4X[28XjsonText := ReadAll( InputTextFile( "EV Charge Points.json" ) );;[128X[104X
+    [4X[28XgapRecord := JsonStringToGap( jsonText );;[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X# ensure it's big enough to be visible:[128X[104X
+    [4X[28Xif IsBound( gapRecord.layout ) then[128X[104X
+    [4X[28X    gapRecord.layout.height := 500;;[128X[104X
+    [4X[28Xelse[128X[104X
+    [4X[28X    gapRecord.layout := rec( height := 500 );;[128X[104X
+    [4X[28Xfi;[128X[104X
+    [4X[28X[128X[104X
+    [4X[28X# show it[128X[104X
+    [4X[28XCreateVisualization( rec( tool := "plotly", data := gapRecord ) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  
+  [1X3.4 [33X[0;0YDocumentation for each visualization tool[133X[101X
+  
+  [33X[0;0YThis  section provides links to documentation on the web for each JavaScript
+  visualization  tool  supported  by  this  package.  When  possible,  we link
+  directly  to  that  portion of the tool's documentation that covers its JSON
+  data format requirements.[133X
+  
+  
+  [1X3.4-1 [33X[0;0YCharting and plotting tools[133X[101X
+  
+  [30X    [33X[0;6Y[10Xanychart[110X's JSON data format is given here:[133X
+  
+        [33X[0;6Y[7Xhttps://docs.anychart.com/Working_with_Data/Data_From_JSON[107X[133X
+  
+  [30X    [33X[0;6Y[10Xcanvasjs[110X's JSON data format is given here:[133X
+  
+        [33X[0;6Y[7Xhttps://canvasjs.com/docs/charts/chart-types/[107X[133X
+  
+  [30X    [33X[0;6Y[10Xchartjs[110X's JSON data format is given here:[133X
+  
+        [33X[0;6Y[7Xhttp://www.chartjs.org/docs/latest/getting-started/usage.html[107X[133X
+  
+  [30X    [33X[0;6Y[10Xplotly[110X's JSON data format is given here:[133X
+  
+        [33X[0;6Y[7Xhttps://plot.ly/javascript/plotlyjs-function-reference/#plotlynewplot[107X[133X
+  
+  
+  [1X3.4-2 [33X[0;0YGraph drawing tools[133X[101X
+  
+  [30X    [33X[0;6Y[10Xcytoscape[110X's JSON data format is given here:[133X
+  
+        [33X[0;6Y[7Xhttp://js.cytoscape.org/#notation/elements-json[107X[133X
+  
+  
+  [1X3.4-3 [33X[0;0YGeneral-purpose tools for custom visualizations[133X[101X
+  
+  [30X    [33X[0;6Y[10Xcanvas[110X  is  a regular HTML canvas element, on which you can draw using
+        arbitrary JavaScript included in the [3Xcode[103X parameter[133X
+  
+  [30X    [33X[0;6Y[10Xd3[110X  is  loaded  into an SVG element in the notebook's output cell, and
+        the  caller  can call any D3 methods on that element thereafter, using
+        arbitrary  JavaScript  included  in  the  [3Xcode[103X  parameter. It does not
+        support   creating   charts   from  JSON  input  only,  but  its  full
+        documentation appears here: [7Xhttps://github.com/d3/d3/wiki[107X[133X
+  
+  [30X    [33X[0;6Y[10Xhtml[110X  fills  the  output element with arbitrary HTML, which the caller
+        should  provide  as  a string in the [10Xhtml[110X field of [3Xdata[103X, as documented
+        below[133X
+  
+  
+  [1X3.5 [33X[0;0YExample uses of the low-level API[133X[101X
+  
+  
+  [1X3.5-1 [33X[0;0YExample: AnyChart[133X[101X
+  
+  [33X[0;0YFollowing  the  conventions  in  the AnyChart documentation linked to in the
+  previous section, we could give AnyChart the following JSON to produce a pie
+  chart.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X{[128X[104X
+    [4X[28X    "chart" : {[128X[104X
+    [4X[28X        "type" : "pie",[128X[104X
+    [4X[28X        "data" : [[128X[104X
+    [4X[28X            { "x" : "Subgroups of order 6", "value" : 1 },[128X[104X
+    [4X[28X            { "x" : "Subgroups of order 3", "value" : 1 },[128X[104X
+    [4X[28X            { "x" : "Subgroups of order 2", "value" : 3 },[128X[104X
+    [4X[28X            { "x" : "Subgroups of order 1", "value" : 1 }[128X[104X
+    [4X[28X        ][128X[104X
+    [4X[28X    }[128X[104X
+    [4X[28X}[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YIn [5XGAP[105X, the same data would be represented with a record, as follows.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XmyChartData := rec([128X[104X
+    [4X[28X    chart := rec([128X[104X
+    [4X[28X        type := "pie",[128X[104X
+    [4X[28X        data := [[128X[104X
+    [4X[28X            rec( x := "Subgroups of order 6", value := 1 ),[128X[104X
+    [4X[28X            rec( x := "Subgroups of order 3", value := 1 ),[128X[104X
+    [4X[28X            rec( x := "Subgroups of order 2", value := 3 ),[128X[104X
+    [4X[28X            rec( x := "Subgroups of order 1", value := 1 )[128X[104X
+    [4X[28X        ][128X[104X
+    [4X[28X    )[128X[104X
+    [4X[28X);[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe can pass that data directly to [2XCreateVisualization[102X ([14X7.2-5[114X). We wrap it in
+  a  record  that  specifies  the tool to use and optionally other details not
+  used in this example.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec( tool := "anychart", data := myChartData ) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
+  
+  
+  [1X3.5-2 [33X[0;0YExample: Cytoscape[133X[101X
+  
+  [33X[0;0YUnlike  AnyChart,  which  is  for  charts  and plots, Cytoscape is for graph
+  drawing.  A  tiny  Cytoscape  graph  (just  [23XA\to  B[123X)  is  represented by the
+  following JSON.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X{[128X[104X
+    [4X[28X    elements : [[128X[104X
+    [4X[28X        { data : { id : "A" } },[128X[104X
+    [4X[28X        { data : { id : "B" } },[128X[104X
+    [4X[28X        { data : { id : "edge", source : "A", target : "B" } }[128X[104X
+    [4X[28X    ],[128X[104X
+    [4X[28X    layout : { name : "grid", rows : 1 }[128X[104X
+    [4X[28X}[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YCytoscape graphs can also have style attributes not shown here. Refer to its
+  documentation, linked to in the previous section.[133X
+  
+  [33X[0;0YRather  than  copy this data directly into [5XGAP[105X, let's generate graph data in
+  the  same  format  using  [5XGAP[105X  code.  Here  we  make a graph of the first 50
+  positive integers, with [23Xn\to m[123X iff [23Xn\mid m[123X (ordinary integer divisibility).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XN := 50;[128X[104X
+    [4X[28Xelements := [ ];[128X[104X
+    [4X[28Xfor i in [2..N] do[128X[104X
+    [4X[28X    Add( elements, rec( data := rec( id := String( i ) ) ) );[128X[104X
+    [4X[28X    for j in [2..i-1] do[128X[104X
+    [4X[28X        if i mod j = 0 then[128X[104X
+    [4X[28X            Add( elements, rec( data := rec([128X[104X
+    [4X[28X                source := String( j ),[128X[104X
+    [4X[28X                target := String( i ) ) ) );[128X[104X
+    [4X[28X        fi;[128X[104X
+    [4X[28X    od;[128X[104X
+    [4X[28Xod;[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YWe  then  need  to  choose  a  layout algorithm. The Cytoscape documentation
+  suggests that the "cose" layout works well as a force-directed layout. Here,
+  we do choose a height (in pixels) for the result, because Cytoscape does not
+  automaticlly  resize visualizations to fit their containing HTML element. We
+  also  set  the  style  for each node to display its ID (which is the integer
+  associated with it).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XCreateVisualization( rec([128X[104X
+    [4X[28X    tool := "cytoscape",[128X[104X
+    [4X[28X    height := 600,[128X[104X
+    [4X[28X    data := rec([128X[104X
+    [4X[28X        elements := elements, # computed in the code above[128X[104X
+    [4X[28X        layout := rec( name := "cose" ),[128X[104X
+    [4X[28X        style := [[128X[104X
+    [4X[28X            rec( selector := "node", style := rec( content := "data(id)" ) )[128X[104X
+    [4X[28X        ][128X[104X
+    [4X[28X    )[128X[104X
+    [4X[28X) );[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YResulting image not shown here.[133X
   

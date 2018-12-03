@@ -6,10 +6,10 @@
                      [1X Jupyter Notebook Visualization Tools [101X
   
   
-                                     1.2.0
+                                     1.3.0
   
   
-                                28 October 2018
+                                3 December 2018
   
   
                                  Nathan Carter
@@ -30,37 +30,76 @@
   
   [1XContents (JupyterViz)[101X
   
-  1 [33X[0;0YHow to use this package[133X
+  1 [33X[0;0YIntroduction[133X
     1.1 [33X[0;0YPurpose[133X
-    1.2 [33X[0;0YLoading the package into a Jupyter notebook[133X
-    1.3 [33X[0;0YCreating a visualization[133X
-      1.3-1 [33X[0;0YExample: AnyChart[133X
-      1.3-2 [33X[0;0YPost-processing visualizations[133X
-      1.3-3 [33X[0;0YExample: Cytoscape[133X
-      1.3-4 [33X[0;0YExample: D3[133X
-      1.3-5 [33X[0;0YExample: Native HTML Canvas[133X
-      1.3-6 [33X[0;0YExample: Plain HTML[133X
-    1.4 [33X[0;0YGallery[133X
-  2 [33X[0;0YFunction reference[133X
-    2.1 [33X[0;0YPublic API[133X
-      2.1-1 RunJavaScript
-      2.1-2 LoadJavaScriptFile
-      2.1-3 CreateVisualization
-    2.2 [33X[0;0YInternal methods[133X
-      2.2-1 JUPVIZAbsoluteJavaScriptFilename
-      2.2-2 JUPVIZLoadedJavaScriptCache
-      2.2-3 JUPVIZFillInJavaScriptTemplate
-      2.2-4 JUPVIZRunJavaScriptFromTemplate
-      2.2-5 JUPVIZRunJavaScriptUsingRunGAP
-      2.2-6 JUPVIZRunJavaScriptUsingLibraries
-    2.3 [33X[0;0YRepresentation wrapper[133X
-      2.3-1 JUPVIZIsFileContents
-      2.3-2 JUPVIZIsFileContentsRep
-      2.3-3 JUPVIZFileContents
-  3 [33X[0;0YAdding new visualization tools[133X
-    3.1 [33X[0;0YWhy you might want to do this[133X
-    3.2 [33X[0;0YWhat you will need[133X
-    3.3 [33X[0;0YThe appropriate procedure[133X
+    1.2 [33X[0;0YTerminology (What is a Graph?)[133X
+      1.2-1 [33X[0;0YToolkits for drawing charts and plots[133X
+      1.2-2 [33X[0;0YToolkits for drawing graphs[133X
+      1.2-3 [33X[0;0YGeneral purpose tools with which you can define custom
+      visualizations[133X
+    1.3 [33X[0;0YThe high-level API and the low-level API[133X
+    1.4 [33X[0;0YLoading the package into a Jupyter notebook[133X
+  2 [33X[0;0YUsing the high-level API[133X
+    2.1 [33X[0;0YCharts and Plots[133X
+    2.2 [33X[0;0YOptions for charts and plots[133X
+    2.3 [33X[0;0YGraphs[133X
+    2.4 [33X[0;0YOptions for graphs[133X
+  3 [33X[0;0YUsing the low-level API[133X
+    3.1 [33X[0;0YThe [10XCreateVisualization[110X function[133X
+    3.2 [33X[0;0YLooking beneath the high-level API[133X
+      3.2-1 [33X[0;0YLooking beneath [10XPlot[110X[133X
+      3.2-2 [33X[0;0YLooking beneath [10XPlotGraph[110X[133X
+    3.3 [33X[0;0YUsing JSON from a file[133X
+    3.4 [33X[0;0YDocumentation for each visualization tool[133X
+      3.4-1 [33X[0;0YCharting and plotting tools[133X
+      3.4-2 [33X[0;0YGraph drawing tools[133X
+      3.4-3 [33X[0;0YGeneral-purpose tools for custom visualizations[133X
+    3.5 [33X[0;0YExample uses of the low-level API[133X
+      3.5-1 [33X[0;0YExample: AnyChart[133X
+      3.5-2 [33X[0;0YExample: Cytoscape[133X
+  4 [33X[0;0YUsing general tools (HTML, canvas, D3)[133X
+    4.1 [33X[0;0YWhy these tools are present[133X
+    4.2 [33X[0;0YPost-processing visualizations[133X
+    4.3 [33X[0;0YInjecting JavaScript into general tools[133X
+      4.3-1 [33X[0;0YExample: Native HTML Canvas[133X
+      4.3-2 [33X[0;0YExample: Plain HTML[133X
+      4.3-3 [33X[0;0YExample: D3[133X
+  5 [33X[0;0YAdding new visualization tools[133X
+    5.1 [33X[0;0YWhy you might want to do this[133X
+    5.2 [33X[0;0YWhat you will need[133X
+    5.3 [33X[0;0YExtending this package with a new tool[133X
+    5.4 [33X[0;0YInstalling a new tool at runtime[133X
+  6 [33X[0;0YLimitations[133X
+  7 [33X[0;0YFunction reference[133X
+    7.1 [33X[0;0YHigh-Level Public API[133X
+      7.1-1 Plot
+      7.1-2 ConvertDataSeriesForTool
+      7.1-3 PlotGraph
+      7.1-4 ConvertGraphForTool
+    7.2 [33X[0;0YLow-Level Public API[133X
+      7.2-1 RunJavaScript
+      7.2-2 LoadJavaScriptFile
+      7.2-3 InstallVisualizationTool
+      7.2-4 InstallVisualizationToolFromTemplate
+      7.2-5 CreateVisualization
+    7.3 [33X[0;0YInternal methods[133X
+      7.3-1 JUPVIZAbsoluteJavaScriptFilename
+      7.3-2 JUPVIZLoadedJavaScriptCache
+      7.3-3 JUPVIZFillInJavaScriptTemplate
+      7.3-4 JUPVIZRunJavaScriptFromTemplate
+      7.3-5 JUPVIZRunJavaScriptUsingRunGAP
+      7.3-6 JUPVIZRunJavaScriptUsingLibraries
+      7.3-7 JUPVIZMakePlotDataSeries
+      7.3-8 JUPVIZMakePlotGraphRecord
+      7.3-9 JUPVIZPlotDataSeriesList
+      7.3-10 JUPVIZRecordKeychainLookup
+      7.3-11 JUPVIZRecordsKeychainLookup
+      7.3-12 JUPVIZFetchWithDefault
+      7.3-13 JUPVIZFetchIfPresent
+    7.4 [33X[0;0YRepresentation wrapper[133X
+      7.4-1 JUPVIZIsFileContents
+      7.4-2 JUPVIZIsFileContentsRep
+      7.4-3 JUPVIZFileContents
   
   
   [32X
