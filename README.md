@@ -31,7 +31,7 @@ See the manual on [the package website](http://nathancarter.github.io/jupyterviz
 which contains many usage examples.
 
 Or experiment with a live notebook on Binder:
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/nathancarter/jupyterviz/master?filepath=inst%2Fgap-4.9.3%2Fpkg%2Fjupyterviz%2F).
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/nathancarter/jupyterviz/master?filepath=inst%2Fgap-4.10.0%2Fpkg%2Fjupyterviz%2F).
 (It can be a long loading time, so have patience!)
 
 ## Maintainer
