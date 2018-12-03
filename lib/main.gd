@@ -465,7 +465,7 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingRunGAP" );
 DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingLibraries" );
 
 #! @Arguments series
-#! @Returns a record with the appropriate fields (<Code>x</Code>, <Code>y</Code>, <Code>options</Code>) that it can be passed to one of the functions in <Ref Var="ConvertDataSeriesForTool"/>
+#! @Returns a record with the appropriate fields (<Code>x</Code>, <Code>y</Code>, <Code>options</Code>) that can be passed to one of the functions in <Ref Var="ConvertDataSeriesForTool"/>
 #! @Description
 #!  This function is called by <Ref Func="Plot"/> to convert any of the wide
 #!  variety of inputs that <Ref Func="Plot"/> might receive into a single
@@ -477,6 +477,20 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingLibraries" );
 #!  more information on how that latter conversion takes place, and the
 #!  format it expects.
 DeclareGlobalFunction( "JUPVIZMakePlotDataSeries" );
+
+#! @Arguments various
+#! @Returns a record with the appropriate fields (<Code>vertices</Code>, <Code>edges</Code>, <Code>options</Code>) that can be passed to one of the functions in <Ref Var="ConvertGraphForTool"/>
+#! @Description
+#!  This function is called by <Ref Func="PlotGraph"/> to convert any of
+#!  the wide variety of inputs that <Ref Func="PlotGraph"/> might receive
+#!  into a single internal format.  Then that internal format can be
+#!  converted to the JSON format needed by any of the visualization tools
+#!  supported by this package.
+#!  <P/>
+#!  See the documentation for <Ref Var="ConvertGraphForTool"/> for
+#!  more information on how that latter conversion takes place, and the
+#!  format it expects.
+DeclareGlobalFunction( "JUPVIZMakePlotGraphRecord" );
 
 #! @Arguments series1, series2, series3...
 #! @Returns a <Code>JupyterRenderable</Code> object ready to be displayed in the Jupyter Notebook

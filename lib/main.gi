@@ -379,15 +379,15 @@ ConvertDataSeriesForTool.chartjs := function ( series )
                 ]
             );
         end );
-    JUPVIZFetchIfPresent( 0, series, [ "options", "xaxis" ],
-        function ( x )
+    JUPVIZFetchIfPresent( 0, series, [ "options", "yaxis" ],
+        function ( y )
             if not IsBound( result.options.scales ) then
                 result.options.scales := rec();
             fi;
             result.options.scales.yAxes := [
                 rec(
                     scaleLabel := rec(
-                        labelString := x,
+                        labelString := y,
                         display := true
                     )
                 )
@@ -644,8 +644,8 @@ ConvertGraphForTool.cytoscape := function ( graph )
 end;
 
 
-InstallGlobalFunction( PlotGraph, function ( args... )
-    local vertices, edges, i, j, result, tool;
+InstallGlobalFunction( JUPVIZMakePlotGraphRecord, function ( args... )
+    local vertices, edges, i, j;
     # Ensure we were passed some arguments
     if Length( args ) = 0 then
         Error( "PlotGraph requires at least one argument." );
@@ -653,7 +653,7 @@ InstallGlobalFunction( PlotGraph, function ( args... )
     # Ensure there's an options object at the end
     if not IsRecord( args[Length( args )] ) then
         Add( args, rec() );
-        return CallFuncList( PlotGraph, args );
+        return CallFuncList( JUPVIZMakePlotGraphRecord, args );
     fi;
     # If we're just given an adjacency matrix, convert that to vertices and
     # edges.  All positive entries in the matrix count as forming an edge.
@@ -668,7 +668,7 @@ InstallGlobalFunction( PlotGraph, function ( args... )
                 if args[1][i,j] > 0 then Add( edges, [i,j] ); fi;
             od;
         od;
-        return PlotGraph( vertices, edges, args[2] );
+        return JUPVIZMakePlotGraphRecord( vertices, edges, args[2] );
     fi;
     # If we're just given edges, compute a vertex set from that, then recur
     # with both pieces of data.
@@ -679,7 +679,7 @@ InstallGlobalFunction( PlotGraph, function ( args... )
             if not ( e[1] in vertices ) then Add( vertices, e[1] ); fi;
             if not ( e[2] in vertices ) then Add( vertices, e[2] ); fi;
         end );
-        return PlotGraph( vertices, args[1], args[2] );
+        return JUPVIZMakePlotGraphRecord( vertices, args[1], args[2] );
     fi;
     # If we were given something other than three arguments, something is
     # wrong.
@@ -695,7 +695,7 @@ InstallGlobalFunction( PlotGraph, function ( args... )
                 if args[2]( i, j ) then Add( edges, [i,j] ); fi;
             od;
         od;
-        return PlotGraph( args[1], edges, args[3] );
+        return JUPVIZMakePlotGraphRecord( args[1], edges, args[3] );
     fi;
     # The only case remaining should be the vertices and edges case. Verify.
     if not ForAll( args[2], x -> IsList( x ) and Length( x ) = 2 ) then
@@ -706,12 +706,20 @@ InstallGlobalFunction( PlotGraph, function ( args... )
     # We create a data structure of vertices, edges, and options.
     # Various conversion functions will make this suitable for each
     # visualization tool.
-    result := rec(
+    return rec(
         vertices := args[1],
         edges := args[2],
         options := args[3]
     );
-    JUPVIZFetchWithDefault( args[3], [], [ "tool" ], "cytoscape",
+end );
+
+
+InstallGlobalFunction( PlotGraph, function ( args... )
+    local result, options, tool;
+    options := args[Length( args )];
+    if not IsRecord( options ) then options := rec(); fi;
+    result := CallFuncList( JUPVIZMakePlotGraphRecord, args );
+    JUPVIZFetchWithDefault( options, [], [ "tool" ], "cytoscape",
         function ( tool )
             if not IsBound( ConvertGraphForTool.( tool ) ) then
                 Error( Concatenation(
@@ -721,9 +729,9 @@ InstallGlobalFunction( PlotGraph, function ( args... )
                 tool := tool,
                 data := ConvertGraphForTool.( tool )( result )
             );
-            JUPVIZFetchWithDefault( args[3], [], [ "height" ], 400,
+            JUPVIZFetchWithDefault( options, [], [ "height" ], 400,
                 function ( h ) result.height := h; end );
-            JUPVIZFetchIfPresent( args[3], [], [ "width" ],
+            JUPVIZFetchIfPresent( options, [], [ "width" ],
                 function ( w ) result.width := w; end );
             result := CreateVisualization( result, "" );
         end );

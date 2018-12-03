@@ -1,8 +1,8 @@
 ############################################################################
 ##
-#A  correct-output.tst      JupyterViz Package           Nathan Carter
+#A  low-level-api.tst      JupyterViz Package           Nathan Carter
 ##
-gap> START_TEST("JupyterViz package: correct-output.tst");
+gap> START_TEST("JupyterViz package: low-level-api.tst");
 
 # First load the package without banner (the banner must be suppressed to
 # avoid reporting discrepancies in the case when the package is already
@@ -93,7 +93,7 @@ true
 ## Each test file should finish with the call of STOP_TEST.
 ## The first argument of STOP_TEST should be the name of the test file.
 ## The second argument is redundant and is used for backwards compatibility.
-gap> STOP_TEST( "correct-output.tst", 10000 );
+gap> STOP_TEST( "low-level-api.tst", 10000 );
 
 ############################################################################
 ##
