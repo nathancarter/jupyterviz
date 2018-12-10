@@ -190,6 +190,10 @@
 #!     <Math>x</Math> axis, as a string.  Can be omitted.</Item>
 #!   <Item><Code>yaxis</Code> - the text to write to the left of the
 #!     <Math>y</Math> axis, as a string.  Can be omitted.</Item>
+#!   <Item><Code>name</Code> - this option should be specified in the
+#!     options object for each separate data series, as opposed to just once
+#!     for the entire plot.  It assigns a string name to that data series,
+#!     typically included in the chart's legend.</Item>
 #! </List>
 #!
 #! @Section Graphs
