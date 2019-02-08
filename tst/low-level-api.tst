@@ -4,12 +4,6 @@
 ##
 gap> START_TEST("JupyterViz package: low-level-api.tst");
 
-# First load the package without banner (the banner must be suppressed to
-# avoid reporting discrepancies in the case when the package is already
-# loaded)
-gap> LoadPackage( "jupyterviz", false );
-true
-
 # Ensure some basic requirements of the output of functions defined in this
 # package
 

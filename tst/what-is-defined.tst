@@ -4,12 +4,6 @@
 ##
 gap> START_TEST("JupyterViz package: what-is-defined.tst");
 
-# First load the package without banner (the banner must be suppressed to
-# avoid reporting discrepancies in the case when the package is already
-# loaded)
-gap> LoadPackage( "jupyterviz", false );
-true
-
 # Ensure that the functions that are supposed to be exposed are exposed
 gap> IsBoundGlobal( "RunJavaScript" );
 true

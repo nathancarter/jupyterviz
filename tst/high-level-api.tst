@@ -4,9 +4,6 @@
 ##
 gap> START_TEST("JupyterViz package: high-level-api.tst");
 
-gap> LoadPackage( "jupyterviz" );
-true
-
 ##
 # JUPVIZMakePlotDataSeries is supposed to support several input formats:
 ##
