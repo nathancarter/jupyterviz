@@ -34,10 +34,11 @@
 #!
 #! This holds for any visualization tool, not just AnyChart.  In the code
 #! given in the second parameter, two variables will be defined for your
-#! use: <Code>element</Code> refers to the output cell element in the
-#! notebook and <Code>visualization</Code> refers to the visualization that
-#! the toolkit you chose created within that output cell (also an HTML
-#! element).
+#! use: <Code>element</Code> refers to the HTML element inside of which the
+#! visualization was built and <Code>visualization</Code> refers to the
+#! HTML element of the visualization itself, as produced by the toolkit you
+#! chose.  When used in a Jupyter Notebook, <Code>element</Code> is the
+#! output cell itself.
 #!
 #! Now that we know that we can run arbitrary JavaScript code on a
 #! visualization once it's been produced, we can call
@@ -60,6 +61,7 @@
 #!     // visualization is the canvas element
 #!     var context = visualization.getContext( '2d' );
 #!     // draw an X
+#!     context.beginPath();
 #!     context.moveTo( 0, 0 );
 #!     context.lineTo( 100, 100 );
 #!     context.moveTo( 100, 0 );
@@ -104,11 +106,12 @@
 #! );
 #! @EndLog
 #!
-#! When writing such JavaScript code, note that you have access to a useful
-#! function that this package has installed, <Code>runGAP</Code>.  Its
-#! signature is <Code>runGAP(stringToEvaluate,callback)</Code> and the
-#! following code shows an example of how you could call it from JavaScript
-#! in the notebook.
+#! When writing such JavaScript code, note that the Jupyter Notebook has
+#! access to a useful function that this package has installed,
+#! <Code>runGAP</Code>.  Its signature is
+#! <Code>runGAP(stringToEvaluate,callback)</Code> and the following code
+#! shows an example of how you could call it from JavaScript in the
+#! notebook.
 #!
 #! @BeginLog
 #! runGAP( "2^100;", function ( result, error ) {
@@ -118,6 +121,9 @@
 #!         alert( "GAP gave this error: " + error );
 #! } );
 #! @EndLog
+#!
+#! This function is not available if running this package outside of a
+#! Jupyter Notebook.
 #!
 #! @Subsection Example: D3
 #!

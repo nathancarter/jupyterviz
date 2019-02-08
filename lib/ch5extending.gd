@@ -12,7 +12,9 @@
 #!
 #! There are two supported way to do this.  First, for tools that you wish
 #! to be available to all users of this package, you can alter the package
-#! code itself to include the tool.  Second, for tools that you need for
+#! code itself to include the tool.  (Then please create a pull request so
+#! that your work might be shared with other &GAP; users in a subsequent
+#! release of this package.)  Second, for tools that you need for
 #! just one project or just one other package, there is support for
 #! installing such tools at runtime.  This chapter documents both
 #! approaches, each in its own section.  But first, we begin with the list
@@ -29,11 +31,11 @@
 #!    It is best if you have this URL from a Content Delivery Network (CDN)
 #!    to ensure very high availability.  This URL may not be necessary in
 #!    all cases.  For instance, perhaps the new visualization tool you wish
-#!    to install can be defined using just the JavaScript tools in the
-#!    Jupyter notebook, or is imported via an <Code>iframe</Code> rather
-#!    than a script in the notebook page itself.  If you choose to use such
-#!    a URL, note that RequireJS expects you to omit the final
-#!    <Code>.js</Code> suffix at the end.
+#!    to install can be defined using the basic JavaScript features in all
+#!    browsers, or is imported via an <Code>iframe</Code> rather
+#!    than as a script in the page itself.  If you choose to use such
+#!    a URL, it will be imported using RequireJS, which expects you to omit
+#!    the final <Code>.js</Code> suffix at the end.
 #!  * Knowledge of how to write a short JavaScript function that can embed
 #!    the given tool into any given DOM <Code>Element</Code>.  For many
 #!    tools, this is just a single call to the main class's contructor or
@@ -57,11 +59,12 @@
 #! This section explains how to enhance this package itself.  If you follow
 #! these instructions, you should submit a pull request to have your work
 #! added to the main repository for the package, and thus eventually
-#! included in the next release of GAP.
+#! included in the next release of &GAP;.
 #!
 #! If instead you wish to install a new visualization at runtime for just
 #! your own use in a particular project (or in a package that depends on
-#! this one), refer to the instructions in the next section instead.
+#! this one), refer to the instructions in the Section
+#! <Ref Sect="Section_runtime_extend"/> instead.
 #!
 #! Throughout these steps, I will assume that the name of the new tool you
 #! wish to install is <Code>NEWTOOL</Code>.  I choose all capital letters
@@ -97,9 +100,9 @@
 #!     guidance.
 #! @Log
 #! window.VisualizationTools.NEWTOOL = function ( element, json, callback ) {
-#!     // The variable "element" is the output cell in the notebook into
+#!     // The variable "element" is the HTML element in the page into
 #!     // which you should place your visualization.  For example, perhaps
-#!     // your new toolkit draws in SVG elements, so you need one:
+#!     // your new toolkit does its work in an SVG element, so you need one:
 #!     var result = document.createElement( 'SVG' );
 #!     element.append( result );
 #!     // The variable "json" is all the data, in JSON form, passed from
@@ -135,14 +138,15 @@
 #!     as well.</Item>
 #!   <Item>You should now be able to use your new visualization tool in
 #!     &GAP;.  Verify that your changes worked, and debug as necessary.
-#!     You may be able to notice the change only if you refresh in your
-#!     browser the page containing the Jupyter notebook in question and also
-#!     restart the &GAP; kernel in that same page.  Then try code like the
-#!     following in the Jupyter notebook to test what you've done.
+#!     If you are testing in a Jupyter Notebook, you may be able to notice
+#!     the change only if you refresh in your  browser the page containing
+#!     notebook and also restart the &GAP; kernel in that same page.  Then
+#!     try code like the following to test what you've done.
 #! @BeginLog
 #! CreateVisualization( rec(
 #!     tool := "NEWTOOL",
-#!     # any other data you need goes here
+#!     # any other data you need goes here as a GAP record,
+#!     # which the GAP json package will convert into JSON
 #! ) );
 #! @EndLog
 #! </Item>
@@ -168,7 +172,7 @@
 #!     section in which new elements are added to the
 #!     <Ref Func="ConvertDataSeriesForTool"/> or
 #!     <Ref Func="ConvertGraphForTool"/> records.  Add a new section of
-#!     code that installs a new member for your tool.  It will look like
+#!     code that installs a new field for your tool.  It will look like
 #!     one of the following two blocks (or both if your tool supports both
 #!     types of visualization).
 #! @BeginLog
@@ -188,8 +192,8 @@
 #! end;
 #! @EndLog
 #! </Item>
-#!   <Item>Test your work by loading the updated package into the Jupyter
-#!     Notebook and making a call to <Ref Func="Plot"/> or
+#!   <Item>Test your work by loading the updated package into &GAP; and
+#!     making a call to <Ref Func="Plot"/> or
 #!     <Ref Func="PlotGraph"/> that specifically requests the use of your
 #!     newly-supported visualization tool.
 #! @BeginLog
@@ -212,7 +216,7 @@
 #! This portion would go in <File>lib/js/viz-tool-color.js</File>:
 #!
 #! @BeginLog
-#! // No need to import any library from a CDN for this baby example.
+#! // No need to import any library from a CDN for this little example.
 #! window.VisualizationTools.color = function ( element, json, callback ) {
 #!     // just writes json.text in json.color, that's all
 #!     var span = document.createElement( 'span' );
@@ -234,6 +238,7 @@
 #! @EndLog
 #!
 #! @Section Installing a new tool at runtime
+#! @SectionLabel runtime_extend
 #!
 #! This section explains how to add a new visualization tool to this
 #! package at runtime, by calling functions built into the package.  This is

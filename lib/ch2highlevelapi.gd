@@ -4,10 +4,14 @@
 #! @Section Charts and Plots
 #!
 #! This section covers the <Ref Func="Plot"/> function in the high-level
-#! API, which is used for showing charts and plots in the Jupyter
-#! Notebook.  It covers that function through a series of examples, but you
-#! can see full details in the function reference chapter, Chapter
-#! <Ref Chap="Chapter_funcref"/>.
+#! API, which is used for showing charts and plots.  If invoked in a Jupyter
+#! Notebook, it will show the resulting visualization in the appropriate
+#! output cell of the notebook.  If invoked from the &GAP; command line, it
+#! will use the system default web browser to show the resulting
+#! visualization, from which the user can save a permanent copy, print it,
+#! etc.  This section covers that function through a series of
+#! examples, but you can see full details in the function reference in
+#! Chapter <Ref Chap="Chapter_funcref"/>.
 #!
 #! To plot a list of numbers as a single data series, just pass the list to
 #! <Ref Func="Plot"/>.
@@ -50,7 +54,7 @@
 #! lists.  This would do the same as the previous:
 #!
 #! @BeginLog
-#! Plot( [ "Mon", 6.2 ], [ "Tue", 0.3 ], [ "Wed", 9.1 ], [ "Thu", 8.8 ] ] );
+#! Plot( [ [ "Mon", 6.2 ], [ "Tue", 0.3 ], [ "Wed", 9.1 ], [ "Thu", 8.8 ] ] );
 #! @EndLog
 #!
 #! You can also pass a single-variable numeric function to have it plotted.
@@ -82,11 +86,11 @@
 #! <Alt Only="HTML"><![CDATA[<img height="350" src="01plotfunction.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!
-#! You can append a final parameter to the `Plot` command, a record
-#! containing a set of options.  Here is an example of using that
+#! You can append a final parameter to the <Ref Func="Plot"/> command, a
+#! record containing a set of options.  Here is an example of using that
 #! options record to choose the visualization tool, title, and axis
 #! labels.  Section <Ref Sect="Section_plotopts"/> covers options in
-#! detail; here is a preview.
+#! detail; this is only a preview.
 #!
 #! @BeginLog
 #! Plot( [1..50], n -> Length( DivisorsInt( n ) ),
@@ -183,7 +187,10 @@
 #!     which varies by tool.</Item>
 #!   <Item><Code>width</Code> - the width in pixels of the
 #!     visualization to produce.  If omitted, the tool usually fills
-#!     the width of the Jupyter Notebook output cell.</Item>
+#!     the width available.  In a Jupyter Notebook output cell, this is
+#!     the width of the cell.  A visualization shown outside of a Jupyter
+#!     notebook will take up the entire width of the web page in which
+#!     it is displayed.</Item>
 #!   <Item><Code>title</Code> - the title to place at the top of the
 #!     chart, as a string.  Can be omitted.</Item>
 #!   <Item><Code>xaxis</Code> - the text to write below the
@@ -199,12 +206,15 @@
 #! @Section Graphs
 #!
 #! This section covers the <Ref Func="PlotGraph"/> function in the
-#!  high-level API, which is used for drawing graphs in the Jupyter
-#! Notebook.  It covers that function through a series of examples, but you
-#! can see full details in the function reference chapter, Chapter
-#! <Ref Chap="Chapter_funcref"/>.
+#! high-level API, which is used for drawing graphs.  If invoked in a
+#! Jupyter Notebook, it will show the resulting visualization in the
+#! appropriate output cell of the notebook.  If invoked from the &GAP;
+#! command line, it will use the system default web browser to show the
+#! resulting visualization.  This section covers that function through a
+#! series of examples, but you can see full details in the function
+#! reference in Chapter <Ref Chap="Chapter_funcref"/>.
 #!
-#! You can make a graph by passing <Ref Func="PlotGraph"/> on a list of
+#! You can make a graph by calling <Ref Func="PlotGraph"/> on a list of
 #! edges, each of which is a pair (a list of length two).
 #!
 #! @BeginLog
@@ -241,7 +251,7 @@
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!
 #! But for anything other than a small graph, specifying the vertex or edge
-#! set manually may be a hassle.  Thus if you have a vertex set, you can
+#! set manually may be inconvenient.  Thus if you have a vertex set, you can
 #! create the edge set by passing a binary relation as a &GAP; function.
 #! Here is an example to create a subgroup lattice.
 #!
@@ -282,7 +292,7 @@
 #! <Alt Only="HTML"><![CDATA[<img height="240" src="graph-4.png"/>]]></Alt>
 #! <Alt Not="LaTeX HTML">Resulting image not shown here.</Alt>
 #!
-#! The next section covers full detail on all these options.
+#! The next section covers all options in detail.
 #!
 #! @Section Options for graphs
 #! @SectionLabel graphopts
@@ -320,6 +330,9 @@
 #!     which varies by tool.</Item>
 #!   <Item><Code>width</Code> - the width in pixels of the
 #!     visualization to produce.  If omitted, the tool usually fills
-#!     the width of the Jupyter Notebook output cell.</Item>
+#!     the width available.  In a Jupyter Notebook output cell, this is
+#!     the width of the cell.  A visualization shown outside of a Jupyter
+#!     notebook will take up the entire width of the web page in which
+#!     it is displayed.</Item>
 #! </List>
 #!

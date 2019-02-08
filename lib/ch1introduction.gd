@@ -13,19 +13,22 @@
 #! (<URL Text="repository">https://github.com/mcmartins/francy</URL>,
 #! <URL Text="article">https://arxiv.org/abs/1806.08648</URL>), which lets
 #! users create graphs of a few types (vertices and edges, line chart, bar
-#! chart, scatter chart).  It also allows the user to attach actions to the
-#! elements of these charts, which result in callbacks to &GAP; that can
-#! update the visualization.
+#! chart, scatter chart) in a Jupyter notebook.  It also allows the user to
+#! attach actions to the elements of these charts, which result in
+#! callbacks to &GAP; that can update the visualization.
 #!
-#! This package aims to make a wider variety of visualizations accessible to
-#! &GAP; users, but does not provide tools for conveniently making such
-#! visualizations interactive.  Where the <Package>francy</Package> package
-#! excels at interactive visualizations, this package instead gives a
-#! broader scope of visualization tools.
+#! This visualization package has different aims in three ways.  First, it
+#! can function either in a Jupyter notebook or directly from the &GAP;
+#! REPL on the command line.  Second, it aims to make a wider variety of
+#! visualizations accessible to &GAP; users.  Third, it does not provide
+#! tools for conveniently making such visualizations interactive.  Where
+#! the <Package>francy</Package> package excels at interactive
+#! visualizations, this package instead gives a broader scope of
+#! visualization tools and does not require Jupyter.
 #!
-#! This is achieved by importing several existing JavaScript visualization
-#! toolkits and exposing them to &GAP; code, as described later in this
-#! manual.
+#! These goals are achieved by importing several existing JavaScript
+#! visualization toolkits and exposing them to &GAP; code, as described
+#! later in this manual.
 #!
 #! @Section Terminology (What is a Graph?)
 #! @SectionLabel term
@@ -37,9 +40,9 @@
 #! provide tools for drawing both of these things!  Consequently, we remove
 #! the ambiguity as follows.
 #!
-#! We will say *charts and plots* to refer to the first concept (lines,
-#! curves, bars, dots, etc. on coordinate axes) and *graphs* (or sometimes
-#! *graph drawing*) to refer only to the second concept (vertices and
+#! We will say "charts and plots" to refer to the first concept (lines,
+#! curves, bars, dots, etc. on coordinate axes) and "graphs" (or sometimes
+#! "graph drawing") to refer only to the second concept (vertices and
 #! edges).  This convention holds throughout this entire document.
 #!
 #! <Alt Only="LaTeX">
@@ -92,12 +95,10 @@
 #! majority of use cases, but if an option you need is not supported by it,
 #! there is still the low-level API on which you can fall back.
 #!
-#! @Section Loading the package into a Jupyter notebook
+#! @Section Loading the package (in Jupyter or otherwise)
 #!
-#! To import the package into a Jupyter notebook, do so just as with any
-#! other &GAP; package:  Ensure that the kernel of the notebook is a &GAP;
-#! kernel, then execute the following code in one of the notebook cells.
-#!
+#! To import this package, use the following &GAP; command from the command
+#! line or from a cell in a Jupyter notebook running a &GAP; kernel.
 #! @Example
 #! LoadPackage( "jupyterviz" );
 #! @EndExample

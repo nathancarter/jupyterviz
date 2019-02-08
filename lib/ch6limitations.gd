@@ -1,8 +1,8 @@
 #!
 #! @Chapter Limitations
 #!
-#! The functions in this package depend upon being evaluated in a live
-#! Jupyter Notebook.  This brings up a few limitations:
+#! When this package is being used in a Jupyter Notebook, it has the
+#! following limitations.
 #!
 #!  * If a notebook with visualizations created by this package is saved and
 #!    later reloaded, the visualizations will not persist.  They will be
@@ -15,4 +15,18 @@
 #!    JavaScript code that generates the visualizations.
 #!  * Since most visualizations load a JavaScript library from a CDN, they
 #!    require a working Internet connection to function.
+#!
+#! When it is being used from the command line, it has the following
+#! limitations.
+#!
+#!  * The JavaScript function <Code>runGAP</Code> introduced in Section
+#!    <Ref Sect="Section_plainhtml"/> is not available.  That function
+#!    depends upon the ability to ask the Jupyter Kernel to run &GAP; code,
+#!    and thus when there is no Jupyter Kernel, that function cannot work.
+#!  * Each new call to <Ref Func="Plot"/>, <Ref Func="PlotGraph"/>, or
+#!    <Ref Func="CreateVisualization"/> will be stored in a new temporary
+#!    file on the user's filesystem and thus shown in a new tab or window
+#!    in the user's browser.  That is, one does not iteratively improve a
+#!    single visualization, but is forced to open a new window or tab for
+#!    each call.
 #!
