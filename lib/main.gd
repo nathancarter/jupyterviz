@@ -14,6 +14,117 @@
 
 #! @Section High-Level Public API
 
+#! @Description
+#!  The <Package>JupyterViz</Package> Package can display visualizations in
+#!  three different ways, and this global variable is used to switch among
+#!  those ways.
+#! @BeginLog
+#! PlotDisplayMethod := PlotDisplayMethod_HTML;
+#! @EndLog
+#!  <P/>
+#!  If the <Package>JupyterViz</Package> Package is loaded after the
+#!  <Package>JupyterKernel</Package> Package, it notices the presence of
+#!  that package and leverage its tools to set up support for plotting in a
+#!  Jupyter environment.  Furthermore, it will initialize
+#!  <Ref Var="PlotDisplayMethod"/> to
+#!  <Ref Var="PlotDisplayMethod_Jupyter"/>, which is probably what the user
+#!  wants.  Note that if one calls <Code>LoadPackage("JupyterViz");</Code>
+#!  from a cell in a Jupyter notebook, this is the case that applies,
+#!  because clearly in such a case, the <Package>JupyterKernel</Package>
+#!  Package was already loaded.
+#!  <P/>
+#!  If the <Package>JupyterViz</Package> Package is loaded without the
+#!  <Package>JupyterKernel</Package> Package already loaded, then it will
+#!  omit support for Jupyter, and will initialize
+#!  <Ref Var="PlotDisplayMethod"/> to
+#!  <Ref Var="PlotDisplayMethod_HTML"/>, which is what the user probably
+#!  wants if using &GAP; from a terminal, for example.  In that case, this
+#!  package does not support later reassignment of
+#!  <Ref Var="PlotDisplayMethod"/> to any other value, because Jupyter
+#!  support was not set up at package loading time.
+#!  <P/>
+#!  Thus if the user desires support for both Jupyter-based and
+#!  HTML-based plotting, he or she should load the
+#!  <Package>JupyterKernel</Package> Package before the
+#!  <Package>JupyterViz</Package> Package.  Then one can freely change
+#!  the value of <Ref Var="PlotDisplayMethod"/> to choose among any of the
+#!  behaviors documented below.
+DeclareGlobalVariable( "PlotDisplayMethod" );
+MakeReadWriteGlobal( "PlotDisplayMethod" );
+
+#! @Description
+#!  This global constant can be assigned to the global variable
+#!  <Ref Var="PlotDisplayMethod"/> as documented in that section.
+#!  Doing so produces the following results.
+#!  <List>
+#!    <Item>Functions such as <Ref Func="Plot"/>, <Ref Func="PlotGraph"/>,
+#!      and <Ref Func="CreateVisualization"/> will return objects of type
+#!      <Code>JupyterRenderable</Code>, which is defined in the
+#!      <Package>JupyterKernel</Package> Package.</Item>
+#!    <Item>Such objects, when rendered in a Jupyter cell, will run a block
+#!      of JavaScript contained within them, which will create the desired
+#!      visualization.</Item>
+#!    <Item>Such scripts tend to request additional information from &GAP;
+#!      as they are running, by using calls to the JavaScript function
+#!      <Code>Jupyter.kernel.execute</Code> defined in the notebook.
+#!      Such calls are typically to fetch JavaScript libraries needed to
+#!      create the requested visualization.</Item>
+#!    <Item>Visualizations produced this way will not be visible if one
+#!      later closes and then reopens the Jupyter notebook in which they
+#!      are stored.  To see the visualizations again, one must re-evaluate
+#!      the cells that created them, so that the required libraries are
+#!      re-fetched from the &GAP; Jupyter kernel.</Item>
+#!  </List>
+DeclareGlobalVariable( "PlotDisplayMethod_Jupyter" );
+
+#! @Description
+#!  This global constant can be assigned to the global variable
+#!  <Ref Var="PlotDisplayMethod"/> as documented in that section.
+#!  Doing so produces the following results.
+#!  <List>
+#!    <Item>Functions such as <Ref Func="Plot"/>, <Ref Func="PlotGraph"/>,
+#!      and <Ref Func="CreateVisualization"/> will return objects of type
+#!      <Code>JupyterRenderable</Code>, which is defined in the
+#!      <Package>JupyterKernel</Package> Package.</Item>
+#!    <Item>Such objects, when rendered in a Jupyter cell, will run a block
+#!      of JavaScript contained within them, which will create the desired
+#!      visualization.</Item>
+#!    <Item>Such scripts will be entirely self-contained, and thus will not
+#!      make any additional requests from the &GAP; Jupyter kernel.  This
+#!      makes such objects larger because they must contain all the
+#!      required JavaScript visualization libraries, rather than being able
+#!      to request them as needed later.</Item>
+#!    <Item>Visualizations produced this way will be visible even if one
+#!      later closes and then reopens the Jupyter notebook in which they
+#!      are stored, because all the code needed to create them is included
+#!      in the output cell itself, and is re-run upon re-opening the
+#!      notebook.</Item>
+#!  </List>
+DeclareGlobalVariable( "PlotDisplayMethod_JupyterSimple" );
+
+#! @Description
+#!  This global constant can be assigned to the global variable
+#!  <Ref Var="PlotDisplayMethod"/> as documented in that section.
+#!  Doing so produces the following results.
+#!  <List>
+#!    <Item>Functions such as <Ref Func="Plot"/>, <Ref Func="PlotGraph"/>,
+#!      and <Ref Func="CreateVisualization"/> will return no value, but
+#!      will instead store HTML (and JavaScript) code for the
+#!      visualization in a temporary file on the filesystem, then launch
+#!      the operating system's default web browser to view that
+#!      file.</Item>
+#!    <Item>Such files are entirely self-contained, and require no &GAP;
+#!      session to be running to continue viewing them.  They can be saved
+#!      anywhere the user likes for later viewing, printing, or sharing
+#!      without &GAP;.</Item>
+#!    <Item>Visualizations produced this way will not be visible if one
+#!      later closes and then reopens the Jupyter notebook in which they
+#!      are stored.  To see the visualizations again, one must re-evaluate
+#!      the cells that created them, so that the required libraries are
+#!      re-fetched from the &GAP; Jupyter kernel.</Item>
+#!  </List>
+DeclareGlobalVariable( "PlotDisplayMethod_HTML" );
+
 #! @Arguments various
 #! @Returns an object that, if rendered in a Jupyter notebook, will produce a plot
 #! @Description

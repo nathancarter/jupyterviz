@@ -65,7 +65,6 @@ Keywords := [
 Dependencies := rec(
   GAP := ">= 4.9",
   NeededOtherPackages := [
-    [ "JupyterKernel", "0.99999" ],
     [ "json",          "2.0.0"   ],
     [ "GAPDoc",        "1.3"     ]
   ],

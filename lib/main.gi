@@ -9,20 +9,69 @@
 ##
 
 
+##  Set the three possible values of PlotDisplayMethod to constants.
+InstallValue( PlotDisplayMethod_Jupyter, "PlotDisplayMethod_Jupyter" );
+InstallValue( PlotDisplayMethod_JupyterSimple, "PlotDisplayMethod_JupyterSimple" );
+InstallValue( PlotDisplayMethod_HTML, "PlotDisplayMethod_HTML" );
+
+
+##  Detect whether the JupyterKernel package is available.
+##  If it is, set our default display mode to using JupyterRenderable objects.
+##  Otherwise, we'll use plain HTML.
+if IsBoundGlobal( "JupyterRenderable" ) then
+    InstallValue( PlotDisplayMethod, PlotDisplayMethod_Jupyter );
+else
+    InstallValue( PlotDisplayMethod, PlotDisplayMethod_HTML );
+fi;
+
+
 ##  The output element in the notebook will be passed called "element" in
 ##  the script's environment, which we capture with the closure wrapper
 ##  below, so that any callbacks or asynchronous code can rely on its having
 ##  that name indefinitely.
 InstallGlobalFunction( RunJavaScript, function ( script )
-    return JupyterRenderable( rec(
-        application\/javascript := Concatenation(
-            # use newlines to prevent // comments from harming code
-            "( function ( element ) {\n", script,
-            "\n} )( element.get( 0 ) )"
-        )
-    ), rec(
-        application\/javascript := ""
-    ) );
+    local html, filename, file;
+    if PlotDisplayMethod = PlotDisplayMethod_HTML then
+        html := Concatenation(
+            "<html>\n",
+            "  <body>\n",
+            "    <div id='element'></div>\n",
+            "  </body>\n",
+            "  <script src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js'>\n",
+            "  </script>\n",
+            "  <script language='javascript'>\n",
+            "    var element = document.getElementById( 'element' );\n",
+            "    ", script, "\n",
+            "  </script>\n",
+            "</html>"
+        );
+        filename := Filename( DirectoryTemporary(), "visulization.html" );
+        file := OutputTextFile( filename, false );
+        SetPrintFormattingStatus( file, false );
+        PrintTo( file, html );
+        CloseStream( file );
+        if ARCH_IS_MAC_OS_X() then
+            Exec( "open ", filename );
+        elif ARCH_IS_WINDOWS() then
+            Exec( "start ", filename );
+        elif ARCH_IS_UNIX() then
+            Exec( "xdg-open ", filename );
+        fi;
+        return Concatenation( "Displaying result stored in ", filename, "." );
+    else
+        # Here we use ValueGlobal to suppress the warning that ensues if
+        # you directly use JupyterRenderable as a global variable that
+        # is sometimes not defined when this package is loaded.
+        return ValueGlobal( "JupyterRenderable" )( rec(
+            application\/javascript := Concatenation(
+                # use newlines to prevent // comments from harming code
+                "( function ( element ) {\n", script,
+                "\n} )( element.get( 0 ) )"
+            )
+        ), rec(
+            application\/javascript := ""
+        ) );
+    fi;
 end );
 
 
@@ -36,20 +85,22 @@ function ( relativeFilename )
 end );
 
 
-BindGlobal( "JUPVIZFileContentsType",
-    NewType( NewFamily( "JUPVIZFileContentsFamily" ),
-             JUPVIZIsFileContentsRep ) );
-InstallMethod( JUPVIZFileContents, "for a string", [ IsString ],
-function( content )
-    return Objectify( JUPVIZFileContentsType,
-                      rec( content := content ) );
-end );
-InstallMethod( JupyterRender, [ JUPVIZIsFileContents ],
-function ( fileContents )
-    return Objectify( JupyterRenderableType,
-        rec( data := rec( text\/plain := fileContents!.content ),
-             metadata := rec( text\/plain := "" ) ) );
-end );
+if IsBoundGlobal( "JupyterRenderable" ) then
+    BindGlobal( "JUPVIZFileContentsType",
+        NewType( NewFamily( "JUPVIZFileContentsFamily" ),
+                 JUPVIZIsFileContentsRep ) );
+    InstallMethod( JUPVIZFileContents, "for a string", [ IsString ],
+    function( content )
+        return Objectify( JUPVIZFileContentsType,
+                          rec( content := content ) );
+    end );
+    InstallMethod( JupyterRender, [ JUPVIZIsFileContents ],
+    function ( fileContents )
+        return Objectify( JupyterRenderableType,
+            rec( data := rec( text\/plain := fileContents!.content ),
+                 metadata := rec( text\/plain := "" ) ) );
+    end );
+fi;
 
 
 InstallValue( JUPVIZLoadedJavaScriptCache, rec( ) );
@@ -135,18 +186,32 @@ end );
 
 InstallGlobalFunction( JUPVIZRunJavaScriptUsingLibraries,
 function ( libraries, jsCode )
-    local result, library;
-    result := jsCode;
+    local result, library, libName;
     if IsString( libraries ) then
         libraries := [ libraries ];
     fi;
-    for library in Reversed( libraries ) do
-        result := JUPVIZFillInJavaScriptTemplate( "using-library",
-            rec( library := GapToJsonString( library ),
-                 runThis := result ) );
-    od;
-    return JUPVIZRunJavaScriptFromTemplate( "using-runGAP",
-        rec( runThis := result ) );
+    if PlotDisplayMethod = PlotDisplayMethod_Jupyter then
+        result := jsCode;
+        for library in Reversed( libraries ) do
+            result := JUPVIZFillInJavaScriptTemplate( "using-library",
+                rec( library := GapToJsonString( library ),
+                     runThis := result ) );
+        od;
+        return JUPVIZRunJavaScriptFromTemplate( "using-runGAP",
+            rec( runThis := result ) );
+    else
+        result := "if ( !window.JUPVIZLibs ) window.JUPVIZLibs = { };\n";
+        for library in libraries do
+            libName := GapToJsonString( library );
+            result := Concatenation( result,
+                "if ( !window.JUPVIZLibs[", libName, "] ) {\n",
+                LoadJavaScriptFile( library ), "\n",
+                "    window.JUPVIZLibs[", libName, "] = 'loaded';\n",
+                "}\n"
+            );
+        od;
+        return RunJavaScript( Concatenation( result, jsCode ) );
+    fi;
 end );
 
 
