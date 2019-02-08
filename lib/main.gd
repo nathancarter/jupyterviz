@@ -376,7 +376,7 @@ DeclareGlobalVariable( "PlotDisplayMethod_HTML" );
 
 #! @Section Low-Level Public API
 
-#! @Arguments script
+#! @Arguments script[,returnHTML]
 #! @Returns one of two things, documented below
 #! @Description
 #!  If run in a Jupyter Notebook, this function returns an object that, when
@@ -389,6 +389,11 @@ DeclareGlobalVariable( "PlotDisplayMethod_HTML" );
 #!  script tools.  It then opens the page in the system default web browser
 #!  (thus running the script) and returns the path to the temporary file in
 #!  which the script is stored.
+#!  <P/>
+#!  In this second case only, the optional second parameter (which defaults
+#!  to false) can be set to true if the caller does not wish the function to
+#!  open a web browser, but just wants the HTML content that would have been
+#!  displayed in such a browser returned as a string instead.
 #!  <P/>
 #!  When the given code is run, the varible <Code>element</Code> will be
 #!  defined in its environment, and will contain either the output element
@@ -567,13 +572,14 @@ DeclareGlobalVariable( "JUPVIZLoadedJavaScriptCache" );
 #!  the template.
 DeclareGlobalFunction( "JUPVIZFillInJavaScriptTemplate" );
 
-#! @Arguments filename, dictionary
+#! @Arguments filename, dictionary[, returnHTML]
 #! @Returns the composition of <Ref Func="RunJavaScript"/> with <Ref Func="JUPVIZFillInJavaScriptTemplate"/>
 #! @Description
-#!  This function is quite simple, and is just a convenience function
+#!  This function is quite simple, and is just a convenience function.
+#!  The optional third argument is passed on to RunJavaScript internally.
 DeclareGlobalFunction( "JUPVIZRunJavaScriptFromTemplate" );
 
-#! @Arguments jsCode
+#! @Arguments jsCode[, returnHTML]
 #! @Returns an object that, if rendered in a Jupyter notebook, will run <Arg>jsCode</Arg> as JavaScript after <Code>runGAP</Code> has been defined
 #! @Description
 #!  There is a JavaScript function called <Code>runGAP</Code>, defined in
@@ -585,11 +591,13 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptFromTemplate" );
 #!  notebook, so that <Arg>jsCode</Arg> can call <Code>runGAP</Code> as
 #!  needed.
 #!  <P/>
+#!  The optional third argument is passed on to RunJavaScript internally.
+#!  <P/>
 #!  An example use, from JavaScript, of the <Code>runGAP</Code> function
 #!  appears at the end of Section <Ref Sect="Section_plainhtml"/>.
 DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingRunGAP" );
 
-#! @Arguments libraries, jsCode
+#! @Arguments libraries, jsCode[, returnHTML]
 #! @Returns one of two things, documented below
 #! @Description
 #!  If run in a Jupyter Notebook, this function returns an object that, when
@@ -612,6 +620,8 @@ DeclareGlobalFunction( "JUPVIZRunJavaScriptUsingRunGAP" );
 #!  <P/>
 #!  If the first parameter is given as a string instead of a list of
 #!  strings, it is treated as a list of just one string.
+#!  <P/>
+#!  The optional third argument is passed on to RunJavaScript internally.
 #! @BeginLog
 #! JUPVIZRunJavaScriptUsingLibraries( [ "mylib.js" ],
 #!     "alert( 'My Lib defines foo to be: ' + window.foo );" );

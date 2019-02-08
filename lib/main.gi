@@ -25,11 +25,7 @@ else
 fi;
 
 
-##  The output element in the notebook will be passed called "element" in
-##  the script's environment, which we capture with the closure wrapper
-##  below, so that any callbacks or asynchronous code can rely on its having
-##  that name indefinitely.
-InstallGlobalFunction( RunJavaScript, function ( script )
+InstallGlobalFunction( RunJavaScript, function ( script, returnHTML... )
     local html, filename, file;
     if PlotDisplayMethod = PlotDisplayMethod_HTML then
         html := Concatenation(
@@ -45,6 +41,9 @@ InstallGlobalFunction( RunJavaScript, function ( script )
             "  </script>\n",
             "</html>"
         );
+        if Length( returnHTML ) > 0 and returnHTML[1] = true then
+            return html;
+        fi;
         filename := Filename( DirectoryTemporary(), "visulization.html" );
         file := OutputTextFile( filename, false );
         SetPrintFormattingStatus( file, false );
@@ -59,9 +58,13 @@ InstallGlobalFunction( RunJavaScript, function ( script )
         fi;
         return Concatenation( "Displaying result stored in ", filename, "." );
     else
-        # Here we use ValueGlobal to suppress the warning that ensues if
-        # you directly use JupyterRenderable as a global variable that
-        # is sometimes not defined when this package is loaded.
+        # The output element in the notebook will be passed called "element" in
+        # the script's environment, which we capture with the closure wrapper
+        # below, so that any callbacks or asynchronous code can rely on its having
+        # that name indefinitely.
+        # We use ValueGlobal to suppress the warning that ensues if you directly
+        # use JupyterRenderable as a global variable that is sometimes not
+        # defined when this package is loaded.
         return ValueGlobal( "JupyterRenderable" )( rec(
             application\/javascript := Concatenation(
                 # use newlines to prevent // comments from harming code
@@ -172,20 +175,23 @@ end );
 
 
 InstallGlobalFunction( JUPVIZRunJavaScriptFromTemplate,
-function ( filename, dictionary )
-    return RunJavaScript(
-        JUPVIZFillInJavaScriptTemplate( filename, dictionary ) );
+function ( filename, dictionary, returnHTML... )
+    return CallFuncList( RunJavaScript, Concatenation(
+        [ JUPVIZFillInJavaScriptTemplate( filename, dictionary ) ],
+        returnHTML ) );
 end );
 
 
-InstallGlobalFunction( JUPVIZRunJavaScriptUsingRunGAP, function ( jsCode )
-    return JUPVIZRunJavaScriptFromTemplate( "using-runGAP",
-        rec( runThis := jsCode ) );
+InstallGlobalFunction( JUPVIZRunJavaScriptUsingRunGAP,
+function ( jsCode, returnHTML... )
+    return CallFuncList( JUPVIZRunJavaScriptFromTemplate,
+        Concatenation( [ "using-runGAP", rec( runThis := jsCode ) ],
+            returnHTML ) );
 end );
 
 
 InstallGlobalFunction( JUPVIZRunJavaScriptUsingLibraries,
-function ( libraries, jsCode )
+function ( libraries, jsCode, returnHTML... )
     local result, library, libName;
     if IsString( libraries ) then
         libraries := [ libraries ];
@@ -197,8 +203,9 @@ function ( libraries, jsCode )
                 rec( library := GapToJsonString( library ),
                      runThis := result ) );
         od;
-        return JUPVIZRunJavaScriptFromTemplate( "using-runGAP",
-            rec( runThis := result ) );
+        return CallFuncList( JUPVIZRunJavaScriptFromTemplate,
+            Concatenation( [ "using-runGAP", rec( runThis := result ) ],
+                returnHTML ) );
     else
         result := "if ( !window.JUPVIZLibs ) window.JUPVIZLibs = { };\n";
         for library in libraries do
@@ -210,7 +217,8 @@ function ( libraries, jsCode )
                 "}\n"
             );
         od;
-        return RunJavaScript( Concatenation( result, jsCode ) );
+        return CallFuncList( RunJavaScript, Concatenation(
+            [ Concatenation( result, jsCode ) ], returnHTML ) );
     fi;
 end );
 
