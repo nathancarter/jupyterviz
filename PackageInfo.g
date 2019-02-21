@@ -27,7 +27,7 @@ SetPackageInfo( rec(
 #########
 
 PackageName := "JupyterViz",
-Subtitle    := "Jupyter Notebook Visualization Tools",
+Subtitle    := "Visualization Tools for Jupyter and the GAP REPL",
 Version     := "1.4.0",
 Date        := "20/02/2019", # Release date of current version, dd/mm/yyyy
 
@@ -59,7 +59,7 @@ Status := "dev",
 # AcceptDate := "mm/yyyy",
 
 Keywords := [
-  "Jupyter Notebook", "visualization", "graph", "plot", "chart", "JavaScript"
+  "Jupyter Notebook", "visualization", "graph", "plot", "chart", "HTML", "JavaScript"
 ],
 
 Dependencies := rec(
@@ -143,10 +143,9 @@ Persons := [
 # utilities.",
 AbstractHTML :=
   "The <span class=\"pkgname\">JupyterViz</span> package \
-   is intended for use in Jupyter Notebooks running \
-   <span class=\"pkgname\">GAP</span> kernels.  \
-   It adds visualization tools for use in such notebooks, such as \
-   charts and graphs.",
+   adds visualization tools for use in Jupyter Notebooks \
+   or from the GAP REPL.  Those tools can be used to make \
+   charts, graphs, and arbitrary other visualizations.",
 
 PackageDoc := rec(
   BookName  := "JupyterViz",
@@ -154,7 +153,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Jupyter Notebook Visualization tools for GAP",
+  LongTitle := "Visualization Tools for Jupyter and the GAP REPL",
 ),
 
 
