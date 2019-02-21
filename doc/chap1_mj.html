@@ -41,7 +41,7 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X856998F578ABF3A1">1.3 <span class="Heading">The high-level API and the low-level API</span></a>
 </span>
 </div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X80DC99A778923B3D">1.4 <span class="Heading">Loading the package into a Jupyter notebook</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap1_mj.html#X7FA0757281D33109">1.4 <span class="Heading">Loading the package (in Jupyter or otherwise)</span></a>
 </span>
 </div>
 </div>
@@ -54,11 +54,11 @@
 
 <p>Since 2017, it has been possible to use <strong class="pkg">GAP</strong> in <span class="URL"><a href="http://jupyter.org/">Jupyter</a></span> through the <strong class="pkg">JupyterKernel</strong> package. Output was limited to the ordinary text output <strong class="pkg">GAP</strong> produces; charts and graphs were not possible.</p>
 
-<p>In 2018, Martins and Pfeiffer released <strong class="pkg">francy</strong> (<span class="URL"><a href="https://github.com/mcmartins/francy">repository</a></span>, <span class="URL"><a href="https://arxiv.org/abs/1806.08648">article</a></span>), which lets users create graphs of a few types (vertices and edges, line chart, bar chart, scatter chart). It also allows the user to attach actions to the elements of these charts, which result in callbacks to <strong class="pkg">GAP</strong> that can update the visualization.</p>
+<p>In 2018, Martins and Pfeiffer released <strong class="pkg">francy</strong> (<span class="URL"><a href="https://github.com/mcmartins/francy">repository</a></span>, <span class="URL"><a href="https://arxiv.org/abs/1806.08648">article</a></span>), which lets users create graphs of a few types (vertices and edges, line chart, bar chart, scatter chart) in a Jupyter notebook. It also allows the user to attach actions to the elements of these charts, which result in callbacks to <strong class="pkg">GAP</strong> that can update the visualization.</p>
 
-<p>This package aims to make a wider variety of visualizations accessible to <strong class="pkg">GAP</strong> users, but does not provide tools for conveniently making such visualizations interactive. Where the <strong class="pkg">francy</strong> package excels at interactive visualizations, this package instead gives a broader scope of visualization tools.</p>
+<p>This visualization package has different aims in three ways. First, it can function either in a Jupyter notebook or directly from the <strong class="pkg">GAP</strong> REPL on the command line. Second, it aims to make a wider variety of visualizations accessible to <strong class="pkg">GAP</strong> users. Third, it does not provide tools for conveniently making such visualizations interactive. Where the <strong class="pkg">francy</strong> package excels at interactive visualizations, this package instead gives a broader scope of visualization tools and does not require Jupyter.</p>
 
-<p>This is achieved by importing several existing JavaScript visualization toolkits and exposing them to <strong class="pkg">GAP</strong> code, as described later in this manual.</p>
+<p>These goals are achieved by importing several existing JavaScript visualization toolkits and exposing them to <strong class="pkg">GAP</strong> code, as described later in this manual.</p>
 
 <p><a id="X8376A2517DEBB867" name="X8376A2517DEBB867"></a></p>
 
@@ -66,7 +66,7 @@
 
 <p>There is an unfortunate ambiguity about the word "graph" in mathematics. It is used to mean both "the graph of a function drawn on coordinate axes" and "a collection of vertices with edges connecting them." This is particularly troublesome in a package like this one, where we will provide tools for drawing both of these things! Consequently, we remove the ambiguity as follows.</p>
 
-<p>We will say *charts and plots* to refer to the first concept (lines, curves, bars, dots, etc. on coordinate axes) and *graphs* (or sometimes *graph drawing*) to refer only to the second concept (vertices and edges). This convention holds throughout this entire document.</p>
+<p>We will say "charts and plots" to refer to the first concept (lines, curves, bars, dots, etc. on coordinate axes) and "graphs" (or sometimes "graph drawing") to refer only to the second concept (vertices and edges). This convention holds throughout this entire document.</p>
 
 <p><table align="center" border=0><tr><td><img height="200" src="squared-ints.png"/></td><td><img height="200" src="random-graph-10.png"/></td></tr><tr><td>A plot or chart</td><td>A graph</td></tr></table></p>
 
@@ -127,11 +127,11 @@
 
 <p>More conveniently, a high-level API gives two functions, one for creating plots and charts (<code class="func">Plot</code> (<a href="chap7_mj.html#X811D60857B0B2B68"><span class="RefLink">7.1-1</span></a>)) and one for creating graphs (<code class="func">PlotGraph</code> (<a href="chap7_mj.html#X79FCD4E67FF49A5F"><span class="RefLink">7.1-3</span></a>)). The high-level API should handle the vast majority of use cases, but if an option you need is not supported by it, there is still the low-level API on which you can fall back.</p>
 
-<p><a id="X80DC99A778923B3D" name="X80DC99A778923B3D"></a></p>
+<p><a id="X7FA0757281D33109" name="X7FA0757281D33109"></a></p>
 
-<h4>1.4 <span class="Heading">Loading the package into a Jupyter notebook</span></h4>
+<h4>1.4 <span class="Heading">Loading the package (in Jupyter or otherwise)</span></h4>
 
-<p>To import the package into a Jupyter notebook, do so just as with any other <strong class="pkg">GAP</strong> package: Ensure that the kernel of the notebook is a <strong class="pkg">GAP</strong> kernel, then execute the following code in one of the notebook cells.</p>
+<p>To import this package, use the following <strong class="pkg">GAP</strong> command from the command line or from a cell in a Jupyter notebook running a <strong class="pkg">GAP</strong> kernel.</p>
 
 
 <div class="example"><pre>

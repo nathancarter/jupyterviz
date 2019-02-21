@@ -27,16 +27,16 @@ SetPackageInfo( rec(
 #########
 
 PackageName := "JupyterViz",
-Subtitle    := "Jupyter Notebook Visualization Tools",
-Version     := "1.3.0",
-Date        := "03/12/2018", # Release date of current version, dd/mm/yyyy
+Subtitle    := "Visualization Tools for Jupyter and the GAP REPL",
+Version     := "1.4.0",
+Date        := "21/02/2019", # Release date of current version, dd/mm/yyyy
 
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "1.3.0">
-##  <!ENTITY RELEASEDATE "03 December 2018">
+##  <!ENTITY VERSION "1.4.0">
+##  <!ENTITY RELEASEDATE "21 February 2019">
 ##  <#/GAPDoc>
 
 
@@ -59,13 +59,12 @@ Status := "dev",
 # AcceptDate := "mm/yyyy",
 
 Keywords := [
-  "Jupyter Notebook", "visualization", "graph", "plot", "chart", "JavaScript"
+  "Jupyter Notebook", "visualization", "graph", "plot", "chart", "HTML", "JavaScript"
 ],
 
 Dependencies := rec(
   GAP := ">= 4.9",
   NeededOtherPackages := [
-    [ "JupyterKernel", "0.99999" ],
     [ "json",          "2.0.0"   ],
     [ "GAPDoc",        "1.3"     ]
   ],
@@ -144,10 +143,9 @@ Persons := [
 # utilities.",
 AbstractHTML :=
   "The <span class=\"pkgname\">JupyterViz</span> package \
-   is intended for use in Jupyter Notebooks running \
-   <span class=\"pkgname\">GAP</span> kernels.  \
-   It adds visualization tools for use in such notebooks, such as \
-   charts and graphs.",
+   adds visualization tools for use in Jupyter Notebooks \
+   or from the GAP REPL.  Those tools can be used to make \
+   charts, graphs, and arbitrary other visualizations.",
 
 PackageDoc := rec(
   BookName  := "JupyterViz",
@@ -155,7 +153,7 @@ PackageDoc := rec(
   HTMLStart := "doc/chap0.html",
   PDFFile   := "doc/manual.pdf",
   SixFile   := "doc/manual.six",
-  LongTitle := "Jupyter Notebook Visualization tools for GAP",
+  LongTitle := "Visualization Tools for Jupyter and the GAP REPL",
 ),
 
 

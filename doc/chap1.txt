@@ -11,18 +11,22 @@
   [33X[0;0YIn    2018,    Martins    and    Pfeiffer    released   [5Xfrancy[105X   (repository
   ([7Xhttps://github.com/mcmartins/francy[107X),                               article
   ([7Xhttps://arxiv.org/abs/1806.08648[107X)), which lets users create graphs of a few
-  types  (vertices  and  edges, line chart, bar chart, scatter chart). It also
-  allows  the  user  to  attach actions to the elements of these charts, which
-  result in callbacks to [5XGAP[105X that can update the visualization.[133X
+  types  (vertices  and  edges,  line  chart,  bar  chart, scatter chart) in a
+  Jupyter  notebook. It also allows the user to attach actions to the elements
+  of  these  charts,  which  result  in  callbacks  to [5XGAP[105X that can update the
+  visualization.[133X
   
-  [33X[0;0YThis  package  aims  to make a wider variety of visualizations accessible to
-  [5XGAP[105X  users,  but  does  not  provide  tools  for  conveniently  making  such
-  visualizations  interactive.  Where the [5Xfrancy[105X package excels at interactive
-  visualizations,  this package instead gives a broader scope of visualization
-  tools.[133X
+  [33X[0;0YThis  visualization  package has different aims in three ways. First, it can
+  function  either  in a Jupyter notebook or directly from the [5XGAP[105X REPL on the
+  command  line.  Second,  it  aims  to make a wider variety of visualizations
+  accessible  to  [5XGAP[105X users. Third, it does not provide tools for conveniently
+  making  such  visualizations interactive. Where the [5Xfrancy[105X package excels at
+  interactive  visualizations,  this  package instead gives a broader scope of
+  visualization tools and does not require Jupyter.[133X
   
-  [33X[0;0YThis  is  achieved  by  importing  several existing JavaScript visualization
-  toolkits and exposing them to [5XGAP[105X code, as described later in this manual.[133X
+  [33X[0;0YThese   goals   are   achieved  by  importing  several  existing  JavaScript
+  visualization  toolkits and exposing them to [5XGAP[105X code, as described later in
+  this manual.[133X
   
   
   [1X1.2 [33X[0;0YTerminology (What is a Graph?)[133X[101X
@@ -34,9 +38,9 @@
   drawing  both  of  these  things!  Consequently,  we remove the ambiguity as
   follows.[133X
   
-  [33X[0;0YWe will say *charts and plots* to refer to the first concept (lines, curves,
-  bars,  dots,  etc.  on  coordinate  axes)  and *graphs* (or sometimes *graph
-  drawing*)  to  refer  only  to the second concept (vertices and edges). This
+  [33X[0;0YWe will say "charts and plots" to refer to the first concept (lines, curves,
+  bars,  dots,  etc.  on  coordinate  axes)  and "graphs" (or sometimes "graph
+  drawing")  to  refer  only  to the second concept (vertices and edges). This
   convention holds throughout this entire document.[133X
   
   [33X[0;0YResulting images not shown here.[133X
@@ -88,11 +92,10 @@
   low-level API on which you can fall back.[133X
   
   
-  [1X1.4 [33X[0;0YLoading the package into a Jupyter notebook[133X[101X
+  [1X1.4 [33X[0;0YLoading the package (in Jupyter or otherwise)[133X[101X
   
-  [33X[0;0YTo  import the package into a Jupyter notebook, do so just as with any other
-  [5XGAP[105X  package:  Ensure  that the kernel of the notebook is a [5XGAP[105X kernel, then
-  execute the following code in one of the notebook cells.[133X
+  [33X[0;0YTo  import this package, use the following [5XGAP[105X command from the command line
+  or from a cell in a Jupyter notebook running a [5XGAP[105X kernel.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28XLoadPackage( "jupyterviz" );[128X[104X

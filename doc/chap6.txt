@@ -1,8 +1,8 @@
   
   [1X6 [33X[0;0YLimitations[133X[101X
   
-  [33X[0;0YThe  functions in this package depend upon being evaluated in a live Jupyter
-  Notebook. This brings up a few limitations:[133X
+  [33X[0;0YWhen  this package is being used in a Jupyter Notebook, it has the following
+  limitations.[133X
   
   [30X    [33X[0;6YIf a notebook with visualizations created by this package is saved and
         later  reloaded,  the  visualizations  will  not persist. They will be
@@ -17,4 +17,19 @@
   
   [30X    [33X[0;6YSince  most  visualizations load a JavaScript library from a CDN, they
         require a working Internet connection to function.[133X
+  
+  [33X[0;0YWhen  it  is  being  used  from  the  command  line,  it  has  the following
+  limitations.[133X
+  
+  [30X    [33X[0;6YThe  JavaScript  function  [10XrunGAP[110X  introduced  in  Section  [14X4.3[114X is not
+        available.  That  function depends upon the ability to ask the Jupyter
+        Kernel to run [5XGAP[105X code, and thus when there is no Jupyter Kernel, that
+        function cannot work.[133X
+  
+  [30X    [33X[0;6YEach    new    call   to   [2XPlot[102X   ([14X7.1-1[114X),   [2XPlotGraph[102X   ([14X7.1-3[114X),   or
+        [2XCreateVisualization[102X  ([14X7.2-5[114X) will be stored in a new temporary file on
+        the  user's  filesystem  and  thus shown in a new tab or window in the
+        user's  browser.  That  is,  one does not iteratively improve a single
+        visualization,  but  is  forced  to  open a new window or tab for each
+        call.[133X
   

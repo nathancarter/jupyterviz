@@ -35,9 +35,10 @@
   
   [33X[0;0YThis  holds for any visualization tool, not just AnyChart. In the code given
   in the second parameter, two variables will be defined for your use: [10Xelement[110X
-  refers  to  the output cell element in the notebook and [10Xvisualization[110X refers
-  to  the  visualization that the toolkit you chose created within that output
-  cell (also an HTML element).[133X
+  refers  to  the HTML element inside of which the visualization was built and
+  [10Xvisualization[110X  refers  to  the  HTML element of the visualization itself, as
+  produced  by the toolkit you chose. When used in a Jupyter Notebook, [10Xelement[110X
+  is the output cell itself.[133X
   
   [33X[0;0YNow   that  we  know  that  we  can  run  arbitrary  JavaScript  code  on  a
   visualization  once  it's  been  produced,  we  can call [2XCreateVisualization[102X
@@ -62,6 +63,7 @@
     [4X[28X    // visualization is the canvas element[128X[104X
     [4X[28X    var context = visualization.getContext( '2d' );[128X[104X
     [4X[28X    // draw an X[128X[104X
+    [4X[28X    context.beginPath();[128X[104X
     [4X[28X    context.moveTo( 0, 0 );[128X[104X
     [4X[28X    context.lineTo( 100, 100 );[128X[104X
     [4X[28X    context.moveTo( 100, 0 );[128X[104X
@@ -99,10 +101,10 @@
     [4X[28X);[128X[104X
   [4X[32X[104X
   
-  [33X[0;0YWhen  writing  such  JavaScript  code, note that you have access to a useful
-  function   that  this  package  has  installed,  [10XrunGAP[110X.  Its  signature  is
-  [10XrunGAP(stringToEvaluate,callback)[110X and the following code shows an example of
-  how you could call it from JavaScript in the notebook.[133X
+  [33X[0;0YWhen writing such JavaScript code, note that the Jupyter Notebook has access
+  to  a useful function that this package has installed, [10XrunGAP[110X. Its signature
+  is [10XrunGAP(stringToEvaluate,callback)[110X and the following code shows an example
+  of how you could call it from JavaScript in the notebook.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28XrunGAP( "2^100;", function ( result, error ) {[128X[104X
@@ -112,6 +114,9 @@
     [4X[28X        alert( "GAP gave this error: " + error );[128X[104X
     [4X[28X} );[128X[104X
   [4X[32X[104X
+  
+  [33X[0;0YThis  function is not available if running this package outside of a Jupyter
+  Notebook.[133X
   
   
   [1X4.3-3 [33X[0;0YExample: D3[133X[101X

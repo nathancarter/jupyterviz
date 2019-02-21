@@ -29,7 +29,7 @@
 
 <h3>6 <span class="Heading">Limitations</span></h3>
 
-<p>The functions in this package depend upon being evaluated in a live Jupyter Notebook. This brings up a few limitations:</p>
+<p>When this package is being used in a Jupyter Notebook, it has the following limitations.</p>
 
 
 <ul>
@@ -40,6 +40,17 @@
 
 </li>
 <li><p>Since most visualizations load a JavaScript library from a CDN, they require a working Internet connection to function.</p>
+
+</li>
+</ul>
+<p>When it is being used from the command line, it has the following limitations.</p>
+
+
+<ul>
+<li><p>The JavaScript function <code class="code">runGAP</code> introduced in Section <a href="chap4_mj.html#X85EA7D2579837F4D"><span class="RefLink">4.3</span></a> is not available. That function depends upon the ability to ask the Jupyter Kernel to run <strong class="pkg">GAP</strong> code, and thus when there is no Jupyter Kernel, that function cannot work.</p>
+
+</li>
+<li><p>Each new call to <code class="func">Plot</code> (<a href="chap7_mj.html#X811D60857B0B2B68"><span class="RefLink">7.1-1</span></a>), <code class="func">PlotGraph</code> (<a href="chap7_mj.html#X79FCD4E67FF49A5F"><span class="RefLink">7.1-3</span></a>), or <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) will be stored in a new temporary file on the user's filesystem and thus shown in a new tab or window in the user's browser. That is, one does not iteratively improve a single visualization, but is forced to open a new window or tab for each call.</p>
 
 </li>
 </ul>

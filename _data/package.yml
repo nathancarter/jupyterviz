@@ -1,8 +1,8 @@
 name: JupyterViz
-version: 1.3.0
-date: 2018-12-03
+version: 1.4.0
+date: 2019-02-21
 description: |
-    Jupyter Notebook Visualization Tools
+    Visualization Tools for Jupyter and the GAP REPL
 
 authors:
     - name: Nathan Carter
@@ -15,9 +15,6 @@ maintainers:
 GAP: ">= 4.9"
 
 needed-pkgs:
-    - name: "JupyterKernel"
-      version: "0.99999"
-      url: "http://gap-packages.github.io/JupyterKernel/"
     - name: "json"
       version: "2.0.0"
       url: "https://gap-packages.github.io/json/"
@@ -31,40 +28,40 @@ packageinfo: https://nathancarter.github.io/jupyterviz/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/nathancarter/jupyterviz/releases/download/v1.3.0/jupyterviz-1.3.0.tar.gz
+      url: https://github.com/nathancarter/jupyterviz/releases/download/v1.4.0/jupyterviz-1.4.0.tar.gz
 
 abstract: |
-    The <span class="pkgname">JupyterViz</span> package    is intended for use in Jupyter Notebooks running    <span class="pkgname">GAP</span> kernels.     It adds visualization tools for use in such notebooks, such as    charts and graphs.
+    The <span class="pkgname">JupyterViz</span> package    adds visualization tools for use in Jupyter Notebooks    or from the GAP REPL.  Those tools can be used to make    charts, graphs, and arbitrary other visualizations.
 
 status: dev
 doc-html: doc/chap0.html
 doc-pdf: doc/manual.pdf
 keywords: |
-    Jupyter Notebook, visualization, graph, plot, chart, JavaScript.
+    Jupyter Notebook, visualization, graph, plot, chart, HTML, JavaScript.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>Car18</span>]   <b class='BibAuthor'>Carter, N.</b>,
-     <i class='BibTitle'>JupyterViz, Jupyter Notebook Visualization Tools,
-             Version 1.3.0</i>
-     (<span class='BibYear'>2018</span>)<br />
+    [<span class='BibKey'>Car19</span>]   <b class='BibAuthor'>Carter, N.</b>,
+     <i class='BibTitle'>JupyterViz, Visualization Tools for Jupyter and the GAP REPL,
+             Version 1.4.0</i>
+     (<span class='BibYear'>2019</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://nathancarter.github.io/jupyterviz">https://nathancarter.github.io/jupyterviz</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ JupyterViz1.3.0,
+    @misc{ JupyterViz1.4.0,
       author =           {Carter, N.},
-      title =            {{JupyterViz},  Jupyter  Notebook  Visualization Tools,
-                          {V}ersion 1.3.0},
-      month =            {Dec},
-      year =             {2018},
+      title =            {{JupyterViz},  Visualization Tools for Jupyter and the
+                          GAP REPL, {V}ersion 1.4.0},
+      month =            {Feb},
+      year =             {2019},
       note =             {GAP package},
       howpublished =     {\href      {https://nathancarter.github.io/jupyterviz}
                           {\texttt{https://nathancarter.github.io/}\discretionary
                           {}{}{}\texttt{jupyterviz}}},
       keywords =         {Jupyter  Notebook;  visualization; graph; plot; chart;
-                          JavaScript},
-      printedkey =       {Car18}
+                          HTML; JavaScript},
+      printedkey =       {Car19}
     }
 

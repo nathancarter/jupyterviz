@@ -32,6 +32,10 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X7B36451A873E06B2">7.1-2 ConvertDataSeriesForTool</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X79FCD4E67FF49A5F">7.1-3 PlotGraph</a></span>
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X80380CBB7E1FA082">7.1-4 ConvertGraphForTool</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X81D8CBD97B9677C0">7.1-5 PlotDisplayMethod</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X877563A087BAF265">7.1-6 PlotDisplayMethod_Jupyter</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X85332D257DD44070">7.1-7 PlotDisplayMethod_JupyterSimple</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap7_mj.html#X818039C5844E897B">7.1-8 PlotDisplayMethod_HTML</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap7_mj.html#X83E0040584EAF486">7.2 <span class="Heading">Low-Level Public API</span></a>
 </span>
@@ -79,9 +83,11 @@
 <h5>7.1-1 Plot</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; Plot</code>( <var class="Arg">various</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: an object that, if rendered in a Jupyter notebook, will produce a plot</p>
+<p>Returns: one of two things, documented below</p>
 
-<p>If evaluated in a Jupyter notebook, the result of this function, when rendered by that notebook, will run JavaScript code that generates and shows a plot, which could be any of a wide variety of data visualizations, including bar charts, pie charts, scatterplots, etc. (To draw a vertex-and-edge graph, see <code class="func">PlotGraph</code> (<a href="chap7_mj.html#X79FCD4E67FF49A5F"><span class="RefLink">7.1-3</span></a>) instead.)</p>
+<p>If evaluated in a Jupyter Notebook, the result of this function, when rendered by that notebook, will run JavaScript code that generates and shows a plot in the output cell, which could be any of a wide variety of data visualizations, including bar charts, pie charts, scatterplots, etc. (To draw a vertex-and-edge graph, see <code class="func">PlotGraph</code> (<a href="chap7_mj.html#X79FCD4E67FF49A5F"><span class="RefLink">7.1-3</span></a>) instead.)</p>
+
+<p>If evaluated outside of a Jupyter Notebook, the result of this function is the name of a temporary file stored on disk in which HTML code for such a visualization has been written, and on which <strong class="pkg">GAP</strong> has already invoked the user's default web browser. The user should see the visualization appear in the browser immediately before the return value is shown.</p>
 
 <p>This function can take data in a wide variety of input formats. Here is the current list of acceptable formats:</p>
 
@@ -99,13 +105,13 @@
 <li><p>If <code class="code">Y</code> is a list of <span class="SimpleMath">\(y\)</span> values then <code class="code">Plot(Y)</code> assumes the corresponding <span class="SimpleMath">\(x\)</span> values are 1, 2, 3, and so on up to the length of <code class="code">Y</code>. It then plots the corresponding set of ordered pairs.</p>
 
 </li>
-<li><p>If <code class="code">f</code> is a <strong class="pkg">GAP</strong> function then it is assumed to take integer inputs and is evaluated on a small domain (1 through 5) of <span class="SimpleMath">\(x\)</span> values and the resulting <span class="SimpleMath">\((x,y)\)</span> pairs are plotted.</p>
+<li><p>If <code class="code">f</code> is a <strong class="pkg">GAP</strong> function then <code class="code">Plot(f)</code> assumes that <code class="code">f</code> requiers integer inputs and evaluates it on a small domain (1 through 5) of <span class="SimpleMath">\(x\)</span> values and plots the resulting <span class="SimpleMath">\((x,y)\)</span> pairs.</p>
 
 </li>
-<li><p>In any of the cases above, a new, last argument may be added that is a <strong class="pkg">GAP</strong> record containing options for how to draw the plot, including the plot type, title, axes options, and more. (For details, see <code class="func">ConvertDataSeriesForTool</code> (<a href="chap7_mj.html#X7B36451A873E06B2"><span class="RefLink">7.1-2</span></a>).)</p>
+<li><p>In any of the cases above, a new, last argument may be added that is a <strong class="pkg">GAP</strong> record (call it <code class="code">R</code>) containing options for how to draw the plot, including the plot type, title, axes options, and more. Thus the forms <code class="code">Plot(X,Y,R)</code>, <code class="code">Plot(X,f,R)</code>, <code class="code">Plot(P,R)</code>, <code class="code">Plot(Y,R)</code>, and <code class="code">Plot(f,R)</code> are all acceptable. (For details, see <code class="func">ConvertDataSeriesForTool</code> (<a href="chap7_mj.html#X7B36451A873E06B2"><span class="RefLink">7.1-2</span></a>).)</p>
 
 </li>
-<li><p>If <code class="code">A1</code> is a list of arguments from any of the points just listed (for example, it might be <code class="code">[X,f]</code>) and so is <code class="code">A2</code>, and so on through <code class="code">An</code>, then <code class="code">Plot(A1,A2,...,An)</code> creates a combination plot with all of the data from each of the arguments treated as a separate data series. If the arguments contain conflicting plot options (e.g., the first requests a line plot and the second a bar chart) then the earliest option specified takes precedence.</p>
+<li><p>If <code class="code">A1</code> is a list of arguments fitting any of the cases documented above (such as <code class="code">[X,f]</code>) and <code class="code">A2</code> is as well, and so on through <code class="code">An</code>, then <code class="code">Plot(A1,A2,...,An)</code> creates a combination plot with all of the data from each of the arguments treated as a separate data series. If the arguments contain conflicting plot options (e.g., the first requests a line plot and the second a bar chart) then the earliest option specified takes precedence.</p>
 
 </li>
 </ul>
@@ -158,9 +164,11 @@ Plot( ["Jan","Feb","Mar"], [46,59,61],
 <h5>7.1-3 PlotGraph</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PlotGraph</code>( <var class="Arg">various</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: an object that, if rendered in a Jupyter notebook, will show a graph</p>
+<p>Returns: one of two things, documented below</p>
 
-<p>If evaluated in a Jupyter notebook, the result of this function, when rendered by that notebook, will run JavaScript code that generates and shows a graph, not in the sense of coordinate axes, but in the sense of vertices and edges. (To graph a function or data set on coordinate axes, use <code class="func">Plot</code> (<a href="chap7_mj.html#X811D60857B0B2B68"><span class="RefLink">7.1-1</span></a>) instead.)</p>
+<p>If evaluated in a Jupyter Notebook, the result of this function, when rendered by that notebook, will run JavaScript code that generates and shows a graph in the output cell, not in the sense of coordinate axes, but in the sense of vertices and edges. (To graph a function or data set on coordinate axes, use <code class="func">Plot</code> (<a href="chap7_mj.html#X811D60857B0B2B68"><span class="RefLink">7.1-1</span></a>) instead.)</p>
+
+<p>If evaluated outside of a Jupyter Notebook, the result of this function is the name of a temporary file stored on disk in which HTML code for such a visualization has been written, and on which <strong class="pkg">GAP</strong> has already invoked the user's default web browser. The user should see the visualization appear in the browser immediately before the return value is shown.</p>
 
 <p>This function can take data in a wide variety of input formats. Here is the current list of acceptable formats:</p>
 
@@ -169,7 +177,7 @@ Plot( ["Jan","Feb","Mar"], [46,59,61],
 <li><p>If <code class="code">V</code> is a list and <code class="code">E</code> is a list of pairs of items from <code class="code">V</code> then <code class="code">PlotGraph(V,E)</code> treats them as vertex and edge sets, respectively.</p>
 
 </li>
-<li><p>If <code class="code">V</code> is a list and <code class="code">R</code> is a <strong class="pkg">GAP</strong> function then <code class="code">PlotGraph(V,R)</code> treats <code class="code">V</code> as the vertex set and calls <code class="code">R(v1,v2)</code> for every pair of vertices (both forwards backwards) to test whether there is an edge between them. It exepcts <code class="code">R</code> to return boolean values.</p>
+<li><p>If <code class="code">V</code> is a list and <code class="code">R</code> is a <strong class="pkg">GAP</strong> function then <code class="code">PlotGraph(V,R)</code> treats <code class="code">V</code> as the vertex set and calls <code class="code">R(v1,v2)</code> for every pair of vertices (in both orders) to test whether there is an edge between them. It exepcts <code class="code">R</code> to return boolean values.</p>
 
 </li>
 <li><p>If <code class="code">E</code> is a list of pairs then <code class="code">PlotGraph(E)</code> treats <code class="code">E</code> as a list of edges, inferring the vertex set to be any vertex mentioned in any of the edges.</p>
@@ -227,6 +235,87 @@ PlotGraph( RandomMat(5,5) );
 
 <p>Those who wish to install new visualization tools for graphs (as discussed in Chapter <a href="chap5_mj.html#X81249ADA79916213"><span class="RefLink">5</span></a>) will want to install a new function in this object corresponding to the new tool. If you plan to do so, consider the source code for the existing conversion functions, which makes use of two useful convenince methods, <code class="func">JUPVIZFetchWithDefault</code> (<a href="chap7_mj.html#X784852877814711F"><span class="RefLink">7.3-12</span></a>) and <code class="func">JUPVIZFetchIfPresent</code> (<a href="chap7_mj.html#X856669217AADA94F"><span class="RefLink">7.3-13</span></a>). Following those examples will help keep your code consistent with existing code and as concise as possible.</p>
 
+<p><a id="X81D8CBD97B9677C0" name="X81D8CBD97B9677C0"></a></p>
+
+<h5>7.1-5 PlotDisplayMethod</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PlotDisplayMethod</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
+<p>The <strong class="pkg">JupyterViz</strong> Package can display visualizations in three different ways, and this global variable is used to switch among those ways.</p>
+
+
+<div class="example"><pre>
+PlotDisplayMethod := PlotDisplayMethod_HTML;
+</pre></div>
+
+<p>Users of this package almost never need to alter the value of this variable because a sensible default is chosen at package loading time. If the <strong class="pkg">JupyterViz</strong> Package is loaded after the <strong class="pkg">JupyterKernel</strong> Package, it notices the presence of that package and leverage its tools to set up support for plotting in a Jupyter environment. Furthermore, it will initialize <code class="func">PlotDisplayMethod</code> to <code class="func">PlotDisplayMethod_Jupyter</code> (<a href="chap7_mj.html#X877563A087BAF265"><span class="RefLink">7.1-6</span></a>), which is probably what the user wants. Note that if one calls <code class="code">LoadPackage("JupyterViz");</code> from a cell in a Jupyter notebook, this is the case that applies, because clearly in such a case, the <strong class="pkg">JupyterKernel</strong> Package was already loaded.</p>
+
+<p>If the <strong class="pkg">JupyterViz</strong> Package is loaded without the <strong class="pkg">JupyterKernel</strong> Package already loaded, then it will omit support for Jupyter, and will initialize <code class="func">PlotDisplayMethod</code> to <code class="func">PlotDisplayMethod_HTML</code> (<a href="chap7_mj.html#X818039C5844E897B"><span class="RefLink">7.1-8</span></a>), which is what the user probably wants if using <strong class="pkg">GAP</strong> from a terminal, for example. In that case, this package does not support later reassignment of <code class="func">PlotDisplayMethod</code> to any other value, because Jupyter support was not set up at package loading time.</p>
+
+<p>Thus if the user desires support for both Jupyter-based and HTML-based plotting, he or she should load the <strong class="pkg">JupyterKernel</strong> Package before the <strong class="pkg">JupyterViz</strong> Package. Then one can freely change the value of <code class="func">PlotDisplayMethod</code> to choose among any of the behaviors documented below.</p>
+
+<p><a id="X877563A087BAF265" name="X877563A087BAF265"></a></p>
+
+<h5>7.1-6 PlotDisplayMethod_Jupyter</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PlotDisplayMethod_Jupyter</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
+<p>This global constant can be assigned to the global variable <code class="func">PlotDisplayMethod</code> (<a href="chap7_mj.html#X81D8CBD97B9677C0"><span class="RefLink">7.1-5</span></a>) as documented above. Doing so produces the following results.</p>
+
+
+<ul>
+<li><p>Functions such as <code class="func">Plot</code> (<a href="chap7_mj.html#X811D60857B0B2B68"><span class="RefLink">7.1-1</span></a>), <code class="func">PlotGraph</code> (<a href="chap7_mj.html#X79FCD4E67FF49A5F"><span class="RefLink">7.1-3</span></a>), and <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) will return objects of type <code class="code">JupyterRenderable</code>, which is defined in the <strong class="pkg">JupyterKernel</strong> Package.</p>
+
+</li>
+<li><p>Such objects, when rendered in a Jupyter cell, will run a block of JavaScript contained within them, which will create the desired visualization.</p>
+
+</li>
+<li><p>Such scripts tend to request additional information from <strong class="pkg">GAP</strong> as they are running, by using calls to the JavaScript function <code class="code">Jupyter.kernel.execute</code> defined in the notebook. Such calls are typically to fetch JavaScript libraries needed to create the requested visualization.</p>
+
+</li>
+<li><p>Visualizations produced this way will not be visible if one later closes and then reopens the Jupyter notebook in which they are stored. To see the visualizations again, one must re-evaluate the cells that created them, so that the required libraries are re-fetched from the <strong class="pkg">GAP</strong> Jupyter kernel.</p>
+
+</li>
+</ul>
+<p><a id="X85332D257DD44070" name="X85332D257DD44070"></a></p>
+
+<h5>7.1-7 PlotDisplayMethod_JupyterSimple</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PlotDisplayMethod_JupyterSimple</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
+<p>This global constant can be assigned to the global variable <code class="func">PlotDisplayMethod</code> (<a href="chap7_mj.html#X81D8CBD97B9677C0"><span class="RefLink">7.1-5</span></a>) as documented above. Doing so produces the following results.</p>
+
+
+<ul>
+<li><p>Functions such as <code class="func">Plot</code> (<a href="chap7_mj.html#X811D60857B0B2B68"><span class="RefLink">7.1-1</span></a>), <code class="func">PlotGraph</code> (<a href="chap7_mj.html#X79FCD4E67FF49A5F"><span class="RefLink">7.1-3</span></a>), and <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) will return objects of type <code class="code">JupyterRenderable</code>, which is defined in the <strong class="pkg">JupyterKernel</strong> Package.</p>
+
+</li>
+<li><p>Such objects, when rendered in a Jupyter cell, will run a block of JavaScript contained within them, which will create the desired visualization.</p>
+
+</li>
+<li><p>Such scripts will be entirely self-contained, and thus will not make any additional requests from the <strong class="pkg">GAP</strong> Jupyter kernel. This makes such objects larger because they must contain all the required JavaScript visualization libraries, rather than being able to request them as needed later.</p>
+
+</li>
+<li><p>Visualizations produced this way will be visible even if one later closes and then reopens the Jupyter notebook in which they are stored, because all the code needed to create them is included in the output cell itself, and is re-run upon re-opening the notebook.</p>
+
+</li>
+</ul>
+<p><a id="X818039C5844E897B" name="X818039C5844E897B"></a></p>
+
+<h5>7.1-8 PlotDisplayMethod_HTML</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; PlotDisplayMethod_HTML</code></td><td class="tdright">(&nbsp;global variable&nbsp;)</td></tr></table></div>
+<p>This global constant can be assigned to the global variable <code class="func">PlotDisplayMethod</code> (<a href="chap7_mj.html#X81D8CBD97B9677C0"><span class="RefLink">7.1-5</span></a>) as documented above. Doing so produces the following results.</p>
+
+
+<ul>
+<li><p>Functions such as <code class="func">Plot</code> (<a href="chap7_mj.html#X811D60857B0B2B68"><span class="RefLink">7.1-1</span></a>), <code class="func">PlotGraph</code> (<a href="chap7_mj.html#X79FCD4E67FF49A5F"><span class="RefLink">7.1-3</span></a>), and <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) will return no value, but will instead store HTML (and JavaScript) code for the visualization in a temporary file on the filesystem, then launch the operating system's default web browser to view that file.</p>
+
+</li>
+<li><p>Such files are entirely self-contained, and require no <strong class="pkg">GAP</strong> session to be running to continue viewing them. They can be saved anywhere the user likes for later viewing, printing, or sharing without <strong class="pkg">GAP</strong>.</p>
+
+</li>
+<li><p>Visualizations produced this way will not be visible if one later closes and then reopens the Jupyter notebook in which they are stored. To see the visualizations again, one must re-evaluate the cells that created them, so that the required libraries are re-fetched from the <strong class="pkg">GAP</strong> Jupyter kernel.</p>
+
+</li>
+</ul>
 <p><a id="X83E0040584EAF486" name="X83E0040584EAF486"></a></p>
 
 <h4>7.2 <span class="Heading">Low-Level Public API</span></h4>
@@ -235,14 +324,16 @@ PlotGraph( RandomMat(5,5) );
 
 <h5>7.2-1 RunJavaScript</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RunJavaScript</code>( <var class="Arg">script</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: an object that, if rendered in a Jupyter notebook, will run <var class="Arg">script</var> as JavaScript</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; RunJavaScript</code>( <var class="Arg">script</var>[, <var class="Arg">returnHTML</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: one of two things, documented below</p>
 
-<p>If evaluated in a Jupyter notebook, its result, when rendered by that notebook, will run the JavaScript code in <var class="Arg">script</var>.</p>
+<p>If run in a Jupyter Notebook, this function returns an object that, when rendered by that notebook, will run the JavaScript code given in <var class="Arg">script</var>.</p>
 
-<p>When the given code is run, the varible <code class="code">element</code> will be defined in its environment, and will contain the output element in the Jupyter notebook corresponding to the code that was just evaluated. The script is free to write to that output element.</p>
+<p>If run outside of a Jupyter Notebook, this function creates an HTML page containing the given <var class="Arg">script</var>, an HTML element on which that script can act, and the RequireJS library for importing other script tools. It then opens the page in the system default web browser (thus running the script) and returns the path to the temporary file in which the script is stored.</p>
 
-<p>This function is not intended for use in the <strong class="pkg">GAP</strong> REPL.</p>
+<p>In this second case only, the optional second parameter (which defaults to false) can be set to true if the caller does not wish the function to open a web browser, but just wants the HTML content that would have been displayed in such a browser returned as a string instead.</p>
+
+<p>When the given code is run, the varible <code class="code">element</code> will be defined in its environment, and will contain either the output element in the Jupyter notebook corresponding to the code that was just evaluated or, in the case outside of Jupyter, the HTML element mentioned above. The script is free to write to that element in both cases.</p>
 
 <p><a id="X81E2B3A07EA7A02B" name="X81E2B3A07EA7A02B"></a></p>
 
@@ -290,9 +381,11 @@ PlotGraph( RandomMat(5,5) );
 <h5>7.2-5 CreateVisualization</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CreateVisualization</code>( <var class="Arg">data</var>[, <var class="Arg">code</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: an object that, if rendered in a Jupyter notebook, will run a script to create the desired visualization</p>
+<p>Returns: one of two things, documented below</p>
 
-<p>The <var class="Arg">data</var> must be a record that will be converted to JSON using <strong class="pkg">GAP</strong>'s <strong class="pkg">json</strong> package.</p>
+<p>If run in a Jupyter Notebook, this function returns an object that, when rendered by that notebook, will produce the visualization specified by <var class="Arg">data</var> in the corresponding output cell, and will also run any given <var class="Arg">code</var> on that visulization.</p>
+
+<p>If run outside of a Jupyter Notebook, this function creates an HTML page containing the visualization specified by <var class="Arg">data</var> and then opens the page in the system default web browser. It will also run any given <var class="Arg">code</var> as soon as the page opens. The <var class="Arg">data</var> must be a record that will be converted to JSON using <strong class="pkg">GAP</strong>'s <strong class="pkg">json</strong> package.</p>
 
 <p>The second argument is optional, a string containing JavaScript <var class="Arg">code</var> to run once the visualization has been created. When that code is run, the variables <code class="code">element</code> and <code class="code">visualization</code> will be in its environment, the former holding the output element in the notebook containing the visualization, and the latter holding the visualization element itself.</p>
 
@@ -366,19 +459,21 @@ CreateVisualization( rec(
 
 <h5>7.3-4 JUPVIZRunJavaScriptFromTemplate</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JUPVIZRunJavaScriptFromTemplate</code>( <var class="Arg">filename</var>, <var class="Arg">dictionary</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JUPVIZRunJavaScriptFromTemplate</code>( <var class="Arg">filename</var>, <var class="Arg">dictionary</var>[, <var class="Arg">returnHTML</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: the composition of <code class="func">RunJavaScript</code> (<a href="chap7_mj.html#X78BDA43D7E633E33"><span class="RefLink">7.2-1</span></a>) with <code class="func">JUPVIZFillInJavaScriptTemplate</code> (<a href="chap7_mj.html#X84F0A3C97FBC57EE"><span class="RefLink">7.3-3</span></a>)</p>
 
-<p>This function is quite simple, and is just a convenience function</p>
+<p>This function is quite simple, and is just a convenience function. The optional third argument is passed on to RunJavaScript internally.</p>
 
 <p><a id="X804379D07F29E905" name="X804379D07F29E905"></a></p>
 
 <h5>7.3-5 JUPVIZRunJavaScriptUsingRunGAP</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JUPVIZRunJavaScriptUsingRunGAP</code>( <var class="Arg">jsCode</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JUPVIZRunJavaScriptUsingRunGAP</code>( <var class="Arg">jsCode</var>[, <var class="Arg">returnHTML</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: an object that, if rendered in a Jupyter notebook, will run <var class="Arg">jsCode</var> as JavaScript after <code class="code">runGAP</code> has been defined</p>
 
 <p>There is a JavaScript function called <code class="code">runGAP</code>, defined in the <code class="file">using-runGAP.js</code> file distributed with this package. That function makes it easy to make callbacks from JavaScript in a Jupyter notebook to the <strong class="pkg">GAP</strong> kernel underneath that notebook. This <strong class="pkg">GAP</strong> function runs the given <var class="Arg">jsCode</var> in the notebook, but only after ensuring that <code class="code">runGAP</code> is defined globally in that notebook, so that <var class="Arg">jsCode</var> can call <code class="code">runGAP</code> as needed.</p>
+
+<p>The optional third argument is passed on to RunJavaScript internally.</p>
 
 <p>An example use, from JavaScript, of the <code class="code">runGAP</code> function appears at the end of Section <a href="chap4_mj.html#X85EA7D2579837F4D"><span class="RefLink">4.3</span></a>.</p>
 
@@ -386,12 +481,18 @@ CreateVisualization( rec(
 
 <h5>7.3-6 JUPVIZRunJavaScriptUsingLibraries</h5>
 
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JUPVIZRunJavaScriptUsingLibraries</code>( <var class="Arg">libraries</var>, <var class="Arg">jsCode</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: an object that, if rendered in a Jupyter notebook, will run <var class="Arg">jsCode</var> as JavaScript after all <var class="Arg">libraries</var> have been loaded</p>
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; JUPVIZRunJavaScriptUsingLibraries</code>( <var class="Arg">libraries</var>, <var class="Arg">jsCode</var>[, <var class="Arg">returnHTML</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: one of two things, documented below</p>
 
-<p>There are a set of JavaScript libraries stored in the <code class="file">lib/js/</code> subfolder of this package's installation folder. The Jupyter notebook does not, by default, know about any of those libraries. This <strong class="pkg">GAP</strong> function runs the given <var class="Arg">jsCode</var> in the notebook, but only after ensuring that all JavaScript files on the list <var class="Arg">libraries</var> have been loaded, so that <var class="Arg">jsCode</var> can make use of the functions and variables that they define.</p>
+<p>If run in a Jupyter Notebook, this function returns an object that, when rendered by that notebook, will run <var class="Arg">jsCode</var> as JavaScript after all <var class="Arg">libraries</var> have been loaded (which typically happens asynchronously).</p>
+
+<p>If run outside of a Jupyter Notebook, this function loads all the code for the given <var class="Arg">libraries</var> from disk and concatenates them (with checks to be sure no library is loaded twice) followed by <var class="Arg">jsCode</var>. It then calls <code class="func">RunJavaScript</code> (<a href="chap7_mj.html#X78BDA43D7E633E33"><span class="RefLink">7.2-1</span></a>) on the result, to form a web page and display it to the user.</p>
+
+<p>There are a set of JavaScript libraries stored in the <code class="file">lib/js/</code> subfolder of this package's installation folder. Neither the Jupyter notebook nor the temporary HTML files created from the command line know, by default, about any of those libraries. Thus this function is necessary so that <var class="Arg">jsCode</var> can assume the existence of the tools it needs to do its job.</p>
 
 <p>If the first parameter is given as a string instead of a list of strings, it is treated as a list of just one string.</p>
+
+<p>The optional third argument is passed on to RunJavaScript internally.</p>
 
 
 <div class="example"><pre>
@@ -551,6 +652,8 @@ JUPVIZFetchIfPresent( myRec, myRecs, ["a","b"], 0, f ); # does nothing
 <p>This presents a problem, because we are often transmitting string data (the contents of JavaScript files) from the <strong class="pkg">GAP</strong> kernel to the notebook, and <code class="code">ViewString</code> is not careful about how it escapes characters such as quotation marks, which can seriously mangle code. Thus we must define our own type and <code class="code">JupyterRender</code> method for that type, to prevent the use of <code class="code">ViewString</code>.</p>
 
 <p>The declarations documented below do just that. In the event that <code class="code">ViewString</code> were upgraded to more useful behavior, this workaround could probably be removed. Note that it is used explicitly in the <code class="file">using-library.js</code> file in this package.</p>
+
+<p>If this package is loaded without the <strong class="pkg">JupyterKernel</strong> package having already been loaded, then the following functions and tools are not defined, because their definitions rely on global data made available by the <strong class="pkg">JupyterKernel</strong> package.</p>
 
 <p><a id="X82269732822D224D" name="X82269732822D224D"></a></p>
 

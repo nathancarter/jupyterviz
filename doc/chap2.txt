@@ -5,9 +5,13 @@
   [1X2.1 [33X[0;0YCharts and Plots[133X[101X
   
   [33X[0;0YThis  section  covers the [2XPlot[102X ([14X7.1-1[114X) function in the high-level API, which
-  is used for showing charts and plots in the Jupyter Notebook. It covers that
-  function  through  a series of examples, but you can see full details in the
-  function reference chapter, Chapter [14X7[114X.[133X
+  is  used  for showing charts and plots. If invoked in a Jupyter Notebook, it
+  will  show the resulting visualization in the appropriate output cell of the
+  notebook.  If  invoked  from  the  [5XGAP[105X  command line, it will use the system
+  default web browser to show the resulting visualization, from which the user
+  can  save a permanent copy, print it, etc. This section covers that function
+  through  a  series of examples, but you can see full details in the function
+  reference in Chapter [14X7[114X.[133X
   
   [33X[0;0YTo  plot  a  list  of numbers as a single data series, just pass the list to
   [2XPlot[102X ([14X7.1-1[114X).[133X
@@ -38,7 +42,7 @@
   the [23Xx[123Xs and [23Xy[123Xs in separate lists. This would do the same as the previous:[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28XPlot( [ "Mon", 6.2 ], [ "Tue", 0.3 ], [ "Wed", 9.1 ], [ "Thu", 8.8 ] ] );[128X[104X
+    [4X[28XPlot( [ [ "Mon", 6.2 ], [ "Tue", 0.3 ], [ "Wed", 9.1 ], [ "Thu", 8.8 ] ] );[128X[104X
   [4X[32X[104X
   
   [33X[0;0YYou can also pass a single-variable numeric function to have it plotted.[133X
@@ -59,10 +63,10 @@
   
   [33X[0;0YResulting image not shown here.[133X
   
-  [33X[0;0YYou  can append a final parameter to the `Plot` command, a record containing
-  a  set of options. Here is an example of using that options record to choose
-  the  visualization  tool, title, and axis labels. Section [14X2.2[114X covers options
-  in detail; here is a preview.[133X
+  [33X[0;0YYou  can  append  a  final  parameter  to the [2XPlot[102X ([14X7.1-1[114X) command, a record
+  containing a set of options. Here is an example of using that options record
+  to choose the visualization tool, title, and axis labels. Section [14X2.2[114X covers
+  options in detail; this is only a preview.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28XPlot( [1..50], n -> Length( DivisorsInt( n ) ),[128X[104X
@@ -141,8 +145,10 @@
         sensible default is provided, which varies by tool.[133X
   
   [30X    [33X[0;6Y[10Xwidth[110X  -  the  width  in  pixels  of  the visualization to produce. If
-        omitted,  the  tool  usually  fills  the width of the Jupyter Notebook
-        output cell.[133X
+        omitted,  the  tool  usually  fills  the width available. In a Jupyter
+        Notebook  output  cell, this is the width of the cell. A visualization
+        shown  outside  of a Jupyter notebook will take up the entire width of
+        the web page in which it is displayed.[133X
   
   [30X    [33X[0;6Y[10Xtitle[110X  -  the title to place at the top of the chart, as a string. Can
         be omitted.[133X
@@ -153,15 +159,23 @@
   [30X    [33X[0;6Y[10Xyaxis[110X  - the text to write to the left of the [23Xy[123X axis, as a string. Can
         be omitted.[133X
   
+  [30X    [33X[0;6Y[10Xname[110X  - this option should be specified in the options object for each
+        separate  data series, as opposed to just once for the entire plot. It
+        assigns  a  string name to that data series, typically included in the
+        chart's legend.[133X
+  
   
   [1X2.3 [33X[0;0YGraphs[133X[101X
   
   [33X[0;0YThis  section  covers  the [2XPlotGraph[102X ([14X7.1-3[114X) function in the high-level API,
-  which  is  used  for  drawing graphs in the Jupyter Notebook. It covers that
-  function  through  a series of examples, but you can see full details in the
-  function reference chapter, Chapter [14X7[114X.[133X
+  which  is used for drawing graphs. If invoked in a Jupyter Notebook, it will
+  show  the  resulting  visualization  in  the  appropriate output cell of the
+  notebook.  If  invoked  from  the  [5XGAP[105X  command line, it will use the system
+  default web browser to show the resulting visualization. This section covers
+  that  function through a series of examples, but you can see full details in
+  the function reference in Chapter [14X7[114X.[133X
   
-  [33X[0;0YYou  can  make a graph by passing [2XPlotGraph[102X ([14X7.1-3[114X) on a list of edges, each
+  [33X[0;0YYou  can  make a graph by calling [2XPlotGraph[102X ([14X7.1-3[114X) on a list of edges, each
   of which is a pair (a list of length two).[133X
   
   [4X[32X  Example  [32X[104X
@@ -188,9 +202,9 @@
   [33X[0;0YResulting image not shown here.[133X
   
   [33X[0;0YBut for anything other than a small graph, specifying the vertex or edge set
-  manually  may be a hassle. Thus if you have a vertex set, you can create the
-  edge  set by passing a binary relation as a [5XGAP[105X function. Here is an example
-  to create a subgroup lattice.[133X
+  manually  may be inconvenient. Thus if you have a vertex set, you can create
+  the  edge  set  by  passing  a binary relation as a [5XGAP[105X function. Here is an
+  example to create a subgroup lattice.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28XG := Group( (1,2,3), (1,2) );[128X[104X
@@ -219,7 +233,7 @@
   
   [33X[0;0YResulting image not shown here.[133X
   
-  [33X[0;0YThe next section covers full detail on all these options.[133X
+  [33X[0;0YThe next section covers all options in detail.[133X
   
   
   [1X2.4 [33X[0;0YOptions for graphs[133X[101X
@@ -259,6 +273,8 @@
         sensible default is provided, which varies by tool.[133X
   
   [30X    [33X[0;6Y[10Xwidth[110X  -  the  width  in  pixels  of  the visualization to produce. If
-        omitted,  the  tool  usually  fills  the width of the Jupyter Notebook
-        output cell.[133X
+        omitted,  the  tool  usually  fills  the width available. In a Jupyter
+        Notebook  output  cell, this is the width of the cell. A visualization
+        shown  outside  of a Jupyter notebook will take up the entire width of
+        the web page in which it is displayed.[133X
   

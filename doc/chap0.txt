@@ -3,13 +3,13 @@
                                   [1X JupyterViz [101X
   
   
-                     [1X Jupyter Notebook Visualization Tools [101X
+               [1X Visualization Tools for Jupyter and the [5XGAP[105X REPL [101X
   
   
-                                     1.3.0
+                                     1.4.0
   
   
-                                3 December 2018
+                                21 February 2019
   
   
                                  Nathan Carter
@@ -38,7 +38,7 @@
       1.2-3 [33X[0;0YGeneral purpose tools with which you can define custom
       visualizations[133X
     1.3 [33X[0;0YThe high-level API and the low-level API[133X
-    1.4 [33X[0;0YLoading the package into a Jupyter notebook[133X
+    1.4 [33X[0;0YLoading the package (in Jupyter or otherwise)[133X
   2 [33X[0;0YUsing the high-level API[133X
     2.1 [33X[0;0YCharts and Plots[133X
     2.2 [33X[0;0YOptions for charts and plots[133X
@@ -76,6 +76,10 @@
       7.1-2 ConvertDataSeriesForTool
       7.1-3 PlotGraph
       7.1-4 ConvertGraphForTool
+      7.1-5 PlotDisplayMethod
+      7.1-6 PlotDisplayMethod_Jupyter
+      7.1-7 PlotDisplayMethod_JupyterSimple
+      7.1-8 PlotDisplayMethod_HTML
     7.2 [33X[0;0YLow-Level Public API[133X
       7.2-1 RunJavaScript
       7.2-2 LoadJavaScriptFile

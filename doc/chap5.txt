@@ -12,11 +12,13 @@
   
   [33X[0;0YThere are two supported way to do this. First, for tools that you wish to be
   available  to  all  users  of  this  package, you can alter the package code
-  itself  to  include  the  tool. Second, for tools that you need for just one
-  project  or  just  one  other  package, there is support for installing such
-  tools  at  runtime.  This chapter documents both approaches, each in its own
-  section.  But first, we begin with the list of what you will need to have on
-  hand before you begin, which is the same for both approaches.[133X
+  itself  to include the tool. (Then please create a pull request so that your
+  work  might  be  shared with other [5XGAP[105X users in a subsequent release of this
+  package.)  Second,  for tools that you need for just one project or just one
+  other  package,  there is support for installing such tools at runtime. This
+  chapter  documents  both  approaches, each in its own section. But first, we
+  begin  with the list of what you will need to have on hand before you begin,
+  which is the same for both approaches.[133X
   
   
   [1X5.2 [33X[0;0YWhat you will need[133X[101X
@@ -30,10 +32,11 @@
         It  is best if you have this URL from a Content Delivery Network (CDN)
         to ensure very high availability. This URL may not be necessary in all
         cases.  For  instance,  perhaps the new visualization tool you wish to
-        install  can be defined using just the JavaScript tools in the Jupyter
-        notebook,  or  is  imported  via an [10Xiframe[110X rather than a script in the
-        notebook  page  itself.  If  you  choose  to use such a URL, note that
-        RequireJS expects you to omit the final [10X.js[110X suffix at the end.[133X
+        install  can  be  defined  using  the basic JavaScript features in all
+        browsers,  or is imported via an [10Xiframe[110X rather than as a script in the
+        page  itself.  If  you  choose  to use such a URL, it will be imported
+        using RequireJS, which expects you to omit the final [10X.js[110X suffix at the
+        end.[133X
   
   [30X    [33X[0;6YKnowledge  of  how to write a short JavaScript function that can embed
         the  given  tool  into  any given DOM [10XElement[110X. For many tools, this is
@@ -58,11 +61,11 @@
   [33X[0;0YThis  section  explains  how  to  enhance this package itself. If you follow
   these instructions, you should submit a pull request to have your work added
   to  the main repository for the package, and thus eventually included in the
-  next release of GAP.[133X
+  next release of [5XGAP[105X.[133X
   
   [33X[0;0YIf  instead you wish to install a new visualization at runtime for just your
   own  use in a particular project (or in a package that depends on this one),
-  refer to the instructions in the next section instead.[133X
+  refer to the instructions in the Section [14X5.4[114X instead.[133X
   
   [33X[0;0YThroughout these steps, I will assume that the name of the new tool you wish
   to install is [10XNEWTOOL[110X. I choose all capital letters to make it stand out, so
@@ -100,9 +103,9 @@
   
   [4X      [32X  Example  [32X[104X
           [4X[28Xwindow.VisualizationTools.NEWTOOL = function ( element, json, callback ) {[128X[104X
-          [4X[28X    // The variable "element" is the output cell in the notebook into[128X[104X
+          [4X[28X    // The variable "element" is the HTML element in the page into[128X[104X
           [4X[28X    // which you should place your visualization.  For example, perhaps[128X[104X
-          [4X[28X    // your new toolkit draws in SVG elements, so you need one:[128X[104X
+          [4X[28X    // your new toolkit does its work in an SVG element, so you need one:[128X[104X
           [4X[28X    var result = document.createElement( 'SVG' );[128X[104X
           [4X[28X    element.append( result );[128X[104X
           [4X[28X    // The variable "json" is all the data, in JSON form, passed from[128X[104X
@@ -137,16 +140,17 @@
         time you change your file as well.[133X
   
   [31X8[131X   [33X[0;6YYou  should  now  be  able  to use your new visualization tool in [5XGAP[105X.
-        Verify  that  your  changes worked, and debug as necessary. You may be
-        able to notice the change only if you refresh in your browser the page
-        containing  the  Jupyter notebook in question and also restart the [5XGAP[105X
-        kernel  in  that  same  page.  Then try code like the following in the
-        Jupyter notebook to test what you've done.[133X
+        Verify  that  your  changes worked, and debug as necessary. If you are
+        testing  in  a  Jupyter Notebook, you may be able to notice the change
+        only  if  you refresh in your browser the page containing notebook and
+        also  restart the [5XGAP[105X kernel in that same page. Then try code like the
+        following to test what you've done.[133X
   
   [4X      [32X  Example  [32X[104X
           [4X[28XCreateVisualization( rec([128X[104X
           [4X[28X    tool := "NEWTOOL",[128X[104X
-          [4X[28X    # any other data you need goes here[128X[104X
+          [4X[28X    # any other data you need goes here as a GAP record,[128X[104X
+          [4X[28X    # which the GAP json package will convert into JSON[128X[104X
           [4X[28X) );[128X[104X
         [4X[32X[104X
   
@@ -166,7 +170,7 @@
   [31X2[131X   [33X[0;6YEdit  the  [11Xmain.gi[111X file in this package. Find the section in which new
         elements   are   added  to  the  [2XConvertDataSeriesForTool[102X  ([14X7.1-2[114X)  or
         [2XConvertGraphForTool[102X  ([14X7.1-4[114X)  records.  Add a new section of code that
-        installs  a  new  member  for  your tool. It will look like one of the
+        installs  a  new  field  for  your  tool. It will look like one of the
         following  two  blocks  (or  both  if your tool supports both types of
         visualization).[133X
   
@@ -187,10 +191,9 @@
           [4X[28Xend;[128X[104X
         [4X[32X[104X
   
-  [31X3[131X   [33X[0;6YTest  your  work  by  loading  the  updated  package  into the Jupyter
-        Notebook  and  making a call to [2XPlot[102X ([14X7.1-1[114X) or [2XPlotGraph[102X ([14X7.1-3[114X) that
-        specifically  requests  the  use of your newly-supported visualization
-        tool.[133X
+  [31X3[131X   [33X[0;6YTest  your  work  by loading the updated package into [5XGAP[105X and making a
+        call  to  [2XPlot[102X ([14X7.1-1[114X) or [2XPlotGraph[102X ([14X7.1-3[114X) that specifically requests
+        the use of your newly-supported visualization tool.[133X
   
   [4X      [32X  Example  [32X[104X
           [4X[28X# for plots:[128X[104X
@@ -211,7 +214,7 @@
   would go in [11Xlib/js/viz-tool-color.js[111X:[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[28X// No need to import any library from a CDN for this baby example.[128X[104X
+    [4X[28X// No need to import any library from a CDN for this little example.[128X[104X
     [4X[28Xwindow.VisualizationTools.color = function ( element, json, callback ) {[128X[104X
     [4X[28X    // just writes json.text in json.color, that's all[128X[104X
     [4X[28X    var span = document.createElement( 'span' );[128X[104X

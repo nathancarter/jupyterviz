@@ -7,14 +7,19 @@
   [1X7.1-1 Plot[101X
   
   [33X[1;0Y[29X[2XPlot[102X( [3Xvarious[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan  object that, if rendered in a Jupyter notebook, will produce a
-            plot[133X
+  [6XReturns:[106X  [33X[0;10Yone of two things, documented below[133X
   
-  [33X[0;0YIf  evaluated  in  a  Jupyter  notebook,  the  result of this function, when
+  [33X[0;0YIf  evaluated  in  a  Jupyter  Notebook,  the  result of this function, when
   rendered by that notebook, will run JavaScript code that generates and shows
-  a  plot,  which  could  be  any  of  a  wide variety of data visualizations,
-  including   bar   charts,   pie   charts,  scatterplots,  etc.  (To  draw  a
-  vertex-and-edge graph, see [2XPlotGraph[102X ([14X7.1-3[114X) instead.)[133X
+  a  plot  in  the  output  cell, which could be any of a wide variety of data
+  visualizations,  including  bar  charts,  pie charts, scatterplots, etc. (To
+  draw a vertex-and-edge graph, see [2XPlotGraph[102X ([14X7.1-3[114X) instead.)[133X
+  
+  [33X[0;0YIf  evaluated  outside of a Jupyter Notebook, the result of this function is
+  the  name  of  a temporary file stored on disk in which HTML code for such a
+  visualization  has  been  written,  and on which [5XGAP[105X has already invoked the
+  user's  default web browser. The user should see the visualization appear in
+  the browser immediately before the return value is shown.[133X
   
   [33X[0;0YThis  function can take data in a wide variety of input formats. Here is the
   current list of acceptable formats:[133X
@@ -32,17 +37,18 @@
         values are 1, 2, 3, and so on up to the length of [10XY[110X. It then plots the
         corresponding set of ordered pairs.[133X
   
-  [30X    [33X[0;6YIf  [10Xf[110X  is a [5XGAP[105X function then it is assumed to take integer inputs and
-        is  evaluated  on  a  small  domain  (1 through 5) of [23Xx[123X values and the
-        resulting [23X(x,y)[123X pairs are plotted.[133X
+  [30X    [33X[0;6YIf  [10Xf[110X  is  a [5XGAP[105X function then [10XPlot(f)[110X assumes that [10Xf[110X requiers integer
+        inputs  and  evaluates  it on a small domain (1 through 5) of [23Xx[123X values
+        and plots the resulting [23X(x,y)[123X pairs.[133X
   
   [30X    [33X[0;6YIn any of the cases above, a new, last argument may be added that is a
-        [5XGAP[105X  record containing options for how to draw the plot, including the
-        plot   type,   title,  axes  options,  and  more.  (For  details,  see
-        [2XConvertDataSeriesForTool[102X ([14X7.1-2[114X).)[133X
+        [5XGAP[105X  record  (call  it [10XR[110X) containing options for how to draw the plot,
+        including the plot type, title, axes options, and more. Thus the forms
+        [10XPlot(X,Y,R)[110X,  [10XPlot(X,f,R)[110X, [10XPlot(P,R)[110X, [10XPlot(Y,R)[110X, and [10XPlot(f,R)[110X are all
+        acceptable. (For details, see [2XConvertDataSeriesForTool[102X ([14X7.1-2[114X).)[133X
   
-  [30X    [33X[0;6YIf  [10XA1[110X  is a list of arguments from any of the points just listed (for
-        example,  it  might be [10X[X,f][110X) and so is [10XA2[110X, and so on through [10XAn[110X, then
+  [30X    [33X[0;6YIf [10XA1[110X is a list of arguments fitting any of the cases documented above
+        (such  as  [10X[X,f][110X)  and  [10XA2[110X  is  as  well,  and  so on through [10XAn[110X, then
         [10XPlot(A1,A2,...,An)[110X  creates  a  combination  plot with all of the data
         from  each  of the arguments treated as a separate data series. If the
         arguments contain conflicting plot options (e.g., the first requests a
@@ -108,14 +114,19 @@
   [1X7.1-3 PlotGraph[101X
   
   [33X[1;0Y[29X[2XPlotGraph[102X( [3Xvarious[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan  object  that,  if  rendered in a Jupyter notebook, will show a
-            graph[133X
+  [6XReturns:[106X  [33X[0;10Yone of two things, documented below[133X
   
-  [33X[0;0YIf  evaluated  in  a  Jupyter  notebook,  the  result of this function, when
+  [33X[0;0YIf  evaluated  in  a  Jupyter  Notebook,  the  result of this function, when
   rendered by that notebook, will run JavaScript code that generates and shows
-  a  graph,  not in the sense of coordinate axes, but in the sense of vertices
-  and  edges.  (To  graph  a function or data set on coordinate axes, use [2XPlot[102X
-  ([14X7.1-1[114X) instead.)[133X
+  a  graph in the output cell, not in the sense of coordinate axes, but in the
+  sense  of vertices and edges. (To graph a function or data set on coordinate
+  axes, use [2XPlot[102X ([14X7.1-1[114X) instead.)[133X
+  
+  [33X[0;0YIf  evaluated  outside of a Jupyter Notebook, the result of this function is
+  the  name  of  a temporary file stored on disk in which HTML code for such a
+  visualization  has  been  written,  and on which [5XGAP[105X has already invoked the
+  user's  default web browser. The user should see the visualization appear in
+  the browser immediately before the return value is shown.[133X
   
   [33X[0;0YThis  function can take data in a wide variety of input formats. Here is the
   current list of acceptable formats:[133X
@@ -124,9 +135,9 @@
         [10XPlotGraph(V,E)[110X treats them as vertex and edge sets, respectively.[133X
   
   [30X    [33X[0;6YIf [10XV[110X is a list and [10XR[110X is a [5XGAP[105X function then [10XPlotGraph(V,R)[110X treats [10XV[110X as
-        the  vertex  set  and  calls [10XR(v1,v2)[110X for every pair of vertices (both
-        forwards  backwards) to test whether there is an edge between them. It
-        exepcts [10XR[110X to return boolean values.[133X
+        the  vertex set and calls [10XR(v1,v2)[110X for every pair of vertices (in both
+        orders) to test whether there is an edge between them. It exepcts [10XR[110X to
+        return boolean values.[133X
   
   [30X    [33X[0;6YIf [10XE[110X is a list of pairs then [10XPlotGraph(E)[110X treats [10XE[110X as a list of edges,
         inferring  the  vertex  set  to  be any vertex mentioned in any of the
@@ -205,24 +216,145 @@
   ([14X7.3-13[114X).  Following those examples will help keep your code consistent with
   existing code and as concise as possible.[133X
   
+  [1X7.1-5 PlotDisplayMethod[101X
+  
+  [33X[1;0Y[29X[2XPlotDisplayMethod[102X[32X global variable[133X
+  
+  [33X[0;0YThe  [5XJupyterViz[105X  Package can display visualizations in three different ways,
+  and this global variable is used to switch among those ways.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28XPlotDisplayMethod := PlotDisplayMethod_HTML;[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YUsers  of this package almost never need to alter the value of this variable
+  because  a  sensible  default  is  chosen  at  package  loading time. If the
+  [5XJupyterViz[105X Package is loaded after the [5XJupyterKernel[105X Package, it notices the
+  presence  of  that  package  and  leverage  its  tools to set up support for
+  plotting   in   a  Jupyter  environment.  Furthermore,  it  will  initialize
+  [2XPlotDisplayMethod[102X  to  [2XPlotDisplayMethod_Jupyter[102X  ([14X7.1-6[114X), which is probably
+  what  the user wants. Note that if one calls [10XLoadPackage("JupyterViz");[110X from
+  a cell in a Jupyter notebook, this is the case that applies, because clearly
+  in such a case, the [5XJupyterKernel[105X Package was already loaded.[133X
+  
+  [33X[0;0YIf  the  [5XJupyterViz[105X  Package  is  loaded  without  the [5XJupyterKernel[105X Package
+  already  loaded,  then it will omit support for Jupyter, and will initialize
+  [2XPlotDisplayMethod[102X  to [2XPlotDisplayMethod_HTML[102X ([14X7.1-8[114X), which is what the user
+  probably wants if using [5XGAP[105X from a terminal, for example. In that case, this
+  package  does  not  support  later  reassignment of [2XPlotDisplayMethod[102X to any
+  other value, because Jupyter support was not set up at package loading time.[133X
+  
+  [33X[0;0YThus  if  the  user  desires  support  for both Jupyter-based and HTML-based
+  plotting,  he  or  she  should  load  the  [5XJupyterKernel[105X  Package before the
+  [5XJupyterViz[105X   Package.   Then   one   can   freely   change   the   value  of
+  [2XPlotDisplayMethod[102X to choose among any of the behaviors documented below.[133X
+  
+  [1X7.1-6 PlotDisplayMethod_Jupyter[101X
+  
+  [33X[1;0Y[29X[2XPlotDisplayMethod_Jupyter[102X[32X global variable[133X
+  
+  [33X[0;0YThis   global   constant   can   be   assigned   to   the   global  variable
+  [2XPlotDisplayMethod[102X  ([14X7.1-5[114X)  as  documented  above.  Doing  so  produces  the
+  following results.[133X
+  
+  [30X    [33X[0;6YFunctions    such    as   [2XPlot[102X   ([14X7.1-1[114X),   [2XPlotGraph[102X   ([14X7.1-3[114X),   and
+        [2XCreateVisualization[102X    ([14X7.2-5[114X)    will    return   objects   of   type
+        [10XJupyterRenderable[110X, which is defined in the [5XJupyterKernel[105X Package.[133X
+  
+  [30X    [33X[0;6YSuch  objects,  when  rendered  in a Jupyter cell, will run a block of
+        JavaScript  contained  within  them,  which  will  create  the desired
+        visualization.[133X
+  
+  [30X    [33X[0;6YSuch  scripts  tend to request additional information from [5XGAP[105X as they
+        are   running,   by   using   calls   to   the   JavaScript   function
+        [10XJupyter.kernel.execute[110X   defined  in  the  notebook.  Such  calls  are
+        typically to fetch JavaScript libraries needed to create the requested
+        visualization.[133X
+  
+  [30X    [33X[0;6YVisualizations  produced  this  way  will  not be visible if one later
+        closes and then reopens the Jupyter notebook in which they are stored.
+        To  see  the visualizations again, one must re-evaluate the cells that
+        created  them,  so that the required libraries are re-fetched from the
+        [5XGAP[105X Jupyter kernel.[133X
+  
+  [1X7.1-7 PlotDisplayMethod_JupyterSimple[101X
+  
+  [33X[1;0Y[29X[2XPlotDisplayMethod_JupyterSimple[102X[32X global variable[133X
+  
+  [33X[0;0YThis   global   constant   can   be   assigned   to   the   global  variable
+  [2XPlotDisplayMethod[102X  ([14X7.1-5[114X)  as  documented  above.  Doing  so  produces  the
+  following results.[133X
+  
+  [30X    [33X[0;6YFunctions    such    as   [2XPlot[102X   ([14X7.1-1[114X),   [2XPlotGraph[102X   ([14X7.1-3[114X),   and
+        [2XCreateVisualization[102X    ([14X7.2-5[114X)    will    return   objects   of   type
+        [10XJupyterRenderable[110X, which is defined in the [5XJupyterKernel[105X Package.[133X
+  
+  [30X    [33X[0;6YSuch  objects,  when  rendered  in a Jupyter cell, will run a block of
+        JavaScript  contained  within  them,  which  will  create  the desired
+        visualization.[133X
+  
+  [30X    [33X[0;6YSuch  scripts  will be entirely self-contained, and thus will not make
+        any  additional  requests from the [5XGAP[105X Jupyter kernel. This makes such
+        objects  larger  because they must contain all the required JavaScript
+        visualization  libraries,  rather  than  being able to request them as
+        needed later.[133X
+  
+  [30X    [33X[0;6YVisualizations  produced  this  way  will be visible even if one later
+        closes and then reopens the Jupyter notebook in which they are stored,
+        because  all  the code needed to create them is included in the output
+        cell itself, and is re-run upon re-opening the notebook.[133X
+  
+  [1X7.1-8 PlotDisplayMethod_HTML[101X
+  
+  [33X[1;0Y[29X[2XPlotDisplayMethod_HTML[102X[32X global variable[133X
+  
+  [33X[0;0YThis   global   constant   can   be   assigned   to   the   global  variable
+  [2XPlotDisplayMethod[102X  ([14X7.1-5[114X)  as  documented  above.  Doing  so  produces  the
+  following results.[133X
+  
+  [30X    [33X[0;6YFunctions    such    as   [2XPlot[102X   ([14X7.1-1[114X),   [2XPlotGraph[102X   ([14X7.1-3[114X),   and
+        [2XCreateVisualization[102X  ([14X7.2-5[114X)  will  return  no value, but will instead
+        store  HTML (and JavaScript) code for the visualization in a temporary
+        file on the filesystem, then launch the operating system's default web
+        browser to view that file.[133X
+  
+  [30X    [33X[0;6YSuch  files are entirely self-contained, and require no [5XGAP[105X session to
+        be  running  to  continue viewing them. They can be saved anywhere the
+        user likes for later viewing, printing, or sharing without [5XGAP[105X.[133X
+  
+  [30X    [33X[0;6YVisualizations  produced  this  way  will  not be visible if one later
+        closes and then reopens the Jupyter notebook in which they are stored.
+        To  see  the visualizations again, one must re-evaluate the cells that
+        created  them,  so that the required libraries are re-fetched from the
+        [5XGAP[105X Jupyter kernel.[133X
+  
   
   [1X7.2 [33X[0;0YLow-Level Public API[133X[101X
   
   [1X7.2-1 RunJavaScript[101X
   
-  [33X[1;0Y[29X[2XRunJavaScript[102X( [3Xscript[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3Xscript[103X
-            as JavaScript[133X
+  [33X[1;0Y[29X[2XRunJavaScript[102X( [3Xscript[103X[, [3XreturnHTML[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yone of two things, documented below[133X
   
-  [33X[0;0YIf  evaluated  in  a  Jupyter  notebook,  its  result, when rendered by that
-  notebook, will run the JavaScript code in [3Xscript[103X.[133X
+  [33X[0;0YIf  run  in  a  Jupyter Notebook, this function returns an object that, when
+  rendered by that notebook, will run the JavaScript code given in [3Xscript[103X.[133X
+  
+  [33X[0;0YIf  run  outside  of  a Jupyter Notebook, this function creates an HTML page
+  containing  the  given [3Xscript[103X, an HTML element on which that script can act,
+  and  the  RequireJS  library for importing other script tools. It then opens
+  the  page  in  the  system default web browser (thus running the script) and
+  returns the path to the temporary file in which the script is stored.[133X
+  
+  [33X[0;0YIn  this  second case only, the optional second parameter (which defaults to
+  false) can be set to true if the caller does not wish the function to open a
+  web  browser, but just wants the HTML content that would have been displayed
+  in such a browser returned as a string instead.[133X
   
   [33X[0;0YWhen  the  given  code  is  run,  the varible [10Xelement[110X will be defined in its
-  environment,  and  will  contain  the output element in the Jupyter notebook
-  corresponding  to  the  code  that was just evaluated. The script is free to
-  write to that output element.[133X
-  
-  [33X[0;0YThis function is not intended for use in the [5XGAP[105X REPL.[133X
+  environment,  and  will  contain  either  the  output element in the Jupyter
+  notebook  corresponding  to the code that was just evaluated or, in the case
+  outside  of Jupyter, the HTML element mentioned above. The script is free to
+  write to that element in both cases.[133X
   
   [1X7.2-2 LoadJavaScriptFile[101X
   
@@ -288,11 +420,18 @@
   [1X7.2-5 CreateVisualization[101X
   
   [33X[1;0Y[29X[2XCreateVisualization[102X( [3Xdata[103X[, [3Xcode[103X] ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan  object  that,  if  rendered  in a Jupyter notebook, will run a
-            script to create the desired visualization[133X
+  [6XReturns:[106X  [33X[0;10Yone of two things, documented below[133X
   
-  [33X[0;0YThe  [3Xdata[103X  must  be a record that will be converted to JSON using [5XGAP[105X's [5Xjson[105X
-  package.[133X
+  [33X[0;0YIf  run  in  a  Jupyter Notebook, this function returns an object that, when
+  rendered  by that notebook, will produce the visualization specified by [3Xdata[103X
+  in  the  corresponding output cell, and will also run any given [3Xcode[103X on that
+  visulization.[133X
+  
+  [33X[0;0YIf  run  outside  of  a Jupyter Notebook, this function creates an HTML page
+  containing  the  visualization  specified by [3Xdata[103X and then opens the page in
+  the  system  default web browser. It will also run any given [3Xcode[103X as soon as
+  the  page  opens.  The  [3Xdata[103X must be a record that will be converted to JSON
+  using [5XGAP[105X's [5Xjson[105X package.[133X
   
   [33X[0;0YThe  second argument is optional, a string containing JavaScript [3Xcode[103X to run
   once  the  visualization  has  been  created.  When  that  code  is run, the
@@ -380,15 +519,16 @@
   
   [1X7.3-4 JUPVIZRunJavaScriptFromTemplate[101X
   
-  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptFromTemplate[102X( [3Xfilename[103X, [3Xdictionary[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptFromTemplate[102X( [3Xfilename[103X, [3Xdictionary[103X[, [3XreturnHTML[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10Ythe      composition     of     [2XRunJavaScript[102X     ([14X7.2-1[114X)     with
             [2XJUPVIZFillInJavaScriptTemplate[102X ([14X7.3-3[114X)[133X
   
-  [33X[0;0YThis function is quite simple, and is just a convenience function[133X
+  [33X[0;0YThis  function  is  quite  simple,  and  is just a convenience function. The
+  optional third argument is passed on to RunJavaScript internally.[133X
   
   [1X7.3-5 JUPVIZRunJavaScriptUsingRunGAP[101X
   
-  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptUsingRunGAP[102X( [3XjsCode[103X ) [32X function[133X
+  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptUsingRunGAP[102X( [3XjsCode[103X[, [3XreturnHTML[103X] ) [32X function[133X
   [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3XjsCode[103X
             as JavaScript after [10XrunGAP[110X has been defined[133X
   
@@ -399,24 +539,35 @@
   only  after  ensuring  that  [10XrunGAP[110X is defined globally in that notebook, so
   that [3XjsCode[103X can call [10XrunGAP[110X as needed.[133X
   
+  [33X[0;0YThe optional third argument is passed on to RunJavaScript internally.[133X
+  
   [33X[0;0YAn  example  use, from JavaScript, of the [10XrunGAP[110X function appears at the end
   of Section [14X4.3[114X.[133X
   
   [1X7.3-6 JUPVIZRunJavaScriptUsingLibraries[101X
   
-  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptUsingLibraries[102X( [3Xlibraries[103X, [3XjsCode[103X ) [32X function[133X
-  [6XReturns:[106X  [33X[0;10Yan object that, if rendered in a Jupyter notebook, will run [3XjsCode[103X
-            as JavaScript after all [3Xlibraries[103X have been loaded[133X
+  [33X[1;0Y[29X[2XJUPVIZRunJavaScriptUsingLibraries[102X( [3Xlibraries[103X, [3XjsCode[103X[, [3XreturnHTML[103X] ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yone of two things, documented below[133X
+  
+  [33X[0;0YIf  run  in  a  Jupyter Notebook, this function returns an object that, when
+  rendered by that notebook, will run [3XjsCode[103X as JavaScript after all [3Xlibraries[103X
+  have been loaded (which typically happens asynchronously).[133X
+  
+  [33X[0;0YIf  run  outside of a Jupyter Notebook, this function loads all the code for
+  the  given [3Xlibraries[103X from disk and concatenates them (with checks to be sure
+  no  library is loaded twice) followed by [3XjsCode[103X. It then calls [2XRunJavaScript[102X
+  ([14X7.2-1[114X) on the result, to form a web page and display it to the user.[133X
   
   [33X[0;0YThere  are  a set of JavaScript libraries stored in the [11Xlib/js/[111X subfolder of
-  this  package's  installation  folder.  The  Jupyter  notebook  does not, by
-  default, know about any of those libraries. This [5XGAP[105X function runs the given
-  [3XjsCode[103X in the notebook, but only after ensuring that all JavaScript files on
-  the  list  [3Xlibraries[103X  have  been  loaded, so that [3XjsCode[103X can make use of the
-  functions and variables that they define.[133X
+  this  package's  installation  folder.  Neither the Jupyter notebook nor the
+  temporary  HTML  files created from the command line know, by default, about
+  any  of  those libraries. Thus this function is necessary so that [3XjsCode[103X can
+  assume the existence of the tools it needs to do its job.[133X
   
   [33X[0;0YIf the first parameter is given as a string instead of a list of strings, it
   is treated as a list of just one string.[133X
+  
+  [33X[0;0YThe optional third argument is passed on to RunJavaScript internally.[133X
   
   [4X[32X  Example  [32X[104X
     [4X[28XJUPVIZRunJavaScriptUsingLibraries( [ "mylib.js" ],[128X[104X
@@ -623,6 +774,11 @@
   were  upgraded  to  more  useful behavior, this workaround could probably be
   removed.  Note  that  it  is used explicitly in the [11Xusing-library.js[111X file in
   this package.[133X
+  
+  [33X[0;0YIf  this  package is loaded without the [5XJupyterKernel[105X package having already
+  been loaded, then the following functions and tools are not defined, because
+  their  definitions  rely  on global data made available by the [5XJupyterKernel[105X
+  package.[133X
   
   [1X7.4-1 JUPVIZIsFileContents[101X
   

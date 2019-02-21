@@ -69,7 +69,7 @@ CreateVisualization(
 )
 </pre></div>
 
-<p>This holds for any visualization tool, not just AnyChart. In the code given in the second parameter, two variables will be defined for your use: <code class="code">element</code> refers to the output cell element in the notebook and <code class="code">visualization</code> refers to the visualization that the toolkit you chose created within that output cell (also an HTML element).</p>
+<p>This holds for any visualization tool, not just AnyChart. In the code given in the second parameter, two variables will be defined for your use: <code class="code">element</code> refers to the HTML element inside of which the visualization was built and <code class="code">visualization</code> refers to the HTML element of the visualization itself, as produced by the toolkit you chose. When used in a Jupyter Notebook, <code class="code">element</code> is the output cell itself.</p>
 
 <p>Now that we know that we can run arbitrary JavaScript code on a visualization once it's been produced, we can call <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) to produce rather empty results, then fill them using our own JavaScript code. The next section explains how this could be done to create custom visualizations.</p>
 
@@ -91,6 +91,7 @@ CreateVisualization(
     // visualization is the canvas element
     var context = visualization.getContext( '2d' );
     // draw an X
+    context.beginPath();
     context.moveTo( 0, 0 );
     context.lineTo( 100, 100 );
     context.moveTo( 100, 0 );
@@ -128,7 +129,7 @@ CreateVisualiation(
 );
 </pre></div>
 
-<p>When writing such JavaScript code, note that you have access to a useful function that this package has installed, <code class="code">runGAP</code>. Its signature is <code class="code">runGAP(stringToEvaluate,callback)</code> and the following code shows an example of how you could call it from JavaScript in the notebook.</p>
+<p>When writing such JavaScript code, note that the Jupyter Notebook has access to a useful function that this package has installed, <code class="code">runGAP</code>. Its signature is <code class="code">runGAP(stringToEvaluate,callback)</code> and the following code shows an example of how you could call it from JavaScript in the notebook.</p>
 
 
 <div class="example"><pre>
@@ -139,6 +140,8 @@ runGAP( "2^100;", function ( result, error ) {
         alert( "GAP gave this error: " + error );
 } );
 </pre></div>
+
+<p>This function is not available if running this package outside of a Jupyter Notebook.</p>
 
 <p><a id="X7A2554B0847DD027" name="X7A2554B0847DD027"></a></p>
 

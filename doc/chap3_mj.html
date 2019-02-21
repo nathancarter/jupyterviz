@@ -65,11 +65,11 @@
 
 <h4>3.1 <span class="Heading">The <code class="code">CreateVisualization</code> function</span></h4>
 
-<p>The low-level API is accessed through just one function, <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>). You can view its complete documentation in the function reference chapter (Chapter <a href="chap7_mj.html#X7ECCCA82839EA283"><span class="RefLink">7</span></a>) for details, but examples are given in this chapter.</p>
+<p>The low-level API is accessed through just one function, <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>). You can view its complete documentation in the function reference in Chapter <a href="chap7_mj.html#X7ECCCA82839EA283"><span class="RefLink">7</span></a>, but examples are given in this chapter.</p>
 
-<p>Nearly all visualizations in this package are created by passing data to the <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) function as records describing what to draw. Even visualizations created by the high-level API documented in Chapter <a href="chap2_mj.html#X83888F2D8472E029"><span class="RefLink">2</span></a> call the <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) function under the hood. Those records are converted into <span class="URL"><a href="http://www.json.org/">JSON</a></span> form by the <strong class="pkg">json</strong> package, and handed to whichever JavaScript toolkit you have chosen to use for creating the visualization (or the default tool if you use a high-level function and do not specify).</p>
+<p>Nearly all visualizations in this package are created by passing to the <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) function records describing what to draw. Even visualizations created by the high-level API documented in Chapter <a href="chap2_mj.html#X83888F2D8472E029"><span class="RefLink">2</span></a> call the <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>) function under the hood. Those records are converted into <span class="URL"><a href="http://www.json.org/">JSON</a></span> form by the <strong class="pkg">json</strong> package, and handed to whichever JavaScript toolkit you have chosen to use for creating the visualization (or the default tool if you use a high-level function and do not specify).</p>
 
-<p>The sections below describe how to communicate, using <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>), with each of the visualization tools this package makes available.</p>
+<p>The sections below describe how to communicate with each of the visualization tools this package makes available, using <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>).</p>
 
 <p><a id="X82B836487E900D62" name="X82B836487E900D62"></a></p>
 
@@ -94,7 +94,7 @@ Plot( x -&gt; x^0.5, rec( tool := "canvasjs" ) );
 <div class="example"><pre>
 dataSeries := JUPVIZMakePlotDataSeries( x -&gt; x^0.5 );;
 big := ConvertDataSeriesForTool.canvasjs( [ dataSeries ] );
-# yields:
+# The result is the following GAP record:
 # rec(
 #     animationEnabled := true,
 #     data := [
@@ -122,7 +122,7 @@ CreateVisualization( rec( tool := "canvasjs", data := big ) );
 
 <p>If you wanted to change any of the internal options, such as the default <code class="code">animationEnabled := true</code> or the default <code class="code">height := 400</code>, you could alter the record yourself before passing it on to <code class="func">CreateVisualization</code> (<a href="chap7_mj.html#X7BFFD8B7808F5BDA"><span class="RefLink">7.2-5</span></a>).</p>
 
-<p>Such options may be specific to the tool you've chosen, and are not guaranteed to work with other tools. For example, you can't change `"canvasjs"` to `"anychart"` and expect the <code class="code">animationEnabled</code> setting to work, because it is specific to CanvasJS. See Section <a href="chap3_mj.html#X860FD2F97E9F936B"><span class="RefLink">3.4</span></a> for links to each tool's documentation, which give detailed data formats.</p>
+<p>Such options may be specific to the tool you've chosen, and are not guaranteed to work with other tools. For example, you can't change <code class="code">"canvasjs"</code> to <code class="code">"anychart"</code> and expect the <code class="code">animationEnabled</code> setting to work, because it is specific to CanvasJS. See Section <a href="chap3_mj.html#X860FD2F97E9F936B"><span class="RefLink">3.4</span></a> for links to each tool's documentation, which give detailed data formats.</p>
 
 <p>If you had researched other options about CanvasJS and wanted to include those, you could do so as well, as shown below.</p>
 
@@ -159,7 +159,7 @@ big := ConvertGraphForTool.cytoscape( rec(
     edges := edges,
     options := rec() # or any options you like here
 ) );
-# yields:
+# The result is the following GAP record:
 # rec(
 #     elements := [
 #         rec( data := rec( id := "1" ) ),
@@ -246,7 +246,7 @@ CreateVisualization( rec(
 
 <h4>3.3 <span class="Heading">Using JSON from a file</span></h4>
 
-<p>As the documentation linked to in Section <a href="chap3_mj.html#X860FD2F97E9F936B"><span class="RefLink">3.4</span></a> states, all of the underlying visualization tools used by this package accept input in JSON form. You might have some data in that form generated by another source or downloaded from the web. For example, in this package's directory, the file <code class="file">example/EV Charge Points.json</code> contains JSON data from one of <span class="URL"><a href="https://medium.com/@plotlygraphs/leading-the-charge-10-charts-on-electric-vehicles-in-plotly-d951acdc49c1">the Plotly project's blog posts</a></span>.</p>
+<p>As the documentation cited in Section <a href="chap3_mj.html#X860FD2F97E9F936B"><span class="RefLink">3.4</span></a> states, all of the underlying visualization tools used by this package accept input in JSON form. You might have some data in that form generated by another source or downloaded from the web. For example, in this package's directory, the file <code class="file">example/EV Charge Points.json</code> contains JSON data from one of <span class="URL"><a href="https://medium.com/@plotlygraphs/leading-the-charge-10-charts-on-electric-vehicles-in-plotly-d951acdc49c1">the Plotly project's blog posts</a></span>.</p>
 
 <p>You can load it and use it in a visualization as follows.</p>
 
