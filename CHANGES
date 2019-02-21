@@ -15,3 +15,11 @@ December 2018
  - More options supported and documented
  - Many more examples added to manual, some moved from external .ipynb file
  - Improved testing scripts
+
+February 2019
+ - Made the package independent of the Jupyter Notebook; it now detects
+   whether it is being run in that environment or not, and configures itself
+   appropriately (but can be reconfigured on the fly to a degree).
+ - If being run from the GAP REPL, plotting functions create temporary HTML
+   pages with visualizations in them and display them using the system's
+   default web browser.
