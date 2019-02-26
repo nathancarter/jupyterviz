@@ -7,6 +7,11 @@ gap> START_TEST("JupyterViz package: low-level-api.tst");
 # Ensure some basic requirements of the output of functions defined in this
 # package
 
+# Tell the package we're inside a Jupyter notebook.
+gap> LoadPackage( "JupyterKernel", false );
+true
+gap> PlotDisplayMethod := PlotDisplayMethod_Jupyter;;
+
 # RunJavaScript function
 gap> tmp := RunJavaScript( "var x = 5;" );
 <jupyter renderable>

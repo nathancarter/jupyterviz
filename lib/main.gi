@@ -25,6 +25,29 @@ else
 fi;
 
 
+JUPVIZSetUpJupyterRenderable := function ()
+    if IsBoundGlobal( "JupyterRenderable" )
+       and not IsBoundGlobal( "JUPVIZFileContentsType" ) then
+        BindGlobal( "JUPVIZFileContentsType",
+            NewType( NewFamily( "JUPVIZFileContentsFamily" ),
+                     JUPVIZIsFileContentsRep ) );
+        InstallMethod( JUPVIZFileContents, "for a string", [ IsString ],
+        function( content )
+            return Objectify( ValueGlobal( "JUPVIZFileContentsType" ),
+                              rec( content := content ) );
+        end );
+        InstallMethod( ValueGlobal( "JupyterRender" ),
+            [ JUPVIZIsFileContents ],
+            function ( fileContents )
+                return Objectify( ValueGlobal( "JupyterRenderableType" ),
+                    rec( data := rec( text\/plain := fileContents!.content ),
+                        metadata := rec( text\/plain := "" ) ) );
+            end );
+    fi;
+end;
+JUPVIZSetUpJupyterRenderable();
+
+
 InstallGlobalFunction( RunJavaScript, function ( script, returnHTML... )
     local html, filename, file;
     if PlotDisplayMethod = PlotDisplayMethod_HTML then
@@ -58,6 +81,11 @@ InstallGlobalFunction( RunJavaScript, function ( script, returnHTML... )
         fi;
         return Concatenation( "Displaying result stored in ", filename, "." );
     else
+        # Ensure that we have the global variables we need.
+        JUPVIZSetUpJupyterRenderable();
+        if ( not IsBoundGlobal( "JupyterRenderable" ) ) then
+            Error( "The JupyterKernel package is required for this feature." );
+        fi;
         # The output element in the notebook will be passed called "element" in
         # the script's environment, which we capture with the closure wrapper
         # below, so that any callbacks or asynchronous code can rely on its having
@@ -86,24 +114,6 @@ function ( relativeFilename )
     return Filename( DirectoriesPackageLibrary(
         "jupyterviz", "lib/js" )[1], relativeFilename );
 end );
-
-
-if IsBoundGlobal( "JupyterRenderable" ) then
-    BindGlobal( "JUPVIZFileContentsType",
-        NewType( NewFamily( "JUPVIZFileContentsFamily" ),
-                 JUPVIZIsFileContentsRep ) );
-    InstallMethod( JUPVIZFileContents, "for a string", [ IsString ],
-    function( content )
-        return Objectify( JUPVIZFileContentsType,
-                          rec( content := content ) );
-    end );
-    InstallMethod( JupyterRender, [ JUPVIZIsFileContents ],
-    function ( fileContents )
-        return Objectify( JupyterRenderableType,
-            rec( data := rec( text\/plain := fileContents!.content ),
-                 metadata := rec( text\/plain := "" ) ) );
-    end );
-fi;
 
 
 InstallValue( JUPVIZLoadedJavaScriptCache, rec( ) );

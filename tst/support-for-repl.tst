@@ -7,7 +7,12 @@ gap> START_TEST("JupyterViz package: support-for-repl.tst");
 # Ensure some basic requirements of the output of functions defined in this
 # package
 
-# First verify that the RunJavaScript function, by default, functions the
+# Tell the package we're inside a Jupyter notebook.
+gap> LoadPackage( "JupyterKernel", false );
+true
+gap> PlotDisplayMethod := PlotDisplayMethod_Jupyter;;
+
+# Then verify that the RunJavaScript function works the
 # same way that it does in the low-level-api.tst file.
 gap> tmp := RunJavaScript( "var x = 5;" );
 <jupyter renderable>

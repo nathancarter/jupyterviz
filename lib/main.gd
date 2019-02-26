@@ -284,20 +284,14 @@ DeclareGlobalVariable( "ConvertGraphForTool" );
 #!  <P/>
 #!  If the <Package>JupyterViz</Package> Package is loaded without the
 #!  <Package>JupyterKernel</Package> Package already loaded, then it will
-#!  omit support for Jupyter, and will initialize
-#!  <Ref Var="PlotDisplayMethod"/> to
+#!  initialize <Ref Var="PlotDisplayMethod"/> to
 #!  <Ref Var="PlotDisplayMethod_HTML"/>, which is what the user probably
-#!  wants if using &GAP; from a terminal, for example.  In that case, this
-#!  package does not support later reassignment of
-#!  <Ref Var="PlotDisplayMethod"/> to any other value, because Jupyter
-#!  support was not set up at package loading time.
-#!  <P/>
-#!  Thus if the user desires support for both Jupyter-based and
-#!  HTML-based plotting, he or she should load the
-#!  <Package>JupyterKernel</Package> Package before the
-#!  <Package>JupyterViz</Package> Package.  Then one can freely change
-#!  the value of <Ref Var="PlotDisplayMethod"/> to choose among any of the
-#!  behaviors documented below.
+#!  wants if using &GAP; from a terminal, for example.  You may later
+#!  assign <Ref Var="PlotDisplayMethod"/> to another value, but doing so
+#!  has little purpose from the REPL.  You would need to first load the
+#!  <Package>JupyterKernel</Package> Package, and even then, all that
+#!  would be produced by this package would be data structures that would,
+#!  if evaluated in a Jupyter notebook, produce visualizations.
 DeclareGlobalVariable( "PlotDisplayMethod" );
 MakeReadWriteGlobal( "PlotDisplayMethod" );
 
