@@ -30,13 +30,13 @@
 
 
 <ul>
-<li><p>If a notebook with visualizations created by this package is saved and later reloaded, the visualizations will not persist. They will be replaced by an error message instructing the user to re-run the cell that created the visualization. This limitation may be removable with some refactoring of the internal workings of this package.</p>
+<li><p>If this package is used in <code class="code">PlotDisplayMethod_Jupyter</code> mode in a Jupyter notebook, and visualizations are created by this package, then the notebook is saved and later reloaded, the visualizations will not persist. They will be replaced by an error message instructing the user to re-run the cell that created the visualization. You can get around this by setting <code class="code">PlotDisplayMethod := PlotDisplayMethod_JupyterSimple</code>, but this increases the size of your notebook by embedding all the JavaScript needed by the visualizations in the notebook itself. Note that <code class="code">PlotDisplayMethod_Jupyter</code> is the default mode in the notebook.</p>
 
 </li>
 <li><p>The <code class="code">nbconvert</code> tool, which converts <code class="file">.ipynb</code> files into other formats, will not include the visualizations, because <code class="code">nbconvert</code> is not a browser that can evaluate the JavaScript code that generates the visualizations.</p>
 
 </li>
-<li><p>Since most visualizations load a JavaScript library from a CDN, they require a working Internet connection to function.</p>
+<li><p>When using the <code class="code">PlotDisplayMethod_Jupyter</code> mode, most visualizations load a JavaScript library from a CDN, which thus requires a working Internet connection to function.</p>
 
 </li>
 </ul>

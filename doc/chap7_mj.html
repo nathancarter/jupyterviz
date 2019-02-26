@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (JupyterViz) - Chapter 7: Function reference</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -249,9 +249,7 @@ PlotDisplayMethod := PlotDisplayMethod_HTML;
 
 <p>Users of this package almost never need to alter the value of this variable because a sensible default is chosen at package loading time. If the <strong class="pkg">JupyterViz</strong> Package is loaded after the <strong class="pkg">JupyterKernel</strong> Package, it notices the presence of that package and leverage its tools to set up support for plotting in a Jupyter environment. Furthermore, it will initialize <code class="func">PlotDisplayMethod</code> to <code class="func">PlotDisplayMethod_Jupyter</code> (<a href="chap7_mj.html#X877563A087BAF265"><span class="RefLink">7.1-6</span></a>), which is probably what the user wants. Note that if one calls <code class="code">LoadPackage("JupyterViz");</code> from a cell in a Jupyter notebook, this is the case that applies, because clearly in such a case, the <strong class="pkg">JupyterKernel</strong> Package was already loaded.</p>
 
-<p>If the <strong class="pkg">JupyterViz</strong> Package is loaded without the <strong class="pkg">JupyterKernel</strong> Package already loaded, then it will omit support for Jupyter, and will initialize <code class="func">PlotDisplayMethod</code> to <code class="func">PlotDisplayMethod_HTML</code> (<a href="chap7_mj.html#X818039C5844E897B"><span class="RefLink">7.1-8</span></a>), which is what the user probably wants if using <strong class="pkg">GAP</strong> from a terminal, for example. In that case, this package does not support later reassignment of <code class="func">PlotDisplayMethod</code> to any other value, because Jupyter support was not set up at package loading time.</p>
-
-<p>Thus if the user desires support for both Jupyter-based and HTML-based plotting, he or she should load the <strong class="pkg">JupyterKernel</strong> Package before the <strong class="pkg">JupyterViz</strong> Package. Then one can freely change the value of <code class="func">PlotDisplayMethod</code> to choose among any of the behaviors documented below.</p>
+<p>If the <strong class="pkg">JupyterViz</strong> Package is loaded without the <strong class="pkg">JupyterKernel</strong> Package already loaded, then it will initialize <code class="func">PlotDisplayMethod</code> to <code class="func">PlotDisplayMethod_HTML</code> (<a href="chap7_mj.html#X818039C5844E897B"><span class="RefLink">7.1-8</span></a>), which is what the user probably wants if using <strong class="pkg">GAP</strong> from a terminal, for example. You may later assign <code class="func">PlotDisplayMethod</code> to another value, but doing so has little purpose from the REPL. You would need to first load the <strong class="pkg">JupyterKernel</strong> Package, and even then, all that would be produced by this package would be data structures that would, if evaluated in a Jupyter notebook, produce visualizations.</p>
 
 <p><a id="X877563A087BAF265" name="X877563A087BAF265"></a></p>
 

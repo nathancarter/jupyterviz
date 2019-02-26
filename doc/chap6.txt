@@ -4,19 +4,25 @@
   [33X[0;0YWhen  this package is being used in a Jupyter Notebook, it has the following
   limitations.[133X
   
-  [30X    [33X[0;6YIf a notebook with visualizations created by this package is saved and
-        later  reloaded,  the  visualizations  will  not persist. They will be
-        replaced  by  an error message instructing the user to re-run the cell
-        that  created the visualization. This limitation may be removable with
-        some refactoring of the internal workings of this package.[133X
+  [30X    [33X[0;6YIf this package is used in [10XPlotDisplayMethod_Jupyter[110X mode in a Jupyter
+        notebook,  and  visualizations  are  created by this package, then the
+        notebook  is  saved  and  later  reloaded, the visualizations will not
+        persist.  They  will  be  replaced by an error message instructing the
+        user  to  re-run  the cell that created the visualization. You can get
+        around       this       by      setting      [10XPlotDisplayMethod      :=
+        PlotDisplayMethod_JupyterSimple[110X,  but  this increases the size of your
+        notebook  by embedding all the JavaScript needed by the visualizations
+        in  the  notebook  itself.  Note that [10XPlotDisplayMethod_Jupyter[110X is the
+        default mode in the notebook.[133X
   
   [30X    [33X[0;6YThe  [10Xnbconvert[110X  tool,  which converts [11X.ipynb[111X files into other formats,
         will  not  include  the  visualizations,  because  [10Xnbconvert[110X  is not a
         browser  that  can  evaluate  the  JavaScript  code that generates the
         visualizations.[133X
   
-  [30X    [33X[0;6YSince  most  visualizations load a JavaScript library from a CDN, they
-        require a working Internet connection to function.[133X
+  [30X    [33X[0;6YWhen  using  the  [10XPlotDisplayMethod_Jupyter[110X  mode, most visualizations
+        load  a  JavaScript  library from a CDN, which thus requires a working
+        Internet connection to function.[133X
   
   [33X[0;0YWhen  it  is  being  used  from  the  command  line,  it  has  the following
   limitations.[133X

@@ -238,16 +238,13 @@
   in such a case, the [5XJupyterKernel[105X Package was already loaded.[133X
   
   [33X[0;0YIf  the  [5XJupyterViz[105X  Package  is  loaded  without  the [5XJupyterKernel[105X Package
-  already  loaded,  then it will omit support for Jupyter, and will initialize
-  [2XPlotDisplayMethod[102X  to [2XPlotDisplayMethod_HTML[102X ([14X7.1-8[114X), which is what the user
-  probably wants if using [5XGAP[105X from a terminal, for example. In that case, this
-  package  does  not  support  later  reassignment of [2XPlotDisplayMethod[102X to any
-  other value, because Jupyter support was not set up at package loading time.[133X
-  
-  [33X[0;0YThus  if  the  user  desires  support  for both Jupyter-based and HTML-based
-  plotting,  he  or  she  should  load  the  [5XJupyterKernel[105X  Package before the
-  [5XJupyterViz[105X   Package.   Then   one   can   freely   change   the   value  of
-  [2XPlotDisplayMethod[102X to choose among any of the behaviors documented below.[133X
+  already    loaded,    then   it   will   initialize   [2XPlotDisplayMethod[102X   to
+  [2XPlotDisplayMethod_HTML[102X  ([14X7.1-8[114X),  which  is  what the user probably wants if
+  using   [5XGAP[105X   from   a   terminal,   for   example.  You  may  later  assign
+  [2XPlotDisplayMethod[102X to another value, but doing so has little purpose from the
+  REPL. You would need to first load the [5XJupyterKernel[105X Package, and even then,
+  all  that  would  be  produced by this package would be data structures that
+  would, if evaluated in a Jupyter notebook, produce visualizations.[133X
   
   [1X7.1-6 PlotDisplayMethod_Jupyter[101X
   
