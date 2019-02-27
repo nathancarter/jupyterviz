@@ -471,7 +471,7 @@ DeclareGlobalFunction( "InstallVisualizationToolFromTemplate" );
 #!  If run in a Jupyter Notebook, this function returns an object that, when
 #!  rendered by that notebook, will produce the visualization specified by
 #!  <Arg>data</Arg> in the corresponding output cell, and will also run any
-#!  given <Arg>code</Arg> on that visulization.
+#!  given <Arg>code</Arg> on that visualization.
 #!  <P/>
 #!  If run outside of a Jupyter Notebook, this function creates an HTML
 #!  page containing the visualization specified by <Arg>data</Arg> and then

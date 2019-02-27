@@ -51,7 +51,7 @@
 #!
 #! With this information available, proceed to either of the next two
 #! sections, depending on whether you intend to upgrade this package itself
-#! with a new visulization, or just install one into it at runtime.
+#! with a new visualization, or just install one into it at runtime.
 #!
 #! @Section Extending this package with a new tool
 #! @SectionLabel extending

@@ -67,7 +67,7 @@ InstallGlobalFunction( RunJavaScript, function ( script, returnHTML... )
         if Length( returnHTML ) > 0 and returnHTML[1] = true then
             return html;
         fi;
-        filename := Filename( DirectoryTemporary(), "visulization.html" );
+        filename := Filename( DirectoryTemporary(), "visualization.html" );
         file := OutputTextFile( filename, false );
         SetPrintFormattingStatus( file, false );
         PrintTo( file, html );
