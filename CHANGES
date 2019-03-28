@@ -23,3 +23,7 @@ February 2019
  - If being run from the GAP REPL, plotting functions create temporary HTML
    pages with visualizations in them and display them using the system's
    default web browser.
+
+March 2019
+ - Point release with a bug fix regarding rendering graphs from the REPL.
+
