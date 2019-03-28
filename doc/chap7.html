@@ -378,7 +378,7 @@ PlotDisplayMethod := PlotDisplayMethod_HTML;
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; CreateVisualization</code>( <var class="Arg">data</var>[, <var class="Arg">code</var>] )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: one of two things, documented below</p>
 
-<p>If run in a Jupyter Notebook, this function returns an object that, when rendered by that notebook, will produce the visualization specified by <var class="Arg">data</var> in the corresponding output cell, and will also run any given <var class="Arg">code</var> on that visulization.</p>
+<p>If run in a Jupyter Notebook, this function returns an object that, when rendered by that notebook, will produce the visualization specified by <var class="Arg">data</var> in the corresponding output cell, and will also run any given <var class="Arg">code</var> on that visualization.</p>
 
 <p>If run outside of a Jupyter Notebook, this function creates an HTML page containing the visualization specified by <var class="Arg">data</var> and then opens the page in the system default web browser. It will also run any given <var class="Arg">code</var> as soon as the page opens. The <var class="Arg">data</var> must be a record that will be converted to JSON using <strong class="pkg">GAP</strong>'s <strong class="pkg">json</strong> package.</p>
 

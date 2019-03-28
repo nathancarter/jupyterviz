@@ -422,7 +422,7 @@
   [33X[0;0YIf  run  in  a  Jupyter Notebook, this function returns an object that, when
   rendered  by that notebook, will produce the visualization specified by [3Xdata[103X
   in  the  corresponding output cell, and will also run any given [3Xcode[103X on that
-  visulization.[133X
+  visualization.[133X
   
   [33X[0;0YIf  run  outside  of  a Jupyter Notebook, this function creates an HTML page
   containing  the  visualization  specified by [3Xdata[103X and then opens the page in
