@@ -28,15 +28,15 @@ SetPackageInfo( rec(
 
 PackageName := "JupyterViz",
 Subtitle    := "Visualization Tools for Jupyter and the GAP REPL",
-Version     := "1.5.1",
-Date        := "28/03/2019", # Release date of current version, dd/mm/yyyy
+Version     := "1.5.2",
+Date        := "08/05/2019", # Release date of current version, dd/mm/yyyy
 
 ##  Optional: if the package manual uses GAPDoc, you may duplicate the
 ##  version and the release date as shown below to read them while building
 ##  the manual using GAPDoc facilities to distibute documents across files.
 ##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "1.5.1">
-##  <!ENTITY RELEASEDATE "28 March 2019">
+##  <!ENTITY VERSION "1.5.2">
+##  <!ENTITY RELEASEDATE "08 May 2019">
 ##  <#/GAPDoc>
 
 
@@ -53,7 +53,7 @@ Date        := "28/03/2019", # Release date of current version, dd/mm/yyyy
 ##                    to distribute them with the core GAP system
 ##    "dev"           for development versions of packages
 ##    "other"         for all other packages
-Status := "dev",
+Status := "deposited",
 ##  If this package is refereed and accepted, you must provide:
 # CommunicatedBy := "Person Name (Place Name)",
 # AcceptDate := "mm/yyyy",
