@@ -32,14 +32,6 @@ Version     := "1.5.2",
 Date        := "08/05/2019", # Release date of current version, dd/mm/yyyy
 License     := "GPL-2.0-or-later",
 
-##  Optional: if the package manual uses GAPDoc, you may duplicate the
-##  version and the release date as shown below to read them while building
-##  the manual using GAPDoc facilities to distibute documents across files.
-##  <#GAPDoc Label="PKGVERSIONDATA">
-##  <!ENTITY VERSION "1.5.2">
-##  <!ENTITY RELEASEDATE "08 May 2019">
-##  <#/GAPDoc>
-
 
 #########
 #
