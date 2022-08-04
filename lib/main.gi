@@ -10,18 +10,18 @@
 
 
 ##  Set the three possible values of PlotDisplayMethod to constants.
-InstallValue( PlotDisplayMethod_Jupyter, "PlotDisplayMethod_Jupyter" );
-InstallValue( PlotDisplayMethod_JupyterSimple, "PlotDisplayMethod_JupyterSimple" );
-InstallValue( PlotDisplayMethod_HTML, "PlotDisplayMethod_HTML" );
+BindGlobal( "PlotDisplayMethod_Jupyter", MakeImmutable( "PlotDisplayMethod_Jupyter" ) ) );
+BindGlobal( "PlotDisplayMethod_JupyterSimple", MakeImmutable( "PlotDisplayMethod_JupyterSimple" ) );
+BindGlobal( "PlotDisplayMethod_HTML", MakeImmutable( "PlotDisplayMethod_HTML" ) );
 
 
 ##  Detect whether the JupyterKernel package is available.
 ##  If it is, set our default display mode to using JupyterRenderable objects.
 ##  Otherwise, we'll use plain HTML.
 if IsBoundGlobal( "JupyterRenderable" ) then
-    InstallValue( PlotDisplayMethod, PlotDisplayMethod_Jupyter );
+    PlotDisplayMethod := PlotDisplayMethod_Jupyter;
 else
-    InstallValue( PlotDisplayMethod, PlotDisplayMethod_HTML );
+    PlotDisplayMethod := PlotDisplayMethod_HTML;
 fi;
 
 
@@ -120,7 +120,7 @@ function ( relativeFilename )
 end );
 
 
-InstallValue( JUPVIZLoadedJavaScriptCache, rec( ) );
+BindGlobal( "JUPVIZLoadedJavaScriptCache", rec( ) );
 InstallGlobalFunction( LoadJavaScriptFile, function ( filename )
     local absolute, result;
     if IsBound( JUPVIZLoadedJavaScriptCache.( filename ) ) then
@@ -384,7 +384,7 @@ function ( record, others, chain, action )
 end );
 
 
-InstallValue( ConvertDataSeriesForTool, rec() );
+BindGlobal( "ConvertDataSeriesForTool", rec() );
 
 
 ConvertDataSeriesForTool.plotly := function ( series )
@@ -659,7 +659,7 @@ InstallGlobalFunction( Plot, function ( args... )
 end );
 
 
-InstallValue( ConvertGraphForTool, rec() );
+BindGlobal( "ConvertGraphForTool", rec() );
 
 
 ConvertGraphForTool.cytoscape := function ( graph )

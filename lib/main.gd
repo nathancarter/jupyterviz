@@ -138,7 +138,7 @@ DeclareGlobalFunction( "Plot" );
 #!  <Ref Func="JUPVIZFetchIfPresent"/>.  Following those examples will
 #!  help keep your code consistent with existing code and as concise as
 #!  possible.
-DeclareGlobalVariable( "ConvertDataSeriesForTool" );
+#DeclareGlobalVariable( "ConvertDataSeriesForTool" );
 
 #! @Arguments various
 #! @Returns one of two things, documented below
@@ -259,7 +259,7 @@ DeclareGlobalFunction( "PlotGraph" );
 #!  <Ref Func="JUPVIZFetchIfPresent"/>.  Following those examples will
 #!  help keep your code consistent with existing code and as concise as
 #!  possible.
-DeclareGlobalVariable( "ConvertGraphForTool" );
+#DeclareGlobalVariable( "ConvertGraphForTool" );
 
 #! @Description
 #!  The <Package>JupyterViz</Package> Package can display visualizations in
@@ -292,8 +292,7 @@ DeclareGlobalVariable( "ConvertGraphForTool" );
 #!  <Package>JupyterKernel</Package> Package, and even then, all that
 #!  would be produced by this package would be data structures that would,
 #!  if evaluated in a Jupyter notebook, produce visualizations.
-DeclareGlobalVariable( "PlotDisplayMethod" );
-MakeReadWriteGlobal( "PlotDisplayMethod" );
+#DeclareGlobalVariable( "PlotDisplayMethod" );
 
 #! @Description
 #!  This global constant can be assigned to the global variable
@@ -318,7 +317,7 @@ MakeReadWriteGlobal( "PlotDisplayMethod" );
 #!      the cells that created them, so that the required libraries are
 #!      re-fetched from the &GAP; Jupyter kernel.</Item>
 #!  </List>
-DeclareGlobalVariable( "PlotDisplayMethod_Jupyter" );
+#DeclareGlobalVariable( "PlotDisplayMethod_Jupyter" );
 
 #! @Description
 #!  This global constant can be assigned to the global variable
@@ -343,7 +342,7 @@ DeclareGlobalVariable( "PlotDisplayMethod_Jupyter" );
 #!      in the output cell itself, and is re-run upon re-opening the
 #!      notebook.</Item>
 #!  </List>
-DeclareGlobalVariable( "PlotDisplayMethod_JupyterSimple" );
+#DeclareGlobalVariable( "PlotDisplayMethod_JupyterSimple" );
 
 #! @Description
 #!  This global constant can be assigned to the global variable
@@ -366,7 +365,7 @@ DeclareGlobalVariable( "PlotDisplayMethod_JupyterSimple" );
 #!      the cells that created them, so that the required libraries are
 #!      re-fetched from the &GAP; Jupyter kernel.</Item>
 #!  </List>
-DeclareGlobalVariable( "PlotDisplayMethod_HTML" );
+#DeclareGlobalVariable( "PlotDisplayMethod_HTML" );
 
 #! @Section Low-Level Public API
 
@@ -539,7 +538,7 @@ DeclareGlobalFunction( "JUPVIZAbsoluteJavaScriptFilename" );
 #!  from this package's folder.  The existence of this cache means needing
 #!  to go to the filesystem for these files only once per &GAP; session.
 #!  This cache is used by <Ref Func="LoadJavaScriptFile"/>.
-DeclareGlobalVariable( "JUPVIZLoadedJavaScriptCache" );
+#DeclareGlobalVariable( "JUPVIZLoadedJavaScriptCache" );
 
 #! @Arguments filename, dictionary
 #! @Returns a string containing the contents of the given template file, filled in using the given dictionary
