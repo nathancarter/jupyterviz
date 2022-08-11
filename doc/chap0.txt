@@ -6,10 +6,10 @@
                [1X Visualization Tools for Jupyter and the [5XGAP[105X REPL [101X
   
   
-                                     1.5.1
+                                     1.5.5
   
   
-                                 28 March 2019
+                                   8 May 2022
   
   
                                  Nathan Carter

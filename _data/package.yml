@@ -1,6 +1,6 @@
 name: JupyterViz
-version: 1.5.1
-date: 2019-03-28
+version: 1.5.5
+date: 2022-05-08
 description: |
     Visualization Tools for Jupyter and the GAP REPL
 
@@ -28,40 +28,40 @@ packageinfo: https://nathancarter.github.io/jupyterviz/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/nathancarter/jupyterviz/releases/download/v1.5.1/jupyterviz-1.5.1.tar.gz
+      url: https://github.com/nathancarter/jupyterviz/releases/download/v1.5.5/jupyterviz-1.5.5.tar.gz
 
 abstract: |
     The <span class="pkgname">JupyterViz</span> package    adds visualization tools for use in Jupyter Notebooks    or from the GAP REPL.  Those tools can be used to make    charts, graphs, and arbitrary other visualizations.
 
-status: dev
-doc-html: doc/chap0.html
+status: deposited
+doc-html: doc/chap0_mj.html
 doc-pdf: doc/manual.pdf
 keywords: |
     Jupyter Notebook, visualization, graph, plot, chart, HTML, JavaScript.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>Car19</span>]   <b class='BibAuthor'>Carter, N.</b>,
+    [<span class='BibKey'>Car22</span>]   <b class='BibAuthor'>Carter, N.</b>,
      <i class='BibTitle'>JupyterViz, Visualization Tools for Jupyter and the GAP REPL,
-             Version 1.5.1</i>
-     (<span class='BibYear'>2019</span>)<br />
+             Version 1.5.5</i>
+     (<span class='BibYear'>2022</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://nathancarter.github.io/jupyterviz">https://nathancarter.github.io/jupyterviz</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ JupyterViz1.5.1,
+    @misc{ JupyterViz1.5.5,
       author =           {Carter, N.},
       title =            {{JupyterViz},  Visualization Tools for Jupyter and the
-                          GAP REPL, {V}ersion 1.5.1},
-      month =            {Mar},
-      year =             {2019},
+                          GAP REPL, {V}ersion 1.5.5},
+      month =            {May},
+      year =             {2022},
       note =             {GAP package},
       howpublished =     {\href      {https://nathancarter.github.io/jupyterviz}
                           {\texttt{https://nathancarter.github.io/}\discretionary
                           {}{}{}\texttt{jupyterviz}}},
       keywords =         {Jupyter  Notebook;  visualization; graph; plot; chart;
                           HTML; JavaScript},
-      printedkey =       {Car19}
+      printedkey =       {Car22}
     }
 

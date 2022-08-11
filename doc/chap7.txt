@@ -72,7 +72,7 @@
   
   [1X7.1-2 ConvertDataSeriesForTool[101X
   
-  [33X[1;0Y[29X[2XConvertDataSeriesForTool[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XConvertDataSeriesForTool[102X [32X global variable[133X
   
   [33X[0;0YThe  [5XJupyterViz[105X  Package  has  a  high-level  API  and  a low-level API. The
   high-level API involves functions like [10XPlot[110X, which take data in a variety of
@@ -171,7 +171,7 @@
   
   [1X7.1-4 ConvertGraphForTool[101X
   
-  [33X[1;0Y[29X[2XConvertGraphForTool[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XConvertGraphForTool[102X [32X global variable[133X
   
   [33X[0;0YThe  [5XJupyterViz[105X  Package  has  a  high-level  API  and  a low-level API. The
   high-level  API  involves  functions  like  [10XPlotGraph[110X,  which take data in a
@@ -218,7 +218,7 @@
   
   [1X7.1-5 PlotDisplayMethod[101X
   
-  [33X[1;0Y[29X[2XPlotDisplayMethod[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XPlotDisplayMethod[102X [32X global variable[133X
   
   [33X[0;0YThe  [5XJupyterViz[105X  Package can display visualizations in three different ways,
   and this global variable is used to switch among those ways.[133X
@@ -248,7 +248,7 @@
   
   [1X7.1-6 PlotDisplayMethod_Jupyter[101X
   
-  [33X[1;0Y[29X[2XPlotDisplayMethod_Jupyter[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XPlotDisplayMethod_Jupyter[102X [32X global variable[133X
   
   [33X[0;0YThis   global   constant   can   be   assigned   to   the   global  variable
   [2XPlotDisplayMethod[102X  ([14X7.1-5[114X)  as  documented  above.  Doing  so  produces  the
@@ -276,7 +276,7 @@
   
   [1X7.1-7 PlotDisplayMethod_JupyterSimple[101X
   
-  [33X[1;0Y[29X[2XPlotDisplayMethod_JupyterSimple[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XPlotDisplayMethod_JupyterSimple[102X [32X global variable[133X
   
   [33X[0;0YThis   global   constant   can   be   assigned   to   the   global  variable
   [2XPlotDisplayMethod[102X  ([14X7.1-5[114X)  as  documented  above.  Doing  so  produces  the
@@ -303,7 +303,7 @@
   
   [1X7.1-8 PlotDisplayMethod_HTML[101X
   
-  [33X[1;0Y[29X[2XPlotDisplayMethod_HTML[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XPlotDisplayMethod_HTML[102X [32X global variable[133X
   
   [33X[0;0YThis   global   constant   can   be   assigned   to   the   global  variable
   [2XPlotDisplayMethod[102X  ([14X7.1-5[114X)  as  documented  above.  Doing  so  produces  the
@@ -484,7 +484,7 @@
   
   [1X7.3-2 JUPVIZLoadedJavaScriptCache[101X
   
-  [33X[1;0Y[29X[2XJUPVIZLoadedJavaScriptCache[102X[32X global variable[133X
+  [33X[1;0Y[29X[2XJUPVIZLoadedJavaScriptCache[102X [32X global variable[133X
   
   [33X[0;0YA  cache  of the contents of any JavaScript files that have been loaded from
   this  package's  folder.  The existence of this cache means needing to go to
