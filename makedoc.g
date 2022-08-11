@@ -7,6 +7,7 @@ fi;
 
 AutoDoc(
     rec(
+        scaffold := true,
         gapdoc := rec(
             LaTeXOptions := rec(
                 EarlyExtraPreamble := "\\usepackage[pdftex]{graphicx}"
