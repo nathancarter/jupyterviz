@@ -10,7 +10,7 @@
 
 
 ##  Set the three possible values of PlotDisplayMethod to constants.
-BindGlobal( "PlotDisplayMethod_Jupyter", MakeImmutable( "PlotDisplayMethod_Jupyter" ) ) );
+BindGlobal( "PlotDisplayMethod_Jupyter", MakeImmutable( "PlotDisplayMethod_Jupyter" ) );
 BindGlobal( "PlotDisplayMethod_JupyterSimple", MakeImmutable( "PlotDisplayMethod_JupyterSimple" ) );
 BindGlobal( "PlotDisplayMethod_HTML", MakeImmutable( "PlotDisplayMethod_HTML" ) );
 
