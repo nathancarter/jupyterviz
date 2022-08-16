@@ -29,7 +29,7 @@ SetPackageInfo( rec(
 PackageName := "JupyterViz",
 Subtitle    := "Visualization Tools for Jupyter and the GAP REPL",
 Version     := "1.5.6",
-Date        := "08/16/2022", # Release date of current version, dd/mm/yyyy
+Date        := "16/08/2022", # Release date of current version, dd/mm/yyyy
 License     := "GPL-2.0-or-later",
 
 
