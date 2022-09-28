@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # This is a simple python script to convert a short markdown
 # document into a jupyter notebook that can be run to show the
@@ -85,7 +85,7 @@ image = """
 def process_file ( mdfile ):
     # "Verify" the file is an .md file
     if mdfile[-3:] != '.md':
-        print "Input file must have extension .md: " + mdfile
+        print("Input file must have extension .md: " + mdfile)
         sys.exit()
 
     # Read the input file and store it in this format:
@@ -96,8 +96,8 @@ def process_file ( mdfile ):
     #   [ "code",     [ "G := Group((1,2),(3,4));\n" ] ],
     #   ...
     # ]
-    print "Processing: " + mdfile
-    print "\tReading file..."
+    print("Processing: " + mdfile)
+    print("\tReading file...")
     lines = [ ]
     mode = 'markdown'
     inf = open( mdfile, 'r' )
@@ -152,7 +152,7 @@ def process_file ( mdfile ):
     # Write the .ipynb output file in this same folder.
     outfile = mdfile[:-3] + '.ipynb'
     seen_code_yet = False
-    print "\tWriting " + outfile + "..."
+    print("\tWriting " + outfile + "...")
     outf = open( outfile, 'w' )
     outf.write( header )
     for index, line in enumerate( lines ):
@@ -174,7 +174,7 @@ def process_file ( mdfile ):
     # Replace markdown headings with AutoDoc headings,
     # then write the .gd output file in the ../lib/ folder.
     outfname = "../lib/ch2-examples-" + mdfile[:-3] + ".gd"
-    print "\tWriting " + outfname + "..."
+    print("\tWriting " + outfname + "...")
     outf = open( outfname, 'w' )
     outf.write( "#! @Chapter Examples\n" );
     for line in lines:
@@ -199,11 +199,11 @@ for fname in os.listdir( "." ):
     if fname[-3:] == ".md":
         process_file( fname )
         converted += [ fname ]
-print "Done."
-print "Don't forget to open each X.ipynb file generated this " + \
+print("Done.")
+print("Don't forget to open each X.ipynb file generated this " + \
       "way, run all cells, and save the final image created " + \
-      "as ../doc/X.png so that it can be included in the docs."
-print "You can copy and paste these commands to make it easier:"
+      "as ../doc/X.png so that it can be included in the docs.")
+print("You can copy and paste these commands to make it easier:")
 for name in converted:
-    print "jupyter notebook " + name
+    print("jupyter notebook " + name)
 

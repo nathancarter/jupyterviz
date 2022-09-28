@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # This is a simple python script to look through all the GAP code
 # and documentation in the lib/ folder of this repository, find
@@ -70,7 +70,7 @@ codecell = """
 snippets = [ ]
 def process_file ( gdfile ):
     global snippets
-    print "Processing " + gdfile + "..."
+    print("Processing " + gdfile + "...")
     mode = "not in a snippet"
     inf = open( gdfile, "r" )
     for line in inf.readlines():
@@ -87,7 +87,7 @@ def process_file ( gdfile ):
 outfile = "extracted_snippets.ipynb"
 def write_all ():
     global snippets, outfile
-    print "Writing " + outfile + "..."
+    print("Writing " + outfile + "...")
     outf = open( outfile, "w" )
     outf.write( header )
     outf.write( mdcell % ( json.dumps( [ \
@@ -109,6 +109,6 @@ for fname in os.listdir( "lib" ):
     if fname[-3:] == ".gd":
         process_file( "lib/" + fname )
 write_all()
-print "Done.  You can open the resulting file with this command:"
-print "jupyter notebook " + outfile
+print("Done.  You can open the resulting file with this command:")
+print("jupyter notebook " + outfile)
 
